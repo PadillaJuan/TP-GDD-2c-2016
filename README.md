@@ -2,7 +2,8 @@
 
 ### Informacion del grupo:
 Apellido, Nombre / Legajo / Curso
-#Amarillo, Juan Alberto / /
+
+#Amarillo, Juan Alberto / 
 #Biondi Bonomini, Marco Fernando / 15-3052.5 / K3071
 #Dattoli, Lucas Nahuel / 15-2771.0 / K3122
 #Padilla, Juan Ignacio / 15-3064.1 / K3122
