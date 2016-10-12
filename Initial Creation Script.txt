@@ -1,0 +1,196 @@
+CREATE TABLE afiliado(
+af_id BIGINT,
+af_rel_id SMALLINT,
+us_id BIGINT REFERENCES usuarios,
+af_nombre VARCHAR(50),
+af_apellido VARCHAR(50),
+af_tipodoc	 VARCHAR(5),
+af_numdoc BIGINT,
+af_direccion VARCHAR(30),
+af_telefono VARCHAR(50),
+af_mail VARCHAR(30) ,
+af_nacimiento DATETIME,
+af_estado_civil VARCHAR(11),
+af_cantidad_familiares INT,
+planmed_id INT REFERENCES plan_medico,
+af_sexo CHAR(1),
+af_status CHAR(1),
+af_fechaBaja DATETIME,
+PRIMARY KEY(af_id, af_rel_id)
+ );
+
+CREATE TABLE logs_cambio_plan(
+cambio_plan_id BIGINT PRIMARY KEY,
+af_id BIGINT REFERENCES afiliado,
+af_rel_id SMALLINT REFERENCES afiliado,
+plan_id_ant INT REFERENCES plan_medico,
+plan_id_new INT REFERENCES plan_medico,
+cambio_plan_motivo VARCHAR(100),
+cambio_plan_fecha DATETIME
+);
+
+CREATE TABLE plan_medico(
+planmed_id INT PRIMARY KEY,
+plan_cuota INT,
+plan_nombre VARCHAR(30),
+plan_precio_bono DECIMAL(5,2)
+);
+
+CREATE TABLE servicios_por_planes(
+planmed_id INT REFERENCES plan_medico,
+serv_id INT REFERENCES servicios
+);
+
+CREATE TABLE servicios(
+serv_id INT PRIMARY KEY,
+serv_desc VARCHAR(100)
+);
+
+CREATE TABLE registro_compra(
+compra_id INT PRIMARY KEY,
+af_id BIGINT REFERENCES afiliado,
+af_rel_id SMALLINT REFERENCES afiliado,
+compra_cantidad INT,
+compra_monto DECIMAL(7,2),
+compra_estado VARCHAR(10)
+);
+
+CREATE TABLE bono(
+bono_id INT PRIMARY KEY,
+compra_id INT REFERENCES registro_compra,
+planmed_id INT REFERENCES plan_medico,
+cons_id INT REFERENCES consulta_medica,
+af_id BIGINT REFERENCES afiliado,
+af_rel_id SMALLINT REFERENCES afiliado
+);
+
+CREATE TABLE consulta_medica(
+cons_id INT PRIMARY KEY,
+turno_id INT REFERENCES turnos,
+cons_hora_llegada DATETIME,
+cons_hora_turno DATETIME,
+cons_sintomas VARCHAR(200),
+cons_diagnostico VARCHAR(200),
+cons_estado CHAR(1),
+bono_id INT REFERENCES bono
+);
+
+CREATE TABLE turnos(
+turno_id INT PRIMARY KEY,
+turno_hora DATETIME,
+turno_estado CHAR(1),
+af_id BIGINT REFERENCES afiliado,
+prof_id BIGINT REFERENCES profesional,
+esp_id INT REFERENCES especialidad,
+cancel_id INT REFERENCES cancelacion,
+);
+
+CREATE TABLE cancelacion(
+cancel_id  INT PRIMARY KEY,
+cancel_tipo CHAR(1),
+cancel_motivo VARCHAR(30)
+);
+
+CREATE TABLE agenda_profesional(
+agenda_id BIGINT PRIMARY KEY,
+prof_id BIGINT REFERENCES profesional,
+agenda_fecha_inicial DATETIME,
+agenda_fecha_final DATETIME
+);
+
+CREATE TABLE tipo_especialidades(
+tipoEsp_id INT PRIMARY KEY,
+tipoEsp_descripcion VARCHAR(50)
+);
+
+CREATE TABLE especialidad(
+esp_id INT PRIMARY KEY,
+esp_descripcion VARCHAR(100),
+tipoEsp_id INT REFERENCES tipo_especialidades
+);
+
+CREATE TABLE especialidad_por_profesional(
+prof_id BIGINT REFERENCES profesional,
+esp_id INT REFERENCES especialidad
+);
+
+CREATE TABLE profesional(
+prof_id BIGINT PRIMARY KEY,
+us_id BIGINT REFERENCES usuarios
+prof_nombre VARCHAR(50),
+prof_apellido VARCHAR(50),
+prof_tipodoc VARCHAR(5),
+prof_numdoc BIGINT,
+prof_direccion VARCHAR(50),
+prof_telefono VARCHAR(20),
+prof_mail VARCHAR(40),
+prof_nacimiento DATETIME,
+prof_matricula BIGINT,
+prof_sexo CHAR(1)
+);
+
+CREATE TABLE periodo_baja(
+periodo_id INT PRIMARY KEY,
+periodo_desde DATE,
+periodo_hasta DATE,
+prof_id BIGINT REFERENCES profesional
+);
+
+CREATE TABLE usuarios(
+us_id BIGINT PRIMARY KEY IDENTITY(1,1),
+us_username VARCHAR(30),
+us_password CHAR(64),
+us_login_fail SMALLINT,
+us_status Char(1)
+);
+
+CREATE TABLE rol_por_usuarios
+us_id INT  REFERENCES usuarios,
+rol_id INT  REFERENCES rol
+);
+
+CREATE TABLE rol(
+rol_id INT PRIMARY KEY,
+rol_nombre VARCHAR(30),
+rol_status INT
+);
+
+CREATE TABLE funcionalidad_por_rol(
+rol_id INT  REFERENCES rol,
+fun_id INT  REFERENCES funcionalidad
+);
+
+CREATE TABLE funcionalidad(
+fun_id INT PRIMARY KEY,
+fun_nombre VARCHAR(30),
+fun_descripcion VARCHAR(100)
+);
+
+ALTER TABLE afiliado ADD CONSTRAINT PK
+  PRIMARY KEY (af_id, af_rel_id)
+GO
+
+ALTER TABLE servicios_por_planes ADD CONSTRAINT PK
+  PRIMARY KEY (planmed_id,serv_id)
+GO
+
+ALTER TABLE especialidad_por_profesional ADD CONSTRAINT PK
+  PRIMARY KEY (prof_id, esp_id)
+GO
+
+ALTER TABLE rol_por_usuarios ADD CONSTRAINT PK
+  PRIMARY KEY (id_usuario,rol_id)
+GO
+
+ALTER TABLE funcionalidad_por_rol ADD CONSTRAINT PK
+  PRIMARY KEY (rol_id, fun_id)
+GO
+
+
+
+
+
+
+
+
+
