@@ -1,3 +1,7 @@
+/*----------- CREACION DE TABLAS ------------- */
+
+/* TABLA DE AFILIADOS */
+
 CREATE TABLE afiliado(
 af_id BIGINT,
 af_rel_id SMALLINT,
@@ -19,6 +23,9 @@ af_fechaBaja DATETIME,
 PRIMARY KEY(af_id, af_rel_id)
  );
 
+
+/* TABLA DE CAMBIO DE PLAN */
+
 CREATE TABLE logs_cambio_plan(
 cambio_plan_id BIGINT PRIMARY KEY,
 af_id BIGINT REFERENCES afiliado,
@@ -29,6 +36,9 @@ cambio_plan_motivo VARCHAR(100),
 cambio_plan_fecha DATETIME
 );
 
+
+/* TABLA DE PLAN MEDICO */
+
 CREATE TABLE plan_medico(
 planmed_id INT PRIMARY KEY,
 plan_cuota INT,
@@ -36,15 +46,22 @@ plan_nombre VARCHAR(30),
 plan_precio_bono DECIMAL(5,2)
 );
 
+/* TABLA DE SERVICIOS POR PLANES */
+
 CREATE TABLE servicios_por_planes(
 planmed_id INT REFERENCES plan_medico,
 serv_id INT REFERENCES servicios
 );
 
+
+/* TABLA DE SERVICIOS */
+
 CREATE TABLE servicios(
 serv_id INT PRIMARY KEY,
 serv_desc VARCHAR(100)
 );
+
+/* TABLA DE REGISTRO DE COMPRA */
 
 CREATE TABLE registro_compra(
 compra_id INT PRIMARY KEY,
@@ -55,6 +72,9 @@ compra_monto DECIMAL(7,2),
 compra_estado VARCHAR(10)
 );
 
+
+/* TABLA DE BONO */
+
 CREATE TABLE bono(
 bono_id INT PRIMARY KEY,
 compra_id INT REFERENCES registro_compra,
@@ -63,6 +83,8 @@ cons_id INT REFERENCES consulta_medica,
 af_id BIGINT REFERENCES afiliado,
 af_rel_id SMALLINT REFERENCES afiliado
 );
+
+/* TABLA DE CONSULTA MEDICA */
 
 CREATE TABLE consulta_medica(
 cons_id INT PRIMARY KEY,
@@ -75,6 +97,9 @@ cons_estado CHAR(1),
 bono_id INT REFERENCES bono
 );
 
+
+/* TABLA DE TURNOS */
+
 CREATE TABLE turnos(
 turno_id INT PRIMARY KEY,
 turno_hora DATETIME,
@@ -85,11 +110,17 @@ esp_id INT REFERENCES especialidad,
 cancel_id INT REFERENCES cancelacion,
 );
 
+
+/* TABLA DE CANCELACIONES */
+
 CREATE TABLE cancelacion(
 cancel_id  INT PRIMARY KEY,
 cancel_tipo CHAR(1),
 cancel_motivo VARCHAR(30)
 );
+
+
+/* TABLA DE AGENDA DEL PROFESIONAL */
 
 CREATE TABLE agenda_profesional(
 agenda_id BIGINT PRIMARY KEY,
@@ -98,21 +129,29 @@ agenda_fecha_inicial DATETIME,
 agenda_fecha_final DATETIME
 );
 
+/* TABLA DE TIPO DE ESPECIALIDADES */
+
 CREATE TABLE tipo_especialidades(
 tipoEsp_id INT PRIMARY KEY,
 tipoEsp_descripcion VARCHAR(50)
 );
 
+/* TABLA DE ESPECIALIDADES */
 CREATE TABLE especialidad(
 esp_id INT PRIMARY KEY,
 esp_descripcion VARCHAR(100),
 tipoEsp_id INT REFERENCES tipo_especialidades
 );
 
+/* TABLA DE ESPECIALIDAD POR PROFESIONAL */
+
 CREATE TABLE especialidad_por_profesional(
 prof_id BIGINT REFERENCES profesional,
 esp_id INT REFERENCES especialidad
 );
+
+
+/* TABLA DE PROFESIONALES */
 
 CREATE TABLE profesional(
 prof_id BIGINT PRIMARY KEY,
@@ -129,12 +168,16 @@ prof_matricula BIGINT,
 prof_sexo CHAR(1)
 );
 
+/* TABLA DE PERIODO BAJA DE TURNO */
 CREATE TABLE periodo_baja(
 periodo_id INT PRIMARY KEY,
 periodo_desde DATE,
 periodo_hasta DATE,
 prof_id BIGINT REFERENCES profesional
 );
+
+
+/* TABLA DE USUARIOS */
 
 CREATE TABLE usuarios(
 us_id BIGINT PRIMARY KEY IDENTITY(1,1),
@@ -144,10 +187,14 @@ us_login_fail SMALLINT,
 us_status Char(1)
 );
 
+/* TABLA DE ROLES POR USUARIO */
+
 CREATE TABLE rol_por_usuarios
 us_id INT  REFERENCES usuarios,
 rol_id INT  REFERENCES rol
 );
+
+/* TABLA DE ROLES */
 
 CREATE TABLE rol(
 rol_id INT PRIMARY KEY,
@@ -155,16 +202,21 @@ rol_nombre VARCHAR(30),
 rol_status INT
 );
 
+/* TABLA DE FUNCIONALIDADES POR ROL */
 CREATE TABLE funcionalidad_por_rol(
 rol_id INT  REFERENCES rol,
 fun_id INT  REFERENCES funcionalidad
 );
 
+/* TABLA DE FUNCIONALIDADES */
 CREATE TABLE funcionalidad(
 fun_id INT PRIMARY KEY,
 fun_nombre VARCHAR(30),
 fun_descripcion VARCHAR(100)
 );
+
+
+/* -------------------- CREACION DE PKs --------------------- */
 
 ALTER TABLE afiliado ADD CONSTRAINT PK
   PRIMARY KEY (af_id, af_rel_id)
