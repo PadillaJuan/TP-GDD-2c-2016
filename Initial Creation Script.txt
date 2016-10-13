@@ -311,10 +311,18 @@ ALTER TABLE turnos add constraint FK_turno_cancel
 ALTER TABLE turnos add constraint FK_turno_esp
         foreign key (esp_id) references especialidad (esp_id);
 
+ALTER TABLE agenda_profesional add constraint FK_agenda_prof
+        foreign key (prof_id) references profesional (prof_id);	
 	
+ALTER TABLE especialidad add constraint FK_especialidad_tipo
+        foreign key (tipoEsp_id) references tipo_especialidades (tipoEsp_id);
 
-
-
+ALTER TABLE profesional add constraint FK_prof_us
+        foreign key (us_id) references usuarios (us_id);
+	
+ALTER TABLE periodo_baja add constraint FK_baja_prof
+        foreign key (prof_id) references profesional (prof_id);	
+	
 
 
 
