@@ -296,10 +296,20 @@ ALTER TABLE bono add constraint FK_afi_rel_bono
 ALTER TABLE consulta_medica add constraint FK_consulta_turno
         foreign key (turno_id) references turnos (turno_id);
 	
-ALTER TABLE bono add constraint FK_consulta_bono
+ALTER TABLE consulta_medica add constraint FK_consulta_bono
         foreign key (bono_id) references registro_compra (bono_id);	
 
+ALTER TABLE turnos add constraint FK_turno_afi
+        foreign key (afi_id) references afiliado (afi_id);
+	
+ALTER TABLE turnos add constraint FK_turno_prof
+        foreign key (prof_id) references profesional (prof_id);	
+	
+ALTER TABLE turnos add constraint FK_turno_cancel
+        foreign key (cancel_id) references cancelacion (cancel_id);
 
+ALTER TABLE turnos add constraint FK_turno_esp
+        foreign key (esp_id) references especialidad (esp_id);
 
 	
 
