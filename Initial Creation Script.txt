@@ -203,12 +203,14 @@ rol_status INT
 );
 
 /* TABLA DE FUNCIONALIDADES POR ROL */
+
 CREATE TABLE funcionalidad_por_rol(
 rol_id INT  REFERENCES rol,
 fun_id INT  REFERENCES funcionalidad
 );
 
 /* TABLA DE FUNCIONALIDADES */
+
 CREATE TABLE funcionalidad(
 fun_id INT PRIMARY KEY,
 fun_nombre VARCHAR(30),
@@ -238,10 +240,33 @@ ALTER TABLE funcionalidad_por_rol ADD CONSTRAINT PK_funcionalidad_rol
   PRIMARY KEY clustered (rol_id, fun_id);
   
   
-/* ------------------ CREACION DE FKs --------------------*/
+/* ------------------ CREACION DE FKs (Por favor en mismo orden de creacion de tablas para no olvidar nada) --------------------*/
 
 ALTER TABLE afiliado add constraint FK_afi_usuario
 	foreign key (us_id) references usuarios (us_id);
+
+ALTER TABLE afiliado add constraint FK_plan_med
+	foreign key (planmed_id) references plan_medico (planmed_id);
+	
+/* NO ESTOY SEGURO DE QUE ESTE BIEN
+
+ALTER TABLE logs_cambio_plan add constraint FK_afi
+	foreign key (af_id) references afiliado (af_id);
+	
+ALTER TABLE logs_cambio_plan add constraint FK_afi_rel
+        foreign key (af_rel_id) references afiliado (af_rel_id);
+	
+*/
+
+ALTER TABLE logs_cambio_plan add constraint FK_plan_ant
+        foreign key (plan_id_ant) references plan_medico (planmed_id);
+	
+ALTER TABLE logs_cambio_plan add constraint FK_plan_new
+        foreign key (plan_id_new) references plan_medico (planmed_id);
+
+
+	
+
 
 
 
