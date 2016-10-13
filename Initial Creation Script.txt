@@ -264,11 +264,36 @@ ALTER TABLE logs_cambio_plan add constraint FK_plan_ant
 ALTER TABLE logs_cambio_plan add constraint FK_plan_new
         foreign key (plan_id_new) references plan_medico (planmed_id);
 	
+/*
+
 ALTER TABLE registro_compra add constraint FK_compra_afi
         foreign key (af_id) references afiliado (af_id);
 	
 ALTER TABLE registro_compra add constraint FK_compra_afi_rel
         foreign key (af_rel_id) references afiliado (af_rel_id);
+	
+*/
+
+ALTER TABLE bono add constraint FK_compra_bono
+        foreign key (compra_id) references registro_compra (compra_id);
+	
+ALTER TABLE bono add constraint FK_plan_bono
+        foreign key (planmed_id) references plan_medico (planmed_id);	
+	
+ALTER TABLE bono add constraint FK_consulta_bono
+        foreign key (cons_id) references consulta_medica (cons_id);
+	
+/*
+
+ALTER TABLE bono add constraint FK_afi_bono
+        foreign key (af_id) references afiliado (af_id);
+	
+ALTER TABLE bono add constraint FK_afi_rel_bono
+        foreign key (af_rel_id) references afiliado (af_rel_id);
+	
+*/
+
+
 
 	
 
