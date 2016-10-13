@@ -280,7 +280,7 @@ ALTER TABLE bono add constraint FK_compra_bono
 ALTER TABLE bono add constraint FK_plan_bono
         foreign key (planmed_id) references plan_medico (planmed_id);	
 	
-ALTER TABLE bono add constraint FK_consulta_bono
+ALTER TABLE bono add constraint FK_bono_consulta
         foreign key (cons_id) references consulta_medica (cons_id);
 	
 /*
@@ -292,6 +292,12 @@ ALTER TABLE bono add constraint FK_afi_rel_bono
         foreign key (af_rel_id) references afiliado (af_rel_id);
 	
 */
+
+ALTER TABLE consulta_medica add constraint FK_consulta_turno
+        foreign key (turno_id) references turnos (turno_id);
+	
+ALTER TABLE bono add constraint FK_consulta_bono
+        foreign key (bono_id) references registro_compra (bono_id);	
 
 
 
