@@ -219,29 +219,29 @@ fun_descripcion VARCHAR(100)
 /* -------------------- CREACION DE PKs Compuestas --------------------- */
 
 ALTER TABLE afiliado ADD CONSTRAINT PK_afiliado_con_rel
-  PRIMARY KEY (af_id, af_rel_id)
+  PRIMARY KEY clustered (af_id, af_rel_id);
 
 
 ALTER TABLE servicios_por_planes ADD CONSTRAINT PK_servicio_plan
-  PRIMARY KEY (planmed_id,serv_id)
+  PRIMARY KEY clustered (planmed_id,serv_id);
 
 
 ALTER TABLE especialidad_por_profesional ADD CONSTRAINT PK_especialidad_profesional
-  PRIMARY KEY (prof_id, esp_id)
+  PRIMARY KEY clustered (prof_id, esp_id);
 
 
 ALTER TABLE rol_por_usuarios ADD CONSTRAINT PK_roles_usuario
-  PRIMARY KEY (id_usuario,rol_id)
+  PRIMARY KEY clustered (id_usuario,rol_id);
 
 
 ALTER TABLE funcionalidad_por_rol ADD CONSTRAINT PK_funcionalidad_rol
-  PRIMARY KEY (rol_id, fun_id)
+  PRIMARY KEY clustered (rol_id, fun_id);
   
   
 /* ------------------ CREACION DE FKs --------------------*/
 
-alter table GDD_15.FACTURAS add constraint FK_FACTURA_PUBL
-	foreign key (N_ID_PUBLICACION) references GDD_15.PUBLICACIONES (N_ID_PUBLICACION);
+ALTER TABLE afiliado add constraint FK_afi_usuario
+	foreign key (us_id) references usuarios (us_id);
 
 
 
