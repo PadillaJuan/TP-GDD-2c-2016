@@ -24,7 +24,9 @@ namespace ClinicaFrba
 
         private void button1_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("Holi");
+            Hide();
+            InicioSesion.VentanaInicioSesion form = new InicioSesion.VentanaInicioSesion();
+            form.ShowDialog();
         }
 
 
