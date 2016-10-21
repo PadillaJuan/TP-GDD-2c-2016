@@ -107,7 +107,6 @@ turno_estado CHAR(1),
 af_id BIGINT REFERENCES afiliado,
 prof_id BIGINT REFERENCES profesional,
 esp_id INT REFERENCES especialidad,
-cancel_id INT REFERENCES cancelacion,
 );
 
 
@@ -116,7 +115,8 @@ cancel_id INT REFERENCES cancelacion,
 CREATE TABLE cancelacion(
 cancel_id  INT PRIMARY KEY,
 cancel_tipo CHAR(1),
-cancel_motivo VARCHAR(30)
+cancel_motivo VARCHAR(30),
+turno_id INT REFERENCES turnos,
 );
 
 
