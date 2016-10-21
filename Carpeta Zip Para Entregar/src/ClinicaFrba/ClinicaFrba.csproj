@@ -77,29 +77,30 @@
     <Compile Include="AbmRol\Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
-    <Compile Include="Cancelar Atencion\Form1.cs">
+    <Compile Include="Cancelar Atencion\TurnCancel.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Cancelar Atencion\Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <Compile Include="Cancelar Atencion\TurnCancel.Designer.cs">
+      <DependentUpon>TurnCancel.cs</DependentUpon>
     </Compile>
+    <Compile Include="BDConnection.cs" />
     <Compile Include="Compra Bono\Form1.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Compra Bono\Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
-    <Compile Include="Form1.cs">
+    <Compile Include="VentanaInicial.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <Compile Include="VentanaInicial.Designer.cs">
+      <DependentUpon>VentanaInicial.cs</DependentUpon>
     </Compile>
-    <Compile Include="InicioSesion\Form1.cs">
+    <Compile Include="InicioSesion\InicioSesion.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="InicioSesion\Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <Compile Include="InicioSesion\InicioSesion.Designer.cs">
+      <DependentUpon>InicioSesion.cs</DependentUpon>
     </Compile>
     <Compile Include="Listados\Form1.cs">
       <SubType>Form</SubType>
@@ -107,6 +108,7 @@
     <Compile Include="Listados\Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
+    <Compile Include="LoginDB.cs" />
     <Compile Include="Pedir Turno\Form1.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -133,11 +135,11 @@
     <Compile Include="Registro Resultado\Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
-    <EmbeddedResource Include="Form1.resx">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <EmbeddedResource Include="VentanaInicial.resx">
+      <DependentUpon>VentanaInicial.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="InicioSesion\Form1.resx">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <EmbeddedResource Include="InicioSesion\InicioSesion.resx">
+      <DependentUpon>InicioSesion.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

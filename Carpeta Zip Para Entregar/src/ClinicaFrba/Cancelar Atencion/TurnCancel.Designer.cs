@@ -1,6 +1,6 @@
 ﻿namespace ClinicaFrba.Cancelar_Atencion
 {
-    partial class Form1
+    partial class TurnCancel
     {
         /// <summary>
         /// Required designer variable.

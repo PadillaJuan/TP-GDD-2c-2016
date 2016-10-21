@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Security.Cryptography;
 
 namespace ClinicaFrba.InicioSesion
 {
@@ -19,19 +20,27 @@ namespace ClinicaFrba.InicioSesion
 
         private void textBox1_TextChanged(object sender, EventArgs e)
         {
-            
+           
+
         }
+
+
 
         private void button1_Click(object sender, EventArgs e)
         {
             String usuario = textBox1.Text;
-            String contraseña = textBox2.Text;
-            MessageBox.Show(usuario + " " + contraseña);
+            String contrasenia = textBox2.Text;
+            LoginDB.login(usuario, contrasenia);
         }
 
         private void button2_Click(object sender, EventArgs e)
         {
             Close();
+        }
+
+        private void textBox2_TextChanged(object sender, EventArgs e)
+        {
+            textBox2.PasswordChar = '*';
         }
     }
 }
