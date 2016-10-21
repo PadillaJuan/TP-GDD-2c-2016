@@ -126,7 +126,8 @@ CREATE TABLE agenda_profesional(
 agenda_id BIGINT PRIMARY KEY,
 prof_id BIGINT REFERENCES profesional,
 agenda_fecha_inicial DATETIME,
-agenda_fecha_final DATETIME
+agenda_fecha_final DATETIME,
+esp_id INT REFERENCES especialidad
 );
 
 /* TABLA DE TIPO DE ESPECIALIDADES */
