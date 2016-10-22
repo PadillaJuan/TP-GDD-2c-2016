@@ -16,7 +16,7 @@ namespace ClinicaFrba
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new VentanaInicial());
+            Application.Run(new Elegir_Rol.Elegir_Rol());
         }
 
         /* public void ConnectToSql()

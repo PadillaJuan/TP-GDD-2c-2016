@@ -90,6 +90,12 @@
     <Compile Include="Compra Bono\Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
+    <Compile Include="Elegir Rol\Elegir Rol.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Elegir Rol\Elegir Rol.Designer.cs">
+      <DependentUpon>Elegir Rol.cs</DependentUpon>
+    </Compile>
     <Compile Include="VentanaInicial.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -135,6 +141,9 @@
     <Compile Include="Registro Resultado\Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="Elegir Rol\Elegir Rol.resx">
+      <DependentUpon>Elegir Rol.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="VentanaInicial.resx">
       <DependentUpon>VentanaInicial.cs</DependentUpon>
     </EmbeddedResource>
