@@ -21,7 +21,7 @@ namespace ClinicaFrba
     {
 
 
-        public static int login(String username, String text)
+        public static int login(String username, String text,long us_id)
         {
             int retorno= 0;
             String encriptedPW = GenerateSHA256String(text);
@@ -35,7 +35,7 @@ namespace ClinicaFrba
                 if(execute.Read()== true)
                 {
                     Conn.Close();
-                    retorno = foundUser(lg, execute);
+                    retorno = foundUser(lg, execute, us_id);
                 }
                 else
                 {
@@ -60,7 +60,7 @@ namespace ClinicaFrba
             Conn.Close();
         }
 
-        private static int foundUser(dataLogin lg, SqlDataReader execute)
+        private static int foundUser(dataLogin lg, SqlDataReader execute,long us_id)
         {
             int retorno = 0;
             while (execute.Read())
@@ -82,6 +82,7 @@ namespace ClinicaFrba
             else
             {
                 MessageBox.Show("Bienvenido al sistema", "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                us_id = lg.us_id;
                 retorno = 1;
             }
             return retorno;

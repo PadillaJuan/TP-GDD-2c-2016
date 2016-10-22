@@ -29,13 +29,14 @@ namespace ClinicaFrba.InicioSesion
         private void button1_Click(object sender, EventArgs e)
         {
             int accessgranted = 0;
+            long us_id;
             String usuario = textBox1.Text;
             String contrasenia = textBox2.Text;
-            accessgranted = LoginDB.login(usuario, contrasenia);
+            accessgranted = LoginDB.login(usuario, contrasenia,us_id);
             if (accessgranted != 0)
             {
                 Hide();
-
+                Elegir_Rol.Elegir_Rol(us_id);
             }
 
         }
