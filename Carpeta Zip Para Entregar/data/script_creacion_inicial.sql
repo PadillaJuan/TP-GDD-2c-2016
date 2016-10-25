@@ -64,7 +64,7 @@ CREATE TABLE logs_cambio_plan(
 CREATE TABLE plan_medico(
 	planmed_id INT PRIMARY KEY,
 	plan_cuota INT,
-	plan_nombre VARCHAR(30),
+	plan_descripcion VARCHAR(30),
 	plan_precio_bono DECIMAL(5,2)
 );
 
@@ -337,7 +337,7 @@ GO
 
 */
 
--- Stored Procedure que migra afiliados y profesionales ---
+-------------------------------------------------------- Stored Procedure que migra afiliados y profesionales -------------------------------------------------------------
 
 CREATE PROCEDURE migro_usuarios AS
 BEGIN
@@ -396,7 +396,7 @@ BEGIN
 	NOCHECK CONSTRAINT FK_afi_usuario;
 
 /*INSERTO Afiliados */
-	INSERT INTO Afiliados
+	INSERT INTO afiliado
 	(	
 	    --us_id,
 		u_nombre,
@@ -451,3 +451,74 @@ SELECT --us_id
 		WHERE u_tipodoc IS NOT NULL
 		;
 END;
+
+------------------------------------------------------- Stored Procedure que migra planes medicos -------------------------------------------------------------
+
+
+CREATE PROCEDURE migro_plan AS
+BEGIN
+
+alter TABLE usuarios 
+NOCHECK CONSTRAINT FK_afi_usuario;
+INSERT INTO plan_medico 
+(   planmed_id,
+	plan_descripcion,
+	plan_precio_bono
+)
+
+SELECT m.Plan_Med_Codigo,
+       m.Plan_Med_Descripcion,
+	   m.Plan_Med_Precio_Bono_Consulta
+	   FROM gd_esquema.Maestra m
+	   WHERE m.Plan_Med_Codigo IS NOT NULL
+	   ;
+END;
+
+---------------------------------------------------- Stored Procedure que migra Especialidades ------------------------------------------------------------------
+CREATE PROCEDURE migro_especialidad AS
+BEGIN
+
+alter TABLE especialidad 
+NOCHECK CONSTRAINT FK_especialidad_tipo;
+INSERT INTO especialidad 
+(   esp_id,
+	esp_descripcion,
+	tipoEsp_id
+
+)
+
+SELECT m.Especialidad_Codigo,
+       m.Especialidad_Descripcion,
+	   m.Tipo_Especialidad_Codigo
+	   FROM gd_esquema.Maestra m
+	   WHERE m.Especialidad_Codigo IS NOT NULL and m.Tipo_Especialidad_Codigo IS NOT NULL
+	   ;
+END;
+
+------------------------------------------------------Stored Procedure que migra Tipo_Especialidades----------------------------------------------------------------
+
+CREATE PROCEDURE migro_tipo_especialidades AS
+BEGIN
+
+alter TABLE tipo_especialidades
+NOCHECK CONSTRAINT FK_especialidad_tipo;
+INSERT INTO tipo_especialidades 
+(   tipoEsp_id ,
+	tipoEsp_descripcion
+)
+
+SELECT m.Tipo_Especialidad_Codigo,
+       m.Tipo_Especialidad_Descripcion
+	   
+	   FROM gd_esquema.Maestra m
+	   WHERE m.Tipo_Especialidad_Codigo IS NOT NULL
+	   ;
+END;
+
+------------------------------------------------------Stored Procedure que migra Turno----------------------------------------------------------------	 
+
+------------------------------------------------------Stored Procedure que migra Consulta----------------------------------------------------------------  
+
+------------------------------------------------------Stored Procedure que migra compra_bono---------------------------------------------------------------- 
+
+------------------------------------------------------Stored Procedure que migra Bono----------------------------------------------------------------
