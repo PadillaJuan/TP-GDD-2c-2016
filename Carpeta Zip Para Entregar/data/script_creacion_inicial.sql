@@ -300,29 +300,8 @@ CREATE TABLE #tmp_usuarios
 	u_telefono VARCHAR(50),
 	u_mail VARCHAR(30),
 	u_nacimiento DATETIME,
+	a_planmed INT,
 );
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 --CREO TRIGGER EN Afiliados QUE ME INSERTA EL Afiliado EN LA TABLA Usuarios--
 
@@ -372,7 +351,8 @@ BEGIN
 	u_direccion,
 	u_telefono,
 	u_mail,
-	u_nacimiento
+	u_nacimiento,
+	a_planmed
 	)
 	SELECT DISTINCT m.Paciente_Nombre,
 	                m.Paciente_Apellido,
@@ -381,9 +361,10 @@ BEGIN
 					m.Paciente_Apellido,
 					m.Paciente_Telefono,
 					m.Paciente_Mail,
-					m.Paciente_Fecha_Nac				
+					m.Paciente_Fecha_Nac,
+					m.Plan_Med_Codigo				
 	FROM gd_esquema.Maestra m
-	WHERE m.Paciente_Dni IS NOT NULL
+	WHERE m.Paciente_Dni IS NOT NULL AND m.Plan_Med_Codigo IS NOT NULL
 	
 	/*  INSERTO profesionales  en la tmp_usuarios*/
 	INSERT INTO #tmp_usuarios
@@ -414,7 +395,7 @@ BEGIN
 	alter TABLE usuarios 
 	NOCHECK CONSTRAINT FK_afi_usuario;
 
-/*INSERTO CLIENTES */
+/*INSERTO Afiliados */
 	INSERT INTO Afiliados
 	(	
 	    --us_id,
@@ -425,7 +406,10 @@ BEGIN
 	    u_direccion,
 	    u_telefono,
 	    u_mail,
-	    u_nacimiento
+	    u_nacimiento,
+		a_planmed
+
+
 	)
 select	u_nombre,
 	    u_apellido,
@@ -436,12 +420,12 @@ select	u_nombre,
 	    u_mail,
 	    u_nacimiento
 		from #tmp_usuarios
-where u_tipodoc is not null;
+where u_tipodoc is not null and a_planmed is not null;
 
 	alter TABLE profesional 
 	NOCHECK CONSTRAINT FK_prof_us;
 
-/*INSERTO EMPRESAS*/
+/*INSERTO Medicos*/
 	INSERT INTO profesional
 	(
 		--us_id
@@ -467,4 +451,3 @@ SELECT --us_id
 		WHERE u_tipodoc IS NOT NULL
 		;
 END;
-GO
