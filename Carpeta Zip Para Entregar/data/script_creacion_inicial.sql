@@ -287,3 +287,184 @@ ALTER TABLE rol_por_usuarios add constraint FK_rolxusr_rol foreign key (rol_id) 
 
 ALTER TABLE funcionalidad_por_rol add constraint FK_funxrol_id foreign key (rol_id) references rol (rol_id);
 ALTER TABLE funcionalidad_por_rol add constraint FK_funxrol_fun foreign key (fun_id) references funcionalidad (fun_id);
+
+
+CREATE TABLE #tmp_usuarios
+( 
+	u_id bigint identity(1,1),
+	u_nombre VARCHAR(50),
+	u_apellido VARCHAR(50),
+	u_tipodoc VARCHAR(5),
+	u_numdoc BIGINT,
+	u_direccion VARCHAR(30),
+	u_telefono VARCHAR(50),
+	u_mail VARCHAR(30),
+	u_nacimiento DATETIME,
+);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--CREO TRIGGER EN Afiliados QUE ME INSERTA EL Afiliado EN LA TABLA Usuarios--
+
+
+/*create TRIGGER  alta_usu_afi ON afiliados
+	 after insert AS
+begin
+SET IDENTITY_INSERT usuarios  ON
+  
+	insert into  usuarios
+	(us_id ,us_username , us_password)
+	select N_ID_USUARIO, N_DOCUMENTO,(SELECT SUBSTRING(master.dbo.fn_varbintohexstr(HASHBYTES('SHA2_256',N_DOCUMENTO)),3,250))
+	from inserted
+	
+	SET IDENTITY_INSERT usuarios  off
+end;
+GO
+--CREO TRIGGER EN Profesionales QUE ME INSERTA AL Profesional EN LA TABLA Usuarios--
+
+create TRIGGER  alta_USU_EMP  ON profesionales
+	 after insert AS
+begin
+SET IDENTITY_INSERT usuarios  ON
+
+	insert into  GDD_15.USUARIOS
+	(n_id_usuario,c_usuario_nombre , C_PASSWORD )
+	select N_ID_USUARIO, N_CUIT, (SELECT SUBSTRING(master.dbo.fn_varbintohexstr(HASHBYTES('SHA2_256',N_CUIT)),3,250))
+	from inserted
+	
+	SET IDENTITY_INSERT gdd_15.USUARIOS  off
+end;
+GO
+
+*/
+
+-- Stored Procedure que migra afiliados y profesionales ---
+
+CREATE PROCEDURE migro_usuarios AS
+BEGIN
+	/*  INSERTO afiliados  en la tmp_usuarios*/
+	INSERT INTO #tmp_usuarios
+	(	
+	u_nombre,
+	u_apellido,
+	u_tipodoc,
+	u_numdoc,
+	u_direccion,
+	u_telefono,
+	u_mail,
+	u_nacimiento
+	)
+	SELECT DISTINCT m.Paciente_Nombre,
+	                m.Paciente_Apellido,
+					'DNI',					
+					m.Paciente_Dni,
+					m.Paciente_Apellido,
+					m.Paciente_Telefono,
+					m.Paciente_Mail,
+					m.Paciente_Fecha_Nac				
+	FROM gd_esquema.Maestra m
+	WHERE m.Paciente_Dni IS NOT NULL
+	
+	/*  INSERTO profesionales  en la tmp_usuarios*/
+	INSERT INTO #tmp_usuarios
+	(
+		
+		u_nombre,
+	    u_apellido,
+	    u_tipodoc,
+	    u_numdoc,
+	    u_direccion,
+	    u_telefono,
+	    u_mail,
+	    u_nacimiento
+	)
+	SELECT DISTINCT m.Medico_Nombre,
+	                m.Medico_Apellido,
+					'Dni',
+					m.Medico_Dni,
+					m.Medico_Direccion,
+					m.Medico_Telefono,
+					m.Medico_Mail,
+					m.Medico_Fecha_Nac
+							
+	FROM gd_esquema.Maestra m
+	WHERE m.Medico_Dni IS NOT NULL
+
+
+	alter TABLE usuarios 
+	NOCHECK CONSTRAINT FK_afi_usuario;
+
+/*INSERTO CLIENTES */
+	INSERT INTO Afiliados
+	(	
+	    --us_id,
+		u_nombre,
+	    u_apellido,
+	    u_tipodoc,
+	    u_numdoc,
+	    u_direccion,
+	    u_telefono,
+	    u_mail,
+	    u_nacimiento
+	)
+select	u_nombre,
+	    u_apellido,
+	    u_tipodoc,
+	    u_numdoc,
+	    u_direccion,
+	    u_telefono,
+	    u_mail,
+	    u_nacimiento
+		from #tmp_usuarios
+where u_tipodoc is not null;
+
+	alter TABLE profesional 
+	NOCHECK CONSTRAINT FK_prof_us;
+
+/*INSERTO EMPRESAS*/
+	INSERT INTO profesional
+	(
+		--us_id
+		u_nombre,
+	    u_apellido,
+	    u_tipodoc,
+	    u_numdoc,
+	    u_direccion,
+	    u_telefono,
+	    u_mail,
+	    u_nacimiento
+	)
+SELECT --us_id
+		u_nombre,
+	    u_apellido,
+	    u_tipodoc,
+	    u_numdoc,
+	    u_direccion,
+	    u_telefono,
+	    u_mail,
+	    u_nacimiento
+		FROM #tmp_usuarios
+		WHERE u_tipodoc IS NOT NULL
+		;
+END;
+GO
