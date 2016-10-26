@@ -313,7 +313,7 @@ SET IDENTITY_INSERT usuarios  ON
   
 	insert into  usuarios
 	(us_id ,us_username , us_password)
-	select N_ID_USUARIO, N_DOCUMENTO,(SELECT SUBSTRING(master.dbo.fn_varbintohexstr(HASHBYTES('SHA2_256',N_DOCUMENTO)),3,250))
+	select us_id, af_numdoc,(SELECT SUBSTRING(master.dbo.fn_varbintohexstr(HASHBYTES('SHA2_256',af_numdoc)),3,250))
 	from inserted
 	
 	SET IDENTITY_INSERT usuarios  off
@@ -321,17 +321,17 @@ end;
 GO
 --CREO TRIGGER EN Profesionales QUE ME INSERTA AL Profesional EN LA TABLA Usuarios--
 
-create TRIGGER  alta_USU_EMP  ON profesionales
+create TRIGGER  alta_usu_prof  ON profesionales
 	 after insert AS
 begin
 SET IDENTITY_INSERT usuarios  ON
 
-	insert into  GDD_15.USUARIOS
-	(n_id_usuario,c_usuario_nombre , C_PASSWORD )
-	select N_ID_USUARIO, N_CUIT, (SELECT SUBSTRING(master.dbo.fn_varbintohexstr(HASHBYTES('SHA2_256',N_CUIT)),3,250))
+	insert into  usuarios
+	(us_id,us_username , us_password )
+	select us_id, prof_numdoc , (SELECT SUBSTRING(master.dbo.fn_varbintohexstr(HASHBYTES('SHA2_256',prof_numdoc)),3,250))
 	from inserted
 	
-	SET IDENTITY_INSERT gdd_15.USUARIOS  off
+	SET IDENTITY_INSERT usuarios  off
 end;
 GO
 
