@@ -19,6 +19,9 @@ DROP TABLE servicios_por_planes;
 DROP TABLE tipo_especialidades;
 DROP TABLE turnos;
 DROP TABLE usuarios;*/
+-- Creo el esquema
+
+CREATE SCHEMA [GDD_DREAM_TEAM] AUTHORIZATION [gd];
 
 /*----------- CREACION DE TABLAS ------------- */
 
