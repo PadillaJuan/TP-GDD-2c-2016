@@ -624,6 +624,44 @@ SELECT P.us_id, R.rol_id FROM profesional P, rol R
 WHERE R.rol_nombre = 'Profesional'
 GO
 
+------------------------------------------------------- PROCEDURES Y TRIGGERS DEL DOMINIO ------------------------------------------
+
+
+----------------------Trigger para dar de baja un rol-------------------------------
+
+CREATE TRIGGER baja_rol ON rol
+AFTER UPDATE AS
+BEGIN
+	-- Declaracion de variables para el cursor
+	DECLARE	@rol_id INT,
+			@rol_nombre varchar(30),
+			@rol_status INT
+	-- Declaración del cursor
+	DECLARE cursor_rol CURSOR FOR
+	SELECT rol_id, rol_nombre, rol_status
+	FROM inserted
+	-- Apertura del cursor
+	OPEN cursor_rol
+	-- Lectura de la primera fila del cursor
+	FETCH cursor_rol INTO @rol_id, @rol_nombre, @rol_status
+	WHILE (@@FETCH_STATUS = 0 )
+	BEGIN
+		-- Si el rol queda deshabilitado, actualiza la tabla de rol_por_usuarios
+		IF @rol_status = 0
+		BEGIN
+			UPDATE rol_por_usuarios
+			SET rol_stauts = 0
+			WHERE rol_id = @rol_id
+		END
+		
+		-- Lectura de la siguiente fila del cursor
+		FETCH cursor_rol INTO @rol_id, @rol_nombre, @rol_status
+	END
+	-- Cierre del cursor
+	CLOSE cursor_rol
+	-- Liberar los recursos
+	DEALLOCATE cursor_rol
+END
 
 
 
