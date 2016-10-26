@@ -578,6 +578,52 @@ SELECT tablaRol.rol_id,tablaFuncionalidad.fun_Id FROM rol  tablaRol, funcionalid
 WHERE tablaRol.rol_nombre = 'Profesional' AND tablaFuncionalidad.fun_nombre IN ('Registrar Agenda Profesional', 'Registro de Resultado', 'Cancelar Atencion Medica', 'Listado Estadístico');
 GO
 
+-----------------------------------------INICIO MIGRACION ------------------------------------
+
+EXEC migro_usuarios,
+EXEC migro_plan,
+EXEC migro_especialidad,
+EXEC migro_tipo_especialidades,
+/*
+EXEC migro_turno,
+EXEC migro_consulta,
+EXEC migro_compra_bono,
+EXEC migro_bono,
+*/
+
+
+------------------------------------------- FIN DE LA MIGRACIÓN--------------------------------------
+
+-- ELIMINO LA TMP QUE UTILIZAMOS PARA LA MIGRACIÓN--
+DROP TABLE dbo.#tmp_usuarios;
+
+----------------------------------- INSERTAR USUARIOS --------------------------------------------
+
+/* Se inserta el usuario Administrador, password w23e */
+
+INSERT INTO usuarios(us_username,us_password)
+VALUES ('Administrador',(SELECT SUBSTRING(master.dbo.fn_varbintohexstr(HASHBYTES('SHA2_256','w23e')),3,250) ))
+GO
+
+/* Se le asigna el rol administrativo al usuario Administrador */
+
+INSERT INTO usuarios(us_username, us_password)
+SELECT tablaUsuarios.us_id, tablaRoles.rol_id FROM usuarios tablaUsuarios, rol tablaRoles
+WHERE tablaUsuarios.us_username = 'Administrador' AND tablaRoles.rol_nombre = 'Administrativo'
+GO
+
+/* Se asignan los roles de Profesional y Afiliado a los usuarios creados */
+
+INSERT INTO rol_por_usuarios (us_id, rol_id)
+SELECT C.us_id, R.rol_id FROM afiliado C, rol R
+WHERE R.rol_nombre = 'Afiliado'
+GO
+
+INSERT INTO rol_por_usuarios (us_id, rol_id)
+SELECT P.us_id, R.rol_id FROM profesional P, rol R
+WHERE R.rol_nombre = 'Profesional'
+GO
+
 
 
 
