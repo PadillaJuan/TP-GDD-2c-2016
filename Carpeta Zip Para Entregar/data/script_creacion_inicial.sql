@@ -525,3 +525,62 @@ END;
 ------------------------------------------------------Stored Procedure que migra compra_bono---------------------------------------------------------------- 
 
 ------------------------------------------------------Stored Procedure que migra Bono----------------------------------------------------------------
+
+
+---------------------------------------------CREO FUNCIONALIDADES ----------------------------------------------------
+
+INSERT INTO funcionalidad (fun_nombre) VALUES ('ABM de Rol');
+INSERT INTO funcionalidad (fun_nombre) VALUES ('ABM de Afiliado');
+INSERT INTO funcionalidad (fun_nombre) VALUES ('ABM de Profesional');
+INSERT INTO funcionalidad (fun_nombre) VALUES ('Registrar Agenda Profesional');
+INSERT INTO funcionalidad (fun_nombre) VALUES ('Compra de Bonos');
+INSERT INTO funcionalidad (fun_nombre) VALUES ('Pedido de Turno');
+INSERT INTO funcionalidad (fun_nombre) VALUES ('Registro de Llegada');
+INSERT INTO funcionalidad (fun_nombre) VALUES ('Registro de Resultado');
+INSERT INTO funcionalidad (fun_nombre) VALUES ('Cancelar Atencion Medica');
+INSERT INTO funcionalidad (fun_nombre) VALUES ('Listado Estadistico');
+
+------------------------------------------------- Creacion de usuarios -----------------------------------------------------
+
+/*Creo el rol Administrativo*/
+
+INSERT INTO rol(rol_nombre) VALUES('Administrativo');
+GO
+
+/*Se agregan funcionalidades al rol Administrativo*/
+
+INSERT INTO funcionalidad_por_rol (rol_id, fun_id)
+SELECT tablaRol.rol_id,tablaFuncionalidad.fun_id FROM rol  tablaRol, funcionalidad tablaFuncionalidad
+WHERE tablaRol.rol_nombre = 'Administrativo' AND tablaFuncionalidad.fun_nombre IN ('ABM de Rol', 'ABM de Afiliado', 'ABM de Profesional', 'Compra de Bonos', 'Registro de Llegada','Listado Estadistico');
+GO
+
+/*Creo el rol Afiliado*/
+
+INSERT INTO rol(rol_nombre) VALUES('Afiliado');
+GO
+
+/*Se agregan funcionalidades al rol Afiliado*/
+
+INSERT INTO funcionalidad_por_rol(rol_id, fun_id)
+SELECT tablaRol.rol_id,tablaFuncionalidad.fun_id FROM rol  tablaRol, funcionalidad tablaFuncionalidad
+WHERE tablaRol.rol_nombre = 'Afiliado' AND tablaFuncionalidad.fun_nombre IN ('Compra de Bonos', 'Pedido de Turno','Cancelar Atencion Medica', 'Listado Estadístico');
+GO
+
+/*Creo el rol Profesional*/
+
+INSERT INTO rol(rol_nombre) VALUES('Profesional');
+GO
+
+/*Se agregan funcionalidades al rol Profesional*/
+
+INSERT INTO funcionalidad_por_rol (rol_id,fun_id)
+SELECT tablaRol.rol_id,tablaFuncionalidad.fun_Id FROM rol  tablaRol, funcionalidad tablaFuncionalidad
+WHERE tablaRol.rol_nombre = 'Profesional' AND tablaFuncionalidad.fun_nombre IN ('Registrar Agenda Profesional', 'Registro de Resultado', 'Cancelar Atencion Medica', 'Listado Estadístico');
+GO
+
+
+
+
+
+
+
