@@ -21,6 +21,7 @@ ALTER TABLE consulta_medica DROP constraint FK_consulta_bono;
 ALTER TABLE turnos DROP constraint FK_turno_afi;
 ALTER TABLE turnos DROP constraint FK_turno_prof;		
 ALTER TABLE turnos DROP constraint FK_turno_esp;
+ALTER TABLE turnos DROP constraint FK_turno_agenda;
 
 ALTER TABLE cancelacion DROP constraint FK_cancelacion_turno;	
 
