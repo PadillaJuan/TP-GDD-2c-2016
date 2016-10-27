@@ -220,3 +220,46 @@ CREATE TABLE funcionalidad(
 	fun_nombre VARCHAR(30),
 	fun_descripcion VARCHAR(100)
 );
+
+/* ------------------ CREACION DE FKs (Por favor en mismo orden de creacion de tablas para no olvidar nada) --------------------*/
+
+ALTER TABLE afiliado add constraint FK_afi_usuario foreign key (us_id) references usuarios (us_id);
+ALTER TABLE afiliado add constraint FK_plan_med foreign key (planmed_id) references plan_medico (planmed_id);
+
+ALTER TABLE logs_cambio_plan add constraint FK_afi foreign key (af_id,af_rel_id) references afiliado (af_id,af_rel_id);
+ALTER TABLE logs_cambio_plan add constraint FK_plan_ant foreign key (plan_id_ant) references plan_medico (planmed_id);	
+ALTER TABLE logs_cambio_plan add constraint FK_plan_new foreign key (plan_id_new) references plan_medico (planmed_id);
+
+ALTER TABLE servicios_por_planes add constraint FK_srv_por_planes_1 foreign key (planmed_id) references plan_medico (planmed_id);
+ALTER TABLE servicios_por_planes add constraint FK_srv_por_planes_2 foreign key (serv_id) references servicios (serv_id);
+	
+
+ALTER TABLE registro_compra add constraint FK_compra_afi foreign key (af_id,af_rel_id) references afiliado (af_id,af_rel_id);	
+
+ALTER TABLE bono add constraint FK_compra_bono foreign key (compra_id) references registro_compra (compra_id);	
+ALTER TABLE bono add constraint FK_plan_bono foreign key (planmed_id) references plan_medico (planmed_id);		
+ALTER TABLE bono add constraint FK_afi_bono foreign key (af_id,af_rel_id) references afiliado (af_id,af_rel_id);	
+
+ALTER TABLE consulta_medica add constraint FK_consulta_turno foreign key (turno_id) references turnos (turno_id);	
+ALTER TABLE consulta_medica add constraint FK_consulta_bono foreign key (bono_id) references bono (bono_id);	
+
+ALTER TABLE turnos add constraint FK_turno_afi foreign key (af_id,af_rel_id) references afiliado (af_id,af_rel_id);
+ALTER TABLE turnos add constraint FK_turno_prof foreign key (prof_id) references profesional (prof_id);		
+ALTER TABLE turnos add constraint FK_turno_esp foreign key (esp_id) references especialidad (esp_id);
+
+ALTER TABLE cancelacion add constraint FK_cancelacion_turno foreign key (turno_id) references turnos (turno_id);	
+
+ALTER TABLE agenda_profesional add constraint FK_agenda_prof foreign key (prof_id) references profesional (prof_id);	
+ALTER TABLE agenda_profesional add constraint FK_agenda_prof2 foreign key (esp_id) references especialidad (esp_id);	
+	
+ALTER TABLE especialidad add constraint FK_especialidad_tipo foreign key (tipoEsp_id) references tipo_especialidades (tipoEsp_id);
+
+ALTER TABLE profesional add constraint FK_prof_us foreign key (us_id) references usuarios (us_id);
+	
+ALTER TABLE periodo_baja add constraint FK_baja_prof foreign key (prof_id) references profesional (prof_id);	
+
+ALTER TABLE rol_por_usuarios add constraint FK_rolxusr_id foreign key (us_id) references usuarios (us_id);
+ALTER TABLE rol_por_usuarios add constraint FK_rolxusr_rol foreign key (rol_id) references rol (rol_id);
+
+ALTER TABLE funcionalidad_por_rol add constraint FK_funxrol_id foreign key (rol_id) references rol (rol_id);
+ALTER TABLE funcionalidad_por_rol add constraint FK_funxrol_fun foreign key (fun_id) references funcionalidad (fun_id);
