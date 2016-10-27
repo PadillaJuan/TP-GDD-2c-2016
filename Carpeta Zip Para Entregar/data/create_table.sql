@@ -103,6 +103,7 @@ CREATE TABLE turnos(
 	turno_id INT PRIMARY KEY IDENTITY(1,1),
 	turno_fecha DATETIME,
 	turno_estado CHAR(1),
+	agenda_id INT,
 	af_id INT,
 	af_rel_id TINYINT,
 	prof_id INT,
@@ -125,8 +126,7 @@ CREATE TABLE cancelacion(
 CREATE TABLE agenda_profesional(
 	agenda_id INT PRIMARY KEY IDENTITY(1,1),
 	prof_id INT,
-	agenda_fecha_inicial DATETIME,
-	agenda_fecha_final DATETIME,
+	agenda_fecha DATETIME,
 	esp_id INT
 );
 
@@ -246,6 +246,7 @@ ALTER TABLE consulta_medica add constraint FK_consulta_bono foreign key (bono_id
 ALTER TABLE turnos add constraint FK_turno_afi foreign key (af_id,af_rel_id) references afiliado (af_id,af_rel_id);
 ALTER TABLE turnos add constraint FK_turno_prof foreign key (prof_id) references profesional (prof_id);		
 ALTER TABLE turnos add constraint FK_turno_esp foreign key (esp_id) references especialidad (esp_id);
+ALTER TABLE turnos add constraint FK_turno_agenda foreign key (agenda_id) references agenda_profesional (agenda_id);
 
 ALTER TABLE cancelacion add constraint FK_cancelacion_turno foreign key (turno_id) references turnos (turno_id);	
 
