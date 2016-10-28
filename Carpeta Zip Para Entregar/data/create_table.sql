@@ -161,12 +161,12 @@ CREATE TABLE profesional(
 	prof_nombre VARCHAR(50),
 	prof_apellido VARCHAR(50),
 	prof_tipodoc VARCHAR(5),
-	prof_numdoc INT UNIQUE,
+	prof_numdoc numeric(18,0) UNIQUE,
 	prof_direccion VARCHAR(50),
 	prof_telefono VARCHAR(20),
 	prof_mail VARCHAR(40),
 	prof_nacimiento DATETIME,
-	prof_matricula INT UNIQUE,
+	prof_matricula INT,
 	prof_sexo CHAR(1)
 );
 

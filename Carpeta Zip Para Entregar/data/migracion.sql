@@ -11,6 +11,12 @@ if OBJECT_ID('migrarAfiliados') is not null
  end
  go
 
+ if OBJECT_ID('migrarProfesional') is not null
+ begin
+	drop procedure migrarProfesional
+ end
+ go
+
 create procedure migrarPlanMedico
 as
 	SET IDENTITY_INSERT plan_medico ON 
@@ -37,3 +43,14 @@ go
 execute migrarAfiliados
 go
 
+create procedure migrarProfesional
+as
+	insert into profesional(prof_nombre,prof_apellido,prof_tipodoc,prof_numdoc,prof_direccion,prof_telefono,prof_mail,prof_nacimiento)
+		select Medico_Nombre,Medico_Apellido,'DNI',Medico_Dni,Medico_Direccion,Medico_Telefono,Medico_Mail,Medico_Fecha_Nac
+		from gd_esquema.Maestra
+		where Medico_Dni is not null
+		group by Medico_Nombre,Medico_Apellido,Medico_Dni,Medico_Direccion,Medico_Telefono,Medico_Mail,Medico_Fecha_Nac
+		order by Medico_Dni
+go
+execute migrarProfesional
+go
