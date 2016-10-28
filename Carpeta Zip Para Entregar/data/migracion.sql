@@ -17,6 +17,18 @@ if OBJECT_ID('migrarAfiliados') is not null
  end
  go
 
+ if OBJECT_ID('migrarTipoEspecialidades') is not null
+ begin
+	drop procedure migrarTipoEspecialidades
+ end
+ go
+
+ if OBJECT_ID('migrarEspecialidad') is not null
+ begin
+	drop procedure migrarEspecialidad
+ end
+ go
+
 create procedure migrarPlanMedico
 as
 	SET IDENTITY_INSERT plan_medico ON 
@@ -53,4 +65,41 @@ as
 		order by Medico_Dni
 go
 execute migrarProfesional
+go
+
+create procedure migrarTipoEspecialidades
+as
+	SET IDENTITY_INSERT tipo_especialidades ON 
+	insert into tipo_especialidades (tipoEsp_id,tipoEsp_descripcion)
+		select Tipo_Especialidad_Codigo,Tipo_Especialidad_Descripcion
+		from gd_esquema.Maestra
+		where Tipo_Especialidad_Codigo is not null
+		group by Tipo_Especialidad_Codigo,Tipo_Especialidad_Descripcion
+		order by Tipo_Especialidad_Codigo
+	SET IDENTITY_INSERT tipo_especialidades OFF 
+go
+execute migrarTipoEspecialidades
+go
+
+create procedure migrarEspecialidad
+as
+	SET IDENTITY_INSERT especialidad ON 
+	insert into especialidad(esp_id,esp_descripcion,tipoEsp_id)
+		select Especialidad_Codigo,Especialidad_Descripcion,Tipo_Especialidad_Codigo
+		from gd_esquema.Maestra
+		where Tipo_Especialidad_Codigo is not null
+		group by Especialidad_Codigo,Especialidad_Descripcion,Tipo_Especialidad_Codigo
+		order by Especialidad_Codigo
+	SET IDENTITY_INSERT especialidad OFF
+go
+execute migrarEspecialidad
+go
+
+create procedure migrarEspecialidadPorProfesional
+as
+	insert into especialidad_por_profesional(prof_id,esp_id)
+		select prof_id,esp_id
+		from especialidad,profesional
+go
+execute migrarEspecialidadPorProfesional
 go
