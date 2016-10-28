@@ -4,17 +4,17 @@ CREATE TABLE afiliado(
 	af_id INT IDENTITY(1,1),
 	af_rel_id TINYINT,
 	us_id INT,
-	af_nombre VARCHAR(50),
-	af_apellido VARCHAR(50),
+	af_nombre VARCHAR(255),
+	af_apellido VARCHAR(255),
 	af_tipodoc	 VARCHAR(5),
-	af_numdoc INT UNIQUE,
-	af_direccion VARCHAR(30),
-	af_telefono VARCHAR(50),
-	af_mail VARCHAR(30) ,
+	af_numdoc numeric(18,0),
+	af_direccion VARCHAR(255),
+	af_telefono numeric(18,0),
+	af_mail VARCHAR(255) ,
 	af_nacimiento DATETIME,
 	af_estado_civil VARCHAR(11),
 	af_cantidad_familiares TINYINT,
-	planmed_id INT,
+	planmed_id numeric(18,0),
 	af_sexo CHAR(1),
 	af_status CHAR(1),
 	af_fechaBaja DATETIME,
@@ -28,8 +28,8 @@ CREATE TABLE logs_cambio_plan(
 	cambio_plan_id INT PRIMARY KEY IDENTITY(1,1),
 	af_id INT,
 	af_rel_id TINYINT,
-	plan_id_ant INT,
-	plan_id_new INT,
+	plan_id_ant numeric(18,0),
+	plan_id_new numeric(18,0),
 	cambio_plan_motivo VARCHAR(100),
 	cambio_plan_fecha DATETIME
 );
@@ -38,16 +38,16 @@ CREATE TABLE logs_cambio_plan(
 /* TABLA DE PLAN MEDICO */
 
 CREATE TABLE plan_medico(
-	planmed_id INT PRIMARY KEY IDENTITY(1,1),
-	plan_cuota INT,
+	planmed_id numeric(18,0) PRIMARY KEY IDENTITY(1,1),
+	plan_cuota numeric(18,0),
 	plan_descripcion VARCHAR(30),
-	plan_precio_bono DECIMAL(5,2)
+	plan_precio_bono numeric(18,0),
 );
 
 /* TABLA DE SERVICIOS POR PLANES */
 
 CREATE TABLE servicios_por_planes(
-	planmed_id INT,
+	planmed_id numeric(18,0),
 	serv_id INT,
 	primary key (planmed_id, serv_id),
 );
@@ -77,7 +77,7 @@ CREATE TABLE registro_compra(
 CREATE TABLE bono(
 	bono_id INT PRIMARY KEY IDENTITY(1,1),
 	compra_id INT,
-	planmed_id INT,
+	planmed_id numeric(18,0),
 	af_id INT,
 	af_rel_id TINYINT,
 	bono_estado CHAR(1)
