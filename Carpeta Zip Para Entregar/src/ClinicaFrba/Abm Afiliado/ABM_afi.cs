@@ -10,11 +10,18 @@ using System.Windows.Forms;
 
 namespace ClinicaFrba.Abm_Afiliado
 {
-    public partial class Form1 : Form
+    public partial class ABM_afi : Form
     {
-        public Form1()
+        public ABM_afi()
         {
             InitializeComponent();
         }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            Close();
+        }
+
+       
     }
 }
