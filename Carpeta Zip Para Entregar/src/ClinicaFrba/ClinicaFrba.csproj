@@ -90,6 +90,12 @@
     <Compile Include="Compra Bono\Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
+    <Compile Include="Elegir Accion\Elegir_Accion.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Elegir Accion\Elegir_Accion.Designer.cs">
+      <DependentUpon>Elegir_Accion.cs</DependentUpon>
+    </Compile>
     <Compile Include="Elegir Rol\Elegir Rol.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -143,6 +149,9 @@
     </Compile>
     <EmbeddedResource Include="Abm Afiliado\ABM_afi.resx">
       <DependentUpon>ABM_afi.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Elegir Accion\Elegir_Accion.resx">
+      <DependentUpon>Elegir_Accion.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Elegir Rol\Elegir Rol.resx">
       <DependentUpon>Elegir Rol.cs</DependentUpon>
