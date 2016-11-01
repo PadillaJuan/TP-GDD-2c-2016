@@ -13,34 +13,33 @@ namespace ClinicaFrba
     class dataLogin
     {
         public long us_id;
-        public string us_username;
+        public String pw;
+        public String us_username;
         public Int16 us_login_fail;
         public String us_status;
     }
+
     class LoginDB
     {
-
-
-        public static int login(String username, String text,long us_id)
+        public static long login(String username, String text)
         {
-            int retorno= 0;
+            long retorno = -1;
             String encriptedPW = GenerateSHA256String(text);
-            String query = String.Format("SELECT * FROM usuarios WHERE us_username like {0} AND us_password like {1}", username, encriptedPW);
+            String query = String.Format("SELECT * FROM usuarios WHERE us_username like {0}", username);
             SqlConnection Conn = BDConnection.getConnection();
             SqlCommand consulta = new SqlCommand(query, Conn);
             dataLogin lg = new dataLogin();
             try
             {
                 SqlDataReader execute = consulta.ExecuteReader();
-                if(execute.Read()== true)
-                {
-                    Conn.Close();
-                    retorno = foundUser(lg, execute, us_id);
-                }
-                else
-                {
-                    userNotFound(lg);
-                }
+
+                lg.us_id = execute.GetInt64(0);
+                lg.us_username = execute.GetString(1);
+                lg.pw = execute.GetString(2);
+                lg.us_login_fail = execute.GetInt16(3);
+                lg.us_status = execute.GetString(4);
+
+                retorno = foundUser(lg, encriptedPW);
             }
             catch (Exception e)
             {
@@ -50,32 +49,28 @@ namespace ClinicaFrba
             return retorno;
         }
 
-        private static void userNotFound(dataLogin lg)
+        private static void wrongPw(long us_id)
         {
-            MessageBox.Show("Datos Incorrectos", "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-            String query = String.Format("UPDATE usuarios SET us_login_fail = us_login_fail+1 WHERE us_id like {0}", lg.us_id);
+            String query = String.Format("UPDATE usuarios SET us_login_fail = us_login_fail+1 WHERE us_id like {0}", us_id);
             SqlConnection Conn = BDConnection.getConnection();
             SqlCommand consulta = new SqlCommand(query, Conn);
             consulta.ExecuteNonQuery();
             Conn.Close();
         }
 
-        private static int foundUser(dataLogin lg, SqlDataReader execute,long us_id)
+        private static long foundUser(dataLogin lg, String pw)
         {
-            int retorno = 0;
-            while (execute.Read())
+            long us_id = -1;
+            if (pw != lg.pw)
             {
-
-                lg.us_id = execute.GetInt64(0);
-                lg.us_username = execute.GetString(1);
-                lg.us_login_fail = execute.GetInt16(3);
-                lg.us_status = execute.GetString(4);
+                MessageBox.Show("La contraseña es incorrecta", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                wrongPw(lg.us_id);
             }
-            if (lg.us_login_fail >= 3)
+            else if (lg.us_login_fail >= 3)
             {
                 MessageBox.Show("Se ha superado el numero de intentos de login", "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-            else if (lg.us_status.Equals("D"))
+            else if (lg.us_status.Equals("D") || lg.us_status.Equals("d"))
             {
                 MessageBox.Show("El usuario esta desactivado", "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
@@ -83,9 +78,8 @@ namespace ClinicaFrba
             {
                 MessageBox.Show("Bienvenido al sistema", "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 us_id = lg.us_id;
-                retorno = 1;
             }
-            return retorno;
+            return us_id;
         }
 
         public static string GenerateSHA256String(string inputString)

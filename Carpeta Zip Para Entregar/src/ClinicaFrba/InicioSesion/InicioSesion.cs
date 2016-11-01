@@ -23,20 +23,18 @@ namespace ClinicaFrba.InicioSesion
            
 
         }
-
-
-
+        
         private void button1_Click(object sender, EventArgs e)
         {
-            int accessgranted = 0;
-            long us_id;
+            long us_id = 0;
             String usuario = textBox1.Text;
             String contrasenia = textBox2.Text;
-            accessgranted = LoginDB.login(usuario, contrasenia,us_id);
-            if (accessgranted != 0)
+            us_id = LoginDB.login(usuario, contrasenia);
+            if (us_id >= 0)
             {
                 Hide();
-                Elegir_Rol.Elegir_Rol(us_id);
+                Elegir_Rol.Elegir_Rol form = new Elegir_Rol.Elegir_Rol(us_id);
+                form.Show();
             }
 
         }
