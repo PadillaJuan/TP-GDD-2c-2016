@@ -29,6 +29,18 @@ if OBJECT_ID('migrarAfiliados') is not null
  end
  go
 
+ if OBJECT_ID('migrarEspecialidadPorProfesional') is not null
+ begin
+	drop procedure migrarEspecialidadPorProfesional
+end
+go
+ if OBJECT_ID('migrarTurnos') is not null
+ begin
+	drop procedure migrarTurnos
+ end
+ go
+
+
 create procedure migrarPlanMedico
 as
 	SET IDENTITY_INSERT plan_medico ON 
@@ -50,10 +62,14 @@ as
 		       Paciente_Direccion,Paciente_Telefono,Paciente_Mail,Paciente_Fecha_Nac,Plan_Med_Codigo
 		from gd_esquema.Maestra
 		group by Paciente_Nombre,Paciente_Apellido,Paciente_Dni,Paciente_Direccion,Paciente_Telefono,Paciente_Mail,Paciente_Fecha_Nac,Plan_Med_Codigo
-
+	
+	insert into usuarios
+		select af_numdoc,HASHBYTES('SHA2_256',af_mail),0,'H'
+		from afiliado
 go
 execute migrarAfiliados
 go
+
 
 create procedure migrarProfesional
 as
@@ -63,6 +79,10 @@ as
 		where Medico_Dni is not null
 		group by Medico_Nombre,Medico_Apellido,Medico_Dni,Medico_Direccion,Medico_Telefono,Medico_Mail,Medico_Fecha_Nac
 		order by Medico_Dni
+
+	insert into usuarios
+		select prof_numdoc,HASHBYTES('SHA2_256',prof_mail),0,'H'
+		from profesional
 go
 execute migrarProfesional
 go
@@ -103,3 +123,23 @@ as
 go
 execute migrarEspecialidadPorProfesional
 go
+
+create procedure migrarTurnos
+as
+	SET IDENTITY_INSERT turnos ON 
+	insert into turnos(turno_id,turno_fecha,af_id,af_rel_id,prof_id,esp_id)
+		select Turno_Numero,Turno_Fecha,af_id,af_rel_id,prof_id,Especialidad_Codigo
+		from gd_esquema.Maestra,afiliado,profesional
+		where af_numdoc = Paciente_Dni and prof_numdoc = Medico_Dni
+		group by Turno_Numero,Turno_Fecha,af_id,af_rel_id,prof_id,Especialidad_Codigo
+		order by Turno_Numero
+	SET IDENTITY_INSERT turnos OFF
+go
+execute migrarTurnos
+go
+
+
+
+
+
+

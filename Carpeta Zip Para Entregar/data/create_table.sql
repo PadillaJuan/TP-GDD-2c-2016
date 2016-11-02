@@ -184,7 +184,7 @@ CREATE TABLE periodo_baja(
 CREATE TABLE usuarios(
 	us_id INT PRIMARY KEY IDENTITY(1,1),
 	us_username VARCHAR(30),
-	us_password CHAR(64),
+	us_password VARBINARY(64),
 	us_login_fail TINYINT,
 	us_status CHAR(1)
 );
