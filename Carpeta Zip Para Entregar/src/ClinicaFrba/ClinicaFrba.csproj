@@ -77,6 +77,12 @@
     <Compile Include="AbmRol\Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
+    <Compile Include="Buscar Afiliado\BuscarAfi.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Buscar Afiliado\BuscarAfi.Designer.cs">
+      <DependentUpon>BuscarAfi.cs</DependentUpon>
+    </Compile>
     <Compile Include="Cancelar Atencion\TurnCancel.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -101,6 +107,11 @@
     </Compile>
     <Compile Include="Elegir Rol\Elegir Rol.Designer.cs">
       <DependentUpon>Elegir Rol.cs</DependentUpon>
+    </Compile>
+    <Compile Include="GD2C2016DataSet.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>GD2C2016DataSet.xsd</DependentUpon>
     </Compile>
     <Compile Include="VentanaInicial.cs">
       <SubType>Form</SubType>
@@ -150,6 +161,9 @@
     <EmbeddedResource Include="Abm Afiliado\ABM_afi.resx">
       <DependentUpon>ABM_afi.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Buscar Afiliado\BuscarAfi.resx">
+      <DependentUpon>BuscarAfi.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Elegir Accion\Elegir_Accion.resx">
       <DependentUpon>Elegir_Accion.cs</DependentUpon>
     </EmbeddedResource>
@@ -172,6 +186,17 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
+    <None Include="GD2C2016DataSet.xsc">
+      <DependentUpon>GD2C2016DataSet.xsd</DependentUpon>
+    </None>
+    <None Include="GD2C2016DataSet.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>GD2C2016DataSet.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="GD2C2016DataSet.xss">
+      <DependentUpon>GD2C2016DataSet.xsd</DependentUpon>
+    </None>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
