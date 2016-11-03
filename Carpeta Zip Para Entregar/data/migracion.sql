@@ -39,7 +39,16 @@ go
 	drop procedure migrarTurnos
  end
  go
-
+if OBJECT_ID('migrarRegistroCompra') is not null
+begin
+	drop procedure migrarRegistroCompra
+end
+go
+if OBJECT_ID('migrarBonos') is not null
+begin
+	drop procedure migrarBonos
+end
+go
 
 create procedure migrarPlanMedico
 as
@@ -138,8 +147,28 @@ go
 execute migrarTurnos
 go
 
+create procedure migrarRegistroCompra
+as
+	insert into registro_compra
+		select af_id,af_rel_id,count(*),sum(Plan_Med_Precio_Bono_Consulta),Compra_Bono_Fecha
+		from gd_esquema.Maestra,afiliado
+		where Bono_Consulta_Numero is not null and Compra_Bono_Fecha is not null and af_numdoc = Paciente_Dni
+		group by af_id, af_rel_id, Compra_Bono_Fecha
+		order by Compra_Bono_Fecha
+go
+execute migrarRegistroCompra
+go
 
-
-
-
-
+create procedure migrarBonos
+as
+	SET IDENTITY_INSERT bono ON 
+	insert into bono (bono_id,bono_compra,bono_planmed,bono_af,bono_af_rel,bono_estado)
+		select Bono_Consulta_Numero,compra_id,Plan_Med_Codigo,af_id,af_rel_id,1
+		from registro_compra,gd_esquema.Maestra,afiliado
+		where compra_fecha = Compra_Bono_Fecha and Bono_Consulta_Numero is not null and Bono_Consulta_Numero is not null and
+			  compra_af = af_id and af_numdoc = Paciente_Dni
+		order by af_id
+	SET IDENTITY_INSERT bono OFF 
+go
+execute migrarBonos
+go

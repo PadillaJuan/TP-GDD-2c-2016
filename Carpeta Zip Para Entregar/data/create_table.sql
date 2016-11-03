@@ -64,11 +64,11 @@ CREATE TABLE servicios(
 
 CREATE TABLE registro_compra(
 	compra_id INT PRIMARY KEY IDENTITY(1,1),
-	af_id INT,
-	af_rel_id TINYINT,
+	compra_af INT,
+	compra_af_rel TINYINT,
 	compra_cantidad TINYINT,
 	compra_monto DECIMAL(7,2),
-	compra_estado CHAR(1)
+	compra_fecha DATETIME
 );
 
 
@@ -76,10 +76,10 @@ CREATE TABLE registro_compra(
 
 CREATE TABLE bono(
 	bono_id INT PRIMARY KEY IDENTITY(1,1),
-	compra_id INT,
-	planmed_id numeric(18,0),
-	af_id INT,
-	af_rel_id TINYINT,
+	bono_compra INT,
+	bono_planmed numeric(18,0),
+	bono_af INT,
+	bono_af_rel TINYINT,
 	bono_estado CHAR(1)
 );
 
@@ -87,13 +87,12 @@ CREATE TABLE bono(
 
 CREATE TABLE consulta_medica(
 	cons_id INT PRIMARY KEY IDENTITY(1,1),
-	turno_id INT,
+	cons_turno INT,
 	cons_hora_llegada DATETIME,
-	cons_hora_turno DATETIME,
 	cons_sintomas VARCHAR(200),
 	cons_diagnostico VARCHAR(200),
 	cons_estado CHAR(1),
-	bono_id INT
+	cons_bono INT
 );
 
 
@@ -234,14 +233,14 @@ ALTER TABLE servicios_por_planes add constraint FK_srv_por_planes_1 foreign key 
 ALTER TABLE servicios_por_planes add constraint FK_srv_por_planes_2 foreign key (serv_id) references servicios (serv_id);
 	
 
-ALTER TABLE registro_compra add constraint FK_compra_afi foreign key (af_id,af_rel_id) references afiliado (af_id,af_rel_id);	
+ALTER TABLE registro_compra add constraint FK_compra_afi foreign key (compra_af,compra_af_rel) references afiliado (af_id,af_rel_id);	
 
-ALTER TABLE bono add constraint FK_compra_bono foreign key (compra_id) references registro_compra (compra_id);	
-ALTER TABLE bono add constraint FK_plan_bono foreign key (planmed_id) references plan_medico (planmed_id);		
-ALTER TABLE bono add constraint FK_afi_bono foreign key (af_id,af_rel_id) references afiliado (af_id,af_rel_id);	
+ALTER TABLE bono add constraint FK_compra_bono foreign key (bono_compra) references registro_compra (compra_id);	
+ALTER TABLE bono add constraint FK_plan_bono foreign key (bono_planmed) references plan_medico (planmed_id);		
+ALTER TABLE bono add constraint FK_afi_bono foreign key (bono_af,bono_af_rel) references afiliado (af_id,af_rel_id);	
 
-ALTER TABLE consulta_medica add constraint FK_consulta_turno foreign key (turno_id) references turnos (turno_id);	
-ALTER TABLE consulta_medica add constraint FK_consulta_bono foreign key (bono_id) references bono (bono_id);	
+ALTER TABLE consulta_medica add constraint FK_consulta_turno foreign key (cons_turno) references turnos (turno_id);	
+ALTER TABLE consulta_medica add constraint FK_consulta_bono foreign key (cons_bono) references bono (bono_id);	
 
 ALTER TABLE turnos add constraint FK_turno_afi foreign key (af_id,af_rel_id) references afiliado (af_id,af_rel_id);
 ALTER TABLE turnos add constraint FK_turno_prof foreign key (prof_id) references profesional (prof_id);		
