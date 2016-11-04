@@ -143,8 +143,8 @@ go
 create procedure migrarTurnos
 as
 	SET IDENTITY_INSERT turnos ON 
-	insert into turnos(turno_id,turno_fecha,af_id,af_rel_id,prof_id,esp_id)
-		select Turno_Numero,Turno_Fecha,af_id,af_rel_id,prof_id,Especialidad_Codigo
+	insert into turnos(turno_id,turno_fecha,turno_estado,af_id,af_rel_id,prof_id,esp_id)
+		select Turno_Numero,Turno_Fecha,1,af_id,af_rel_id,prof_id,Especialidad_Codigo
 		from gd_esquema.Maestra,afiliado,profesional
 		where af_numdoc = Paciente_Dni and prof_numdoc = Medico_Dni
 		group by Turno_Numero,Turno_Fecha,af_id,af_rel_id,prof_id,Especialidad_Codigo
@@ -180,3 +180,13 @@ go
 execute migrarBonos
 go
 
+
+create procedure migrarConsultas
+as
+	insert into consulta_medica
+		select Turno_Numero,Bono_Consulta_Fecha_Impresion,Consulta_Sintomas,Consulta_Enfermedades,1,Bono_Consulta_Numero
+		from gd_esquema.Maestra
+		where Bono_Consulta_Numero is not null
+go
+execute migrarBonos
+go

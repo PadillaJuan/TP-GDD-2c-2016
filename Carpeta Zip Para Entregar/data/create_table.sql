@@ -91,7 +91,6 @@ CREATE TABLE consulta_medica(
 	cons_hora_llegada DATETIME,
 	cons_sintomas VARCHAR(200),
 	cons_diagnostico VARCHAR(200),
-	cons_estado CHAR(1),
 	cons_bono INT
 );
 
