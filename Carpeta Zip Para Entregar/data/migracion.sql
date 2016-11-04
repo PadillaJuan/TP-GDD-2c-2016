@@ -65,16 +65,19 @@ execute migrarPlanMedico
 go
 
 create procedure migrarAfiliados
-as
-	insert into afiliado(af_rel_id,af_nombre,af_apellido,af_tipodoc,af_numdoc,af_direccion,af_telefono,af_mail,af_nacimiento,planmed_id)
-		select 01,Paciente_Nombre,Paciente_Apellido,'DNI',Paciente_Dni,
-		       Paciente_Direccion,Paciente_Telefono,Paciente_Mail,Paciente_Fecha_Nac,Plan_Med_Codigo
+as	
+	insert into usuarios
+		select Paciente_Dni,HASHBYTES('SHA2_256',Paciente_Mail),0,'1'
 		from gd_esquema.Maestra
 		group by Paciente_Nombre,Paciente_Apellido,Paciente_Dni,Paciente_Direccion,Paciente_Telefono,Paciente_Mail,Paciente_Fecha_Nac,Plan_Med_Codigo
-	
-	insert into usuarios
-		select af_numdoc,HASHBYTES('SHA2_256',af_mail),0,'H'
-		from afiliado
+
+	insert into afiliado(af_rel_id,us_id,af_nombre,af_apellido,af_tipodoc,af_numdoc,af_direccion,af_telefono,af_mail,af_nacimiento,planmed_id)
+		select 01,us_id,Paciente_Nombre,Paciente_Apellido,'DNI',Paciente_Dni,
+		       Paciente_Direccion,Paciente_Telefono,Paciente_Mail,Paciente_Fecha_Nac,Plan_Med_Codigo
+		from gd_esquema.Maestra,usuarios
+		where us_username = Paciente_Dni
+		group by us_id,Paciente_Nombre,Paciente_Apellido,Paciente_Dni,Paciente_Direccion,Paciente_Telefono,Paciente_Mail,Paciente_Fecha_Nac,Plan_Med_Codigo
+	 
 go
 execute migrarAfiliados
 go
@@ -82,16 +85,20 @@ go
 
 create procedure migrarProfesional
 as
-	insert into profesional(prof_nombre,prof_apellido,prof_tipodoc,prof_numdoc,prof_direccion,prof_telefono,prof_mail,prof_nacimiento)
-		select Medico_Nombre,Medico_Apellido,'DNI',Medico_Dni,Medico_Direccion,Medico_Telefono,Medico_Mail,Medico_Fecha_Nac
+	insert into usuarios
+		select Medico_Dni,HASHBYTES('SHA2_256',Medico_Mail),0,'1'
 		from gd_esquema.Maestra
 		where Medico_Dni is not null
 		group by Medico_Nombre,Medico_Apellido,Medico_Dni,Medico_Direccion,Medico_Telefono,Medico_Mail,Medico_Fecha_Nac
 		order by Medico_Dni
 
-	insert into usuarios
-		select prof_numdoc,HASHBYTES('SHA2_256',prof_mail),0,'H'
-		from profesional
+	insert into profesional(us_id,prof_nombre,prof_apellido,prof_tipodoc,prof_numdoc,prof_direccion,prof_telefono,prof_mail,prof_nacimiento)
+		select us_id,Medico_Nombre,Medico_Apellido,'DNI',Medico_Dni,Medico_Direccion,Medico_Telefono,Medico_Mail,Medico_Fecha_Nac
+		from gd_esquema.Maestra,usuarios
+		where Medico_Dni is not null and us_username = Medico_Dni
+		group by us_id,Medico_Nombre,Medico_Apellido,Medico_Dni,Medico_Direccion,Medico_Telefono,Medico_Mail,Medico_Fecha_Nac
+		order by Medico_Dni
+
 go
 execute migrarProfesional
 go
@@ -172,3 +179,4 @@ as
 go
 execute migrarBonos
 go
+
