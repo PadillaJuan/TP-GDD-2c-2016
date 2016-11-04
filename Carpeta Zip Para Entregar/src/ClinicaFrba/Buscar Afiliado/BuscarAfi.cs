@@ -22,9 +22,7 @@ namespace ClinicaFrba.BuscarAfiliado
         private void button2_Click(object sender, DataGridViewCellEventArgs e)
         {
 
-            int index = e.RowIndex;
-            DataGridViewRow linea = dataGridView1.Rows[index];
-            long id = (long) linea.Cells[0].Value;
+            long id = getId(e);
             if (id == null)
             {
                 MessageBox.Show("No se ha buscado ningun afiliado", "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -39,6 +37,14 @@ namespace ClinicaFrba.BuscarAfiliado
             }
         }
 
+        private long getId(DataGridViewCellEventArgs e)
+        {
+            int index = e.RowIndex;
+            DataGridViewRow linea = dataGridView1.Rows[index];
+            long id = (long)linea.Cells[0].Value;
+            return id;
+        }
+
         private void button5_Click(object sender, EventArgs e)
         {
             Hide();
@@ -49,6 +55,12 @@ namespace ClinicaFrba.BuscarAfiliado
         private void button4_Click(object sender, EventArgs e)
         {
             Close();
+        }
+
+        private void button1_Click(object sender, DataGridViewCellEventArgs e)
+        {
+            long id = getId(e);
+            Abm_Afiliado.ABM_afi form = new Abm_Afiliado.ABM_afi(2,id);
         }
 
 
