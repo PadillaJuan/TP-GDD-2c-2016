@@ -123,9 +123,11 @@ CREATE TABLE cancelacion(
 
 CREATE TABLE agenda_profesional(
 	agenda_id INT PRIMARY KEY IDENTITY(1,1),
-	prof_id INT,
-	agenda_fecha DATETIME,
-	esp_id INT
+	agenda_prof INT,
+	agenda_esp INT,
+	agenda_hora TIME,
+	agenda_dia INT,
+	agenda_anio INT
 );
 
 /* TABLA DE TIPO DE ESPECIALIDADES */
@@ -248,8 +250,8 @@ ALTER TABLE turnos add constraint FK_turno_agenda foreign key (agenda_id) refere
 
 ALTER TABLE cancelacion add constraint FK_cancelacion_turno foreign key (turno_id) references turnos (turno_id);	
 
-ALTER TABLE agenda_profesional add constraint FK_agenda_prof foreign key (prof_id) references profesional (prof_id);	
-ALTER TABLE agenda_profesional add constraint FK_agenda_prof2 foreign key (esp_id) references especialidad (esp_id);	
+ALTER TABLE agenda_profesional add constraint FK_agenda_prof foreign key (agenda_prof) references profesional (prof_id);	
+ALTER TABLE agenda_profesional add constraint FK_agenda_prof2 foreign key (agenda_esp) references especialidad (esp_id);	
 	
 ALTER TABLE especialidad add constraint FK_especialidad_tipo foreign key (tipoEsp_id) references tipo_especialidades (tipoEsp_id);
 

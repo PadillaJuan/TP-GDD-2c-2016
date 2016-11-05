@@ -49,6 +49,16 @@ begin
 	drop procedure migrarBonos
 end
 go
+if OBJECT_ID('migrarConsultas') is not null
+begin
+	drop procedure migrarConsultas
+end
+go
+if OBJECT_ID('migrarAgendaProfesional') is not null
+begin
+	drop procedure migrarAgendaProfesional
+end
+go
 
 create procedure migrarPlanMedico
 as
@@ -174,19 +184,32 @@ as
 		from registro_compra,gd_esquema.Maestra,afiliado
 		where compra_fecha = Compra_Bono_Fecha and Bono_Consulta_Numero is not null and Bono_Consulta_Numero is not null and
 			  compra_af = af_id and af_numdoc = Paciente_Dni
-		order by af_id
+		order by Bono_Consulta_Numero
 	SET IDENTITY_INSERT bono OFF 
 go
 execute migrarBonos
 go
 
-
 create procedure migrarConsultas
 as
 	insert into consulta_medica
-		select Turno_Numero,Bono_Consulta_Fecha_Impresion,Consulta_Sintomas,Consulta_Enfermedades,1,Bono_Consulta_Numero
+		select Turno_Numero,Bono_Consulta_Fecha_Impresion,Consulta_Sintomas,Consulta_Enfermedades,Bono_Consulta_Numero
 		from gd_esquema.Maestra
 		where Bono_Consulta_Numero is not null
+		order by Turno_Numero
 go
-execute migrarBonos
+execute migrarConsultas
 go
+
+create procedure migrarAgendaProfesional
+as
+	insert into agenda_profesional
+		select prof_id,Especialidad_Codigo,CONVERT(time,Turno_Fecha), datepart(dw,Turno_Fecha),year(Turno_Fecha)
+		from gd_esquema.Maestra,profesional
+		where Turno_Fecha is not null and Bono_Consulta_Numero is not null and prof_numdoc = Medico_Dni
+		group by prof_id,Especialidad_Codigo,CONVERT(time,Turno_Fecha), datepart(dw,Turno_Fecha),year(Turno_Fecha)
+		order by prof_id,datepart(dw,Turno_Fecha),CONVERT(time,Turno_Fecha)
+go
+execute migrarAgendaProfesional
+go
+
