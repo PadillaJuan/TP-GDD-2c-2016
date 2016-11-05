@@ -18,10 +18,10 @@ namespace ClinicaFrba
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Pedir_Turno.ListadoProfesionales());
+            Application.Run(new Pedir_Turno.ElegirTurno("3", "Conchudo"));
         }
 
-        /*public static String ip()
+        public static String ip()
         {
             return ConfigurationManager.AppSettings["ip"];
         }
@@ -35,7 +35,7 @@ namespace ClinicaFrba
         public static String nuevaFechaSistema()
         {
             return ConfigurationManager.AppSettings["FechaGlobal"];
-        }*/
+        }
 
         /* public void ConnectToSql()
          {

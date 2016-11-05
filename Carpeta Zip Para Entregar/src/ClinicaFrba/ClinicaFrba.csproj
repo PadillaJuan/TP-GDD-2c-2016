@@ -35,6 +35,7 @@
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
     <Reference Include="System" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -88,6 +89,12 @@
     </Compile>
     <Compile Include="Cancelar Atencion\TurnCancel.Designer.cs">
       <DependentUpon>TurnCancel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Pedir Turno\ElegirTurno.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Pedir Turno\ElegirTurno.Designer.cs">
+      <DependentUpon>ElegirTurno.cs</DependentUpon>
     </Compile>
     <Compile Include="Utils\BDConnection.cs" />
     <Compile Include="Dominio\Especialidades.cs" />
@@ -171,6 +178,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Elegir Rol\Elegir Rol.resx">
       <DependentUpon>Elegir Rol.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Pedir Turno\ElegirTurno.resx">
+      <DependentUpon>ElegirTurno.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Pedir Turno\ListadoProfesionales.resx">
       <DependentUpon>ListadoProfesionales.cs</DependentUpon>

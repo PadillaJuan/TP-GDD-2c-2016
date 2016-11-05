@@ -63,6 +63,11 @@ namespace ClinicaFrba.BuscarAfiliado
             Abm_Afiliado.ABM_afi form = new Abm_Afiliado.ABM_afi(2,id);
         }
 
+        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
+
 
 
     }

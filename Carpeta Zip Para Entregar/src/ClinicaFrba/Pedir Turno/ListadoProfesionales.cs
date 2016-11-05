@@ -83,7 +83,7 @@ namespace ClinicaFrba.Pedir_Turno
             wheres = "";
             armarWhere();
 
-            string query2 = "SELECT prof_nombre, prof_apellido FROM especialidad e JOIN especialidad_por_profesional r ON (e.esp_id = r.esp_id) JOIN profesional p ON ( r.prof_id = p.prof_id) WHERE esp_descripcion IN " + wheres;
+            string query2 = "SELECT prof_id, prof_nombre, prof_apellido FROM especialidad e JOIN especialidad_por_profesional r ON (e.esp_id = r.esp_id) JOIN profesional p ON ( r.prof_id = p.prof_id) WHERE esp_descripcion IN " + wheres;
             CompletadorDeTablas.hacerQuery(query2, ref dataGridView1);
         }
 
@@ -116,6 +116,11 @@ namespace ClinicaFrba.Pedir_Turno
         {
             if (dataGridView1.SelectedRows.Count != 0)
             {
+                DataGridViewRow row = this.dataGridView1.SelectedRows[0];
+                string profesional_id = row.Cells["prof_id"].Value.ToString();
+                string profesional_apellido = row.Cells["prof_apellido"].Value.ToString();
+                Pedir_Turno.ElegirTurno turno = new Pedir_Turno.ElegirTurno(profesional_id, profesional_apellido);
+                turno.ShowDialog();
 
             }
 
@@ -171,6 +176,11 @@ namespace ClinicaFrba.Pedir_Turno
         }
 
         private void txtDescrip_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
 
         }
