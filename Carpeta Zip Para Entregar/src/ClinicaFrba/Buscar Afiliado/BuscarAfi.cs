@@ -29,7 +29,7 @@ namespace ClinicaFrba.BuscarAfiliado
             }
             else
             {
-                SqlConnection Conn = BDConnection.getConnection();
+                SqlConnection Conn = (new BDConnection()).getConnection();
                 String query = String.Format("exec bajaAfiliado({0})", id);
                 SqlCommand com = new SqlCommand(query, Conn);
                 com.ExecuteNonQuery();

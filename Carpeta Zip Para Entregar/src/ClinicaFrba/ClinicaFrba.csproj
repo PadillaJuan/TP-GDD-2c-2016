@@ -89,7 +89,8 @@
     <Compile Include="Cancelar Atencion\TurnCancel.Designer.cs">
       <DependentUpon>TurnCancel.cs</DependentUpon>
     </Compile>
-    <Compile Include="BDConnection.cs" />
+    <Compile Include="Utils\BDConnection.cs" />
+    <Compile Include="Dominio\Especialidades.cs" />
     <Compile Include="Compra Bono\Form1.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -132,11 +133,11 @@
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
     <Compile Include="LoginDB.cs" />
-    <Compile Include="Pedir Turno\Form1.cs">
+    <Compile Include="Pedir Turno\ListadoProfesionales.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Pedir Turno\Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <Compile Include="Pedir Turno\ListadoProfesionales.Designer.cs">
+      <DependentUpon>ListadoProfesionales.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -169,6 +170,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Elegir Rol\Elegir Rol.resx">
       <DependentUpon>Elegir Rol.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Pedir Turno\ListadoProfesionales.resx">
+      <DependentUpon>ListadoProfesionales.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="VentanaInicial.resx">
       <DependentUpon>VentanaInicial.cs</DependentUpon>

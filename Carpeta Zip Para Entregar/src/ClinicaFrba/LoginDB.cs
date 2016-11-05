@@ -26,7 +26,7 @@ namespace ClinicaFrba
             long retorno = -1;
             String encriptedPW = GenerateSHA256String(text);
             String query = String.Format("SELECT * FROM usuarios WHERE us_username like {0}", username);
-            SqlConnection Conn = BDConnection.getConnection();
+            SqlConnection Conn = (new BDConnection()).getConnection();
             SqlCommand consulta = new SqlCommand(query, Conn);
             dataLogin lg = new dataLogin();
             try
@@ -52,7 +52,7 @@ namespace ClinicaFrba
         private static void wrongPw(long us_id)
         {
             String query = String.Format("UPDATE usuarios SET us_login_fail = us_login_fail+1 WHERE us_id like {0}", us_id);
-            SqlConnection Conn = BDConnection.getConnection();
+            SqlConnection Conn = (new BDConnection()).getConnection();
             SqlCommand consulta = new SqlCommand(query, Conn);
             consulta.ExecuteNonQuery();
             Conn.Close();
