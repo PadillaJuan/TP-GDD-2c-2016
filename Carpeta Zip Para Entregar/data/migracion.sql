@@ -237,3 +237,11 @@ go
 execute migrarConsultas
 go
 
+create procedure agregarDatosFaltantes
+as
+
+	insert into  usuarios(us_username,us_password) values('admin',(select HASHBYTES('SHA2_256','w23e')))
+
+go
+execute agregarDatosFaltantes
+go
