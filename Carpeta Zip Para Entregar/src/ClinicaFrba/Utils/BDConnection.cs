@@ -29,11 +29,12 @@ namespace ClinicaFrba
             conection = new SqlConnection();
 
             /*se usa para las conexiones tcp/ip*/
-            string gd20 = "Data source= gd; Initial Catalog=GD2C2016;User Id=gd; Password=gd2016";
+            //string gd20 = "Data source=" + Program.ip() + "," + Program.puerto() + "; Network Library=DBMSSOCN; Initial Catalog=GD1C2016;User Id=gd; Password=gd2016";
 
             /*se usa para las conexiones locales*/
-            //string gd20 = "Data source=.\\SQLSERVER2012; Initial Catalog=GD1C2016;User Id=gd; Password=gd2016";
+            string gd20 = "Data source=.\\SQLSERVER2012; Initial Catalog=GD2C2016;User Id=gd; Password=gd2016";
 
+            
             conectionString = gd20;
             conection.ConnectionString = conectionString;
         }

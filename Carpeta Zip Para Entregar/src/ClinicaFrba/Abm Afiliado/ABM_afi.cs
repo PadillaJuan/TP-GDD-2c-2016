@@ -76,5 +76,10 @@ namespace ClinicaFrba.Abm_Afiliado
             form.Show();
         }
 
+        private void ABM_afi_Load(object sender, EventArgs e)
+        {
+
+        }
+
     }
 }

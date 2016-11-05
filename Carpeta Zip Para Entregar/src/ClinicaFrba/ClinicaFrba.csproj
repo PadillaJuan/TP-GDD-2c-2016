@@ -114,6 +114,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>GD2C2016DataSet.xsd</DependentUpon>
     </Compile>
+    <Compile Include="Utils\CompletadorDeTablas.cs" />
     <Compile Include="VentanaInicial.cs">
       <SubType>Form</SubType>
     </Compile>
