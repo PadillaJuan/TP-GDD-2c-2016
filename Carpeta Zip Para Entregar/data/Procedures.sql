@@ -27,3 +27,9 @@ CREATE PROCEDURE altaAfiliado
 	BEGIN
 	INSERT INTO afiliado(af_rel_id, us_id, af_nombre ,af_apellido ,af_tipodoc, af_numdoc, af_direccion , af_telefono , af_mail , af_nacimiento , af_estado_civil, af_cantidad_familiares, planmed_id , af_sexo)
 	VALUES (@af_rel_id, @us_id, @af_nombre , @af_apellido , @af_tipodoc, @af_numdoc, @af_direccion , @af_telefono , @af_mail , @af_nacimiento , @af_estado_civil, @af_cantidad_familiares, @planmed_id , @af_sexo)
+
+CREATE PROCEDURE getPlanesMedicos
+AS
+BEGIN
+SELECT planmed_id
+FROM Plan_medico

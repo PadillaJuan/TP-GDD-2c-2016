@@ -1,6 +1,6 @@
 ﻿namespace ClinicaFrba.Registro_Resultado
 {
-    partial class Form1
+    partial class Reg_Res
     {
         /// <summary>
         /// Required designer variable.
@@ -28,11 +28,20 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
+            this.SuspendLayout();
+            // 
+            // Reg_Res
+            // 
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.ClientSize = new System.Drawing.Size(284, 262);
+            this.Name = "Reg_Res";
             this.Text = "Form1";
+            this.ResumeLayout(false);
+
         }
 
         #endregion
+
     }
 }

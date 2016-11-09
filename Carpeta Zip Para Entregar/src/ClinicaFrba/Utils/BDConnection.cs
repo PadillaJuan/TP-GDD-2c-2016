@@ -69,6 +69,7 @@ namespace ClinicaFrba
             try
             {
                 conection.Close();
+                conection.Dispose();
 
                 // SI NO PUEDO, RETORNO FALSE
             }

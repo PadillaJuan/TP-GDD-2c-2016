@@ -7,15 +7,17 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Data.SqlClient;
 
 namespace ClinicaFrba.Abm_Afiliado
 {
     public partial class ABM_afi : Form
     {
-        int cantidad = 1;
+
         public ABM_afi(int accion, long id)
         {
             InitializeComponent();
+            this.cargarComboBoxPlanMedico();
             switch (accion)
             {
                 case 0:
@@ -31,12 +33,15 @@ namespace ClinicaFrba.Abm_Afiliado
                     break;
             }
         }
+
+
         public void nuevoAfiliado(){
             textBox1.Enabled = false;
         }
 
+
         public void agregarFamiliar(long id) {
-            textBox1.Text = String.Format("{0}",id);
+            textBox1.Text = String.Format("{0}", id);
             textBox1.Enabled = false;
             setComboBox1();
             
@@ -46,10 +51,33 @@ namespace ClinicaFrba.Abm_Afiliado
 
         }
 
+
+        public void cargarComboBoxPlanMedico()
+        {
+            SqlConnection conn = (new BDConnection()).getMiConnectionSQL();
+            string query = String.Format("exec getPlanesMedicos()");
+            SqlCommand com = new SqlCommand(query, conn);
+            try
+            {
+                SqlDataReader dr = com.ExecuteReader();
+                while (dr.Read())
+                {
+                    comboBox3.Items.Add(dr["planmed_id"]);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            
+        }
+
+
         public void setComboBox1()
         {
             comboBox1.DropDownStyle = ComboBoxStyle.DropDownList;
         }
+
 
         public void updateAfiliado(){
             comboBox2.DropDownStyle = ComboBoxStyle.DropDownList;
@@ -76,10 +104,12 @@ namespace ClinicaFrba.Abm_Afiliado
             form.Show();
         }
 
+
         private void ABM_afi_Load(object sender, EventArgs e)
         {
 
         }
+
 
         private void button1_Click(object sender, EventArgs e)
         {

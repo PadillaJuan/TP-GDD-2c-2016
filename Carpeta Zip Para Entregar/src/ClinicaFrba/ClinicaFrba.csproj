@@ -161,11 +161,11 @@
     <Compile Include="Registro Llegada\Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
-    <Compile Include="Registro Resultado\Form1.cs">
+    <Compile Include="Registro Resultado\Reg_Res.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Registro Resultado\Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <Compile Include="Registro Resultado\Reg_Res.Designer.cs">
+      <DependentUpon>Reg_Res.cs</DependentUpon>
     </Compile>
     <EmbeddedResource Include="Abm Afiliado\ABM_afi.resx">
       <DependentUpon>ABM_afi.cs</DependentUpon>
@@ -184,6 +184,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Pedir Turno\ListadoProfesionales.resx">
       <DependentUpon>ListadoProfesionales.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Registro Resultado\Reg_Res.resx">
+      <DependentUpon>Reg_Res.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="VentanaInicial.resx">
       <DependentUpon>VentanaInicial.cs</DependentUpon>
