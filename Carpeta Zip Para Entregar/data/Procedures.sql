@@ -20,16 +20,17 @@ CREATE PROCEDURE altaAfiliado
 	@af_mail VARCHAR(255) ,
 	@af_nacimiento DATETIME,
 	@af_estado_civil VARCHAR(11),
-	@af_cantidad_familiares TINYINT,
 	@planmed_id numeric(18,0),
 	@af_sexo CHAR(1)
 	AS
 	BEGIN
 	INSERT INTO afiliado(af_rel_id, us_id, af_nombre ,af_apellido ,af_tipodoc, af_numdoc, af_direccion , af_telefono , af_mail , af_nacimiento , af_estado_civil, af_cantidad_familiares, planmed_id , af_sexo)
-	VALUES (@af_rel_id, @us_id, @af_nombre , @af_apellido , @af_tipodoc, @af_numdoc, @af_direccion , @af_telefono , @af_mail , @af_nacimiento , @af_estado_civil, @af_cantidad_familiares, @planmed_id , @af_sexo)
+	VALUES (@af_rel_id, @us_id, @af_nombre , @af_apellido , @af_tipodoc, @af_numdoc, @af_direccion , @af_telefono , @af_mail , @af_nacimiento , @af_estado_civil, 0, @planmed_id , @af_sexo)
 
 CREATE PROCEDURE getPlanesMedicos
 AS
 BEGIN
 SELECT planmed_id
 FROM Plan_medico
+
+CREATE PROCEDURE AS
