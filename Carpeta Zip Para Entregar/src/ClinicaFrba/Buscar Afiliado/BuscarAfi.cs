@@ -54,8 +54,6 @@ namespace ClinicaFrba.BuscarAfiliado
         private void button5_Click(object sender, EventArgs e) // VOLVER
         {
             Hide();
-            Elegir_Accion.Elegir_Accion form = new Elegir_Accion.Elegir_Accion();
-            form.Show();
         }
 
         private void button6_Click(object sender, EventArgs e) // BUSCAR AFILIADO/S

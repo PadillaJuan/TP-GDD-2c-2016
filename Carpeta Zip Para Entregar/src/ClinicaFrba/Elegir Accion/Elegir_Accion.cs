@@ -12,7 +12,7 @@ namespace ClinicaFrba.Elegir_Accion
 {
     public partial class Elegir_Accion : Form
     {
-        public Elegir_Accion()
+        public Elegir_Accion(int rol_id)
         {
             InitializeComponent();
             comboBox1.DropDownStyle = ComboBoxStyle.DropDownList;

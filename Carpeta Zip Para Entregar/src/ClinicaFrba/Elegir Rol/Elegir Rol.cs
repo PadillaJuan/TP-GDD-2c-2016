@@ -7,23 +7,42 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Data.SqlClient;
 
 namespace ClinicaFrba.Elegir_Rol
 {
     public partial class Elegir_Rol : Form
     {
+        DataTable tabla;
         public Elegir_Rol(long us_id)
         {
             InitializeComponent();
             rolSelection.DropDownStyle = ComboBoxStyle.DropDownList;
-            rolSelection.Text = "Presione Aqui";
-            //ORIGEN DE DATOS
+            llenarComboBox(us_id);
         }
 
-                /*("SELECT r.rol_id, r.rol_nombre, r.rol_status
-                FROM rol r JOIN rol_por_usuarios u
-                WHERE r.rol_id = u.rol_id AND u.id_usuario =  {0}", us_id);
-                */
+        public void llenarComboBox(long us_id) 
+        {
+            SqlConnection conn = (new BDConnection()).getMiConnectionSQL();
+            string query = String.Format("exec getRolesPorUsuario({0})",us_id);
+            SqlCommand com = new SqlCommand(query, conn);
+            try
+            {
+                SqlDataReader dr = com.ExecuteReader();
+                while (dr.Read())
+                {
+                    rolSelection.Items.Add(dr["rol_nombre"]);
+                }
+                SqlDataAdapter sda = new SqlDataAdapter(com);
+                tabla = new DataTable();
+                sda.Fill(tabla);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+
+        }
 
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -39,6 +58,11 @@ namespace ClinicaFrba.Elegir_Rol
         private void button1_Click(object sender, EventArgs e)
         {
 
+            int index = rolSelection.SelectedIndex;
+            int rol_id = (Int32) tabla.Rows[index]["rol_id"];
+            Elegir_Accion.Elegir_Accion form = new Elegir_Accion.Elegir_Accion(rol_id);
+            Hide();
+            form.Show();
         }
     }
 }

@@ -47,17 +47,18 @@
             // Continuar
             // 
             this.Continuar.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-            this.Continuar.Location = new System.Drawing.Point(191, 189);
+            this.Continuar.Location = new System.Drawing.Point(197, 186);
             this.Continuar.Name = "Continuar";
+            this.Continuar.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.Continuar.Size = new System.Drawing.Size(75, 23);
             this.Continuar.TabIndex = 1;
-            this.Continuar.Text = "Continuar";
+            this.Continuar.Text = "Siguiente";
             this.Continuar.UseVisualStyleBackColor = true;
             this.Continuar.Click += new System.EventHandler(this.button1_Click);
             // 
             // Salir
             // 
-            this.Salir.Location = new System.Drawing.Point(191, 227);
+            this.Salir.Location = new System.Drawing.Point(197, 227);
             this.Salir.Name = "Salir";
             this.Salir.Size = new System.Drawing.Size(75, 23);
             this.Salir.TabIndex = 5;
@@ -71,9 +72,9 @@
             this.rolSelection.Items.AddRange(new object[] {
             "Hola",
             "Puto"});
-            this.rolSelection.Location = new System.Drawing.Point(65, 74);
+            this.rolSelection.Location = new System.Drawing.Point(16, 47);
             this.rolSelection.Name = "rolSelection";
-            this.rolSelection.Size = new System.Drawing.Size(121, 21);
+            this.rolSelection.Size = new System.Drawing.Size(250, 21);
             this.rolSelection.TabIndex = 6;
             this.rolSelection.SelectedIndexChanged += new System.EventHandler(this.comboBox1_SelectedIndexChanged);
             // 
