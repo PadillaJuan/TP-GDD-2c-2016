@@ -72,11 +72,11 @@
     <Compile Include="Abm Profesional\Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
-    <Compile Include="AbmRol\Form1.cs">
+    <Compile Include="AbmRol\ABMRol.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="AbmRol\Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <Compile Include="AbmRol\ABMRol.Designer.cs">
+      <DependentUpon>ABMRol.cs</DependentUpon>
     </Compile>
     <Compile Include="Buscar Afiliado\BuscarAfi.cs">
       <SubType>Form</SubType>
@@ -169,6 +169,9 @@
     </Compile>
     <EmbeddedResource Include="Abm Afiliado\ABM_afi.resx">
       <DependentUpon>ABM_afi.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AbmRol\ABMRol.resx">
+      <DependentUpon>ABMRol.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Buscar Afiliado\BuscarAfi.resx">
       <DependentUpon>BuscarAfi.cs</DependentUpon>
