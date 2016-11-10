@@ -25,7 +25,7 @@ namespace ClinicaFrba.Abm_Afiliado
                     nuevoAfiliado();
                     break;
                 case 1:
-                    updateAfiliado();
+                    updateAfiliado(id);
                     break;
                 case 2:
                     agregarFamiliar(id);
@@ -39,6 +39,7 @@ namespace ClinicaFrba.Abm_Afiliado
         public void nuevoAfiliado()
         {
             textBox1.Enabled = false;
+            button3.Enabled = false;
         }
 
 
@@ -82,8 +83,10 @@ namespace ClinicaFrba.Abm_Afiliado
         }
 
 
-        public void updateAfiliado()
+        public void updateAfiliado(long id)
         {
+            button1.Enabled = false;
+            this.cargarDatosALaPlantilla(id);
             comboBox2.DropDownStyle = ComboBoxStyle.DropDownList;
             comboBox1.DropDownStyle = ComboBoxStyle.DropDownList;
             comboBox1.Enabled = false;
@@ -94,6 +97,42 @@ namespace ClinicaFrba.Abm_Afiliado
             dateTimePicker1.Enabled = false;
         }
 
+        public void cargarDatosALaPlantilla(long id) 
+        {
+            
+          
+            String afi_id = String.Format("{0}", id / 100);
+            String afi_id_rel = String.Format("{0}", id % 100);
+            String query = String.Format("Select * from afiliados WHERE af_id = {0} AND af_rel_id = {1}", afi_id, afi_id_rel);
+            SqlConnection Conn = (new BDConnection()).getConnection();
+            SqlCommand consulta = new SqlCommand(query, Conn);
+            dataLogin lg = new dataLogin();
+            try
+            {
+                SqlDataReader execute = consulta.ExecuteReader();
+                cargarDatos(execute);
+            }
+            catch (SqlException ex)
+            {
+                MessageBox.Show(ex.Message, Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        public void cargarDatos(SqlDataReader dr)
+        {
+            textBox1.Text = String.Concat(dr.GetInt32(0), dr.GetInt16(1));
+            textBox2.Text = dr.GetString(3);
+            textBox3.Text = dr.GetString(4);
+            comboBox1.Text = dr.GetString(5);
+            textBox4.Text = String.Format("{0}",dr.GetInt32(6));
+            textBox5.Text = dr.GetString(7);
+            textBox6.Text = String.Format("{0}", dr.GetInt32(8));
+            textBox7.Text = dr.GetString(9);
+            dateTimePicker1.Value = dr.GetDateTime(10);
+            comboBox2.Text = dr.GetString(11);
+            comboBox3.Text = dr.GetString(13);
+            comboBox4.Text = dr.GetString(14);
+        }
 
         private void button1_Click(object sender, EventArgs e)
         {
@@ -101,7 +140,7 @@ namespace ClinicaFrba.Abm_Afiliado
                 MessageBox.Show("Datos incorrectos", Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Error);
             else
             {
-                this.cargarDatos();
+                this.darAltaAfiliado();
             }
 
         }
@@ -112,7 +151,7 @@ namespace ClinicaFrba.Abm_Afiliado
             return i;
         }
 
-        public void cargarDatos()
+        public void darAltaAfiliado()
         {
             SqlConnection conn = (new BDConnection()).getMiConnectionSQL();
             string query = String.Format("exec altaAfiliado({0}, {1}, {2}, {3}, {4}, {5}, {6}, {7}, {8}, {9}, {10}, {11})", 0, textBox2.Text, textBox3.Text, comboBox1.Text, textBox4.Text, textBox5.Text, textBox6.Text, textBox7.Text, dateTimePicker1.Value.Date, comboBox2.Text,comboBox3.Text, comboBox4.Text);

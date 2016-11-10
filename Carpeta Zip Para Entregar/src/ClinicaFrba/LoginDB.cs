@@ -41,9 +41,9 @@ namespace ClinicaFrba
 
                 retorno = foundUser(lg, encriptedPW);
             }
-            catch (Exception e)
+            catch (Exception ex)
             {
-
+                MessageBox.Show(ex.Message, Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             Conn.Close();
             return retorno;

@@ -51,14 +51,16 @@ namespace ClinicaFrba.BuscarAfiliado
             Close();
         }
 
+        private void button5_Click(object sender, EventArgs e) // VOLVER
+        {
+            Hide();
+            Elegir_Accion.Elegir_Accion form = new Elegir_Accion.Elegir_Accion();
+            form.Show();
+        }
 
         private void button6_Click(object sender, EventArgs e) // BUSCAR AFILIADO/S
         {
-            if (!(checkBox1.Checked || checkBox2.Checked || checkBox3.Checked))
-            {
-                MessageBox.Show("No se ha seleccionado opcion de busqueda", "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-            else
+            if (validarEntradaUpdate())
             {
                 String query = generateSearchQuery();
                 SqlConnection conn = new SqlConnection();
@@ -68,15 +70,37 @@ namespace ClinicaFrba.BuscarAfiliado
                 sda.Fill(dt);
                 dataGridView1.DataSource = dt;
             }
+
         }
 
-        private void button5_Click(object sender, EventArgs e) // VOLVER
+        private bool validarEntradaUpdate()
         {
-            Hide();
-            Elegir_Accion.Elegir_Accion form = new Elegir_Accion.Elegir_Accion();
-            form.Show();
+            bool flag = true;
+            if (!(checkBox1.Checked || checkBox2.Checked || checkBox3.Checked))
+            {
+                MessageBox.Show("No se ha seleccionado opcion de busqueda", "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                flag = false;
+            }
+            else
+            {
+                if (checkBox1.Checked && textBox1.Text.Length == 0)
+                {
+                    MessageBox.Show("No se ha ingresado un numero de afiliado", "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    flag = false;
+                }
+                if (checkBox2.Checked && textBox2.Text.Length == 0)
+                {
+                    MessageBox.Show("No se ha ingresado un numero de afiliado", "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    flag = false;
+                }
+                if (checkBox3.Checked && textBox3.Text.Length == 0)
+                {
+                    MessageBox.Show("No se ha ingresado un numero de afiliado", "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    flag = false;
+                }
+            }
+            return flag;
         }
-
 
         private long getId(DataGridViewCellEventArgs e)
         {
@@ -91,16 +115,17 @@ namespace ClinicaFrba.BuscarAfiliado
 
         }
 
-       public String generateSearchQuery()
+        public String generateSearchQuery()
         {
             bool flag= false;
             string query = "SELECT * FROM afiliados WHERE ";
-            if (checkBox1.Checked) { 
-                String id,rel;
-                id = String.Format("{0}",int.Parse(textBox1.Text)/100);
+            if (checkBox1.Checked) {
+                String id, rel;
+                id = String.Format("{0}", int.Parse(textBox1.Text) / 100);
                 rel = String.Format("{0}", int.Parse(textBox1.Text) % 100);
                 query += String.Format("af_id = {0} AND af_rel_id = {1} ", id, rel);
                 flag = true;
+                
             }
             if (checkBox2.Checked)
             {
@@ -117,7 +142,6 @@ namespace ClinicaFrba.BuscarAfiliado
 
         }
 
- 
 
 
 
