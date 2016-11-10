@@ -13,7 +13,6 @@ namespace ClinicaFrba.Elegir_Accion
 {
     public partial class Elegir_Accion : Form
     {
-        DataTable tabla;
         public Elegir_Accion(int rol_id)
         {
             InitializeComponent();
@@ -33,9 +32,6 @@ namespace ClinicaFrba.Elegir_Accion
                 {
                     comboBox1.Items.Add(dr["rol_nombre"]);
                 }
-                SqlDataAdapter sda = new SqlDataAdapter(com);
-                tabla = new DataTable();
-                sda.Fill(tabla);
             }
             catch (Exception ex)
             {
@@ -51,59 +47,45 @@ namespace ClinicaFrba.Elegir_Accion
 
         private void button1_Click(object sender, EventArgs e)
         {
-            int i = getSelectedAccion();
-            switch (i)
+            String texto = comboBox1.Text;
+            switch (texto)
             {
-                case 1:
+                case "ABM de Rol":
                     // ABM ROL
                     break;
-                case 2:
+                case "ABM de Afiliado":
                     // ABM AFILIADO
                     BuscarAfiliado.BuscarAfi f2 = new BuscarAfiliado.BuscarAfi();
                     f2.Show();
                     break;
-                case 3:
+                case "ABM de Profesional":
                     // ABM PROFESIONAL
                     break;
-                case 4:
+                case "Registrar Agenda Profesional":
                     // REGISTRAR AGENDA PROFESIONAL
                     break;
-                case 5:
+                case "Compra de Bonos":
                     // COMPRA DE BONOS
                     break;
-                case 6:
+                case "Pedido de Turno":
                     // PEDIDO DE TURNO
                     break;
-                case 7:
+                case "Registro de Llegada":
                     // REGISTRO DE LLEGADA
                     break;
-                case 8:
+                case "Registro de Resultado":
                     // REGISTRO DE RESULTADO
                     break;
-                case 9:
+                case "Cancelar Atencion Medica":
                     // CANCELAR ATENCION MEDICA
                     break;
-                case 10:
+                case "Listado Estadistico":
                     // LISTADO ESTADISTICO
                     break;
                 default:
                     MessageBox.Show("No se ha seleccionado ninguna accion",Application.ProductName,MessageBoxButtons.OK,MessageBoxIcon.Error);
                     break;
             }
-        }
-
-        public int getSelectedAccion() 
-        {
-            int j = 0;
-            String texto = comboBox1.Text;
-            for (j = 0; j < comboBox1.Items.Count; j++)
-            {
-                if ((string)tabla.Rows[j]["fun_nombre"] == texto) 
-                { 
-                    return (int )tabla.Rows[j]["fun_id"]; 
-                }
-            }
-             return 0;
         }
     }
 }
