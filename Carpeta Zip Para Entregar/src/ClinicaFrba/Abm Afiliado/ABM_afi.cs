@@ -42,6 +42,7 @@ namespace ClinicaFrba.Abm_Afiliado
             comboBox2.DropDownStyle = ComboBoxStyle.DropDownList;
             comboBox3.DropDownStyle = ComboBoxStyle.DropDownList;
             comboBox4.DropDownStyle = ComboBoxStyle.DropDownList;
+            dateTimePicker1.Value = DateTime.Parse("1900-01-01 00:00:00.000");
         }
 
         public void cargarComboBoxPlanMedico()
@@ -137,7 +138,16 @@ namespace ClinicaFrba.Abm_Afiliado
 
         public bool checkearDatos()
         {
-            bool i = true;
+            bool i = false;
+            int n,m,p;
+            
+            if (textBox2.Text.Length == 0 || textBox3.Text.Length == 0 || textBox4.Text.Length == 0 ) { i = true; }
+            if (!textBox2.Text.All(c => Char.IsLetter(c)) || !textBox3.Text.All(d => Char.IsLetter(d)) || !int.TryParse(textBox4.Text, out n)) { i = true; }
+            if (comboBox1.SelectedIndex == -1 || comboBox2.SelectedIndex == -1 || comboBox3.SelectedIndex == -1 || comboBox4.SelectedIndex == -1 ) { i = true; }
+            if (dateTimePicker1.Value == DateTime.Parse("1900-01-01 00:00:00.000")) { i = true; }
+            if (textBox5.Text.Length == 0 || textBox6.Text.Length == 0 || textBox7.Text.Length == 0) { i = true; }
+            if (!textBox5.Text.All(e => Char.IsLetter(e)) || !int.TryParse(textBox6.Text, out m) || !textBox7.Text.All(f => Char.IsLetter(f))) { i = true; }
+
 
             return i;
         }
@@ -170,6 +180,11 @@ namespace ClinicaFrba.Abm_Afiliado
         private void ABM_afi_Load(object sender, EventArgs e)
         {
 
+        }
+
+        private void button5_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show(dateTimePicker1.ToString(), "mensaje", MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
     }
         
