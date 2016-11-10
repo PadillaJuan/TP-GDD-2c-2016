@@ -157,8 +157,6 @@ namespace ClinicaFrba.Abm_Afiliado
         private void button2_Click(object sender, EventArgs e) //VOLVER
         {
             Hide();
-            Elegir_Accion.Elegir_Accion form = new Elegir_Accion.Elegir_Accion();
-            form.Show();
         }
 
 

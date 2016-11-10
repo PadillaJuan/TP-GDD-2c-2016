@@ -58,11 +58,25 @@ namespace ClinicaFrba.Elegir_Rol
         private void button1_Click(object sender, EventArgs e)
         {
 
-            int index = rolSelection.SelectedIndex;
-            int rol_id = (Int32) tabla.Rows[index]["rol_id"];
-            Elegir_Accion.Elegir_Accion form = new Elegir_Accion.Elegir_Accion(rol_id);
-            Hide();
-            form.Show();
+            int i = 0, j = 0;
+            String texto = rolSelection.Text;
+            for (j = 0; j < rolSelection.Items.Count; j++)
+            {
+                if ((string)tabla.Rows[j]["rol_nombre"] == texto)
+                {
+                   i = (int)tabla.Rows[j]["rol__id"];
+                }
+            }
+            if (i > 0)
+            {
+                Elegir_Accion.Elegir_Accion form = new Elegir_Accion.Elegir_Accion(i);
+                Hide();
+                form.Show();
+            }
+            else 
+            {
+                MessageBox.Show("No se ha seleccionado ningun rol", Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
     }
 }
