@@ -97,7 +97,6 @@ namespace ClinicaFrba.Abm_Afiliado
 
         private void button1_Click(object sender, EventArgs e)
         {
-            dataAfiliado dt;
             if (this.checkearDatos() == 0)
                 MessageBox.Show("Datos incorrectos", Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Error);
             else

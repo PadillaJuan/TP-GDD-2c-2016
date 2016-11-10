@@ -17,13 +17,22 @@ namespace ClinicaFrba.BuscarAfiliado
         public BuscarAfi()
         {
             InitializeComponent();
+            dataGridView1.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            dataGridView1.MultiSelect = false;
+            dataGridView1.ReadOnly = true;
         }
 
-        private void button2_Click(object sender, DataGridViewCellEventArgs e)
+        private void button1_Click(object sender, DataGridViewCellEventArgs e) // AGREGAR FAMILIAR
+        {
+            long id = getId(e);
+            Abm_Afiliado.ABM_afi form = new Abm_Afiliado.ABM_afi(2, id);
+        }
+
+        private void button2_Click(object sender, DataGridViewCellEventArgs e) // DAR DE BAJA
         {
 
             long id = getId(e);
-            if (id == null)
+            if (id == 0)
             {
                 MessageBox.Show("No se ha seleccionado", "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
@@ -37,6 +46,38 @@ namespace ClinicaFrba.BuscarAfiliado
             }
         }
 
+        private void button4_Click(object sender, EventArgs e) // CERRAR PROGRAMA
+        {
+            Close();
+        }
+
+
+        private void button6_Click(object sender, EventArgs e) // BUSCAR AFILIADO/S
+        {
+            if (!(checkBox1.Checked || checkBox2.Checked || checkBox3.Checked))
+            {
+                MessageBox.Show("No se ha seleccionado opcion de busqueda", "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            else
+            {
+                String query = generateSearchQuery();
+                SqlConnection conn = new SqlConnection();
+                SqlCommand cm = new SqlCommand(query, conn);
+                SqlDataAdapter sda = new SqlDataAdapter(cm);
+                DataTable dt = new DataTable();
+                sda.Fill(dt);
+                dataGridView1.DataSource = dt;
+            }
+        }
+
+        private void button5_Click(object sender, EventArgs e) // VOLVER
+        {
+            Hide();
+            Elegir_Accion.Elegir_Accion form = new Elegir_Accion.Elegir_Accion();
+            form.Show();
+        }
+
+
         private long getId(DataGridViewCellEventArgs e)
         {
             int index = e.RowIndex;
@@ -45,38 +86,12 @@ namespace ClinicaFrba.BuscarAfiliado
             return id;
         }
 
-        private void button5_Click(object sender, EventArgs e)
-        {
-            Hide();
-            Elegir_Accion.Elegir_Accion form = new Elegir_Accion.Elegir_Accion();
-            form.Show();
-        }
-
-        private void button4_Click(object sender, EventArgs e)
-        {
-            Close();
-        }
-
-        private void button1_Click(object sender, DataGridViewCellEventArgs e)
-        {
-            long id = getId(e);
-            Abm_Afiliado.ABM_afi form = new Abm_Afiliado.ABM_afi(2,id);
-        }
-
         private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
 
         }
 
-        private void button6_Click(object sender, EventArgs e)
-        {
-            String query = generateQuery();
-            SqlConnection conn = (new BDConnection()).getMiConnectionSQL();
-            SqlCommand cm = new SqlCommand(query,conn);
-
-        }
-
-        public String generateQuery()
+       public String generateSearchQuery()
         {
             bool flag= false;
             string query = "SELECT * FROM afiliados WHERE ";

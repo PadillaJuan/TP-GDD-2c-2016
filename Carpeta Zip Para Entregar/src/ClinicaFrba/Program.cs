@@ -18,8 +18,8 @@ namespace ClinicaFrba
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Pedir_Turno.ElegirTurno("3", "Conchudo"));
-            //Application.Run(new Registro_Resultado.Reg_Res());
+           // Application.Run(new Pedir_Turno.ElegirTurno("3", "Conchudo"));
+            Application.Run(new BuscarAfiliado.BuscarAfi());
         }
 
         public static String ip()
