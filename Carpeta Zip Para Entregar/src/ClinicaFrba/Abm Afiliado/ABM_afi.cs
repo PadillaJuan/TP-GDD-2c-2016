@@ -18,6 +18,7 @@ namespace ClinicaFrba.Abm_Afiliado
         public ABM_afi(int accion, long id)
         {
             InitializeComponent();
+            setComboBoxes();
             this.cargarComboBoxPlanMedico();
             switch (accion)
             {
@@ -35,26 +36,13 @@ namespace ClinicaFrba.Abm_Afiliado
             }
         }
 
-
-        public void nuevoAfiliado()
+        private void setComboBoxes()
         {
-            textBox1.Enabled = false;
-            button3.Enabled = false;
-        }
-
-
-        public void agregarFamiliar(long id)
-        {
-            textBox1.Text = String.Format("{0}", id);
-            textBox1.Enabled = false;
-            setComboBox1();
-
+            comboBox1.DropDownStyle = ComboBoxStyle.DropDownList;
             comboBox2.DropDownStyle = ComboBoxStyle.DropDownList;
             comboBox3.DropDownStyle = ComboBoxStyle.DropDownList;
             comboBox4.DropDownStyle = ComboBoxStyle.DropDownList;
-
         }
-
 
         public void cargarComboBoxPlanMedico()
         {
@@ -76,19 +64,22 @@ namespace ClinicaFrba.Abm_Afiliado
 
         }
 
-
-        public void setComboBox1()
+        public void nuevoAfiliado()
         {
-            comboBox1.DropDownStyle = ComboBoxStyle.DropDownList;
+            textBox1.Enabled = false;
+            button3.Enabled = false;
         }
 
+        public void agregarFamiliar(long id)
+        {
+            textBox1.Text = String.Format("{0}", id);
+            textBox1.Enabled = false;
+        }
 
         public void updateAfiliado(long id)
         {
             button1.Enabled = false;
             this.cargarDatosALaPlantilla(id);
-            comboBox2.DropDownStyle = ComboBoxStyle.DropDownList;
-            comboBox1.DropDownStyle = ComboBoxStyle.DropDownList;
             comboBox1.Enabled = false;
             textBox1.Enabled = false;
             textBox2.Enabled = false;
@@ -99,8 +90,7 @@ namespace ClinicaFrba.Abm_Afiliado
 
         public void cargarDatosALaPlantilla(long id) 
         {
-            
-          
+
             String afi_id = String.Format("{0}", id / 100);
             String afi_id_rel = String.Format("{0}", id % 100);
             String query = String.Format("Select * from afiliados WHERE af_id = {0} AND af_rel_id = {1}", afi_id, afi_id_rel);
@@ -134,9 +124,9 @@ namespace ClinicaFrba.Abm_Afiliado
             comboBox4.Text = dr.GetString(14);
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void button1_Click(object sender, EventArgs e) // DAR DE ALTA
         {
-            if (this.checkearDatos() == 0)
+            if (this.checkearDatos())
                 MessageBox.Show("Datos incorrectos", Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Error);
             else
             {
@@ -145,23 +135,26 @@ namespace ClinicaFrba.Abm_Afiliado
 
         }
 
-        public int checkearDatos()
+        public bool checkearDatos()
         {
-            int i = 0;
+            bool i = true;
+
             return i;
         }
 
         public void darAltaAfiliado()
-        {
+        {       
+            /*string query = String.Format("exec altaAfiliado({0}, {1}, {2}, {3}, {4}, {5}, {6}, {7}, {8}, {9}, {10}, {11})", 0, textBox2.Text, textBox3.Text, comboBox1.Text, textBox4.Text, textBox5.Text, textBox6.Text, textBox7.Text, dateTimePicker1.Value.Date, comboBox2.Text,comboBox3.Text, comboBox4.Text);
             SqlConnection conn = (new BDConnection()).getMiConnectionSQL();
-            string query = String.Format("exec altaAfiliado({0}, {1}, {2}, {3}, {4}, {5}, {6}, {7}, {8}, {9}, {10}, {11})", 0, textBox2.Text, textBox3.Text, comboBox1.Text, textBox4.Text, textBox5.Text, textBox6.Text, textBox7.Text, dateTimePicker1.Value.Date, comboBox2.Text,comboBox3.Text, comboBox4.Text);
             SqlCommand com = new SqlCommand(query, conn);
             com.ExecuteNonQuery();
             conn.Close();
             conn.Dispose();
+        */
+            MessageBox.Show(String.Format("exec altaAfiliado({0}, {1}, {2}, {3}, {4}, {5}, {6}, {7}, {8}, {9}, {10}, {11})", 0, textBox2.Text, textBox3.Text, comboBox1.Text, textBox4.Text, textBox5.Text, textBox6.Text, textBox7.Text, dateTimePicker1.Value.Date, comboBox2.Text, comboBox3.Text, comboBox4.Text), "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
 
-        private void button2_Click(object sender, EventArgs e)
+        private void button2_Click(object sender, EventArgs e) //VOLVER
         {
             Hide();
             Elegir_Accion.Elegir_Accion form = new Elegir_Accion.Elegir_Accion();
@@ -169,7 +162,7 @@ namespace ClinicaFrba.Abm_Afiliado
         }
 
 
-        private void button4_Click(object sender, EventArgs e)
+        private void button4_Click(object sender, EventArgs e) // SALIR
         {
             Close();
         }

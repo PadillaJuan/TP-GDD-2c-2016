@@ -60,7 +60,7 @@ namespace ClinicaFrba.BuscarAfiliado
 
         private void button6_Click(object sender, EventArgs e) // BUSCAR AFILIADO/S
         {
-            if (validarEntradaUpdate())
+            if (validarEntrada())
             {
                 String query = generateSearchQuery();
                 SqlConnection conn = new SqlConnection();
@@ -73,9 +73,10 @@ namespace ClinicaFrba.BuscarAfiliado
 
         }
 
-        private bool validarEntradaUpdate()
+        private bool validarEntrada()
         {
             bool flag = true;
+            int n;
             if (!(checkBox1.Checked || checkBox2.Checked || checkBox3.Checked))
             {
                 MessageBox.Show("No se ha seleccionado opcion de busqueda", "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -83,19 +84,19 @@ namespace ClinicaFrba.BuscarAfiliado
             }
             else
             {
-                if (checkBox1.Checked && textBox1.Text.Length == 0)
+                if (checkBox1.Checked && (textBox1.Text.Length == 0 || !int.TryParse(textBox1.Text,out n)))
                 {
-                    MessageBox.Show("No se ha ingresado un numero de afiliado", "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("No se ha ingresado un numero de afiliado válido", "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     flag = false;
                 }
-                if (checkBox2.Checked && textBox2.Text.Length == 0)
+                if (checkBox2.Checked && (textBox2.Text.Length == 0 || !textBox2.Text.All( c => Char.IsLetter(c) )))
                 {
-                    MessageBox.Show("No se ha ingresado un numero de afiliado", "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("No se ha ingresado un nombre de afiliado válido", "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     flag = false;
                 }
-                if (checkBox3.Checked && textBox3.Text.Length == 0)
+                if (checkBox3.Checked && (textBox3.Text.Length == 0 || !textBox3.Text.All(c => Char.IsLetter(c)  ))) 
                 {
-                    MessageBox.Show("No se ha ingresado un numero de afiliado", "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("No se ha ingresado un apellido de afiliado válido", "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     flag = false;
                 }
             }
@@ -106,7 +107,7 @@ namespace ClinicaFrba.BuscarAfiliado
         {
             int index = e.RowIndex;
             DataGridViewRow linea = dataGridView1.Rows[index];
-            long id = (long)linea.Cells[0].Value;
+            long id = ((long)linea.Cells[0].Value) * 100 + (long)linea.Cells[1].Value;
             return id;
         }
 
@@ -141,10 +142,6 @@ namespace ClinicaFrba.BuscarAfiliado
             return query;
 
         }
-
-
-
-
 
     }
 }
