@@ -14,6 +14,9 @@ namespace ClinicaFrba.AbmRol
 {
     public partial class ABMRol : Form
     {
+
+        DataTable dt;
+
         public ABMRol()
         {
             InitializeComponent();
@@ -62,7 +65,13 @@ namespace ClinicaFrba.AbmRol
 
         private void button6_Click(object sender, EventArgs e) // Buscar todas las funcionalidades
         {
-
+            string query = "exec getAllFuncionalidades()";
+            SqlConnection conn = new SqlConnection();
+            SqlCommand cm = new SqlCommand(query, conn);
+            SqlDataAdapter sda = new SqlDataAdapter(cm);
+            DataTable dt = new DataTable();
+            sda.Fill(dt);
+            llenarCheckBox();
         }
 
         private void button7_Click(object sender, EventArgs e) // Limpiar seleccion
@@ -122,7 +131,14 @@ namespace ClinicaFrba.AbmRol
             return id_rol;
         }
 
-       
+        public void llenarCheckBox()
+        { 
+            int i;
+            for (i = 0; i < dt.Rows.Count; i++)
+            {
+                checkedListBox1.Items.Add(dt.Rows[i]["fun_nombre"]);
+            }
+        }
        
 
         

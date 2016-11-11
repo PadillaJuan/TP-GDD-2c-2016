@@ -62,3 +62,10 @@ AS
 BEGIN
 	SELECT * FROM rol
 END
+
+CREATE PROCEDURE getAllFuncionalidades
+
+AS
+BEGIN
+	SELECT * FROM funcionalidades
+END
