@@ -36,6 +36,33 @@ namespace ClinicaFrba.Abm_Afiliado
             }
         }
 
+        private void button1_Click(object sender, EventArgs e) // DAR DE ALTA
+        {
+            if (this.checkearDatos())
+                MessageBox.Show("Datos incorrectos", Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Error);
+            else
+            {
+                this.darAltaAfiliado();
+                MessageBox.Show("Si el afiliado tiene familiares para registrar, realizarlo en la opcion \"Agregar Familiar\". Gracias.", "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+
+        }
+
+        private void button2_Click(object sender, EventArgs e) //VOLVER
+        {
+            Hide();
+        }
+
+        private void button3_Click(object sender, EventArgs e) //Terminar Actualizacion
+        {
+
+        }
+
+        private void button4_Click(object sender, EventArgs e) // SALIR
+        {
+            Close();
+        }
+
         private void setComboBoxes()
         {
             comboBox1.DropDownStyle = ComboBoxStyle.DropDownList;
@@ -124,19 +151,7 @@ namespace ClinicaFrba.Abm_Afiliado
             comboBox3.Text = dr.GetString(13);
             comboBox4.Text = dr.GetString(14);
         }
-
-        private void button1_Click(object sender, EventArgs e) // DAR DE ALTA
-        {
-            if (this.checkearDatos())
-                MessageBox.Show("Datos incorrectos", Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Error);
-            else
-            {
-                this.darAltaAfiliado();
-                MessageBox.Show("Si el afiliado tiene familiares para registrar, realizarlo en la opcion \"Agregar Familiar\". Gracias.", "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            }
-            
-        }
-
+           
         public bool checkearDatos()
         {
             bool i = false;
@@ -164,31 +179,11 @@ namespace ClinicaFrba.Abm_Afiliado
             MessageBox.Show(String.Format("exec altaAfiliado({0}, {1}, {2}, {3}, {4}, {5}, {6}, {7}, {8}, {9}, {10}, {11})", 0, textBox2.Text, textBox3.Text, comboBox1.Text, textBox4.Text, textBox5.Text, textBox6.Text, textBox7.Text, dateTimePicker1.Value.Date, comboBox2.Text, comboBox3.Text, comboBox4.Text), "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
 
-        private void button2_Click(object sender, EventArgs e) //VOLVER
-        {
-            Hide();
-        }
-
-
-        private void button4_Click(object sender, EventArgs e) // SALIR
-        {
-            Close();
-        }
-
-
-
         private void ABM_afi_Load(object sender, EventArgs e)
         {
 
         }
 
-        private void button5_Click(object sender, EventArgs e)
-        {
-            MessageBox.Show(dateTimePicker1.ToString(), "mensaje", MessageBoxButtons.OK, MessageBoxIcon.Error);
-        }
     }
-        
-  
-
 }
 

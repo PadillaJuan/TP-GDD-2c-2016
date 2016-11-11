@@ -37,6 +37,7 @@
             this.label2 = new System.Windows.Forms.Label();
             this.button5 = new System.Windows.Forms.Button();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.label3 = new System.Windows.Forms.Label();
             this.button1 = new System.Windows.Forms.Button();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
@@ -45,7 +46,7 @@
             this.button6 = new System.Windows.Forms.Button();
             this.button7 = new System.Windows.Forms.Button();
             this.button9 = new System.Windows.Forms.Button();
-            this.label3 = new System.Windows.Forms.Label();
+            this.button10 = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
@@ -100,6 +101,7 @@
             this.button8.TabIndex = 4;
             this.button8.Text = "Buscar todos los roles";
             this.button8.UseVisualStyleBackColor = true;
+            this.button8.Click += new System.EventHandler(this.button8_Click);
             // 
             // textBox2
             // 
@@ -140,6 +142,14 @@
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Alta de Rol";
             // 
+            // label3
+            // 
+            this.label3.Location = new System.Drawing.Point(7, 40);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(116, 55);
+            this.label3.TabIndex = 3;
+            this.label3.Text = "Se toman las funcionalidades seleccionadas en el cuadro inferior";
+            // 
             // button1
             // 
             this.button1.Location = new System.Drawing.Point(140, 60);
@@ -148,6 +158,7 @@
             this.button1.TabIndex = 2;
             this.button1.Text = "Dar rol de alta";
             this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // textBox1
             // 
@@ -181,6 +192,7 @@
             this.button3.TabIndex = 87;
             this.button3.Text = "Dar de baja";
             this.button3.UseVisualStyleBackColor = true;
+            this.button3.Click += new System.EventHandler(this.button3_Click);
             // 
             // button6
             // 
@@ -190,6 +202,7 @@
             this.button6.TabIndex = 88;
             this.button6.Text = "Buscar todas las funcionalidades";
             this.button6.UseVisualStyleBackColor = true;
+            this.button6.Click += new System.EventHandler(this.button6_Click);
             // 
             // button7
             // 
@@ -199,6 +212,7 @@
             this.button7.TabIndex = 89;
             this.button7.Text = "Limpiar seleccion";
             this.button7.UseVisualStyleBackColor = true;
+            this.button7.Click += new System.EventHandler(this.button7_Click);
             // 
             // button9
             // 
@@ -208,20 +222,24 @@
             this.button9.TabIndex = 90;
             this.button9.Text = "Ver funcionalidades del Rol";
             this.button9.UseVisualStyleBackColor = true;
+            this.button9.Click += new System.EventHandler(this.button9_Click);
             // 
-            // label3
+            // button10
             // 
-            this.label3.Location = new System.Drawing.Point(7, 40);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(116, 55);
-            this.label3.TabIndex = 3;
-            this.label3.Text = "Se toman las funcionalidades seleccionadas en el cuadro inferior";
+            this.button10.Location = new System.Drawing.Point(111, 412);
+            this.button10.Name = "button10";
+            this.button10.Size = new System.Drawing.Size(75, 52);
+            this.button10.TabIndex = 91;
+            this.button10.Text = "Limpiar Tabla";
+            this.button10.UseVisualStyleBackColor = true;
+            this.button10.Click += new System.EventHandler(this.button10_Click);
             // 
             // ABMRol
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(592, 514);
+            this.Controls.Add(this.button10);
             this.Controls.Add(this.button9);
             this.Controls.Add(this.button7);
             this.Controls.Add(this.button6);
@@ -263,5 +281,6 @@
         private System.Windows.Forms.Button button8;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Button button9;
+        private System.Windows.Forms.Button button10;
     }
 }

@@ -52,3 +52,10 @@ BEGIN
 	JOIN funcionalidad_por_rol r
 	ON f.fun_id = r.fun_id
 	WHERE r.rol_id = @rol_id
+
+
+CREATE PROCEDURE getAllRoles
+
+AS
+BEGIN
+	SELECT * FROM rol
