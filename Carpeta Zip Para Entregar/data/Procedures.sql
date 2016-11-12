@@ -45,17 +45,6 @@ BEGIN
 	WHERE u.id_usuario = @us_id
 END
 
-CREATE PROCEDURE getFuncionalidadesPorRol
-	@rol_id INT
-AS
-BEGIN
-	SELECT fun_id, fun_nombre 
-	FROM funcionalidad f
-	JOIN funcionalidad_por_rol r
-	ON f.fun_id = r.fun_id
-	WHERE r.rol_id = @rol_id
-END
-
 CREATE PROCEDURE getAllRoles
 
 AS
@@ -69,3 +58,20 @@ AS
 BEGIN
 	SELECT * FROM funcionalidades
 END
+
+CREATE PROCEDURE getFuncionalidadDelRol
+	@id_rol INT
+AS
+BEGIN
+	SELECT fun_id FROM funcionalidad_por_rol
+	WHERE rol_id = @id_rol
+END
+	
+CREATE PROCEDURE InsertarRol
+	@nombre_rol VARCHAR(30)
+AS
+BEGIN
+	INSERT into rol(rol_nombre,rol_status)VALUES(@nombre_rol,'A')
+END
+
+

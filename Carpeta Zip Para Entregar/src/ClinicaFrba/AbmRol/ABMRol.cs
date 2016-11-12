@@ -24,17 +24,8 @@ namespace ClinicaFrba.AbmRol
 
         private void button1_Click(object sender, EventArgs e) // Dar rol de alta
         {
-            if (textBox2.Text.Length == 0)
-            { MessageBox.Show("No se ha ingresado ningun nombre para el nuevo rol", "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Error); }
-            else 
-            {
-                string valor = textBox2.Text;
-                string query = String.Format("exec nuevoRol({0})", valor);
-                SqlConnection bd = (new BDConnection()).getMiConnectionSQL();
-                SqlCommand cm = new SqlCommand(query,bd);
-                cm.ExecuteNonQuery();
-                insertarRoles(getRolInsertado(valor));
-            }
+                Funcionalidades form = new Funcionalidades(0,"");
+                form.Show();
         }
 
         private void button2_Click(object sender, EventArgs e) // VOLVER
@@ -42,8 +33,20 @@ namespace ClinicaFrba.AbmRol
             Hide();
         }
 
-        private void button3_Click(object sender, EventArgs e) // Dar de baja
+        private void button3_Click(object sender, DataGridViewCellEventArgs e) // Dar de baja
         {
+            int index = e.RowIndex;
+            DataGridViewRow linea = dataGridView1.Rows[index];
+            if ((int)linea.Cells[3].Value == 1)
+            {
+                int rol_id = getRolId(e);
+                string query = String.Format("UPDATE rol SET rol_status = 0 WHERE rol_id = {0}", rol_id);
+                SqlConnection conn = (new BDConnection()).getMiConnectionSQL();
+                SqlCommand com = new SqlCommand(query, conn);
+                com.ExecuteNonQuery();
+            }
+            else
+                MessageBox.Show("El rol ya se encuentra desactivado", Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Error);
 
         }
 
@@ -63,21 +66,7 @@ namespace ClinicaFrba.AbmRol
             }
         }
 
-        private void button6_Click(object sender, EventArgs e) // Buscar todas las funcionalidades
-        {
-            string query = "exec getAllFuncionalidades()";
-            SqlConnection conn = new SqlConnection();
-            SqlCommand cm = new SqlCommand(query, conn);
-            SqlDataAdapter sda = new SqlDataAdapter(cm);
-            DataTable dt = new DataTable();
-            sda.Fill(dt);
-            llenarCheckBox();
-        }
 
-        private void button7_Click(object sender, EventArgs e) // Limpiar seleccion
-        {
-
-        }
 
         private void button8_Click(object sender, EventArgs e) // Buscar todos los roles
         {
@@ -85,16 +74,17 @@ namespace ClinicaFrba.AbmRol
             fillDataTable(query);
         }
 
-        private void button9_Click(object sender, EventArgs e) // Ver funcionalidades del Rol
+        private void button9_Click(object sender, DataGridViewCellEventArgs e) // Ver funcionalidades del Rol
         {
-
+            string rol_nombre = getRolNombre(e);
+            Funcionalidades form = new Funcionalidades(1, rol_nombre);
+            form.Show();
         }
 
         private void button10_Click(object sender, EventArgs e) // Limpiar Tabla
         {
             dataGridView1.DataSource = null;
             dataGridView1.Rows.Clear();
-            checkedListBox1.ClearSelected();
         }
 
         private void fillDataTable(string query)
@@ -102,24 +92,10 @@ namespace ClinicaFrba.AbmRol
             SqlConnection conn = new SqlConnection();
             SqlCommand cm = new SqlCommand(query, conn);
             SqlDataAdapter sda = new SqlDataAdapter(cm);
-            DataTable dt = new DataTable();
+            dt = new DataTable();
             sda.Fill(dt);
             dataGridView1.DataSource = dt;
         }
-
-        private long getId(DataGridViewCellEventArgs e)
-        {
-            int index = e.RowIndex;
-            DataGridViewRow linea = dataGridView1.Rows[index];
-            long id = ((long)linea.Cells[0].Value) * 100 + (long)linea.Cells[1].Value;
-            return id;
-        }
-
-        public void insertarRoles(int id)
-        { 
-            
-        }
-
         public int getRolInsertado(string rol)
         {
             int id_rol = 0;
@@ -131,13 +107,42 @@ namespace ClinicaFrba.AbmRol
             return id_rol;
         }
 
-        public void llenarCheckBox()
-        { 
-            int i;
-            for (i = 0; i < dt.Rows.Count; i++)
+        private int getRolId(DataGridViewCellEventArgs e)
+        {
+            int index = e.RowIndex;
+            DataGridViewRow linea = dataGridView1.Rows[index];
+            int id = (int)linea.Cells[0].Value;
+            return id;
+        }
+
+        private string getRolNombre(DataGridViewCellEventArgs e)
+        {
+            int index = e.RowIndex;
+            DataGridViewRow linea = dataGridView1.Rows[index];
+            string nombre = (string)linea.Cells[1].Value;
+            return nombre;
+        }
+
+        private void button1_Click_1(object sender, EventArgs e)
+        {
+            Funcionalidades form = new Funcionalidades(0, "");
+            form.Show();
+        }
+
+        private void button6_Click_1(object sender, DataGridViewCellEventArgs e)
+        {
+            int index = e.RowIndex;
+            DataGridViewRow linea = dataGridView1.Rows[index];
+            if ((int)linea.Cells[3].Value == 0)
             {
-                checkedListBox1.Items.Add(dt.Rows[i]["fun_nombre"]);
+                int rol_id = getRolId(e);
+                string query = String.Format("UPDATE rol SET rol_status = 1 WHERE rol_id = {0}", rol_id);
+                SqlConnection conn = (new BDConnection()).getMiConnectionSQL();
+                SqlCommand com = new SqlCommand(query, conn);
+                com.ExecuteNonQuery();
             }
+            else
+                MessageBox.Show("El rol ya se encuentra activado", Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
        
 
