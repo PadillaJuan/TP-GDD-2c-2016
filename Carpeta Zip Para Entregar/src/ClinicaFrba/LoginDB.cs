@@ -61,23 +61,23 @@ namespace ClinicaFrba
         private static long foundUser(dataLogin lg, String pw)
         {
             long us_id = -1;
-            if (pw != lg.pw)
-            {
-                MessageBox.Show("La contraseña es incorrecta", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                wrongPw(lg.us_id);
-            }
-            else if (lg.us_login_fail >= 3)
+			if (lg.us_login_fail >= 3)
             {
                 MessageBox.Show("Se ha superado el numero de intentos de login", "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-            else if (lg.us_status.Equals("D") || lg.us_status.Equals("d"))
+			else if (pw == lg.pw)
             {
-                MessageBox.Show("El usuario esta desactivado", "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Error);
+				if (lg.us_status.Equals("D") || lg.us_status.Equals("d")){
+					MessageBox.Show("El usuario esta desactivado", "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Error);
+				} else {
+					MessageBox.Show("Bienvenido al sistema", "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Information);
+					us_id = lg.us_id;					
+				}
             }
             else
-            {
-                MessageBox.Show("Bienvenido al sistema", "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                us_id = lg.us_id;
+            {                
+                MessageBox.Show("La contraseña es incorrecta", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                wrongPw(lg.us_id);
             }
             return us_id;
         }
