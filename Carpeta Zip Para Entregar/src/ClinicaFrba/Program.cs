@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Configuration;
 using System.Threading.Tasks;
@@ -16,15 +17,31 @@ namespace ClinicaFrba
         [STAThread]
         static void Main()
         {
-            Application.EnableVisualStyles();
-            Application.SetCompatibleTextRenderingDefault(false);
+            testConexionBD();
+            //Application.EnableVisualStyles();
+            //Application.SetCompatibleTextRenderingDefault(false);
             // Application.Run(new Pedir_Turno.ElegirTurno("3", "Conchudo"));
-            Application.Run(new Abm_Afiliado.ABM_afi(0,0));
+            //Application.Run(new Abm_Afiliado.ABM_afi(0, 0));
         }
 
-        public static String ip()
+        public static void testConexionBD()
         {
-            return ConfigurationManager.AppSettings["ip"];
+            string query = "SELECT TOP 1 us_username FROM usuarios";
+            SqlConnection conn = (new BDConnection()).getConnection();
+            SqlCommand cmd = new SqlCommand(query, conn);
+            conn.Open();
+            SqlDataReader rdr = cmd.ExecuteReader();
+            if (rdr.Read())
+            {
+                string fieldValue = rdr.GetString(0);
+                Console.WriteLine(fieldValue);
+            }
+            conn.Close();
+        }
+
+        public static String server()
+        {
+            return ConfigurationManager.AppSettings["server"];
         }
 
         public static String puerto()
@@ -36,6 +53,21 @@ namespace ClinicaFrba
         public static String nuevaFechaSistema()
         {
             return ConfigurationManager.AppSettings["FechaGlobal"];
+        }
+
+        public static String password()
+        {
+            return ConfigurationManager.AppSettings["password"];
+        }
+
+        public static String database()
+        {
+            return ConfigurationManager.AppSettings["database"];
+        }
+
+        public static String user()
+        {
+            return ConfigurationManager.AppSettings["user"];
         }
 
         /* public void ConnectToSql()

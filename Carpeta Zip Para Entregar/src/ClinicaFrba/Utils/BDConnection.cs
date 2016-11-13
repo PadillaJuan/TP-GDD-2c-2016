@@ -14,6 +14,25 @@ namespace ClinicaFrba
         private SqlConnection conection;
         private String conectionString;
 
+        public SqlConnection getInstance()
+        {
+            return conection;
+        }
+
+        public SqlConnection getConnection()
+        {
+            String server = Program.server();
+            String database = Program.database();
+            String user = Program.user();
+            String password = Program.password();
+            SqlConnection con = new SqlConnection();
+            con.ConnectionString = "SERVER=" + server + "\\SQLSERVER2012;DATABASE=" + database + ";UID=" + user + ";PASSWORD=" + password + ";";
+            return con;
+        }
+
+
+        //
+
         public SqlConnection getMiConnectionSQL()
         {
             return conection;
@@ -26,17 +45,7 @@ namespace ClinicaFrba
 
         public BDConnection()
         {
-            conection = new SqlConnection();
-
-            /*se usa para las conexiones tcp/ip*/
-            //string gd20 = "Data source=" + Program.ip() + "," + Program.puerto() + "; Network Library=DBMSSOCN; Initial Catalog=GD1C2016;User Id=gd; Password=gd2016";
-
-            /*se usa para las conexiones locales*/
-            string gd20 = "Data source=.\\SQLSERVER2012; Initial Catalog=GD2C2016;User Id=gd; Password=gd2016";
-
-            
-            conectionString = gd20;
-            conection.ConnectionString = conectionString;
+            conection = this.getConnection();
         }
 
         public BDConnection(String _connectionString)
@@ -44,20 +53,6 @@ namespace ClinicaFrba
             conection = new SqlConnection();
             conectionString = _connectionString;
             conection.ConnectionString = conectionString;
-        }
-
-        public SqlConnection getConnection()
-        {
-            SqlConnection conection = new SqlConnection("Data source= gd; Initial catalog= GD2C2016; User=gd; Password= gd2016");
-            try
-            {
-                conection.Open();
-            }
-            catch (SqlException e)
-            {
-                MessageBox.Show("No se pudo conectar a la base de datos", "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-            return conection;
         }
 
         public Boolean getDisconnection()
