@@ -74,7 +74,7 @@ namespace ClinicaFrba.Abm_Afiliado
 
         public void cargarComboBoxPlanMedico()
         {
-            SqlConnection conn = (new BDConnection()).getMiConnectionSQL();
+            SqlConnection conn = (new BDConnection()).getConnection();
             string query = String.Format("exec getPlanesMedicos()");
             SqlCommand com = new SqlCommand(query, conn);
             try
@@ -122,7 +122,7 @@ namespace ClinicaFrba.Abm_Afiliado
             String afi_id = String.Format("{0}", id / 100);
             String afi_id_rel = String.Format("{0}", id % 100);
             String query = String.Format("Select * from afiliados WHERE af_id = {0} AND af_rel_id = {1}", afi_id, afi_id_rel);
-            SqlConnection Conn = (new BDConnection()).getConnection();
+            SqlConnection conn = (new BDConnection()).getConnection();
             SqlCommand consulta = new SqlCommand(query, Conn);
             dataLogin lg = new dataLogin();
             try
@@ -168,9 +168,9 @@ namespace ClinicaFrba.Abm_Afiliado
         }
 
         public void darAltaAfiliado()
-        {       
-            /*string query = String.Format("exec altaAfiliado({0}, {1}, {2}, {3}, {4}, {5}, {6}, {7}, {8}, {9}, {10}, {11})", 0, textBox2.Text, textBox3.Text, comboBox1.Text, textBox4.Text, textBox5.Text, textBox6.Text, textBox7.Text, dateTimePicker1.Value.Date, comboBox2.Text,comboBox3.Text, comboBox4.Text);
-            SqlConnection conn = (new BDConnection()).getMiConnectionSQL();
+        {
+            /*string query = String.Format("exec altaFamiliar({0}, {1}, {2}, {3}, {4}, {5}, {6}, {7}, {8}, {9}, {10}, {11})", 0, textBox2.Text, textBox3.Text, comboBox1.Text, textBox4.Text, textBox5.Text, textBox6.Text, textBox7.Text, dateTimePicker1.Value.Date, comboBox2.Text,comboBox3.Text, comboBox4.Text);
+            SqlConnection conn = (new BDConnection()).getConnection();
             SqlCommand com = new SqlCommand(query, conn);
             com.ExecuteNonQuery();
             conn.Close();

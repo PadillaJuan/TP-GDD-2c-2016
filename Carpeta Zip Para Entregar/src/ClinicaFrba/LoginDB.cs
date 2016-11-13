@@ -26,8 +26,8 @@ namespace ClinicaFrba
             long retorno = -1;
             String encriptedPW = GenerateSHA256String(text);
             String query = String.Format("SELECT * FROM usuarios WHERE us_username like {0}", username);
-            SqlConnection Conn = (new BDConnection()).getConnection();
-            SqlCommand consulta = new SqlCommand(query, Conn);
+            SqlConnection conn = (new BDConnection()).getConnection();
+            SqlCommand consulta = new SqlCommand(query, conn);
             dataLogin lg = new dataLogin();
             try
             {
@@ -45,7 +45,7 @@ namespace ClinicaFrba
             {
                 MessageBox.Show(ex.Message, Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-            Conn.Close();
+            conn.Close();
             return retorno;
         }
 

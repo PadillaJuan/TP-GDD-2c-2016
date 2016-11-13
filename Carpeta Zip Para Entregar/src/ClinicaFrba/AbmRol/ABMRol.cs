@@ -41,7 +41,7 @@ namespace ClinicaFrba.AbmRol
             {
                 int rol_id = getRolId(e);
                 string query = String.Format("UPDATE rol SET rol_status = 0 WHERE rol_id = {0}", rol_id);
-                SqlConnection conn = (new BDConnection()).getMiConnectionSQL();
+                SqlConnection conn = (new BDConnection()).getConnection();
                 SqlCommand com = new SqlCommand(query, conn);
                 com.ExecuteNonQuery();
             }
@@ -89,7 +89,7 @@ namespace ClinicaFrba.AbmRol
 
         private void fillDataTable(string query)
         {
-            SqlConnection conn = new SqlConnection();
+            SqlConnection conn = (new BDConnection()).getConnection();
             SqlCommand cm = new SqlCommand(query, conn);
             SqlDataAdapter sda = new SqlDataAdapter(cm);
             dt = new DataTable();
@@ -100,8 +100,8 @@ namespace ClinicaFrba.AbmRol
         {
             int id_rol = 0;
             string query = String.Format("SELECT id_rol FROM rol WHERE rol_nombre = {0}", rol);
-            SqlConnection bd = (new BDConnection()).getMiConnectionSQL();
-            SqlCommand cm = new SqlCommand(query, bd);
+            SqlConnection conn = (new BDConnection()).getConnection();
+            SqlCommand cm = new SqlCommand(query, conn);
             SqlDataReader dr = cm.ExecuteReader();
             id_rol = dr.GetInt32(0);
             return id_rol;
@@ -137,7 +137,7 @@ namespace ClinicaFrba.AbmRol
             {
                 int rol_id = getRolId(e);
                 string query = String.Format("UPDATE rol SET rol_status = 1 WHERE rol_id = {0}", rol_id);
-                SqlConnection conn = (new BDConnection()).getMiConnectionSQL();
+                SqlConnection conn = (new BDConnection()).getConnection();
                 SqlCommand com = new SqlCommand(query, conn);
                 com.ExecuteNonQuery();
             }

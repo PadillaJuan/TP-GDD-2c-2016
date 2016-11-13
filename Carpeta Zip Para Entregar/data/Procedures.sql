@@ -28,6 +28,8 @@ BEGIN
 	VALUES (@af_rel_id, @us_id, @af_nombre , @af_apellido , @af_tipodoc, @af_numdoc, @af_direccion , @af_telefono , @af_mail , @af_nacimiento , @af_estado_civil, 0, @planmed_id , @af_sexo)
 END
 
+CREATE PROCEDURE altaFamiliar
+
 CREATE PROCEDURE getPlanesMedicos
 AS
 BEGIN
@@ -74,4 +76,12 @@ BEGIN
 	INSERT into rol(rol_nombre,rol_status)VALUES(@nombre_rol,'A')
 END
 
+
+CREATEPROCEDURE InsertarRolXFuncionalidad
+	@id_rol INT,
+	@fun_id INT
+AS
+BEGIN
+	INSERT into funcionalidad_por_rol VALUES( @id_rol, @fun_id)
+END
 

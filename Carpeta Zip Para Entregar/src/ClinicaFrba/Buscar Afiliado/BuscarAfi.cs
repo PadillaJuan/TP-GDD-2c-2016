@@ -34,15 +34,32 @@ namespace ClinicaFrba.BuscarAfiliado
             long id = getId(e);
             if (id == 0)
             {
-                MessageBox.Show("No se ha seleccionado", "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("No se ha seleccionado un afiliado", "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             else
             {
-                SqlConnection Conn = (new BDConnection()).getConnection();
+                SqlConnection conn = (new BDConnection()).getConnection();
                 String query = String.Format("exec bajaAfiliado({0})", id);
-                SqlCommand com = new SqlCommand(query, Conn);
+                SqlCommand com = new SqlCommand(query, conn);
                 com.ExecuteNonQuery();
-                Conn.Close();
+                conn.Close();
+            }
+        }
+
+        private void button3_Click(object sender, DataGridViewCellEventArgs e) // COMPRAR BONO
+        {
+            long id = getIdSinRel(e);
+            if (id == 0)
+            {
+                MessageBox.Show("No se ha seleccionado un afiliado", "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            else
+            {
+                if (checkAfiliado(e)){
+                    Compra_Bono.Compra_Bono form = new Compra_Bono.Compra_Bono(id);
+                    Hide();
+                    form.Show();
+                }
             }
         }
 
@@ -61,7 +78,7 @@ namespace ClinicaFrba.BuscarAfiliado
             if (validarEntrada())
             {
                 String query = generateSearchQuery();
-                SqlConnection conn = new SqlConnection();
+                SqlConnection conn = (new BDConnection()).getConnection();
                 SqlCommand cm = new SqlCommand(query, conn);
                 SqlDataAdapter sda = new SqlDataAdapter(cm);
                 DataTable dt = new DataTable();
@@ -109,6 +126,14 @@ namespace ClinicaFrba.BuscarAfiliado
             return id;
         }
 
+        private long getIdSinRel(DataGridViewCellEventArgs e)
+        {
+            int index = e.RowIndex;
+            DataGridViewRow linea = dataGridView1.Rows[index];
+            long id = ((long)linea.Cells[0].Value);
+            return id;
+        }
+
         private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
 
@@ -139,6 +164,14 @@ namespace ClinicaFrba.BuscarAfiliado
             }
             return query;
 
+        }
+
+        public bool checkAfiliado(DataGridViewCellEventArgs e) 
+        {
+            int index = e.RowIndex;
+            DataGridViewRow linea = dataGridView1.Rows[index];
+            long id = ((long)linea.Cells[0].Value);
+            return id;
         }
 
     }

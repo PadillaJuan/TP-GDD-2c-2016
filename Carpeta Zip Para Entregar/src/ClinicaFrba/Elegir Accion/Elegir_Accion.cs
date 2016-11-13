@@ -22,7 +22,7 @@ namespace ClinicaFrba.Elegir_Accion
 
         public void llenarComboBox(int rol_id)
         {
-            SqlConnection conn = (new BDConnection()).getMiConnectionSQL();
+            SqlConnection conn = (new BDConnection()).getConnection();
             string query = String.Format("exec getFuncionalidadesPorRol({0})", rol_id);
             SqlCommand com = new SqlCommand(query, conn);
             try
@@ -57,9 +57,6 @@ namespace ClinicaFrba.Elegir_Accion
                     // ABM AFILIADO
                     BuscarAfiliado.BuscarAfi f2 = new BuscarAfiliado.BuscarAfi();
                     f2.Show();
-                    break;
-                case "ABM de Profesional":
-                    // ABM PROFESIONAL
                     break;
                 case "Registrar Agenda Profesional":
                     // REGISTRAR AGENDA PROFESIONAL

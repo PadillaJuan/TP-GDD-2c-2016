@@ -60,6 +60,12 @@
     <Compile Include="AbmRol\ABMRol.Designer.cs">
       <DependentUpon>ABMRol.cs</DependentUpon>
     </Compile>
+    <Compile Include="AbmRol\Funcionalidades.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AbmRol\Funcionalidades.Designer.cs">
+      <DependentUpon>Funcionalidades.cs</DependentUpon>
+    </Compile>
     <Compile Include="Buscar Afiliado\BuscarAfi.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -72,6 +78,12 @@
     <Compile Include="Cancelar Atencion\TurnCancel.Designer.cs">
       <DependentUpon>TurnCancel.cs</DependentUpon>
     </Compile>
+    <Compile Include="Compra Bono\Confirmacion_Compra.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Compra Bono\Confirmacion_Compra.Designer.cs">
+      <DependentUpon>Confirmacion_Compra.cs</DependentUpon>
+    </Compile>
     <Compile Include="Pedir Turno\ElegirTurno.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -80,11 +92,11 @@
     </Compile>
     <Compile Include="Utils\BDConnection.cs" />
     <Compile Include="Dominio\Especialidades.cs" />
-    <Compile Include="Compra Bono\Form1.cs">
+    <Compile Include="Compra Bono\Compra_Bono.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Compra Bono\Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <Compile Include="Compra Bono\Compra_Bono.Designer.cs">
+      <DependentUpon>Compra_Bono.cs</DependentUpon>
     </Compile>
     <Compile Include="Elegir Accion\Elegir_Accion.cs">
       <SubType>Form</SubType>
@@ -155,8 +167,17 @@
     <EmbeddedResource Include="AbmRol\ABMRol.resx">
       <DependentUpon>ABMRol.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="AbmRol\Funcionalidades.resx">
+      <DependentUpon>Funcionalidades.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Buscar Afiliado\BuscarAfi.resx">
       <DependentUpon>BuscarAfi.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Compra Bono\Compra_Bono.resx">
+      <DependentUpon>Compra_Bono.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Compra Bono\Confirmacion_Compra.resx">
+      <DependentUpon>Confirmacion_Compra.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Elegir Accion\Elegir_Accion.resx">
       <DependentUpon>Elegir_Accion.cs</DependentUpon>
