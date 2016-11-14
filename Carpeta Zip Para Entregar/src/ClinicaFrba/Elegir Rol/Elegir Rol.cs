@@ -37,10 +37,11 @@ namespace ClinicaFrba.Elegir_Rol
                     rol = dr.GetString(1);
                     rolSelection.Items.Add(dr.GetString(1));
                 }
-                dr.Close();
+                dr.Dispose();
                 SqlDataAdapter sda = new SqlDataAdapter(com);
                 tabla = new DataTable();
                 sda.Fill(tabla);
+                sda.Dispose();
             }
             catch (Exception ex)
             {
@@ -64,19 +65,15 @@ namespace ClinicaFrba.Elegir_Rol
         private void button1_Click(object sender, EventArgs e)
         {
 
-            int i = 0, j = 0;
+          
+            int i = rolSelection.SelectedIndex;
             String texto = rolSelection.Text;
-            for (j = 0; j < rolSelection.Items.Count; j++)
+            if (i != -1)
             {
-                if ((string)tabla.Rows[j]["rol_nombre"] == texto)
-                {
-                   i = (int)tabla.Rows[j]["rol_id"];
-                }
-            }
-            if (i > 0)
-            {
+                i = (int ) tabla.Rows[0][i];
+                MessageBox.Show(String.Format("{0}", i));
                 Elegir_Accion.Elegir_Accion form = new Elegir_Accion.Elegir_Accion(i);
-                Hide();
+                Close();
                 form.Show();
             }
             else 

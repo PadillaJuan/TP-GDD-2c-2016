@@ -23,15 +23,18 @@ namespace ClinicaFrba.Elegir_Accion
         public void llenarComboBox(int rol_id)
         {
             SqlConnection conn = (new BDConnection()).getConnection();
-            string query = String.Format("exec getFuncionalidadesPorRol({0})", rol_id);
+            string query = "getFuncionalidadDelRol";
             SqlCommand com = new SqlCommand(query, conn);
+            com.CommandType = CommandType.StoredProcedure;
+            com.Parameters.Add(new SqlParameter("@id_rol",rol_id));
             try
             {
                 SqlDataReader dr = com.ExecuteReader();
                 while (dr.Read())
                 {
-                    comboBox1.Items.Add(dr["rol_nombre"]);
+                    comboBox1.Items.Add(dr.GetString(1));
                 }
+                dr.Close();
             }
             catch (Exception ex)
             {
@@ -43,6 +46,7 @@ namespace ClinicaFrba.Elegir_Accion
         private void button2_Click(object sender, EventArgs e)
         {
             Close();
+            Application.Exit();
         }
 
         private void button1_Click(object sender, EventArgs e)
