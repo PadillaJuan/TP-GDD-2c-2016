@@ -14,18 +14,20 @@ namespace ClinicaFrba.Elegir_Rol
     public partial class Elegir_Rol : Form
     {
         DataTable tabla;
-        public Elegir_Rol(long us_id)
+        public Elegir_Rol(int us_id)
         {
             InitializeComponent();
             rolSelection.DropDownStyle = ComboBoxStyle.DropDownList;
             llenarComboBox(us_id);
         }
 
-        public void llenarComboBox(long us_id) 
+        public void llenarComboBox(int us_id) 
         {
             SqlConnection conn = (new BDConnection()).getConnection();
-            string query = String.Format("exec getRolesPorUsuario({0})",us_id);
+            string query = String.Format("getRolesPorUsuario",us_id);
             SqlCommand com = new SqlCommand(query, conn);
+            com.CommandType = CommandType.StoredProcedure;
+            com.Parameters.Add(new SqlParameter("@us_id", us_id));
             try
             {
                 SqlDataReader dr = com.ExecuteReader();

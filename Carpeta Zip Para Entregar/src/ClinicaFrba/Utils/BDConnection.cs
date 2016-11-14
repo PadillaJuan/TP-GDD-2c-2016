@@ -27,6 +27,7 @@ namespace ClinicaFrba
             String password = Program.password();
             SqlConnection con = new SqlConnection();
             con.ConnectionString = "SERVER=" + server + "\\SQLSERVER2012;DATABASE=" + database + ";UID=" + user + ";PASSWORD=" + password + ";";
+            con.Open();
             return con;
         }
 

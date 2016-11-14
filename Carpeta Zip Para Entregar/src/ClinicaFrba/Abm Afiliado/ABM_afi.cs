@@ -122,9 +122,8 @@ namespace ClinicaFrba.Abm_Afiliado
             String afi_id = String.Format("{0}", id / 100);
             String afi_id_rel = String.Format("{0}", id % 100);
             String query = String.Format("Select * from afiliados WHERE af_id = {0} AND af_rel_id = {1}", afi_id, afi_id_rel);
-            SqlConnection conn = (new BDConnection()).getConnection();
+            SqlConnection Conn = (new BDConnection()).getConnection();
             SqlCommand consulta = new SqlCommand(query, Conn);
-            dataLogin lg = new dataLogin();
             try
             {
                 SqlDataReader execute = consulta.ExecuteReader();

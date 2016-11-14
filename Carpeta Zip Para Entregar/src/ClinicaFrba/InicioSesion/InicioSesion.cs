@@ -26,7 +26,7 @@ namespace ClinicaFrba.InicioSesion
         
         private void button1_Click(object sender, EventArgs e)
         {
-            long us_id = 0;
+            int us_id = 0;
             String usuario = textBox1.Text;
             String contrasenia = textBox2.Text;
             us_id = LoginDB.login(usuario, contrasenia);
@@ -42,6 +42,7 @@ namespace ClinicaFrba.InicioSesion
         private void button2_Click(object sender, EventArgs e)
         {
             Close();
+            Application.Exit();
         }
 
         private void textBox2_TextChanged(object sender, EventArgs e)

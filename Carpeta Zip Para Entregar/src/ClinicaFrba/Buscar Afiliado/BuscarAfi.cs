@@ -22,16 +22,16 @@ namespace ClinicaFrba.BuscarAfiliado
             dataGridView1.ReadOnly = true;
         }
 
-        private void button1_Click(object sender, DataGridViewCellEventArgs e) // AGREGAR FAMILIAR
+        private void button1_Click(object sender, EventArgs e) // AGREGAR FAMILIAR
         {
-            long id = getId(e);
+            long id = getId();
             Abm_Afiliado.ABM_afi form = new Abm_Afiliado.ABM_afi(2, id);
         }
 
-        private void button2_Click(object sender, DataGridViewCellEventArgs e) // DAR DE BAJA
+        private void button2_Click(object sender, EventArgs e) // DAR DE BAJA
         {
 
-            long id = getId(e);
+            long id = getId();
             if (id == 0)
             {
                 MessageBox.Show("No se ha seleccionado un afiliado", "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -46,20 +46,18 @@ namespace ClinicaFrba.BuscarAfiliado
             }
         }
 
-        private void button3_Click(object sender, DataGridViewCellEventArgs e) // COMPRAR BONO
+        private void button3_Click(object sender, EventArgs e) // COMPRAR BONO
         {
-            long id = getIdSinRel(e);
+            long id = getIdSinRel();
             if (id == 0)
             {
                 MessageBox.Show("No se ha seleccionado un afiliado", "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             else
             {
-                if (checkAfiliado(e)){
                     Compra_Bono.Compra_Bono form = new Compra_Bono.Compra_Bono(id);
                     Hide();
                     form.Show();
-                }
             }
         }
 
@@ -118,17 +116,17 @@ namespace ClinicaFrba.BuscarAfiliado
             return flag;
         }
 
-        private long getId(DataGridViewCellEventArgs e)
+        private long getId()
         {
-            int index = e.RowIndex;
+            int index = dataGridView1.CurrentCell.RowIndex;
             DataGridViewRow linea = dataGridView1.Rows[index];
             long id = ((long)linea.Cells[0].Value) * 100 + (long)linea.Cells[1].Value;
             return id;
         }
 
-        private long getIdSinRel(DataGridViewCellEventArgs e)
+        private long getIdSinRel()
         {
-            int index = e.RowIndex;
+            int index = dataGridView1.CurrentCell.RowIndex;
             DataGridViewRow linea = dataGridView1.Rows[index];
             long id = ((long)linea.Cells[0].Value);
             return id;
@@ -164,14 +162,6 @@ namespace ClinicaFrba.BuscarAfiliado
             }
             return query;
 
-        }
-
-        public bool checkAfiliado(DataGridViewCellEventArgs e) 
-        {
-            int index = e.RowIndex;
-            DataGridViewRow linea = dataGridView1.Rows[index];
-            long id = ((long)linea.Cells[0].Value);
-            return id;
         }
 
     }

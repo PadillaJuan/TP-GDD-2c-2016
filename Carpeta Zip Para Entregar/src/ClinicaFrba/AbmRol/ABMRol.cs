@@ -33,13 +33,13 @@ namespace ClinicaFrba.AbmRol
             Hide();
         }
 
-        private void button3_Click(object sender, DataGridViewCellEventArgs e) // Dar de baja
+        private void button3_Click(object sender, EventArgs e) // Dar de baja
         {
-            int index = e.RowIndex;
+            int index = dataGridView1.CurrentCell.RowIndex;
             DataGridViewRow linea = dataGridView1.Rows[index];
             if ((int)linea.Cells[3].Value == 1)
             {
-                int rol_id = getRolId(e);
+                int rol_id = getRolId();
                 string query = String.Format("UPDATE rol SET rol_status = 0 WHERE rol_id = {0}", rol_id);
                 SqlConnection conn = (new BDConnection()).getConnection();
                 SqlCommand com = new SqlCommand(query, conn);
@@ -74,9 +74,9 @@ namespace ClinicaFrba.AbmRol
             fillDataTable(query);
         }
 
-        private void button9_Click(object sender, DataGridViewCellEventArgs e) // Ver funcionalidades del Rol
+        private void button9_Click(object sender, EventArgs e) // Ver funcionalidades del Rol
         {
-            string rol_nombre = getRolNombre(e);
+            string rol_nombre = getRolNombre();
             Funcionalidades form = new Funcionalidades(1, rol_nombre);
             form.Show();
         }
@@ -107,17 +107,17 @@ namespace ClinicaFrba.AbmRol
             return id_rol;
         }
 
-        private int getRolId(DataGridViewCellEventArgs e)
+        private int getRolId()
         {
-            int index = e.RowIndex;
+            int index = dataGridView1.CurrentCell.RowIndex;
             DataGridViewRow linea = dataGridView1.Rows[index];
             int id = (int)linea.Cells[0].Value;
             return id;
         }
 
-        private string getRolNombre(DataGridViewCellEventArgs e)
+        private string getRolNombre()
         {
-            int index = e.RowIndex;
+            int index = dataGridView1.CurrentCell.RowIndex;
             DataGridViewRow linea = dataGridView1.Rows[index];
             string nombre = (string)linea.Cells[1].Value;
             return nombre;
@@ -129,13 +129,13 @@ namespace ClinicaFrba.AbmRol
             form.Show();
         }
 
-        private void button6_Click_1(object sender, DataGridViewCellEventArgs e)
+        private void button6_Click_1(object sender, EventArgs e)
         {
-            int index = e.RowIndex;
+            int index = dataGridView1.CurrentCell.RowIndex;
             DataGridViewRow linea = dataGridView1.Rows[index];
             if ((int)linea.Cells[3].Value == 0)
             {
-                int rol_id = getRolId(e);
+                int rol_id = getRolId();
                 string query = String.Format("UPDATE rol SET rol_status = 1 WHERE rol_id = {0}", rol_id);
                 SqlConnection conn = (new BDConnection()).getConnection();
                 SqlCommand com = new SqlCommand(query, conn);
