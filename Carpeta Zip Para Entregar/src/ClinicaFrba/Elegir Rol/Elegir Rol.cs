@@ -70,7 +70,7 @@ namespace ClinicaFrba.Elegir_Rol
             {
                 if ((string)tabla.Rows[j]["rol_nombre"] == texto)
                 {
-                   i = (int)tabla.Rows[j]["rol__id"];
+                   i = (int)tabla.Rows[j]["rol_id"];
                 }
             }
             if (i > 0)
