@@ -15,19 +15,21 @@ namespace ClinicaFrba.AbmRol
     public partial class Funcionalidades : Form
     {
         DataTable dt;
+        int id_rol;
         int Funcion;
-        public Funcionalidades(int accion,string nombreRol)
+        public Funcionalidades(int accion,int rol_id, string nombreRol)
         {
             InitializeComponent();
-            llenarCheckBox();
+            setCheckBox();
             Funcion = accion;
+            id_rol = rol_id;
             switch (accion)
             {
                 case 0:
                     nuevoRol();
                     break;
                 case 1:
-                    oldRol(nombreRol);
+                    oldRol(rol_id, nombreRol);
                     break;
             }
         }
@@ -44,9 +46,10 @@ namespace ClinicaFrba.AbmRol
 
         public void setCheckBox()
         {
-            string query = "exec getAllFuncionalidades()";
-            SqlConnection conn = new SqlConnection();
+            string query = "getAllFuncionalidades";
+            SqlConnection conn = new BDConnection().getConnection();
             SqlCommand cm = new SqlCommand(query, conn);
+            cm.CommandType = CommandType.StoredProcedure;
             SqlDataAdapter sda = new SqlDataAdapter(cm);
             dt = new DataTable();
             sda.Fill(dt);
@@ -67,14 +70,13 @@ namespace ClinicaFrba.AbmRol
             button3.Enabled = false;
         }
 
-        public void oldRol(string nombreRol)
+        public void oldRol(int rol_id, string nombreRol)
         {
             deactivateModifications();
             checkedListBox1.Enabled = false;
-            checkFuncionalidadesDelRol(nombreRol);
+            checkFuncionalidadesDelRol(rol_id);
             textBox1.Text = nombreRol;
             
-
         }
 
         private void deactivateModifications()
@@ -85,22 +87,31 @@ namespace ClinicaFrba.AbmRol
             textBox1.Enabled = false;
         }
 
-        public void checkFuncionalidadesDelRol(string nombreRol)
+        public void checkFuncionalidadesDelRol(int rol_id)
         {
-            string query = String.Format("exec getFuncionalidadDelRol({0})",nombreRol);
-            SqlConnection conn = new SqlConnection();
+            string query = "getFuncionalidadDelRol";
+            SqlConnection conn = (new BDConnection()).getConnection();
             int i;
             SqlCommand cm = new SqlCommand(query, conn);
+            cm.CommandType = CommandType.StoredProcedure;
+            cm.Parameters.Add(new SqlParameter("@id_rol", rol_id));
             SqlDataReader sda = cm.ExecuteReader();
-            while (sda.Read()) 
+            try
             {
-                for (i = 0; i < checkedListBox1.Items.Count; i++) 
+                while (sda.Read())
                 {
-                    if (sda["fun_id"] == dt.Rows[i]["fun_id"]) 
+                    for (i = 0; i < checkedListBox1.Items.Count; i++)
                     {
-                        checkedListBox1.SetItemChecked(i, true);
+                        if ((int)sda["fun_id"] == (int)dt.Rows[i]["fun_id"])
+                        {
+                            checkedListBox1.SetItemChecked(i, true);
+                        }
                     }
                 }
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.Message, "Clinica FRBA");
             }
         }
 
@@ -138,44 +149,46 @@ namespace ClinicaFrba.AbmRol
 
         public void insertarRol() 
         {
-            string query = String.Format("exec InsertarRol({0})", textBox1.Text);
+            string query = String.Format("InsertarRol", textBox1.Text);
             SqlConnection conn = (new BDConnection()).getMiConnectionSQL();
             SqlCommand com = new SqlCommand(query, conn);
+            com.CommandType = CommandType.StoredProcedure;
+            com.Parameters.Add("@nombre_rol", textBox1.Text);
             com.ExecuteNonQuery();
         }
 
         public void InsertarFuncionalidades() 
         {
-            int id_rol = getId_Rol();
             int i = 0;
+            deleteFun();
             for (i = 0; i < checkedListBox1.Items.Count; i++)
             {
                 if (checkedListBox1.GetItemChecked(i) )
                 {
                     insertFuncionalidad(id_rol,i);
                 }
-            }
-            
-            
+            }       
         }
 
-        public int getId_Rol()
+        public void deleteFun()
         {
-            string query = String.Format("SELECT rol_id FROM rol WHERE rol_nombre = {0}",textBox1.Text);
+            string query = "UpdateRXF";
             SqlConnection conn = (new BDConnection()).getMiConnectionSQL();
             SqlCommand com = new SqlCommand(query, conn);
-            SqlDataReader sdr = com.ExecuteReader();
-            sdr.Read();
-            return (int) sdr["rol_id"];
+            com.CommandType = CommandType.StoredProcedure;
+            com.Parameters.Add("id_rol", id_rol);
+            com.ExecuteNonQuery();
         }
 
         public void insertFuncionalidad(int id_rol, int i)
         {
             int fun_id = (int)dt.Rows[i]["fun_id"];
-
-            string query = String.Format("exec InsertarRolXFuncionalidad({0},{1})", id_rol,fun_id);
+            string query = "InsertarRolXFuncionalidad";
             SqlConnection conn = (new BDConnection()).getMiConnectionSQL();
             SqlCommand com = new SqlCommand(query, conn);
+            com.CommandType = CommandType.StoredProcedure;
+            com.Parameters.Add("id_rol",id_rol);
+            com.Parameters.Add("fun_id",fun_id);
             com.ExecuteNonQuery();
         }
 

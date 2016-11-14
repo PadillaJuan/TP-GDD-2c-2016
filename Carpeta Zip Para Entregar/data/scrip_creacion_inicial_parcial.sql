@@ -713,7 +713,7 @@ CREATE PROCEDURE InsertarRol
 	@nombre_rol VARCHAR(30)
 AS
 BEGIN
-	INSERT into rol(rol_nombre,rol_status)VALUES(@nombre_rol,'A')
+	INSERT into rol(rol_nombre,rol_status)VALUES(@nombre_rol,'a')
 END
 GO
 
@@ -808,6 +808,13 @@ BEGIN
 	WHERE rol_id = @rol_id
 END
 
+CREATE PROCEDURE updateRXF
+	@id_rol INT
+AS
+BEGIN
+	DELETE FROM funcionalidad_por_rol WHERE rol_id = @id_rol
+END
+
 /* DROP PROCEDURES
 DROP PROCEDURE bajaAfiliado
 DROP PROCEDURE altaAfiliado
@@ -823,6 +830,7 @@ DROP PROCEDURE login
 DROP PROCEDURE getRol
 DROP PROCEDURE deactivateRol
 DROP PROCEDURE activateRol
+DROP PROCEDURE updateRXF
 */
 /*
 ////////////////////		INFORMACION INICIAL

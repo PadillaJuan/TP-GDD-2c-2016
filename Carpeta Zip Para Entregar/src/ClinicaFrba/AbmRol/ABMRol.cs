@@ -24,7 +24,7 @@ namespace ClinicaFrba.AbmRol
 
         private void button1_Click(object sender, EventArgs e) // Dar rol de alta
         {
-                Funcionalidades form = new Funcionalidades(0,"");
+                Funcionalidades form = new Funcionalidades(0,0,"");
                 form.Show();
         }
 
@@ -104,9 +104,15 @@ namespace ClinicaFrba.AbmRol
 
         private void button9_Click(object sender, EventArgs e) // Ver funcionalidades del Rol
         {
-            string rol_nombre = getRolNombre();
-            Funcionalidades form = new Funcionalidades(1, rol_nombre);
-            form.Show();
+            try{
+                Funcionalidades form = new Funcionalidades(1, getRolId(), getRolNombre());
+                form.Show();
+            }
+            catch (Exception a)
+            {
+                MessageBox.Show(a.Message, "Clinica FRBA", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            
         }
 
         private void button10_Click(object sender, EventArgs e) // Limpiar Tabla
@@ -145,14 +151,13 @@ namespace ClinicaFrba.AbmRol
         private string getRolNombre()
         {
             int index = dataGridView1.CurrentCell.RowIndex;
-            DataGridViewRow linea = dataGridView1.Rows[index];
-            string nombre = (string)linea.Cells[1].Value;
-            return nombre;
+            string nombre = (string)dt.Rows[index]["rol_nombre"];
+            return nombre;       
         }
 
         private void button1_Click_1(object sender, EventArgs e)
         {
-            Funcionalidades form = new Funcionalidades(0, "");
+            Funcionalidades form = new Funcionalidades(0,0, "");
             form.Show();
         }
 
