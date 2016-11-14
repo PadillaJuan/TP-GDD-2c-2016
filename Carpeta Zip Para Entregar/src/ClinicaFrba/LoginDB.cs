@@ -31,10 +31,6 @@ namespace ClinicaFrba
             {
                 consulta.ExecuteNonQuery();
                 us_id = (int)retval.Value;
-                MessageBox.Show(String.Format("{0}", us_id));
-                /*SqlDataReader sdr = consulta.ExecuteReader();
-                int us_id = sdr.GetInt32(0);*/
-                //Elegir_Rol.Elegir_Rol form = new Elegir_Rol.Elegir_Rol(us_id);
             }
             catch (SqlException ex)
             {

@@ -28,13 +28,16 @@ namespace ClinicaFrba.Elegir_Rol
             SqlCommand com = new SqlCommand(query, conn);
             com.CommandType = CommandType.StoredProcedure;
             com.Parameters.Add(new SqlParameter("@us_id", us_id));
+            string rol;
             try
             {
                 SqlDataReader dr = com.ExecuteReader();
                 while (dr.Read())
                 {
-                    rolSelection.Items.Add(dr["rol_nombre"]);
+                    rol = dr.GetString(1);
+                    rolSelection.Items.Add(dr.GetString(1));
                 }
+                dr.Close();
                 SqlDataAdapter sda = new SqlDataAdapter(com);
                 tabla = new DataTable();
                 sda.Fill(tabla);
@@ -55,6 +58,7 @@ namespace ClinicaFrba.Elegir_Rol
         private void button2_Click(object sender, EventArgs e)
         {
             Close();
+            Application.Exit();
         }
 
         private void button1_Click(object sender, EventArgs e)

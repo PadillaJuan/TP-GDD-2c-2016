@@ -69,9 +69,6 @@
             // rolSelection
             // 
             this.rolSelection.FormattingEnabled = true;
-            this.rolSelection.Items.AddRange(new object[] {
-            "Hola",
-            "Puto"});
             this.rolSelection.Location = new System.Drawing.Point(16, 47);
             this.rolSelection.Name = "rolSelection";
             this.rolSelection.Size = new System.Drawing.Size(250, 21);
