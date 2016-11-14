@@ -13,9 +13,11 @@ namespace ClinicaFrba.Elegir_Accion
 {
     public partial class Elegir_Accion : Form
     {
+        int rol;
         public Elegir_Accion(int rol_id)
         {
             InitializeComponent();
+            rol = rol_id;
             comboBox1.DropDownStyle = ComboBoxStyle.DropDownList;
             llenarComboBox(rol_id);
         }
@@ -56,6 +58,9 @@ namespace ClinicaFrba.Elegir_Accion
             {
                 case "ABM de Rol":
                     // ABM ROL
+                    AbmRol.ABMRol f1 = new AbmRol.ABMRol();
+                    f1.Show();
+
                     break;
                 case "ABM de Afiliado":
                     // ABM AFILIADO

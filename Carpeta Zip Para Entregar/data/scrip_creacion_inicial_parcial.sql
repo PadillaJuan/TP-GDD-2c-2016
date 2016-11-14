@@ -783,6 +783,22 @@ DEALLOCATE loginCursor
 END
 GO
 
+CREATE PROCEDURE getRol
+	@rol_nombre VARCHAR(30)
+AS
+BEGIN
+	SELECT * FROM rol WHERE rol_nombre like @rol_nombre
+END
+GO
+
+
+CREATE PROCEDURE deactivateRol
+	@rol_id INT
+AS BEGIN
+	UPDATE rol SET rol_status = 'd' WHERE rol_id = @rol_id
+END
+GO
+
 /* DROP PROCEDURES
 DROP PROCEDURE bajaAfiliado
 DROP PROCEDURE altaAfiliado
@@ -795,6 +811,8 @@ DROP PROCEDURE getFuncionalidadDelRol
 DROP PROCEDURE insertarRol
 DROP PROCEDURE InsertarRolXFuncionalidad
 DROP PROCEDURE login
+DROP PROCEDURE getRol
+DROP PROCEDURE deactivateRol
 */
 /*
 ////////////////////		INFORMACION INICIAL
@@ -825,7 +843,7 @@ INSERT INTO funcionalidad (fun_nombre) VALUES ('Listado Estadistico');
 
 /*Creo el rol Administrativo*/
 
-INSERT INTO rol(rol_nombre) VALUES('Administrativo');
+INSERT INTO rol(rol_nombre, rol_status) VALUES('Administrativo', 'a');
 GO
 
 /*Se agregan funcionalidades al rol Administrativo*/
@@ -838,7 +856,7 @@ GO
 
 /*Creo el rol Afiliado*/
 
-INSERT INTO rol(rol_nombre) VALUES('Afiliado');
+INSERT INTO rol(rol_nombre, rol_status) VALUES('Afiliado', 'a');
 GO
 
 /*Se agregan funcionalidades al rol Afiliado*/
@@ -851,7 +869,7 @@ GO
 
 /*Creo el rol Profesional*/
 
-INSERT INTO rol(rol_nombre) VALUES('Profesional');
+INSERT INTO rol(rol_nombre, rol_status) VALUES('Profesional', 'a');
 GO
 
 /*Se agregan funcionalidades al rol Profesional*/

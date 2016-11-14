@@ -37,13 +37,16 @@ namespace ClinicaFrba.AbmRol
         {
             int index = dataGridView1.CurrentCell.RowIndex;
             DataGridViewRow linea = dataGridView1.Rows[index];
-            if ((int)linea.Cells[3].Value == 1)
+            if ( ((String)linea.Cells[2].Value).Equals("a") )
             {
                 int rol_id = getRolId();
-                string query = String.Format("UPDATE rol SET rol_status = 0 WHERE rol_id = {0}", rol_id);
+                string query = "deactivateRol";
                 SqlConnection conn = (new BDConnection()).getConnection();
                 SqlCommand com = new SqlCommand(query, conn);
+                com.CommandType = CommandType.StoredProcedure;
+                com.Parameters.Add(new SqlParameter("rol_id", rol_id));
                 com.ExecuteNonQuery();
+                dt.Rows[index][2] = 'd';
             }
             else
                 MessageBox.Show("El rol ya se encuentra desactivado", Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -53,6 +56,7 @@ namespace ClinicaFrba.AbmRol
         private void button4_Click(object sender, EventArgs e)  // SALIR 
         {
             Close();
+            Application.Exit();
         }
 
         private void button5_Click(object sender, EventArgs e)  // Buscar Rol
@@ -61,8 +65,12 @@ namespace ClinicaFrba.AbmRol
             { MessageBox.Show("No se ha ingresado ningun valor de busqueda", "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Error); }
             else
             {
-                string query = String.Format("exec getRol({0})",textBox2.Text);
-                fillDataTable(query);
+                string query = "getRol";
+                SqlConnection conn = (new BDConnection()).getConnection();
+                SqlCommand cm = new SqlCommand(query, conn);
+                cm.CommandType = CommandType.StoredProcedure;
+                cm.Parameters.Add(new SqlParameter("rol_nombre",textBox2.Text));
+                fillDataTable(cm);
             }
         }
 
@@ -70,8 +78,11 @@ namespace ClinicaFrba.AbmRol
 
         private void button8_Click(object sender, EventArgs e) // Buscar todos los roles
         {
-            string query = "exec getAllRoles()";
-            fillDataTable(query);
+            string query = "getAllRoles";
+            SqlConnection conn = (new BDConnection()).getConnection();
+            SqlCommand cm = new SqlCommand(query, conn);
+            cm.CommandType = CommandType.StoredProcedure;
+            fillDataTable(cm);
         }
 
         private void button9_Click(object sender, EventArgs e) // Ver funcionalidades del Rol
@@ -87,10 +98,9 @@ namespace ClinicaFrba.AbmRol
             dataGridView1.Rows.Clear();
         }
 
-        private void fillDataTable(string query)
+        private void fillDataTable(SqlCommand cm)
         {
-            SqlConnection conn = (new BDConnection()).getConnection();
-            SqlCommand cm = new SqlCommand(query, conn);
+            
             SqlDataAdapter sda = new SqlDataAdapter(cm);
             dt = new DataTable();
             sda.Fill(dt);
