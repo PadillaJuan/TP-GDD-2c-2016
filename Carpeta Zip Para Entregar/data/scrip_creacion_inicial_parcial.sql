@@ -680,6 +680,7 @@ BEGIN
         FROM rol r 
 	JOIN rol_por_usuarios u ON r.rol_id = u.rol_id 
 	WHERE u.us_id = @us_id
+	AND r.rol_status like 'a'	
 END
 GO
 
@@ -799,6 +800,14 @@ AS BEGIN
 END
 GO
 
+CREATE PROCEDURE activateRol
+	@rol_id INT
+AS
+BEGIN
+	UPDATE rol SET rol_status = 'a' 
+	WHERE rol_id = @rol_id
+END
+
 /* DROP PROCEDURES
 DROP PROCEDURE bajaAfiliado
 DROP PROCEDURE altaAfiliado
@@ -813,6 +822,7 @@ DROP PROCEDURE InsertarRolXFuncionalidad
 DROP PROCEDURE login
 DROP PROCEDURE getRol
 DROP PROCEDURE deactivateRol
+DROP PROCEDURE activateRol
 */
 /*
 ////////////////////		INFORMACION INICIAL

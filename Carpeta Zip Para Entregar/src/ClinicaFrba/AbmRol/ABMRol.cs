@@ -30,7 +30,7 @@ namespace ClinicaFrba.AbmRol
 
         private void button2_Click(object sender, EventArgs e) // VOLVER
         {
-            Hide();
+            Close();
         }
 
         private void button3_Click(object sender, EventArgs e) // Dar de baja
@@ -74,7 +74,24 @@ namespace ClinicaFrba.AbmRol
             }
         }
 
-
+        private void button6_Click_1(object sender, EventArgs e)
+        {
+            int index = dataGridView1.CurrentCell.RowIndex;
+            DataGridViewRow linea = dataGridView1.Rows[index];
+            if (((String)linea.Cells[2].Value).Equals("d"))
+            {
+                int rol_id = getRolId();
+                string query = "activateRol";
+                SqlConnection conn = (new BDConnection()).getConnection();
+                SqlCommand com = new SqlCommand(query, conn);
+                com.CommandType = CommandType.StoredProcedure;
+                com.Parameters.Add(new SqlParameter("@rol_id", rol_id));
+                com.ExecuteNonQuery();
+                dt.Rows[index][2] = 'a';
+            }
+            else
+                MessageBox.Show("El rol ya se encuentra activado", Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Error);
+        }
 
         private void button8_Click(object sender, EventArgs e) // Buscar todos los roles
         {
@@ -139,21 +156,7 @@ namespace ClinicaFrba.AbmRol
             form.Show();
         }
 
-        private void button6_Click_1(object sender, EventArgs e)
-        {
-            int index = dataGridView1.CurrentCell.RowIndex;
-            DataGridViewRow linea = dataGridView1.Rows[index];
-            if ((int)linea.Cells[3].Value == 0)
-            {
-                int rol_id = getRolId();
-                string query = String.Format("UPDATE rol SET rol_status = 1 WHERE rol_id = {0}", rol_id);
-                SqlConnection conn = (new BDConnection()).getConnection();
-                SqlCommand com = new SqlCommand(query, conn);
-                com.ExecuteNonQuery();
-            }
-            else
-                MessageBox.Show("El rol ya se encuentra activado", Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Error);
-        }
+        
        
 
         
