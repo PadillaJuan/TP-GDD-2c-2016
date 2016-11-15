@@ -54,6 +54,12 @@
     <Compile Include="Abm Afiliado\ABM_afi.Designer.cs">
       <DependentUpon>ABM_afi.cs</DependentUpon>
     </Compile>
+    <Compile Include="Abm Afiliado\Motivo Cambio Plan.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Abm Afiliado\Motivo Cambio Plan.Designer.cs">
+      <DependentUpon>Motivo Cambio Plan.cs</DependentUpon>
+    </Compile>
     <Compile Include="AbmRol\ABMRol.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -163,6 +169,9 @@
     </Compile>
     <EmbeddedResource Include="Abm Afiliado\ABM_afi.resx">
       <DependentUpon>ABM_afi.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Abm Afiliado\Motivo Cambio Plan.resx">
+      <DependentUpon>Motivo Cambio Plan.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="AbmRol\ABMRol.resx">
       <DependentUpon>ABMRol.cs</DependentUpon>

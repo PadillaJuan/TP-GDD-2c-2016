@@ -378,6 +378,7 @@
             this.Controls.Add(this.button1);
             this.Controls.Add(this.imagenINicial);
             this.Name = "ABM_afi";
+            this.Text = "Clinica FRBA";
             this.Load += new System.EventHandler(this.ABM_afi_Load);
             ((System.ComponentModel.ISupportInitialize)(this.imagenINicial)).EndInit();
             this.ResumeLayout(false);

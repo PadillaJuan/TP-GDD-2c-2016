@@ -14,11 +14,14 @@ namespace ClinicaFrba.Abm_Afiliado
 
     public partial class ABM_afi : Form
     {
+        long id_;
+        int planMed;
 
         public ABM_afi(int accion, long id)
         {
             InitializeComponent();
             setComboBoxes();
+            id_ = id;
             this.cargarComboBoxPlanMedico();
             switch (accion)
             {
@@ -26,10 +29,10 @@ namespace ClinicaFrba.Abm_Afiliado
                     nuevoAfiliado();
                     break;
                 case 1:
-                    updateAfiliado(id);
+                    setForUpdateAfiliado();
                     break;
                 case 2:
-                    agregarFamiliar(id);
+                    agregarFamiliard);
                     break;
                 default:
                     break;
@@ -50,17 +53,23 @@ namespace ClinicaFrba.Abm_Afiliado
 
         private void button2_Click(object sender, EventArgs e) //VOLVER
         {
-            Hide();
+            Close();
         }
 
         private void button3_Click(object sender, EventArgs e) //Terminar Actualizacion
         {
-
+            if (this.checkearDatos())
+                MessageBox.Show("Datos incorrectos", Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Error);
+            else  
+                {
+                    updateAfiliado();
+                }
+            
         }
 
         private void button4_Click(object sender, EventArgs e) // SALIR
         {
-            Close();
+            Application.Exit();
         }
 
         private void setComboBoxes()
@@ -100,37 +109,38 @@ namespace ClinicaFrba.Abm_Afiliado
             button3.Enabled = false;
         }
 
-        public void agregarFamiliar(long id)
+        public void agregarFamiliar()
         {
-            textBox1.Text = String.Format("{0}", id);
+            textBox1.Text = String.Format("{0}", id_);
             textBox1.Enabled = false;
         }
 
-        public void updateAfiliado(long id)
+        public void setForUpdateAfiliado()
         {
             button1.Enabled = false;
-            this.cargarDatosALaPlantilla(id);
+            this.cargarDatosALaPlantilla();
             comboBox1.Enabled = false;
             textBox1.Enabled = false;
             textBox2.Enabled = false;
             textBox3.Enabled = false;
-            textBox5.Enabled = false;
+            textBox4.Enabled = false;
+            comboBox4.Enabled = false;
             dateTimePicker1.Enabled = false;
         }
 
-        public void cargarDatosALaPlantilla(long id) 
+        public void cargarDatosALaPlantilla() 
         {
 
             String query = "getDatosDelAfiliado";
-            Int16 rel_id = (short) (id % 100);
             SqlConnection Conn = (new BDConnection()).getConnection();
             SqlCommand consulta = new SqlCommand(query, Conn);
             consulta.CommandType = CommandType.StoredProcedure;
-            consulta.Parameters.Add("@af_id",id/100);
-            consulta.Parameters.Add("@af_rel_id",rel_id);
+            consulta.Parameters.AddWithValue("@af_id", getId());
+            consulta.Parameters.AddWithValue("@af_rel_id", getShortID());
             try
             {
                 SqlDataReader execute = consulta.ExecuteReader();
+                execute.Read();
                 cargarDatos(execute);
             }
             catch (SqlException ex)
@@ -139,20 +149,30 @@ namespace ClinicaFrba.Abm_Afiliado
             }
         }
 
+        private long getId()
+        {
+            return (id_ / 100);
+        }
+
+        private short getShortID()
+        {
+            return (short)(id_ % 100);
+        }
+
         public void cargarDatos(SqlDataReader dr)
         {
-            dr.Read();
-            textBox1.Text = String.Concat(dr.GetInt32(0), dr.GetInt16(1));
+            textBox1.Text = id_.ToString();
             textBox2.Text = dr.GetString(3);
             textBox3.Text = dr.GetString(4);
             comboBox1.Text = dr.GetString(5);
-            textBox4.Text = String.Format("{0}",dr.GetInt32(6));
+            textBox4.Text = dr[6].ToString();
             textBox5.Text = dr.GetString(7);
-            textBox6.Text = String.Format("{0}", dr.GetInt32(8));
+            textBox6.Text = dr[8].ToString();
+            planMed = (int) dr[8];
             textBox7.Text = dr.GetString(9);
             dateTimePicker1.Value = dr.GetDateTime(10);
             comboBox2.Text = dr.GetString(11);
-            comboBox3.Text = dr.GetString(13);
+            comboBox3.Text = dr[13].ToString();
             comboBox4.Text = dr.GetString(14);
             dr.Close();
         }
@@ -197,6 +217,29 @@ namespace ClinicaFrba.Abm_Afiliado
             com.Dispose();
         }
 
+        public void updateAfiliado()
+        {
+            string query = "actualizarAfiliado";
+            SqlConnection con = (new BDConnection()).getConnection();
+            SqlCommand cm = new SqlCommand(query, con);
+            cm.CommandType = CommandType.StoredProcedure;
+            cm.Parameters.AddWithValue("@af_id",getId());
+            cm.Parameters.AddWithValue("@af_rel_id",getShortID());
+            cm.Parameters.AddWithValue("@af_direccion",textBox5.Text);
+            cm.Parameters.AddWithValue("@af_telefono",textBox6.Text);
+            cm.Parameters.AddWithValue("@af_mail",textBox7.Text);
+            cm.Parameters.AddWithValue("@af_estado_civil", comboBox2.Text);
+            cm.Parameters.AddWithValue("@planmed_id", Int32.Parse(comboBox3.Text));
+            cm.ExecuteNonQuery();
+            cm.Dispose();
+            if (planMed != Int32.Parse(comboBox3.Text))
+            {
+                ( new Motivo_Cambio_Plan).
+                MotcambioPlan();
+            }
+        }
+
+        
 
         private void ABM_afi_Load(object sender, EventArgs e)
         {

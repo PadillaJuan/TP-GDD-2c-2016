@@ -815,6 +815,56 @@ BEGIN
 	DELETE FROM funcionalidad_por_rol WHERE rol_id = @id_rol
 END
 
+CREATE PROCEDURE getDatosDelAfiliado
+	@af_id BIGINT,
+	@af_rel_id TINYINT
+AS
+BEGIN
+SELECT * FROM afiliado 
+WHERE af_id = @af_id 
+AND af_rel_id = @af_rel_id
+END
+GO
+
+CREATE PROCEDURE actualizarAfiliado
+	@af_id BIGINT,
+	@af_rel_id TINYINT,
+	@af_direccion VARCHAR(255),
+	@af_telefono numeric(18,0),
+	@af_mail VARCHAR(255) ,
+	@af_estado_civil VARCHAR(11),
+	@planmed_id numeric(18,0),
+	@motivoCambio VARCHAR(100),
+	@fecha DATETIME
+AS
+BEGIN
+	
+	DECLARE acAf CURSOR FOR
+		SELECT af_id,af_rel_id,planmed_id FROM afiliado WHERE af_id = @af_id AND af_rel_id = @af_rel_id
+	DECLARE @af_idC BIGINT
+	DECLARE @af_rel_idC TINYINT
+	DECLARE @planmed_idC INT
+	OPEN acAf
+		FETCH NEXT FROM acAf
+		INTO @af_idC, @af_rel_idC, @planmed_idC
+	BEGIN
+		IF @planmed_idC != @planmed_id
+		BEGIN
+			INSERT INTO logs_cambio_plan(af_id,af_rel_id,plan_id_ant,plan_id_new,cambio_plan_motivo,cambio_plan_fecha)
+			VALUES(@af_id,@af_rel_id,@planmed_idC,@planmed_id,@motivoCambio,@fecha)
+		END
+	END
+	UPDATE afiliado 
+	SET af_direccion = @af_direccion,
+	af_telefono = @af_telefono,
+	af_mail = @af_mail,
+	af_estado_civil = af_estado_civil
+	WHERE af_id = @af_id AND af_rel_id = @af_rel_id
+END
+GO
+
+
+
 /* DROP PROCEDURES
 DROP PROCEDURE bajaAfiliado
 DROP PROCEDURE altaAfiliado
@@ -831,6 +881,8 @@ DROP PROCEDURE getRol
 DROP PROCEDURE deactivateRol
 DROP PROCEDURE activateRol
 DROP PROCEDURE updateRXF
+DROP PROCEDURE getDatosDelAfiliado
+DROP PROCEDURE actualizarAfiliado
 */
 /*
 ////////////////////		INFORMACION INICIAL
