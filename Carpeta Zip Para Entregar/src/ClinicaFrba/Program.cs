@@ -20,10 +20,8 @@ namespace ClinicaFrba
             //testConexionBD();
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            //Application.Run(new VentanaInicial());
-            //Application.Run(new AbmRol.ABMRol());
+            Application.Run(new VentanaInicial());
             // Application.Run(new Pedir_Turno.ElegirTurno("3", "Conchudo"));
-            Application.Run(new Abm_Afiliado.ABM_afi(1, 555100));
         }
 
         public static void testConexionBD()

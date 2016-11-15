@@ -39,8 +39,12 @@ namespace ClinicaFrba.BuscarAfiliado
             else
             {
                 SqlConnection conn = (new BDConnection()).getConnection();
-                String query = String.Format("exec bajaAfiliado({0})", id);
+                String query = String.Format("bajaAfiliado", id);
                 SqlCommand com = new SqlCommand(query, conn);
+                com.CommandType = CommandType.StoredProcedure;
+                com.Parameters.AddWithValue("@af_id", id);
+                com.Parameters.AddWithValue("@af_rel_id", getRel_Id());
+                com.Parameters.AddWithValue("@af_fechaBaja",Program.nuevaFechaSistema());
                 com.ExecuteNonQuery();
                 conn.Close();
             }
@@ -132,6 +136,14 @@ namespace ClinicaFrba.BuscarAfiliado
             return id;
         }
 
+        private short getRel_Id()
+        {
+            int index = dataGridView1.CurrentCell.RowIndex;
+            DataGridViewRow linea = dataGridView1.Rows[index];
+            short id = ((short)linea.Cells[1].Value);
+            return id;
+        }
+
         private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
 
@@ -140,7 +152,7 @@ namespace ClinicaFrba.BuscarAfiliado
         public String generateSearchQuery()
         {
             bool flag= false;
-            string query = "SELECT * FROM afiliados WHERE ";
+            string query = "SELECT * FROM afiliado WHERE ";
             if (checkBox1.Checked) {
                 String id, rel;
                 id = String.Format("{0}", int.Parse(textBox1.Text) / 100);
@@ -151,15 +163,16 @@ namespace ClinicaFrba.BuscarAfiliado
             }
             if (checkBox2.Checked)
             {
-                if (flag) { query += "AND";};
-                query += String.Format("af_nombre like {0}",textBox2.Text);
+                if (flag) { query += " AND ";};
+                query += String.Format("af_nombre like '{0}'",textBox2.Text);
                 flag = true;
             }
             if (checkBox3.Checked)
             {
-                if (flag) { query += "AND"; };
-                query += String.Format("af_apellido like {0}",textBox3.Text);
+                if (flag) { query += " AND "; };
+                query += String.Format("af_apellido like '{0}'",textBox3.Text);
             }
+            MessageBox.Show(query);
             return query;
 
         }

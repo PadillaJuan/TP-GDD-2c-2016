@@ -68,10 +68,10 @@ namespace ClinicaFrba.Elegir_Rol
           
             int i = rolSelection.SelectedIndex;
             String texto = rolSelection.Text;
+            MessageBox.Show(String.Format("index: {0}, texto: {1}", i, texto));
             if (i != -1)
             {
-                i = (int ) tabla.Rows[0][i];
-                MessageBox.Show(String.Format("{0}", i));
+                i = (int ) tabla.Rows[i][0];
                 Elegir_Accion.Elegir_Accion form = new Elegir_Accion.Elegir_Accion(i);
                 Close();
                 form.Show();
