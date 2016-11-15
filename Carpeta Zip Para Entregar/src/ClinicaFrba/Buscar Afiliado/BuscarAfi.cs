@@ -164,5 +164,11 @@ namespace ClinicaFrba.BuscarAfiliado
 
         }
 
+        private void button7_Click(object sender, EventArgs e)
+        {
+            Abm_Afiliado.ABM_afi form = new Abm_Afiliado.ABM_afi(0, 0);
+            form.Show();
+        }
+
     }
 }

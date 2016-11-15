@@ -75,8 +75,9 @@ namespace ClinicaFrba.Abm_Afiliado
         public void cargarComboBoxPlanMedico()
         {
             SqlConnection conn = (new BDConnection()).getConnection();
-            string query = String.Format("exec getPlanesMedicos()");
+            string query = String.Format("getPlanesMedicos");
             SqlCommand com = new SqlCommand(query, conn);
+            com.CommandType = CommandType.StoredProcedure;
             try
             {
                 SqlDataReader dr = com.ExecuteReader();
@@ -84,6 +85,7 @@ namespace ClinicaFrba.Abm_Afiliado
                 {
                     comboBox3.Items.Add(dr["planmed_id"]);
                 }
+                dr.Close();
             }
             catch (Exception ex)
             {
@@ -119,11 +121,13 @@ namespace ClinicaFrba.Abm_Afiliado
         public void cargarDatosALaPlantilla(long id) 
         {
 
-            String afi_id = String.Format("{0}", id / 100);
-            String afi_id_rel = String.Format("{0}", id % 100);
-            String query = String.Format("Select * from afiliados WHERE af_id = {0} AND af_rel_id = {1}", afi_id, afi_id_rel);
+            String query = "getDatosDelAfiliado";
+            Int16 rel_id = (short) (id % 100);
             SqlConnection Conn = (new BDConnection()).getConnection();
             SqlCommand consulta = new SqlCommand(query, Conn);
+            consulta.CommandType = CommandType.StoredProcedure;
+            consulta.Parameters.Add("@af_id",id/100);
+            consulta.Parameters.Add("@af_rel_id",rel_id);
             try
             {
                 SqlDataReader execute = consulta.ExecuteReader();
@@ -137,6 +141,7 @@ namespace ClinicaFrba.Abm_Afiliado
 
         public void cargarDatos(SqlDataReader dr)
         {
+            dr.Read();
             textBox1.Text = String.Concat(dr.GetInt32(0), dr.GetInt16(1));
             textBox2.Text = dr.GetString(3);
             textBox3.Text = dr.GetString(4);
@@ -149,34 +154,49 @@ namespace ClinicaFrba.Abm_Afiliado
             comboBox2.Text = dr.GetString(11);
             comboBox3.Text = dr.GetString(13);
             comboBox4.Text = dr.GetString(14);
+            dr.Close();
         }
            
         public bool checkearDatos()
         {
             bool i = false;
-            int n,m;
-            
-            if (textBox2.Text.Length == 0 || textBox3.Text.Length == 0 || textBox4.Text.Length == 0 ) { i = true; }
+            int n;
+            long m;
+
+            if (textBox2.Text.Length == 0 || textBox3.Text.Length == 0 || textBox4.Text.Length == 0) { i = true; }
             if (!textBox2.Text.All(c => Char.IsLetter(c)) || !textBox3.Text.All(d => Char.IsLetter(d)) || !int.TryParse(textBox4.Text, out n)) { i = true; }
-            if (comboBox1.SelectedIndex == -1 || comboBox2.SelectedIndex == -1 || comboBox3.SelectedIndex == -1 || comboBox4.SelectedIndex == -1 ) { i = true; }
+            if (comboBox1.SelectedIndex == -1 || comboBox2.SelectedIndex == -1 || comboBox3.SelectedIndex == -1 || comboBox4.SelectedIndex == -1) { i = true; }
             if (dateTimePicker1.Value == DateTime.Parse("1900-01-01 00:00:00.000")) { i = true; }
-            if (textBox5.Text.Length == 0 || textBox6.Text.Length == 0 || textBox7.Text.Length == 0) { i = true; }
-            if (!int.TryParse(textBox6.Text, out m)) { i = true; }
+            if (dateTimePicker1.Value >= DateTime.Parse(Program.nuevaFechaSistema())) { i = true; }
+            if (textBox5.Text.Length == 0 || textBox6.Text.Length == 0 || textBox7.Text.Length == 0) { i = true;  }
+            if (!long.TryParse(textBox6.Text, out m)) { i = true; }
 
             return i;
         }
 
         public void darAltaAfiliado()
         {
-            /*string query = String.Format("exec altaFamiliar({0}, {1}, {2}, {3}, {4}, {5}, {6}, {7}, {8}, {9}, {10}, {11})", 0, textBox2.Text, textBox3.Text, comboBox1.Text, textBox4.Text, textBox5.Text, textBox6.Text, textBox7.Text, dateTimePicker1.Value.Date, comboBox2.Text,comboBox3.Text, comboBox4.Text);
+            //SqlCommand com = generateSqlCommand();
+            string query = "altaAfiliado";
             SqlConnection conn = (new BDConnection()).getConnection();
             SqlCommand com = new SqlCommand(query, conn);
+            com.CommandType = CommandType.StoredProcedure;
+            com.Parameters.AddWithValue("@af_rel_id", (Int16)0);
+            com.Parameters.AddWithValue("@af_nombre", textBox2.Text);
+            com.Parameters.AddWithValue("@af_apellido", textBox3.Text);
+            com.Parameters.AddWithValue("@af_tipodoc", comboBox1.Text);
+            com.Parameters.AddWithValue("@af_numdoc", textBox4.Text);
+            com.Parameters.AddWithValue("@af_direccion", textBox5.Text);
+            com.Parameters.AddWithValue("@af_telefono", textBox6.Text);
+            com.Parameters.AddWithValue("@af_mail", textBox7.Text);
+            com.Parameters.AddWithValue("@af_nacimiento", dateTimePicker1.Value);
+            com.Parameters.AddWithValue("@af_estado_civil", comboBox2.Text);
+            com.Parameters.AddWithValue("@planmed_id", Int32.Parse(comboBox3.Text));
+            com.Parameters.AddWithValue("@af_sexo", comboBox4.Text);
             com.ExecuteNonQuery();
-            conn.Close();
-            conn.Dispose();
-        */
-            MessageBox.Show(String.Format("exec altaAfiliado({0}, {1}, {2}, {3}, {4}, {5}, {6}, {7}, {8}, {9}, {10}, {11})", 0, textBox2.Text, textBox3.Text, comboBox1.Text, textBox4.Text, textBox5.Text, textBox6.Text, textBox7.Text, dateTimePicker1.Value.Date, comboBox2.Text, comboBox3.Text, comboBox4.Text), "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            com.Dispose();
         }
+
 
         private void ABM_afi_Load(object sender, EventArgs e)
         {
