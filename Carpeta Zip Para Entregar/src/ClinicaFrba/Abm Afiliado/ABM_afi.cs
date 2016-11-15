@@ -16,6 +16,7 @@ namespace ClinicaFrba.Abm_Afiliado
     {
         long id_;
         int planMed;
+        string motivo;
 
         public ABM_afi(int accion, long id)
         {
@@ -32,7 +33,7 @@ namespace ClinicaFrba.Abm_Afiliado
                     setForUpdateAfiliado();
                     break;
                 case 2:
-                    agregarFamiliard);
+                    agregarFamiliar();
                     break;
                 default:
                     break;
@@ -168,7 +169,7 @@ namespace ClinicaFrba.Abm_Afiliado
             textBox4.Text = dr[6].ToString();
             textBox5.Text = dr.GetString(7);
             textBox6.Text = dr[8].ToString();
-            planMed = (int) dr[8];
+            planMed = Int32.Parse(dr[13].ToString());
             textBox7.Text = dr.GetString(9);
             dateTimePicker1.Value = dr.GetDateTime(10);
             comboBox2.Text = dr.GetString(11);
@@ -230,16 +231,26 @@ namespace ClinicaFrba.Abm_Afiliado
             cm.Parameters.AddWithValue("@af_mail",textBox7.Text);
             cm.Parameters.AddWithValue("@af_estado_civil", comboBox2.Text);
             cm.Parameters.AddWithValue("@planmed_id", Int32.Parse(comboBox3.Text));
-            cm.ExecuteNonQuery();
-            cm.Dispose();
             if (planMed != Int32.Parse(comboBox3.Text))
             {
-                ( new Motivo_Cambio_Plan).
-                MotcambioPlan();
+                Motivo_Cambio_Plan form = new Motivo_Cambio_Plan();
+                DialogResult res = form.ShowDialog();
+                if (res == DialogResult.OK)
+                {
+                    cm.Parameters.AddWithValue("@motivoCambio", form.motivoCambio);
+                    MessageBox.Show(form.motivoCambio);
+                }
             }
+            else
+            {
+                cm.Parameters.AddWithValue("@motivoCambio", ""); 
+            }
+            cm.Parameters.AddWithValue("@fecha",DateTime.Parse(Program.nuevaFechaSistema()));
+            cm.ExecuteNonQuery();
+            cm.Dispose();
+            planMed = Int32.Parse(comboBox3.Text);
         }
 
-        
 
         private void ABM_afi_Load(object sender, EventArgs e)
         {

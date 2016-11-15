@@ -54,6 +54,7 @@
     <Compile Include="Abm Afiliado\ABM_afi.Designer.cs">
       <DependentUpon>ABM_afi.cs</DependentUpon>
     </Compile>
+    <Compile Include="Abm Afiliado\MotivoCambioPM.cs" />
     <Compile Include="Abm Afiliado\Motivo Cambio Plan.cs">
       <SubType>Form</SubType>
     </Compile>
