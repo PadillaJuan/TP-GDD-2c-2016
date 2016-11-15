@@ -98,6 +98,7 @@
             this.button2.TabIndex = 4;
             this.button2.Text = "Dar de baja";
             this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.button2_Click_1);
             // 
             // button1
             // 

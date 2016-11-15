@@ -20,7 +20,7 @@ namespace ClinicaFrba
             //testConexionBD();
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new VentanaInicial());
+            Application.Run(new BuscarAfiliado.BuscarAfi());
             // Application.Run(new Pedir_Turno.ElegirTurno("3", "Conchudo"));
         }
 

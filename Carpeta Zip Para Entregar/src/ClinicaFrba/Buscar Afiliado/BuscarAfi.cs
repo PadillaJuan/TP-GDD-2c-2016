@@ -14,6 +14,7 @@ namespace ClinicaFrba.BuscarAfiliado
 {
     public partial class BuscarAfi : Form
     {
+        DataTable dt;
         public BuscarAfi()
         {
             InitializeComponent();
@@ -31,23 +32,7 @@ namespace ClinicaFrba.BuscarAfiliado
         private void button2_Click(object sender, EventArgs e) // DAR DE BAJA
         {
 
-            long id = getId();
-            if (id == 0)
-            {
-                MessageBox.Show("No se ha seleccionado un afiliado", "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-            else
-            {
-                SqlConnection conn = (new BDConnection()).getConnection();
-                String query = String.Format("bajaAfiliado", id);
-                SqlCommand com = new SqlCommand(query, conn);
-                com.CommandType = CommandType.StoredProcedure;
-                com.Parameters.AddWithValue("@af_id", id);
-                com.Parameters.AddWithValue("@af_rel_id", getRel_Id());
-                com.Parameters.AddWithValue("@af_fechaBaja",Program.nuevaFechaSistema());
-                com.ExecuteNonQuery();
-                conn.Close();
-            }
+           
         }
 
         private void button3_Click(object sender, EventArgs e) // COMPRAR BONO
@@ -82,10 +67,12 @@ namespace ClinicaFrba.BuscarAfiliado
                 String query = generateSearchQuery();
                 SqlConnection conn = (new BDConnection()).getConnection();
                 SqlCommand cm = new SqlCommand(query, conn);
-                SqlDataAdapter sda = new SqlDataAdapter(cm);
-                DataTable dt = new DataTable();
+                SqlDataAdapter sda = new SqlDataAdapter(query,conn);
+                dt = new DataTable();
                 sda.Fill(dt);
+                conn.Close();
                 dataGridView1.DataSource = dt;
+                dataGridView1.AutoGenerateColumns = true;
             }
 
         }
@@ -123,8 +110,8 @@ namespace ClinicaFrba.BuscarAfiliado
         private long getId()
         {
             int index = dataGridView1.CurrentCell.RowIndex;
-            DataGridViewRow linea = dataGridView1.Rows[index];
-            long id = ((long)linea.Cells[0].Value) * 100 + (long)linea.Cells[1].Value;
+            
+            long id = Int64.Parse(dt.Rows[index][0].ToString()) * 100 + Int64.Parse(dt.Rows[index][1].ToString());
             return id;
         }
 
@@ -132,7 +119,7 @@ namespace ClinicaFrba.BuscarAfiliado
         {
             int index = dataGridView1.CurrentCell.RowIndex;
             DataGridViewRow linea = dataGridView1.Rows[index];
-            long id = ((long)linea.Cells[0].Value);
+            long id = Int64.Parse(dt.Rows[index][0].ToString());
             return id;
         }
 
@@ -140,7 +127,7 @@ namespace ClinicaFrba.BuscarAfiliado
         {
             int index = dataGridView1.CurrentCell.RowIndex;
             DataGridViewRow linea = dataGridView1.Rows[index];
-            short id = ((short)linea.Cells[1].Value);
+            short id = Int16.Parse(dt.Rows[index][1].ToString());
             return id;
         }
 
@@ -172,7 +159,6 @@ namespace ClinicaFrba.BuscarAfiliado
                 if (flag) { query += " AND "; };
                 query += String.Format("af_apellido like '{0}'",textBox3.Text);
             }
-            MessageBox.Show(query);
             return query;
 
         }
@@ -181,6 +167,27 @@ namespace ClinicaFrba.BuscarAfiliado
         {
             Abm_Afiliado.ABM_afi form = new Abm_Afiliado.ABM_afi(0, 0);
             form.Show();
+        }
+
+        private void button2_Click_1(object sender, EventArgs e)
+        {
+            int index = dataGridView1.CurrentCell.RowIndex;
+            if (index == -1)
+            {
+                MessageBox.Show("No se ha seleccionado un afiliado", "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            else
+            {
+                SqlConnection conn = (new BDConnection()).getConnection();
+                String query = String.Format("bajaAfiliado");
+                SqlCommand com = new SqlCommand(query, conn);
+                com.CommandType = CommandType.StoredProcedure;
+                com.Parameters.AddWithValue("@id", getIdSinRel());
+                com.Parameters.AddWithValue("@id_rel", getRel_Id());
+                com.Parameters.AddWithValue("@af_fechaBaja", DateTime.Parse(Program.nuevaFechaSistema()));
+                com.ExecuteNonQuery();
+                conn.Close();
+            }
         }
 
     }
