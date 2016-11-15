@@ -838,32 +838,37 @@ CREATE PROCEDURE actualizarAfiliado
 	@fecha DATETIME
 AS
 BEGIN
-	
-	DECLARE acAf CURSOR FOR
-		SELECT af_id,af_rel_id,planmed_id FROM afiliado WHERE af_id = @af_id AND af_rel_id = @af_rel_id
-	DECLARE @af_idC BIGINT
-	DECLARE @af_rel_idC TINYINT
-	DECLARE @planmed_idC INT
-	OPEN acAf
-		FETCH NEXT FROM acAf
-		INTO @af_idC, @af_rel_idC, @planmed_idC
+	IF @motivoCambio IS NOT NULL
 	BEGIN
-		IF @planmed_idC != @planmed_id
-		BEGIN
-			INSERT INTO logs_cambio_plan(af_id,af_rel_id,plan_id_ant,plan_id_new,cambio_plan_motivo,cambio_plan_fecha)
-			VALUES(@af_id,@af_rel_id,@planmed_idC,@planmed_id,@motivoCambio,@fecha)
-		END
+		PRINT @motivoCambio+'HOLA'
 	END
+	IF @motivoCambio != ''
+	BEGIN
+		PRINT @motivoCambio+'CHAU'
+	END
+	IF (@motivoCambio != '')
+	BEGIN
+		INSERT INTO logs_cambio_plan
+		(af_id,af_rel_id,plan_id_ant,plan_id_new,cambio_plan_motivo,cambio_plan_fecha)
+		VALUES (@af_id,
+				@af_rel_id,
+				(SELECT planmed_id FROM afiliado WHERE af_id = @af_id AND af_rel_id = @af_rel_id),
+				@planmed_id,
+				@motivoCambio,
+				@fecha
+				)
+	END
+	BEGIN
 	UPDATE afiliado 
-	SET af_direccion = @af_direccion,
-	af_telefono = @af_telefono,
-	af_mail = @af_mail,
-	af_estado_civil = af_estado_civil
-	WHERE af_id = @af_id AND af_rel_id = @af_rel_id
+		SET af_direccion = @af_direccion,
+		af_telefono = @af_telefono,
+		af_mail = @af_mail,
+		af_estado_civil = @af_estado_civil,
+		planmed_id = @planmed_id
+		WHERE af_id = @af_id AND af_rel_id = @af_rel_id
+	END
 END
 GO
-
-
 
 /* DROP PROCEDURES
 DROP PROCEDURE bajaAfiliado
