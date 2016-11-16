@@ -60,7 +60,6 @@ namespace ClinicaFrba.Elegir_Accion
                     // ABM ROL
                     AbmRol.ABMRol f1 = new AbmRol.ABMRol();
                     f1.Show();
-
                     break;
                 case "ABM de Afiliado":
                     // ABM AFILIADO
@@ -72,6 +71,8 @@ namespace ClinicaFrba.Elegir_Accion
                     break;
                 case "Compra de Bonos":
                     // COMPRA DE BONOS
+                    BuscarAfiliado.BuscarAfi f3 = new BuscarAfiliado.BuscarAfi();
+                    f3.Show();
                     break;
                 case "Pedido de Turno":
                     // PEDIDO DE TURNO

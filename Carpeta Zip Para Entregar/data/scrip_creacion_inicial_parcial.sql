@@ -600,6 +600,8 @@ execute migrarConsultas
 go
 
 
+
+
 /*
 
 ////////////////////		PROCEDURES
@@ -870,6 +872,31 @@ BEGIN
 END
 GO
 
+CREATE PROCEDURE getPrecioBonoDelPlan
+	@planmed_id INT,
+	@precioBono INT OUTPUT
+AS
+BEGIN
+SELECT @precioBono = plan_precio_bono
+FROM plan_medico
+WHERE planmed_id = @planmed_id
+RETURN @precioBono
+END
+GO
+
+CREATE PROCEDURE comprarBonos
+	@af_id BIGINT,
+	@af_rel_id TINYINT,
+	@cantidad INT,
+	@monto INT,
+	@fecha DATETIME
+AS
+BEGIN
+	INSERT INTO registro_compra(compra_af,compra_af_rel,compra_cantidad,compra_monto,compra_fecha)
+	VALUES(@af_id,@af_rel_id,@cantidad,@monto,@fecha)
+END
+GO
+
 /* DROP PROCEDURES
 DROP PROCEDURE bajaAfiliado
 DROP PROCEDURE altaAfiliado
@@ -888,6 +915,8 @@ DROP PROCEDURE activateRol
 DROP PROCEDURE updateRXF
 DROP PROCEDURE getDatosDelAfiliado
 DROP PROCEDURE actualizarAfiliado
+DROP PROCEDURE getPrecioBonoDelPlan
+DROP PROCEDURE comprarBonos
 */
 /*
 ////////////////////		INFORMACION INICIAL
@@ -963,3 +992,37 @@ INSERT INTO usuarios VALUES('admin',HASHBYTES('SHA2_256','w23e'),0,'a')
 INSERT INTO rol_por_usuarios
 SELECT 5579, r.rol_id 
 FROM rol r
+
+////////////////////		TRIGGERS
+////////////////////		TRIGGERS
+////////////////////		TRIGGERS
+////////////////////		TRIGGERS
+////////////////////		TRIGGERS
+////////////////////		TRIGGERS
+////////////////////		TRIGGERS
+////////////////////		TRIGGERS
+////////////////////		TRIGGERS
+
+
+CREATE TRIGGER compraDeBonos
+	ON registro_compra
+	AFTER INSERT
+AS
+BEGIN
+	DECLARE @contador INT
+	DECLARE @cantidad INT
+	DECLARE @compra_id INT
+	DECLARE @af_id BIGINT
+	DECLARE @af_rel_id TINYINT
+
+	SET @contador = 0
+	SELECT @cantidad=i.compra_cantidad, @compra_id = i.compra_id, @af_id = i.compra_af, @af_rel_id = i.compra_af_rel FROM inserted i
+
+	WHILE @contador < @cantidad
+	BEGIN
+		INSERT INTO bono(bono_compra,bono_planmed,bono_af,bono_af_rel)
+		VALUES(@compra_id,(SELECT planmed_id FROM afiliado a WHERE a.af_id = @af_id AND a.af_rel_id = @af_rel_id),@af_id,@af_rel_id)
+		SET @contador +=1
+	END
+
+END
