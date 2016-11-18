@@ -235,12 +235,16 @@ BEGIN
 	WHERE rol_id = @rol_id
 END
 
+GO
+
 CREATE PROCEDURE updateRXF
 	@id_rol INT
 AS
 BEGIN
 	DELETE FROM funcionalidad_por_rol WHERE rol_id = @id_rol
 END
+
+GO
 
 CREATE PROCEDURE getDatosDelAfiliado
 	@af_id BIGINT,
