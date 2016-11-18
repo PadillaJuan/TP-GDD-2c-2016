@@ -74,47 +74,47 @@ IF (OBJECT_ID('FK_funxrol_fun', 'F') IS NOT NULL)
 	
 /* Elimino las tablas */
 
-IF OBJECT_ID('afiliado','U') IS NOT NULL
+IF (OBJECT_ID('afiliado','U') IS NOT NULL)
 	DROP TABLE afiliado;
-IF OBJECT_ID('logs_cambio_plan','U') IS NOT NULL
+IF (OBJECT_ID('logs_cambio_plan','U') IS NOT NULL)
 	DROP TABLE logs_cambio_plan;
-IF OBJECT_ID('plan_medico','U') IS NOT NULL
+IF (OBJECT_ID('plan_medico','U') IS NOT NULL)
 	DROP TABLE plan_medico;
-IF OBJECT_ID('servicios_por_planes','U') IS NOT NULL
+IF (OBJECT_ID('servicios_por_planes','U') IS NOT NULL)
 	DROP TABLE servicios_por_planes;
-IF OBJECT_ID('servicios','U') IS NOT NULL
+IF (OBJECT_ID('servicios','U') IS NOT NULL)
 	DROP TABLE servicios;
-IF OBJECT_ID('registro_compra','U') IS NOT NULL
+IF (OBJECT_ID('registro_compra','U') IS NOT NULL)
 	DROP TABLE registro_compra;
-IF OBJECT_ID('bono','U') IS NOT NULL
+IF (OBJECT_ID('bono','U') IS NOT NULL)
 	DROP TABLE bono;
-IF OBJECT_ID('consulta_medica','U') IS NOT NULL
+IF (OBJECT_ID('consulta_medica','U') IS NOT NULL)
 	DROP TABLE consulta_medica;
-IF OBJECT_ID('turnos','U') IS NOT NULL
+IF (OBJECT_ID('turnos','U') IS NOT NULL)
 	DROP TABLE turnos;
-IF OBJECT_ID('cancelacion','U') IS NOT NULL
+IF (OBJECT_ID('cancelacion','U') IS NOT NULL)
 	DROP TABLE cancelacion;
-IF OBJECT_ID('agenda_profesional','U') IS NOT NULL
+IF (OBJECT_ID('agenda_profesional','U') IS NOT NULL)
 	DROP TABLE agenda_profesional;
-IF OBJECT_ID('tipo_especialidades','U') IS NOT NULL
+IF (OBJECT_ID('tipo_especialidades','U') IS NOT NULL)
 	DROP TABLE tipo_especialidades;
-IF OBJECT_ID('especialidad','U') IS NOT NULL
+IF (OBJECT_ID('especialidad','U') IS NOT NULL)
 	DROP TABLE especialidad;
-IF OBJECT_ID('especialidad_por_profesional','U') IS NOT NULL
+IF (OBJECT_ID('especialidad_por_profesional','U') IS NOT NULL)
 	DROP TABLE especialidad_por_profesional;
-IF OBJECT_ID('profesional','U') IS NOT NULL
+IF (OBJECT_ID('profesional','U') IS NOT NULL)
 	DROP TABLE profesional;
-IF OBJECT_ID('periodo_baja','U') IS NOT NULL
+IF (OBJECT_ID('periodo_baja','U') IS NOT NULL)
 	DROP TABLE periodo_baja;
-IF OBJECT_ID('usuarios','U') IS NOT NULL
+IF (OBJECT_ID('usuarios','U') IS NOT NULL)
 	DROP TABLE usuarios;
-IF OBJECT_ID('rol_por_usuarios','U') IS NOT NULL
+IF (OBJECT_ID('rol_por_usuarios','U') IS NOT NULL)
 	DROP TABLE rol_por_usuarios;
-IF OBJECT_ID('rol','U') IS NOT NULL
+IF (OBJECT_ID('rol','U') IS NOT NULL)
 	DROP TABLE rol;
-IF OBJECT_ID('funcionalidad_por_rol','U') IS NOT NULL
+IF (OBJECT_ID('funcionalidad_por_rol','U') IS NOT NULL)
 	DROP TABLE funcionalidad_por_rol;
-IF OBJECT_ID('funcionalidad','U') IS NOT NULL
+IF (OBJECT_ID('funcionalidad','U') IS NOT NULL)
 	DROP TABLE funcionalidad;
 
 /* TABLA DE AFILIADOS */
