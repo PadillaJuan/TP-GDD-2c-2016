@@ -1,3 +1,122 @@
+USE GD2C2016;
+GO
+
+/* Elimino las CONSTRAINT */
+
+IF (OBJECT_ID('FK_afi_usuario', 'F') IS NOT NULL)
+	ALTER TABLE afiliado DROP constraint FK_afi_usuario;
+IF (OBJECT_ID('FK_plan_med', 'F') IS NOT NULL)
+	ALTER TABLE afiliado DROP constraint FK_plan_med;
+
+IF (OBJECT_ID('FK_afi', 'F') IS NOT NULL)
+	ALTER TABLE logs_cambio_plan DROP constraint FK_afi;
+IF (OBJECT_ID('FK_plan_ant', 'F') IS NOT NULL)
+	ALTER TABLE logs_cambio_plan DROP constraint FK_plan_ant;
+IF (OBJECT_ID('FK_plan_new', 'F') IS NOT NULL)
+	ALTER TABLE logs_cambio_plan DROP constraint FK_plan_new;
+
+IF (OBJECT_ID('FK_srv_por_planes_1', 'F') IS NOT NULL)
+	ALTER TABLE servicios_por_planes DROP constraint FK_srv_por_planes_1;
+IF (OBJECT_ID('FK_srv_por_planes_2', 'F') IS NOT NULL)
+	ALTER TABLE servicios_por_planes DROP constraint FK_srv_por_planes_2;
+	
+
+IF (OBJECT_ID('FK_compra_afi', 'F') IS NOT NULL)
+	ALTER TABLE registro_compra DROP constraint FK_compra_afi;
+
+IF (OBJECT_ID('FK_compra_bono', 'F') IS NOT NULL)
+	ALTER TABLE bono DROP constraint FK_compra_bono;
+IF (OBJECT_ID('FK_plan_bono', 'F') IS NOT NULL)
+	ALTER TABLE bono DROP constraint FK_plan_bono;
+IF (OBJECT_ID('FK_afi_bono', 'F') IS NOT NULL)
+	ALTER TABLE bono DROP constraint FK_afi_bono;
+
+IF (OBJECT_ID('FK_consulta_turno', 'F') IS NOT NULL)
+	ALTER TABLE consulta_medica DROP constraint FK_consulta_turno;
+IF (OBJECT_ID('FK_consulta_bono', 'F') IS NOT NULL)
+	ALTER TABLE consulta_medica DROP constraint FK_consulta_bono;
+
+IF (OBJECT_ID('FK_turno_afi', 'F') IS NOT NULL)
+	ALTER TABLE turnos DROP constraint FK_turno_afi;
+IF (OBJECT_ID('FK_turno_prof', 'F') IS NOT NULL)
+	ALTER TABLE turnos DROP constraint FK_turno_prof;
+IF (OBJECT_ID('FK_turno_esp', 'F') IS NOT NULL)
+	ALTER TABLE turnos DROP constraint FK_turno_esp;
+IF (OBJECT_ID('FK_turno_agenda', 'F') IS NOT NULL)
+	ALTER TABLE turnos DROP constraint FK_turno_agenda;
+
+IF (OBJECT_ID('FK_cancelacion_turno', 'F') IS NOT NULL)
+	ALTER TABLE cancelacion DROP constraint FK_cancelacion_turno;
+
+IF (OBJECT_ID('FK_agenda_prof', 'F') IS NOT NULL)
+	ALTER TABLE agenda_profesional DROP constraint FK_agenda_prof;
+IF (OBJECT_ID('FK_agenda_prof2', 'F') IS NOT NULL)
+	ALTER TABLE agenda_profesional DROP constraint FK_agenda_prof2;
+	
+IF (OBJECT_ID('FK_especialidad_tipo', 'F') IS NOT NULL)
+	ALTER TABLE especialidad DROP constraint FK_especialidad_tipo;
+
+IF (OBJECT_ID('FK_prof_us', 'F') IS NOT NULL)
+	ALTER TABLE profesional DROP constraint FK_prof_us;
+	
+IF (OBJECT_ID('FK_baja_prof', 'F') IS NOT NULL)
+	ALTER TABLE periodo_baja DROP constraint FK_baja_prof;
+
+IF (OBJECT_ID('FK_rolxusr_id', 'F') IS NOT NULL)
+	ALTER TABLE rol_por_usuarios DROP constraint FK_rolxusr_id;
+IF (OBJECT_ID('FK_rolxusr_rol', 'F') IS NOT NULL)
+	ALTER TABLE rol_por_usuarios DROP constraint FK_rolxusr_rol;
+
+IF (OBJECT_ID('FK_funxrol_id', 'F') IS NOT NULL)
+	ALTER TABLE funcionalidad_por_rol DROP constraint FK_funxrol_id;
+IF (OBJECT_ID('FK_funxrol_fun', 'F') IS NOT NULL)
+	ALTER TABLE funcionalidad_por_rol DROP constraint FK_funxrol_fun;
+	
+/* Elimino las tablas */
+
+IF OBJECT_ID('afiliado','U') IS NOT NULL
+	DROP TABLE afiliado;
+IF OBJECT_ID('logs_cambio_plan','U') IS NOT NULL
+	DROP TABLE logs_cambio_plan;
+IF OBJECT_ID('plan_medico','U') IS NOT NULL
+	DROP TABLE plan_medico;
+IF OBJECT_ID('servicios_por_planes','U') IS NOT NULL
+	DROP TABLE servicios_por_planes;
+IF OBJECT_ID('servicios','U') IS NOT NULL
+	DROP TABLE servicios;
+IF OBJECT_ID('registro_compra','U') IS NOT NULL
+	DROP TABLE registro_compra;
+IF OBJECT_ID('bono','U') IS NOT NULL
+	DROP TABLE bono;
+IF OBJECT_ID('consulta_medica','U') IS NOT NULL
+	DROP TABLE consulta_medica;
+IF OBJECT_ID('turnos','U') IS NOT NULL
+	DROP TABLE turnos;
+IF OBJECT_ID('cancelacion','U') IS NOT NULL
+	DROP TABLE cancelacion;
+IF OBJECT_ID('agenda_profesional','U') IS NOT NULL
+	DROP TABLE agenda_profesional;
+IF OBJECT_ID('tipo_especialidades','U') IS NOT NULL
+	DROP TABLE tipo_especialidades;
+IF OBJECT_ID('especialidad','U') IS NOT NULL
+	DROP TABLE especialidad;
+IF OBJECT_ID('especialidad_por_profesional','U') IS NOT NULL
+	DROP TABLE especialidad_por_profesional;
+IF OBJECT_ID('profesional','U') IS NOT NULL
+	DROP TABLE profesional;
+IF OBJECT_ID('periodo_baja','U') IS NOT NULL
+	DROP TABLE periodo_baja;
+IF OBJECT_ID('usuarios','U') IS NOT NULL
+	DROP TABLE usuarios;
+IF OBJECT_ID('rol_por_usuarios','U') IS NOT NULL
+	DROP TABLE rol_por_usuarios;
+IF OBJECT_ID('rol','U') IS NOT NULL
+	DROP TABLE rol;
+IF OBJECT_ID('funcionalidad_por_rol','U') IS NOT NULL
+	DROP TABLE funcionalidad_por_rol;
+IF OBJECT_ID('funcionalidad','U') IS NOT NULL
+	DROP TABLE funcionalidad;
+
 /* TABLA DE AFILIADOS */
 
 CREATE TABLE afiliado(
