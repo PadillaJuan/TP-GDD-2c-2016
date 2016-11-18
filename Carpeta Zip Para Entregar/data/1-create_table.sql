@@ -72,6 +72,8 @@ IF (OBJECT_ID('FK_funxrol_id', 'F') IS NOT NULL)
 IF (OBJECT_ID('FK_funxrol_fun', 'F') IS NOT NULL)
 	ALTER TABLE funcionalidad_por_rol DROP constraint FK_funxrol_fun;
 	
+GO
+	
 /* Elimino las tablas */
 
 IF (OBJECT_ID('afiliado','U') IS NOT NULL)
@@ -116,6 +118,10 @@ IF (OBJECT_ID('funcionalidad_por_rol','U') IS NOT NULL)
 	DROP TABLE funcionalidad_por_rol;
 IF (OBJECT_ID('funcionalidad','U') IS NOT NULL)
 	DROP TABLE funcionalidad;
+
+	
+GO 
+
 
 /* TABLA DE AFILIADOS */
 

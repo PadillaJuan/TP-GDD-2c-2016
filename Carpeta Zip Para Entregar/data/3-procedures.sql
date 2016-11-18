@@ -39,6 +39,8 @@ IF (OBJECT_ID('getPrecioBonoDelPlan', 'P') IS NOT NULL)
 IF (OBJECT_ID('comprarBonos', 'P') IS NOT NULL)
 	DROP PROCEDURE comprarBonos;
 
+	
+GO
 
 /* CREATE PROCEDURE */
 

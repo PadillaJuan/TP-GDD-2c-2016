@@ -3,6 +3,9 @@
 IF (OBJECT_ID('compraDeBonos', 'TR') IS NOT NULL)
 	DROP TRIGGER compraDeBonos;
 	
+	
+GO 
+
 /* CREO TRIGGERS */
 
 CREATE TRIGGER compraDeBonos
