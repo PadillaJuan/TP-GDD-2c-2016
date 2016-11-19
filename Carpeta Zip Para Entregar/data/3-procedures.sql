@@ -302,16 +302,15 @@ END
 GO
 
 CREATE PROCEDURE getPrecioBonoDelPlan
-	@planmed_id INT,
-	@precioBono INT OUTPUT
+	@planmed_id INT
 AS
 BEGIN
-SELECT @precioBono = plan_precio_bono
+SELECT plan_precio_bono
 FROM plan_medico
 WHERE planmed_id = @planmed_id
-RETURN @precioBono
 END
-GO
+
+
 
 CREATE PROCEDURE comprarBonos
 	@af_id BIGINT,
