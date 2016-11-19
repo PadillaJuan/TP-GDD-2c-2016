@@ -25,8 +25,17 @@ namespace ClinicaFrba.BuscarAfiliado
 
         private void button1_Click(object sender, EventArgs e) // AGREGAR FAMILIAR
         {
-            long id = getId();
-            Abm_Afiliado.ABM_afi form = new Abm_Afiliado.ABM_afi(2, id);
+            
+            int index = dataGridView1.CurrentCell.RowIndex;
+            if (index == -1)
+            {
+                MessageBox.Show("No se ha seleccionado un afiliado", "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            else
+            {
+                long id = getId();
+                Abm_Afiliado.ABM_afi form = new Abm_Afiliado.ABM_afi(2, id);
+            }
         }
 
         private void button2_Click(object sender, EventArgs e) // DAR DE BAJA
@@ -37,16 +46,29 @@ namespace ClinicaFrba.BuscarAfiliado
 
         private void button3_Click(object sender, EventArgs e) // COMPRAR BONO
         {
-            long id = getIdSinRel();
-            if (id == 0)
+            bool flag = true;
+            int index;
+            try
+            {
+                index = dataGridView1.CurrentCell.RowIndex;
+            }
+            catch (Exception a)
+            {
+                flag = false;
+                index = -1;
+            }
+            if (index == -1)
             {
                 MessageBox.Show("No se ha seleccionado un afiliado", "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             else
             {
-                    Compra_Bono.Compra_Bono form = new Compra_Bono.Compra_Bono(id);
-                    Hide();
-                    form.Show();
+                long id = getIdSinRel();
+                short id_rel = getRel_Id();
+                int plan = getPlanMed();
+                Compra_Bono.Compra_Bono form = new Compra_Bono.Compra_Bono(id,id_rel,plan);
+                Close();
+                form.Show();
             }
         }
 
@@ -67,14 +89,13 @@ namespace ClinicaFrba.BuscarAfiliado
                 String query = generateSearchQuery();
                 SqlConnection conn = (new BDConnection()).getConnection();
                 SqlCommand cm = new SqlCommand(query, conn);
-                SqlDataAdapter sda = new SqlDataAdapter(query,conn);
+                SqlDataAdapter sda = new SqlDataAdapter(query, conn);
                 dt = new DataTable();
                 sda.Fill(dt);
                 conn.Close();
                 dataGridView1.DataSource = dt;
                 dataGridView1.AutoGenerateColumns = true;
             }
-
         }
 
         private bool validarEntrada()
@@ -131,6 +152,14 @@ namespace ClinicaFrba.BuscarAfiliado
             return id;
         }
 
+        private int getPlanMed()
+        {
+            int index = dataGridView1.CurrentCell.RowIndex;
+            DataGridViewRow linea = dataGridView1.Rows[index];
+            int id = Int32.Parse(dt.Rows[index][13].ToString());
+            return id;
+        }
+
         private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
 
@@ -171,7 +200,17 @@ namespace ClinicaFrba.BuscarAfiliado
 
         private void button2_Click_1(object sender, EventArgs e)
         {
-            int index = dataGridView1.CurrentCell.RowIndex;
+            bool flag = true;
+            int index;
+            try
+            {
+                index = dataGridView1.CurrentCell.RowIndex;
+            }
+            catch (Exception a)
+            {
+                flag = false;
+                index = -1;
+            }
             if (index == -1)
             {
                 MessageBox.Show("No se ha seleccionado un afiliado", "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -187,6 +226,30 @@ namespace ClinicaFrba.BuscarAfiliado
                 com.Parameters.AddWithValue("@af_fechaBaja", DateTime.Parse(Program.nuevaFechaSistema()));
                 com.ExecuteNonQuery();
                 conn.Close();
+            }
+        }
+
+        private void button1_Click_1(object sender, EventArgs e)
+        {
+            bool flag = true;
+            int index;
+            try
+            {
+                index = dataGridView1.CurrentCell.RowIndex;
+            }
+            catch (Exception a)
+            {
+                flag = false;
+                index = -1;
+            }
+            if (index == -1)
+            {
+                MessageBox.Show("No se ha seleccionado un afiliado", "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            else
+            {
+                Abm_Afiliado.ABM_afi form = new Abm_Afiliado.ABM_afi(2, getId());
+                form.Show();
             }
         }
 

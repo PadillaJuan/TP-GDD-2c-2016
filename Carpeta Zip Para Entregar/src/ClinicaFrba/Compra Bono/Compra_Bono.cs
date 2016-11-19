@@ -21,7 +21,7 @@ namespace ClinicaFrba.Compra_Bono
         {
             InitializeComponent();
             idFamiliar = id;
-            idP = id_rel;
+            idRel = id_rel;
             planMed = plan;
             textBox1.Text = String.Format("{0}",id);
             textBox1.Enabled = false;
@@ -58,7 +58,7 @@ namespace ClinicaFrba.Compra_Bono
         public bool validarEntrada()
         {
             int n;
-            return int.TryParse(textBox2.Text, out n); 
+            return !int.TryParse(textBox2.Text, out n); 
         }
     }
 }

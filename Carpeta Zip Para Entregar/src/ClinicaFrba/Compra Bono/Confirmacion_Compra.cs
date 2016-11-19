@@ -51,12 +51,7 @@ namespace ClinicaFrba.Compra_Bono
             SqlCommand com = new SqlCommand(query, conn);
             com.CommandType = CommandType.StoredProcedure;
             com.Parameters.AddWithValue("@planmed_id", planMedico);
-            SqlParameter retval = new SqlParameter("@precioBono", SqlDbType.Int);
-            retval.Value = 0;
-            retval.Direction = ParameterDirection.ReturnValue;
-            com.Parameters.Add(retval);
-            com.ExecuteNonQuery();
-            precio = (float) retval.Value;
+            precio = float.Parse(com.ExecuteScalar().ToString());
             com.Dispose();
             return precio;
         }
@@ -69,7 +64,7 @@ namespace ClinicaFrba.Compra_Bono
             com.CommandType = CommandType.StoredProcedure;
             com.Parameters.AddWithValue("@af_id" , idP);
             com.Parameters.AddWithValue("@af_rel" , idR);
-            com.Parameters.AddWithValue("@cantidad " , Int32.Parse(textBox3.Text));
+            com.Parameters.AddWithValue("@cantidad" , Int32.Parse(textBox3.Text));
             com.Parameters.AddWithValue("@montoTotal" , Int32.Parse(textBox6.Text));
             com.Parameters.AddWithValue("@fecha", DateTime.Parse(Program.nuevaFechaSistema()));
             com.ExecuteNonQuery();
