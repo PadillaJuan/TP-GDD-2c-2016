@@ -15,12 +15,13 @@ namespace ClinicaFrba.BuscarAfiliado
     public partial class BuscarAfi : Form
     {
         DataTable dt;
-        public BuscarAfi()
+        public BuscarAfi(int asRol)
         {
             InitializeComponent();
             dataGridView1.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dataGridView1.MultiSelect = false;
             dataGridView1.ReadOnly = true;
+            setButtons(asRol);
         }
 
         private void button1_Click(object sender, EventArgs e) // AGREGAR FAMILIAR
@@ -253,5 +254,18 @@ namespace ClinicaFrba.BuscarAfiliado
             }
         }
 
+        public void setButtons(int asRol)
+        {
+            switch (asRol)
+            {
+                case 1:
+                    break;
+                case 2:
+                    button1.Enabled = false;
+                    button2.Enabled = false;
+                    button7.Enabled = false;
+                    break;
+            }
+        }
     }
 }

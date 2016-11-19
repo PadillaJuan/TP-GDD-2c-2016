@@ -13,11 +13,12 @@ namespace ClinicaFrba.Elegir_Accion
 {
     public partial class Elegir_Accion : Form
     {
-        int rol;
-        public Elegir_Accion(int rol_id)
+        int rol, us_idG;
+        public Elegir_Accion(int rol_id, int us_id)
         {
             InitializeComponent();
             rol = rol_id;
+            us_idG = us_id;
             comboBox1.DropDownStyle = ComboBoxStyle.DropDownList;
             llenarComboBox(rol_id);
         }
@@ -53,46 +54,56 @@ namespace ClinicaFrba.Elegir_Accion
 
         private void button1_Click(object sender, EventArgs e)
         {
-            String texto = comboBox1.Text;
-            switch (texto)
-            {
-                case "ABM de Rol":
-                    // ABM ROL
-                    AbmRol.ABMRol f1 = new AbmRol.ABMRol();
-                    f1.Show();
-                    break;
-                case "ABM de Afiliado":
-                    // ABM AFILIADO
-                    BuscarAfiliado.BuscarAfi f2 = new BuscarAfiliado.BuscarAfi();
-                    f2.Show();
-                    break;
-                case "Registrar Agenda Profesional":
-                    // REGISTRAR AGENDA PROFESIONAL
-                    break;
-                case "Compra de Bonos":
-                    // COMPRA DE BONOS
-                    BuscarAfiliado.BuscarAfi f3 = new BuscarAfiliado.BuscarAfi();
-                    f3.Show();
-                    break;
-                case "Pedido de Turno":
-                    // PEDIDO DE TURNO
-                    break;
-                case "Registro de Llegada":
-                    // REGISTRO DE LLEGADA
-                    break;
-                case "Registro de Resultado":
-                    // REGISTRO DE RESULTADO
-                    break;
-                case "Cancelar Atencion Medica":
-                    // CANCELAR ATENCION MEDICA
-                    break;
-                case "Listado Estadistico":
-                    // LISTADO ESTADISTICO
-                    break;
-                default:
-                    MessageBox.Show("No se ha seleccionado ninguna accion",Application.ProductName,MessageBoxButtons.OK,MessageBoxIcon.Error);
-                    break;
+                String texto = comboBox1.Text;
+                switch (texto)
+                {
+                    case "ABM de Rol":
+                        // ABM ROL
+                        AbmRol.ABMRol f1 = new AbmRol.ABMRol();
+                        f1.Show();
+                        break;
+                    case "ABM de Afiliado":
+                        // ABM AFILIADO
+                        BuscarAfiliado.BuscarAfi f2 = new BuscarAfiliado.BuscarAfi(rol);
+                        f2.Show();
+                        break;
+                    case "Registrar Agenda Profesional":
+                        // REGISTRAR AGENDA PROFESIONAL
+                        break;
+                    case "Compra de Bonos":
+                        // COMPRA DE BONOS
+                        switch (rol)
+                        {
+                            case 1:
+                                BuscarAfiliado.BuscarAfi f3 = new BuscarAfiliado.BuscarAfi(rol);
+                                f3.Show();
+                                break;
+                            case 2:
+                                Compra_Bono.Compra_Bono f4 = new Compra_Bono.Compra_Bono(rol);
+                                f4.Show();
+                                break;
+                        }
+                        break;
+                    case "Pedido de Turno":
+                        // PEDIDO DE TURNO
+                        break;
+                    case "Registro de Llegada":
+                        // REGISTRO DE LLEGADA
+                        break;
+                    case "Registro de Resultado":
+                        // REGISTRO DE RESULTADO
+                        break;
+                    case "Cancelar Atencion Medica":
+                        // CANCELAR ATENCION MEDICA
+                        break;
+                    case "Listado Estadistico":
+                        // LISTADO ESTADISTICO
+                        break;
+                    default:
+                        MessageBox.Show("No se ha seleccionado ninguna accion", Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        break;
             }
+            
         }
     }
 }

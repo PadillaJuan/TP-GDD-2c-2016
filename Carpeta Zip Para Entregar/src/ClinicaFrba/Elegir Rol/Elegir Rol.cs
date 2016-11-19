@@ -13,6 +13,7 @@ namespace ClinicaFrba.Elegir_Rol
 {
     public partial class Elegir_Rol : Form
     {
+        int us_idG;
         DataTable tabla;
         public Elegir_Rol(int us_id)
         {
@@ -29,6 +30,7 @@ namespace ClinicaFrba.Elegir_Rol
             com.CommandType = CommandType.StoredProcedure;
             com.Parameters.Add(new SqlParameter("@us_id", us_id));
             string rol;
+            us_idG = us_id;
             try
             {
                 SqlDataReader dr = com.ExecuteReader();
@@ -72,7 +74,7 @@ namespace ClinicaFrba.Elegir_Rol
             if (i != -1)
             {
                 i = (int ) tabla.Rows[i][0];
-                Elegir_Accion.Elegir_Accion form = new Elegir_Accion.Elegir_Accion(i);
+                Elegir_Accion.Elegir_Accion form = new Elegir_Accion.Elegir_Accion(i,us_idG);
                 Close();
                 form.Show();
             }

@@ -27,6 +27,13 @@ namespace ClinicaFrba.Compra_Bono
             textBox1.Enabled = false;
         }
 
+        public Compra_Bono(int us_id)
+        {
+            InitializeComponent();
+            getDatos(us_id);
+            textBox1.Enabled = false;
+        }
+
         private void button1_Click(object sender, EventArgs e)
         {
             Application.Exit();
@@ -59,6 +66,22 @@ namespace ClinicaFrba.Compra_Bono
         {
             int n;
             return !int.TryParse(textBox2.Text, out n); 
+        }
+
+        public void getDatos(int us_id)
+        {
+            SqlConnection cn = (new BDConnection()).getConnection();
+            SqlCommand cm = new SqlCommand ("getDatosForCompraBono",cn);
+            cm.CommandType = CommandType.StoredProcedure;
+            cm.Parameters.AddWithValue("@us_id",us_id);
+            SqlDataReader dr = cm.ExecuteReader();
+            dr.Read();
+            idFamiliar = long.Parse(dr.GetValue(0).ToString());
+            idRel = short.Parse(dr.GetValue(1).ToString());
+            planMed = int.Parse(dr.GetValue(2).ToString());
+            dr.Close();
+            cm.Dispose();
+            textBox1.Text = String.Format("{0}", idFamiliar*100+idRel);
         }
     }
 }

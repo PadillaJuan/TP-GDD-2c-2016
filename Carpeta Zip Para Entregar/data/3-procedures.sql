@@ -40,6 +40,8 @@ IF (OBJECT_ID('comprarBonos', 'P') IS NOT NULL)
 	DROP PROCEDURE comprarBonos;
 IF (OBJECT_ID('altaFamiliar', 'P') IS NOT NULL)
 	DROP PROCEDURE altaFamiliar;
+IF (OBJECT_ID('getDatosForCompraBono', 'P') IS NOT NULL)
+	DROP PROCEDURE getDatosForCompraBono;
 
 	
 GO
@@ -357,3 +359,9 @@ BEGIN
 END
 GO
 
+CREATE PROCEDURE getDatosForCompraBono
+	@us_id INT
+AS
+BEGIN
+SELECT af_id, af_rel_id, planmed_id FROM afiliado WHERE us_id = @us_id
+END
