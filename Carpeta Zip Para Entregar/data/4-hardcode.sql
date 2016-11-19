@@ -55,6 +55,9 @@ GO
 
 ----------------------------------------- CUENTA ADMIN -----------------------------------------------------------------
 
+IF (OBJECT_ID('setAdmin', 'P') IS NOT NULL)
+	DROP PROCEDURE setAdmin;
+
 CREATE PROCEDURE setAdmin
 AS
 BEGIN
@@ -76,3 +79,5 @@ BEGIN
 		SELECT SCOPE_IDENTITY(), esp_id FROM especialidad
 
 END
+exec setAdmin
+GO
