@@ -134,11 +134,11 @@
     <Compile Include="InicioSesion\InicioSesion.Designer.cs">
       <DependentUpon>InicioSesion.cs</DependentUpon>
     </Compile>
-    <Compile Include="Listados\Form1.cs">
+    <Compile Include="Listados\Presentacion listados.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Listados\Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <Compile Include="Listados\Presentacion listados.Designer.cs">
+      <DependentUpon>Presentacion listados.cs</DependentUpon>
     </Compile>
     <Compile Include="LoginDB.cs" />
     <Compile Include="Pedir Turno\ListadoProfesionales.cs">
@@ -193,6 +193,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Elegir Rol\Elegir Rol.resx">
       <DependentUpon>Elegir Rol.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Listados\Presentacion listados.resx">
+      <DependentUpon>Presentacion listados.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Pedir Turno\ElegirTurno.resx">
       <DependentUpon>ElegirTurno.cs</DependentUpon>

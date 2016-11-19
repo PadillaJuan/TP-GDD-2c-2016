@@ -38,6 +38,8 @@ IF (OBJECT_ID('getPrecioBonoDelPlan', 'P') IS NOT NULL)
 	DROP PROCEDURE getPrecioBonoDelPlan;
 IF (OBJECT_ID('comprarBonos', 'P') IS NOT NULL)
 	DROP PROCEDURE comprarBonos;
+IF (OBJECT_ID('altaFamiliar', 'P') IS NOT NULL)
+	DROP PROCEDURE altaFamiliar;
 
 	
 GO
@@ -309,7 +311,7 @@ SELECT plan_precio_bono
 FROM plan_medico
 WHERE planmed_id = @planmed_id
 END
-
+GO
 
 
 CREATE PROCEDURE comprarBonos
@@ -324,3 +326,32 @@ BEGIN
 	VALUES(@af_id,@af_rel_id,@cantidad,@monto,@fecha)
 END
 GO
+
+
+CREATE PROCEDURE altaFamiliar
+	@af_id BIGINT,
+	@af_rel_id TINYINT,
+	@af_nombre VARCHAR(255),
+	@af_apellido VARCHAR(255),
+	@af_tipodoc	 VARCHAR(5),
+	@af_numdoc numeric(18,0),
+	@af_direccion VARCHAR(255),
+	@af_telefono numeric(18,0),
+	@af_mail VARCHAR(255) ,
+	@af_nacimiento DATETIME,
+	@af_estado_civil VARCHAR(11),
+	@planmed_id numeric(18,0),
+	@af_sexo CHAR(1)
+AS
+BEGIN
+	INSERT INTO usuarios VALUES(CONVERT(varchar(30), @af_numdoc),HASHBYTES('SHA2_256' ,@af_apellido),0,'a')
+	INSERT INTO rol_por_usuarios VALUES((SELECT us_id FROM usuarios u WHERE u.us_username like @af_numdoc),
+										(SELECT rol_id FROM rol r WHERE r.rol_nombre = 'Afiliado'))
+	SET IDENTITY_INSERT afiliado ON;
+	INSERT INTO afiliado(af_id, af_rel_id, us_id, af_nombre ,af_apellido ,af_tipodoc, af_numdoc, af_direccion , af_telefono , af_mail , af_nacimiento , af_estado_civil, af_cantidad_familiares, planmed_id , af_sexo)
+	VALUES (@af_id, (SELECT af_cantidad_familiares FROM afiliado WHERE af_id = @af_id AND af_rel_id = 0)+1, (SELECT us_id FROM usuarios WHERE us_username like CONVERT(varchar(30), @af_numdoc)), 
+			@af_nombre , @af_apellido , @af_tipodoc, @af_numdoc, @af_direccion , @af_telefono , @af_mail , @af_nacimiento , @af_estado_civil, 0, @planmed_id , @af_sexo)
+	SET IDENTITY_INSERT afiliado OFF;
+END
+GO
+

@@ -17,6 +17,7 @@ namespace ClinicaFrba.Abm_Afiliado
         long id_;
         int planMed;
         string motivo;
+        int accionElegida;
 
         public ABM_afi(int accion, long id)
         {
@@ -24,6 +25,7 @@ namespace ClinicaFrba.Abm_Afiliado
             setComboBoxes();
             id_ = id;
             this.cargarComboBoxPlanMedico();
+            accionElegida = accion;
             switch (accion)
             {
                 case 0:
@@ -112,6 +114,7 @@ namespace ClinicaFrba.Abm_Afiliado
 
         public void agregarFamiliar()
         {
+            button3.Enabled = false;
             textBox1.Text = String.Format("{0}", id_);
             textBox1.Enabled = false;
         }
@@ -197,7 +200,42 @@ namespace ClinicaFrba.Abm_Afiliado
 
         public void darAltaAfiliado()
         {
-            //SqlCommand com = generateSqlCommand();
+            switch (accionElegida)
+            {
+                case 0:
+                    altaNuevoAfiliado();
+                    break;
+                case 2:
+                    altaFamiliar();
+                    break;
+            }
+        }
+
+        public void altaFamiliar()
+        {
+            string query = "altaFamiliar";
+            SqlConnection conn = (new BDConnection()).getConnection();
+            SqlCommand com = new SqlCommand(query, conn);
+            com.CommandType = CommandType.StoredProcedure;
+            com.Parameters.AddWithValue("@af_id", getId());
+            com.Parameters.AddWithValue("@af_rel_id", (Int16)0);
+            com.Parameters.AddWithValue("@af_nombre", textBox2.Text);
+            com.Parameters.AddWithValue("@af_apellido", textBox3.Text);
+            com.Parameters.AddWithValue("@af_tipodoc", comboBox1.Text);
+            com.Parameters.AddWithValue("@af_numdoc", textBox4.Text);
+            com.Parameters.AddWithValue("@af_direccion", textBox5.Text);
+            com.Parameters.AddWithValue("@af_telefono", textBox6.Text);
+            com.Parameters.AddWithValue("@af_mail", textBox7.Text);
+            com.Parameters.AddWithValue("@af_nacimiento", dateTimePicker1.Value);
+            com.Parameters.AddWithValue("@af_estado_civil", comboBox2.Text);
+            com.Parameters.AddWithValue("@planmed_id", Int32.Parse(comboBox3.Text));
+            com.Parameters.AddWithValue("@af_sexo", comboBox4.Text);
+            com.ExecuteNonQuery();
+            com.Dispose();
+        }
+
+        private void altaNuevoAfiliado()
+        {
             string query = "altaAfiliado";
             SqlConnection conn = (new BDConnection()).getConnection();
             SqlCommand com = new SqlCommand(query, conn);
@@ -217,7 +255,8 @@ namespace ClinicaFrba.Abm_Afiliado
             com.ExecuteNonQuery();
             com.Dispose();
         }
-
+        
+        
         public void updateAfiliado()
         {
             string query = "actualizarAfiliado";
