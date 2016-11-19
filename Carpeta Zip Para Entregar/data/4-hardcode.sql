@@ -1,4 +1,4 @@
----------------------------------------------CREO FUNCIONALIDADES ----------------------------------------------------
+﻿---------------------------------------------CREO FUNCIONALIDADES ----------------------------------------------------
 
 INSERT INTO funcionalidad (fun_nombre) VALUES ('ABM de Rol');
 INSERT INTO funcionalidad (fun_nombre) VALUES ('ABM de Afiliado');
@@ -55,8 +55,24 @@ GO
 
 ----------------------------------------- CUENTA ADMIN -----------------------------------------------------------------
 
-INSERT INTO usuarios VALUES('admin',HASHBYTES('SHA2_256','w23e'),0,'a')
+CREATE PROCEDURE setAdmin
+AS
+BEGIN
+	DECLARE @us_id INT
+	INSERT INTO usuarios VALUES('admin',HASHBYTES('SHA2_256','w23e'),0,'a')
+	
+	SET @us_id = SCOPE_IDENTITY()
+	
+	INSERT INTO rol_por_usuarios
+	SELECT @us_id, r.rol_id 
+	FROM rol r
 
-INSERT INTO rol_por_usuarios
-SELECT 5579, r.rol_id 
-FROM rol r
+	INSERT INTO afiliado (af_rel_id, us_id,planmed_id)
+		VALUES (0,@us_id,555555)
+
+	INSERT INTO profesional (us_id) VALUES (@us_id)
+
+	INSERT INTO especialidad_por_profesional 
+		SELECT SCOPE_IDENTITY(), esp_id FROM especialidad
+
+END
