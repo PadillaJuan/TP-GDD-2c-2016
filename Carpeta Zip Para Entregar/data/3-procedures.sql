@@ -133,7 +133,9 @@ CREATE PROCEDURE getFuncionalidadDelRol
 	@id_rol INT
 AS
 BEGIN
-	SELECT fun_id FROM funcionalidad_por_rol
+	SELECT f.fun_id, f.fun_nombre 
+	FROM funcionalidad_por_rol r JOIN funcionalidad f
+	ON r.fun_id = f.fun_id
 	WHERE rol_id = @id_rol
 END
 GO
