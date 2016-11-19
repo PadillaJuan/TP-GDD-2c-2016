@@ -389,3 +389,8 @@ ALTER TABLE rol_por_usuarios add constraint FK_rolxusr_rol foreign key (rol_id) 
 
 ALTER TABLE funcionalidad_por_rol add constraint FK_funxrol_id foreign key (rol_id) references rol (rol_id);
 ALTER TABLE funcionalidad_por_rol add constraint FK_funxrol_fun foreign key (fun_id) references funcionalidad (fun_id);
+
+
+
+
+ALTER TABLE afiliado ADD CONSTRAINT uniqueIdentificacion UNIQUE (af_tipodoc, af_numdoc)

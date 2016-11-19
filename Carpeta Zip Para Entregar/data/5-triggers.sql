@@ -2,7 +2,8 @@
 
 IF (OBJECT_ID('compraDeBonos', 'TR') IS NOT NULL)
 	DROP TRIGGER compraDeBonos;
-	
+IF (OBJECT_ID('agregarFamiliar', 'TR') IS NOT NULL)
+	DROP TRIGGER agregarFamiliar
 	
 GO 
 
@@ -30,3 +31,17 @@ BEGIN
 	END
 
 END
+
+CREATE TRIGGER agregarFamiliar
+	ON afiliado
+	AFTER INSERT
+AS
+BEGIN
+	DECLARE @af_id BIGINT
+	DECLARE @af_rel_id TINYINT
+	SELECT @af_id = i.af_id, @af_rel_id = i.af_rel_id FROM inserted i
+	IF (@af_rel_id <> 0)
+		UPDATE afiliado SET af_cantidad_familiares+=1
+		WHERE af_id = @af_id AND af_rel_id = 0
+END
+
