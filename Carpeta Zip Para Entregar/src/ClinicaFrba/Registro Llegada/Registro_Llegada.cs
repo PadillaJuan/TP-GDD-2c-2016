@@ -56,17 +56,38 @@ namespace ClinicaFrba.Registro_Llegada
         private void button4_Click(object sender, EventArgs e)
         {
             SeleccionarBono form = new SeleccionarBono(getID(), getRelID());
+            dataGridView1.ReadOnly = true;
             DialogResult res = form.ShowDialog();
             if (res == DialogResult.OK)
             {
                 bono = form.bono;
+                button5.Enabled = true;
+            }
+            else
+            {
+                dataGridView1.ReadOnly = false;
             }
             
         }
 
         private void button5_Click(object sender, EventArgs e)
         {
-
+            try
+            {
+                int turno = getTurno();
+                SqlConnection cn = (new BDConnection()).getConnection();
+                SqlCommand cm = new SqlCommand("generateConsultaMedica", cn);
+                cm.CommandType = CommandType.StoredProcedure;
+                cm.Parameters.AddWithValue("@turno_id", turno);
+                cm.Parameters.AddWithValue("@bono_id", bono);
+                cm.Parameters.AddWithValue("@hora_llegada", Program.nuevaFechaSistema());
+                cm.ExecuteNonQuery();
+                cm.Dispose();
+            }
+            catch (Exception a)
+            {
+                MessageBox.Show(a.Message, Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private void llenarComboBox()
@@ -128,7 +149,14 @@ namespace ClinicaFrba.Registro_Llegada
             return ret;
         }
 
-        
+        public int getTurno()
+        {
+            int ret;
+            int index;
+            index = dataGridView1.CurrentCell.RowIndex;
+            ret = int.Parse(tabla.Rows[index][0].ToString());
+            return ret;
+        }
 
         
 
