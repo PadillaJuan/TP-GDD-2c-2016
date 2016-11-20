@@ -10,6 +10,7 @@ using System.Windows.Forms;
 
 using ClinicaFrba.Utils;
 
+
 namespace ClinicaFrba.Pedir_Turno
 {
     public partial class ElegirTurno : Form
@@ -17,9 +18,9 @@ namespace ClinicaFrba.Pedir_Turno
         string id;
         string wheres;
         Form form;
-        String nombreUsuario;
+        String nombreAfiliado;
 
-        public ElegirTurno(string idP, string apellidoP, string nombreUsuarioPasado)
+        public ElegirTurno(string idP, string apellidoP, string nombreAfiliadoPasado)
         {
             InitializeComponent();
             label2.Text = "Dr. " + apellidoP;
@@ -27,7 +28,7 @@ namespace ClinicaFrba.Pedir_Turno
             dataGridView1.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dataGridView1.MultiSelect = false;
             dataGridView1.ReadOnly = true;
-            nombreUsuario = nombreUsuarioPasado;
+            nombreAfiliado = nombreAfiliadoPasado;
 
             inicializar();
         }
@@ -55,7 +56,7 @@ namespace ClinicaFrba.Pedir_Turno
 
         private void filtrarFecha(DateTime fechaTurno)
         {
-            string query2 = "SELECT DATEPART ( HOUR , turno_fecha )  FROM Turnos WHERE turno_fecha > fechaTurno"; 
+            string query2 = "SELECT agenda_hora  FROM agenda WHERE agenda_dia > fechaTurno"; 
             CompletadorDeTablas.hacerQuery(query2, ref dataGridView1);
         }
 
@@ -82,7 +83,7 @@ namespace ClinicaFrba.Pedir_Turno
         private void button1_Click(object sender, EventArgs e)
         {
             Hide();
-            //Pedir_Turno.ListadoProfesionales volver = new Pedir_Turno.ListadoProfesionales();
+            //Pedir_Turno.ListadoProfesionales volver = new Pedir_Turno.ListadoProfesionales(nombreAfiliado);
             //volver.ShowDialog();
         }
 
@@ -108,7 +109,7 @@ namespace ClinicaFrba.Pedir_Turno
 
         private void button2_Click(object sender, EventArgs e)
         {
-            if ((MessageBox.Show("¿Desea realizar la oferta?", "Confirmar", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes))
+            if ((MessageBox.Show("¿Desea elegir ese turno?", "Confirmar", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes))
             {
                 if (!validaciones())
                 {
@@ -124,9 +125,12 @@ namespace ClinicaFrba.Pedir_Turno
 
         private void agendar()
         {
-            //string query5 = "SELECT us_id FROM usuarios WHERE  = '" + nombreUsuario + "'";
-            //DataTable dt5 = (new ConexionSQL()).cargarTablaSQL(query5);
+            //string query5 = "SELECT af_id FROM afiliado WHERE af_nombre = '" + nombreAfiliado + "'";
+            //DataTable dt5 = (new BDConnection()).cargarTablaSQL(query5);
             //string usuarioID = dt5.Rows[0][0].ToString();
+
+            //string agendarTurno = 
+            //(new BDConnection()).ejecutarComandoSQL(agendarTurno);
         }
     }
 }

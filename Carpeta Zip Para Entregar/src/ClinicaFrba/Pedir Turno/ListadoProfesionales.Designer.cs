@@ -40,6 +40,7 @@
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.bindingSource1 = new System.Windows.Forms.BindingSource(this.components);
+            this.buttonReestablecer = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.bindingSource1)).BeginInit();
             this.SuspendLayout();
@@ -148,11 +149,23 @@
             // 
             this.bindingSource1.CurrentChanged += new System.EventHandler(this.bindingSource1_CurrentChanged);
             // 
+            // buttonReestablecer
+            // 
+            this.buttonReestablecer.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.buttonReestablecer.Location = new System.Drawing.Point(114, 488);
+            this.buttonReestablecer.Name = "buttonReestablecer";
+            this.buttonReestablecer.Size = new System.Drawing.Size(105, 23);
+            this.buttonReestablecer.TabIndex = 66;
+            this.buttonReestablecer.Text = "Deseleccionar todos";
+            this.buttonReestablecer.UseVisualStyleBackColor = true;
+            this.buttonReestablecer.Click += new System.EventHandler(this.buttonReestablecer_Click_1);
+            // 
             // ListadoProfesionales
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(808, 528);
+            this.Controls.Add(this.buttonReestablecer);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.txtDescrip);
@@ -186,6 +199,7 @@
         private System.Windows.Forms.TextBox txtDescrip;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Button buttonReestablecer;
 
     }
 }
