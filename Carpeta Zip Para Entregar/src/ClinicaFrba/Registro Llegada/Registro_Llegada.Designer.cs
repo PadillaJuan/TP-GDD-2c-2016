@@ -82,6 +82,7 @@
             this.button3.TabIndex = 7;
             this.button3.Text = "Buscar";
             this.button3.UseVisualStyleBackColor = true;
+            this.button3.Click += new System.EventHandler(this.button3_Click);
             // 
             // textBox1
             // 
@@ -148,7 +149,7 @@
             // 
             // button2
             // 
-            this.button2.Location = new System.Drawing.Point(617, 526);
+            this.button2.Location = new System.Drawing.Point(697, 498);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(75, 23);
             this.button2.TabIndex = 2;
@@ -169,9 +170,9 @@
             this.label3.AutoSize = true;
             this.label3.Location = new System.Drawing.Point(20, 9);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(95, 13);
+            this.label3.Size = new System.Drawing.Size(145, 13);
             this.label3.TabIndex = 8;
-            this.label3.Text = "Número de afiliado";
+            this.label3.Text = "Ingresar el numero de afiliado";
             // 
             // textBox2
             // 
@@ -191,9 +192,9 @@
             // 
             // button5
             // 
-            this.button5.Location = new System.Drawing.Point(616, 367);
+            this.button5.Location = new System.Drawing.Point(483, 494);
             this.button5.Name = "button5";
-            this.button5.Size = new System.Drawing.Size(75, 55);
+            this.button5.Size = new System.Drawing.Size(128, 55);
             this.button5.TabIndex = 11;
             this.button5.Text = "Confirmar Llegada";
             this.button5.UseVisualStyleBackColor = true;
