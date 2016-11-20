@@ -202,6 +202,7 @@ CREATE TABLE registro_compra(
 CREATE TABLE bono(
 	bono_id INT PRIMARY KEY IDENTITY(1,1),
 	bono_compra INT,
+	bono_nro_consulta INT,
 	bono_planmed numeric(18,0),
 	bono_af INT,
 	bono_af_rel TINYINT,
