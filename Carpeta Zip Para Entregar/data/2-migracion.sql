@@ -147,8 +147,10 @@ as
 		from gd_esquema.Maestra,profesional
 		where prof_numdoc = Medico_Dni
 go
+
 execute migrarEspecialidadPorProfesional
 go
+
 
 create procedure migrarAgendaProfesional
 as

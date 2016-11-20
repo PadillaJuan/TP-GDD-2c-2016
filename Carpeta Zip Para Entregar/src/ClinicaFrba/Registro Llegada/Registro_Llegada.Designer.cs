@@ -187,7 +187,7 @@
             this.button4.Name = "button4";
             this.button4.Size = new System.Drawing.Size(75, 55);
             this.button4.TabIndex = 10;
-            this.button4.Text = "Seleccionar Turno";
+            this.button4.Text = "Seleccionar bono a utilizar";
             this.button4.UseVisualStyleBackColor = true;
             this.button4.Click += new System.EventHandler(this.button4_Click);
             // 
@@ -199,6 +199,7 @@
             this.button5.TabIndex = 11;
             this.button5.Text = "Confirmar Llegada";
             this.button5.UseVisualStyleBackColor = true;
+            this.button5.Click += new System.EventHandler(this.button5_Click);
             // 
             // Registro_Llegada
             // 

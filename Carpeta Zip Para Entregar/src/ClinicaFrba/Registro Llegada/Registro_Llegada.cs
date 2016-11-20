@@ -14,6 +14,7 @@ namespace ClinicaFrba.Registro_Llegada
     public partial class Registro_Llegada : Form
     {
         DataTable tabla;
+        int bono;
         public Registro_Llegada()
         {
             InitializeComponent();
@@ -55,7 +56,17 @@ namespace ClinicaFrba.Registro_Llegada
         private void button4_Click(object sender, EventArgs e)
         {
             SeleccionarBono form = new SeleccionarBono(getID(), getRelID());
-            form.ShowDialog();
+            DialogResult res = form.ShowDialog();
+            if (res == DialogResult.OK)
+            {
+                bono = form.bono;
+            }
+            
+        }
+
+        private void button5_Click(object sender, EventArgs e)
+        {
+
         }
 
         private void llenarComboBox()
@@ -116,6 +127,8 @@ namespace ClinicaFrba.Registro_Llegada
             ret = int.Parse(tabla.Rows[index][0].ToString());
             return ret;
         }
+
+        
 
         
 
