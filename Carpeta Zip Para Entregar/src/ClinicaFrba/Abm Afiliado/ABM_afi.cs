@@ -296,6 +296,11 @@ namespace ClinicaFrba.Abm_Afiliado
 
         }
 
+        private void dateTimePicker1_ValueChanged(object sender, EventArgs e)
+        {
+
+        }
+
     }
 }
 

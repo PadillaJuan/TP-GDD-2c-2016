@@ -8,23 +8,28 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
+using ClinicaFrba.Utils;
+
 namespace ClinicaFrba.Pedir_Turno
 {
     public partial class ElegirTurno : Form
     {
         string id;
         string wheres;
+        Form form;
+        String nombreUsuario;
 
-        public ElegirTurno(string id, string apellido)
+        public ElegirTurno(string idP, string apellidoP, string nombreUsuarioPasado)
         {
             InitializeComponent();
-            label2.Text = "Dr. " + apellido;
+            label2.Text = "Dr. " + apellidoP;
 
             dataGridView1.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dataGridView1.MultiSelect = false;
             dataGridView1.ReadOnly = true;
+            nombreUsuario = nombreUsuarioPasado;
 
-            //inicializar();
+            inicializar();
         }
 
         public void inicializar()
@@ -32,15 +37,6 @@ namespace ClinicaFrba.Pedir_Turno
             dateTimePicker1.Enabled = false;
             dateTimePicker1.Text = DateTime.Parse(Program.nuevaFechaSistema()).ToString();
 
-        }
-
-        private void armarWheres()
-        {
-            /*wheres = "";
-
-            wheres = wheres + "WHERE [Fecha???] IN (";
-
-            wheres = wheres + " AND [Fecha Alta] BETWEEN '" + DateTime.Parse(dateTimePicker1.Text) + "' AND '" + /*fecha dfutura??? + "'";*/
         }
 
         private bool validaciones()
@@ -56,6 +52,13 @@ namespace ClinicaFrba.Pedir_Turno
 
             return true;
         }
+
+        private void filtrarFecha(DateTime fechaTurno)
+        {
+            string query2 = "SELECT DATEPART ( HOUR , turno_fecha )  FROM Turnos WHERE turno_fecha > fechaTurno"; 
+            CompletadorDeTablas.hacerQuery(query2, ref dataGridView1);
+        }
+
         private void label1_Click(object sender, EventArgs e)
         {
 
@@ -86,6 +89,44 @@ namespace ClinicaFrba.Pedir_Turno
         private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
 
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void button3_Click_1(object sender, EventArgs e)
+        {
+            if (!validaciones())
+            {
+                return;
+            }
+
+            filtrarFecha(dateTimePicker1.Value)
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            if ((MessageBox.Show("¿Desea realizar la oferta?", "Confirmar", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes))
+            {
+                if (!validaciones())
+                {
+                    return;
+                }
+
+                agendar();
+                MessageBox.Show("Turno seleccionado correctamente", this.Text, MessageBoxButtons.OK, MessageBoxIcon.None);
+                form.Close();
+                this.Close();
+            }
+        }
+
+        private void agendar()
+        {
+            string query5 = "SELECT us_id FROM usuarios WHERE  = '" + nombreUsuario + "'";
+            DataTable dt5 = (new ConexionSQL()).cargarTablaSQL(query5);
+            string usuarioID = dt5.Rows[0][0].ToString();
         }
     }
 }
