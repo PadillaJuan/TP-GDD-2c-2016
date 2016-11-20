@@ -84,8 +84,14 @@ namespace ClinicaFrba.Elegir_Accion
                                 break;
                         }
                         break;
+                        
                     case "Pedido de Turno":
-                        // PEDIDO DE TURNO
+                        string query5 = "SELECT af_nombre FROM afiliado WHERE us_id = us_idG";
+                        DataTable dt5 = (new BDConnection()).cargarTablaSQL(query5);
+                        string elAfiliadoQuePideElTurno = dt5.Rows[0][0].ToString();
+                        
+                        Pedir_Turno.ListadoProfesionales f5 = new Pedir_Turno.ListadoProfesionales(elAfiliadoQuePideElTurno);
+                        f5.Show();
                         break;
                     case "Registro de Llegada":
                         // REGISTRO DE LLEGADA
@@ -104,6 +110,11 @@ namespace ClinicaFrba.Elegir_Accion
                         break;
             }
             
+        }
+
+        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }
