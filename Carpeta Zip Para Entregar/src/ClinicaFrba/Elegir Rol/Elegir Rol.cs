@@ -70,7 +70,6 @@ namespace ClinicaFrba.Elegir_Rol
           
             int i = rolSelection.SelectedIndex;
             String texto = rolSelection.Text;
-            MessageBox.Show(String.Format("index: {0}, texto: {1}", i, texto));
             if (i != -1)
             {
                 i = (int ) tabla.Rows[i][0];

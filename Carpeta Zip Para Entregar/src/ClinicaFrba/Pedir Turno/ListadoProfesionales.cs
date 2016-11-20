@@ -17,11 +17,11 @@ namespace ClinicaFrba.Pedir_Turno
     {
         
         String wheres;
-        String nombreAfiliado;
+       String nombreAfiliado;
 
         public ListadoProfesionales(String nombreAfiliadoPasado)
         {
-            InitializeComponent();
+          InitializeComponent();
             dataGridView1.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dataGridView1.MultiSelect = false;
             dataGridView1.ReadOnly = true;
