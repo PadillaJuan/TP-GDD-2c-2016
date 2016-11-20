@@ -44,6 +44,8 @@ IF (OBJECT_ID('getDatosForCompraBono', 'P') IS NOT NULL)
 	DROP PROCEDURE getDatosForCompraBono;
 IF (OBJECT_ID('getTurnos', 'P') IS NOT NULL)
 	DROP PROCEDURE getTurnos;
+IF (OBJECT_ID('getBonosDisponibles', 'P') IS NOT NULL)
+	DROP PROCEDURE getBonosDisponibles;
 	
 GO
 
@@ -395,3 +397,13 @@ BEGIN
 END
 GO
 
+CREATE PROCEDURE getBonosDisponibles
+AS
+BEGIN
+
+SELECT bono_id, bono_compra
+FROM bono
+WHERE bono_nro_consulta IS NULL
+
+END
+GO
