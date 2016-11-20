@@ -12,7 +12,7 @@ namespace ClinicaFrba.Registro_Llegada
 {
     public partial class SeleccionarBono : Form
     {
-        public SeleccionarBono()
+        public SeleccionarBono(long af_id, int af_rel_id)
         {
             InitializeComponent();
         }

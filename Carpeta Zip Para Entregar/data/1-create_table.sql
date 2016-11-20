@@ -205,8 +205,7 @@ CREATE TABLE bono(
 	bono_nro_consulta INT,
 	bono_planmed numeric(18,0),
 	bono_af INT,
-	bono_af_rel TINYINT,
-	bono_estado CHAR(1)
+	bono_af_rel TINYINT
 );
 
 /* TABLA DE CONSULTA MEDICA */

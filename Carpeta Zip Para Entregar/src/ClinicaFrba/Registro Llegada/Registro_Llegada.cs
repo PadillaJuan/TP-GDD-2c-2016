@@ -18,6 +18,8 @@ namespace ClinicaFrba.Registro_Llegada
         {
             InitializeComponent();
             llenarComboBox();
+            button4.Enabled = false;
+            button5.Enabled = false;
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -46,7 +48,14 @@ namespace ClinicaFrba.Registro_Llegada
                 tabla = new DataTable();
                 sda.Fill(tabla);
                 dataGridView1.DataSource = tabla;
+                button4.Enabled = true;
             }
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            SeleccionarBono form = new SeleccionarBono(getID(), getRelID());
+            form.ShowDialog();
         }
 
         private void llenarComboBox()
@@ -107,6 +116,8 @@ namespace ClinicaFrba.Registro_Llegada
             ret = int.Parse(tabla.Rows[index][0].ToString());
             return ret;
         }
+
+        
 
      }
 }
