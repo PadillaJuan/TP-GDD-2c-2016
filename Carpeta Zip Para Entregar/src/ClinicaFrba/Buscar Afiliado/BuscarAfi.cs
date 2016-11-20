@@ -249,7 +249,7 @@ namespace ClinicaFrba.BuscarAfiliado
             }
             else
             {
-                if ((int) dt.Rows[index][1] != 0)
+                if (int.Parse(dt.Rows[index][1].ToString()) != 0)
                 {
                     MessageBox.Show("Solo un afiliado titular puede agregar familiares", "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }

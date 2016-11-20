@@ -10,11 +10,21 @@ using System.Windows.Forms;
 
 namespace ClinicaFrba.Registro_Llegada
 {
-    public partial class Form1 : Form
+    public partial class Registro_Llegada : Form
     {
-        public Form1()
+        public Registro_Llegada()
         {
             InitializeComponent();
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            Application.Exit();
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            Close();
         }
     }
 }

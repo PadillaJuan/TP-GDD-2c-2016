@@ -155,11 +155,11 @@
     <Compile Include="Registrar Agenta Medico\Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
-    <Compile Include="Registro Llegada\Form1.cs">
+    <Compile Include="Registro Llegada\Registro_Llegada.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Registro Llegada\Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <Compile Include="Registro Llegada\Registro_Llegada.Designer.cs">
+      <DependentUpon>Registro_Llegada.cs</DependentUpon>
     </Compile>
     <Compile Include="Registro Resultado\Reg_Res.cs">
       <SubType>Form</SubType>
@@ -202,6 +202,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Pedir Turno\ListadoProfesionales.resx">
       <DependentUpon>ListadoProfesionales.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Registro Llegada\Registro_Llegada.resx">
+      <DependentUpon>Registro_Llegada.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Registro Resultado\Reg_Res.resx">
       <DependentUpon>Reg_Res.cs</DependentUpon>
