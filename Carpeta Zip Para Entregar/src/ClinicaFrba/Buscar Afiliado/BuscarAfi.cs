@@ -249,8 +249,15 @@ namespace ClinicaFrba.BuscarAfiliado
             }
             else
             {
-                Abm_Afiliado.ABM_afi form = new Abm_Afiliado.ABM_afi(2, getId());
-                form.Show();
+                if ((int) dt.Rows[index][1] != 0)
+                {
+                    MessageBox.Show("Solo un afiliado titular puede agregar familiares", "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                else
+                {
+                    Abm_Afiliado.ABM_afi form = new Abm_Afiliado.ABM_afi(2, getId());
+                    form.Show();
+                }
             }
         }
 

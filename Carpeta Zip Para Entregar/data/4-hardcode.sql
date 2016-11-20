@@ -79,5 +79,7 @@ BEGIN
 		SELECT SCOPE_IDENTITY(), esp_id FROM especialidad
 
 END
+GO
+
 exec setAdmin
 GO

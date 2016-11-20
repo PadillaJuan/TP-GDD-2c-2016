@@ -17,7 +17,7 @@ namespace ClinicaFrba.Pedir_Turno
     {
         
         String wheres;
-        String nombreUsuario
+        String nombreUsuario;
 
         public ListadoProfesionales(String nombreUsuarioPasado)
         {

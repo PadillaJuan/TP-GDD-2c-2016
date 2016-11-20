@@ -82,8 +82,8 @@ namespace ClinicaFrba.Pedir_Turno
         private void button1_Click(object sender, EventArgs e)
         {
             Hide();
-            Pedir_Turno.ListadoProfesionales volver = new Pedir_Turno.ListadoProfesionales();
-            volver.ShowDialog();
+            //Pedir_Turno.ListadoProfesionales volver = new Pedir_Turno.ListadoProfesionales();
+            //volver.ShowDialog();
         }
 
         private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
@@ -103,7 +103,7 @@ namespace ClinicaFrba.Pedir_Turno
                 return;
             }
 
-            filtrarFecha(dateTimePicker1.Value)
+            filtrarFecha(dateTimePicker1.Value);
         }
 
         private void button2_Click(object sender, EventArgs e)
@@ -124,9 +124,9 @@ namespace ClinicaFrba.Pedir_Turno
 
         private void agendar()
         {
-            string query5 = "SELECT us_id FROM usuarios WHERE  = '" + nombreUsuario + "'";
-            DataTable dt5 = (new ConexionSQL()).cargarTablaSQL(query5);
-            string usuarioID = dt5.Rows[0][0].ToString();
+            //string query5 = "SELECT us_id FROM usuarios WHERE  = '" + nombreUsuario + "'";
+            //DataTable dt5 = (new ConexionSQL()).cargarTablaSQL(query5);
+            //string usuarioID = dt5.Rows[0][0].ToString();
         }
     }
 }

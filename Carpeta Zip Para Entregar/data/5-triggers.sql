@@ -31,6 +31,7 @@ BEGIN
 	END
 
 END
+GO
 
 CREATE TRIGGER agregarFamiliar
 	ON afiliado
