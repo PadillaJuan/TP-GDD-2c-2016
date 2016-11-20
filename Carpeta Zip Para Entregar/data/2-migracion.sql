@@ -144,8 +144,11 @@ go
 create procedure migrarEspecialidadPorProfesional
 as
 	insert into especialidad_por_profesional(prof_id,esp_id)
+		select prof_id,Especialidad_Codigo
 		from gd_esquema.Maestra,profesional
 		where prof_numdoc = Medico_Dni
+		group by prof_id,Especialidad_Codigo
+		order by prof_id
 go
 
 execute migrarEspecialidadPorProfesional
