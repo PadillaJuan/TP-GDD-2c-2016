@@ -46,6 +46,8 @@ IF (OBJECT_ID('getTurnos', 'P') IS NOT NULL)
 	DROP PROCEDURE getTurnos;
 IF (OBJECT_ID('getBonosDisponibles', 'P') IS NOT NULL)
 	DROP PROCEDURE getBonosDisponibles;
+IF (OBJECT_ID('generateConsultaMedica', 'P') IS NOT NULL)
+	DROP PROCEDURE generateConsultaMedicas;
 	
 GO
 
@@ -405,5 +407,16 @@ SELECT bono_id, bono_compra
 FROM bono
 WHERE bono_nro_consulta IS NULL
 
+END
+GO
+
+CREATE PROCEDURE generateConsultaMedica
+	@turno_id INT,
+	@bono_id INT,
+	@hora_llegada DATETIME
+AS
+BEGIN
+	INSERT INTO consulta_medica(cons_turno,cons_bono,cons_hora_llegada)
+				VALUES(@turno_id,@bono_id,@hora_llegada)
 END
 GO
