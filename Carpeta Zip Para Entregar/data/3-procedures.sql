@@ -369,13 +369,15 @@ END
 GO
 
 CREATE PROCEDURE getTurnos
+	@af_id BIGINT,
+	@af_rel_id TINYINT,
 	@esp_id INT,
 	@prof_apellido VARCHAR(50),
 	@fecha DATETIME
 AS
 BEGIN
 
-	SELECT t.turno_id, turno_prof, turno_esp INTO #temporalTurno
+	SELECT t.turno_id, turno_prof, turno_esp, turno_af, turno_af_rel INTO #temporalTurno
 	FROM turnos t
 	WHERE YEAR(t.turno_fecha) = YEAR(@fecha)
 	AND	  MONTH(t.turno_fecha) = MONTH(@fecha)
@@ -385,8 +387,10 @@ BEGIN
 	FROM #temporalTurno t 
 	JOIN profesional p ON t.turno_prof = p.prof_id
 	JOIN especialidad e ON e.esp_id = t.turno_esp
-	WHERE @esp_id = t.turno_esp OR p.prof_apellido = @prof_apellido
+	WHERE turno_af = @af_id AND turno_af_rel = @af_rel_id
+	AND (@esp_id = t.turno_esp OR p.prof_apellido = @prof_apellido)
 
+	DROP TABLE #temporalTurno
 
 END
 GO
