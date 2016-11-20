@@ -42,7 +42,8 @@ IF (OBJECT_ID('altaFamiliar', 'P') IS NOT NULL)
 	DROP PROCEDURE altaFamiliar;
 IF (OBJECT_ID('getDatosForCompraBono', 'P') IS NOT NULL)
 	DROP PROCEDURE getDatosForCompraBono;
-
+IF (OBJECT_ID('getTurnos', 'P') IS NOT NULL)
+	DROP PROCEDURE getTurnos;
 	
 GO
 
@@ -365,3 +366,28 @@ AS
 BEGIN
 SELECT af_id, af_rel_id, planmed_id FROM afiliado WHERE us_id = @us_id
 END
+GO
+
+CREATE PROCEDURE getTurnos
+	@esp_id INT,
+	@prof_apellido VARCHAR(50),
+	@fecha DATETIME
+AS
+BEGIN
+
+	SELECT t.turno_id, turno_prof, turno_esp INTO #temporalTurno
+	FROM turnos t
+	WHERE YEAR(t.turno_fecha) = YEAR(@fecha)
+	AND	  MONTH(t.turno_fecha) = MONTH(@fecha)
+	AND   DAY(t.turno_fecha) = DAY(@fecha)
+
+	SELECT t.turno_id, e.esp_descripcion, p.prof_apellido
+	FROM #temporalTurno t 
+	JOIN profesional p ON t.turno_prof = p.prof_id
+	JOIN especialidad e ON e.esp_id = t.turno_esp
+	WHERE @esp_id = t.turno_esp OR p.prof_apellido = @prof_apellido
+
+
+END
+GO
+
