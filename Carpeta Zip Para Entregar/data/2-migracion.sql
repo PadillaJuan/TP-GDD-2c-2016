@@ -161,7 +161,7 @@ as
 
 	--Agrego los horarios del 2016
 	insert into agenda_profesional
-		select prof_id,Especialidad_Codigo,CONVERT(time,Turno_Fecha), datepart(dw,Turno_Fecha)+1,2016
+		select prof_id,Especialidad_Codigo,CONVERT(time,Turno_Fecha), datepart(dw,Turno_Fecha),2016
 		from gd_esquema.Maestra,profesional
 		where Turno_Fecha is not null and Bono_Consulta_Numero is not null and prof_numdoc = Medico_Dni
 		group by prof_id,Especialidad_Codigo,CONVERT(time,Turno_Fecha), datepart(dw,Turno_Fecha)
