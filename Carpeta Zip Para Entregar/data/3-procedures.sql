@@ -48,7 +48,31 @@ IF (OBJECT_ID('getBonosDisponibles', 'P') IS NOT NULL)
 	DROP PROCEDURE getBonosDisponibles;
 IF (OBJECT_ID('generateConsultaMedica', 'P') IS NOT NULL)
 	DROP PROCEDURE generateConsultaMedica;
-	
+
+IF (OBJECT_ID('getListado1Mensual', 'P') IS NOT NULL)
+	DROP PROCEDURE getListado1Mensual;
+IF (OBJECT_ID('getListado2Mensual', 'P') IS NOT NULL)
+	DROP PROCEDURE getListado2Mensuala;
+IF (OBJECT_ID('getListado3Mensual', 'P') IS NOT NULL)
+	DROP PROCEDURE getListado3Mensual;
+IF (OBJECT_ID('getListado4Mensual', 'P') IS NOT NULL)
+	DROP PROCEDURE getListado4Mensual;
+IF (OBJECT_ID('getListado5Mensual', 'P') IS NOT NULL)
+	DROP PROCEDURE getListado5Mensual;
+
+IF (OBJECT_ID('getListado1Semestral', 'P') IS NOT NULL)
+	DROP PROCEDURE getListado1Semestral;
+IF (OBJECT_ID('getListado2Semestral', 'P') IS NOT NULL)
+	DROP PROCEDURE getListado2Semestral;
+IF (OBJECT_ID('getListado3Semestral', 'P') IS NOT NULL)
+	DROP PROCEDURE getListado3Semestral;
+IF (OBJECT_ID('getListado4Semestral', 'P') IS NOT NULL)
+	DROP PROCEDURE getListado4Semestral;
+IF (OBJECT_ID('getListado5Semestral', 'P') IS NOT NULL)
+	DROP PROCEDURE getListado5Semestral;
+
+
+
 GO
 
 /* CREATE PROCEDURE */
@@ -424,40 +448,174 @@ GO
 
 ------------------LISTADOS------------------LISTADOS------------------LISTADOS------------------LISTADOS------------------LISTADOS
 
-SELECT TOP 5 t.turno_esp 'ID Especialidad', e.esp_descripcion 'Nombre especialidad', COUNT(c.cancel_id) 'Cantidad de cancelaciones'
-FROM cancelacion c
-JOIN turnos t ON c.turno_id = t.turno_id
-JOIN especialidad e ON t.turno_esp = e.esp_id
-WHERE turno_estado like '1'
-GROUP BY t.turno_esp,e.esp_descripcion
-ORDER BY 'Cantidad de cancelaciones' DESC
+CREATE PROCEDURE getListado1Semestral
+	@fecha_inicio DATETIME,
+	@fecha_fin DATETIME
+AS
+BEGIN
+	SELECT TOP 5 t.turno_esp 'ID Especialidad', e.esp_descripcion 'Nombre especialidad', COUNT(c.cancel_id) 'Cantidad de cancelaciones'
+	FROM cancelacion c
+	JOIN turnos t ON c.turno_id = t.turno_id
+	JOIN especialidad e ON t.turno_esp = e.esp_id
+	WHERE turno_estado like '1'
+	AND turno_fecha BETWEEN @fecha_inicio AND @fecha_fin
+	GROUP BY t.turno_esp,e.esp_descripcion
+	ORDER BY 'Cantidad de cancelaciones' DESC
+END
+GO
 
+CREATE PROCEDURE getListado1Mensual
+	@fecha_mes DATETIME
+AS
+BEGIN
+	SELECT TOP 5 t.turno_esp 'ID Especialidad', e.esp_descripcion 'Nombre especialidad', COUNT(c.cancel_id) 'Cantidad de cancelaciones'
+	FROM cancelacion c
+	JOIN turnos t ON c.turno_id = t.turno_id
+	JOIN especialidad e ON t.turno_esp = e.esp_id
+	WHERE turno_estado like '1'
+	AND MONTH(turno_fecha) = MONTH(@fecha_mes)
+	AND YEAR(turno_fecha) = YEAR(@fecha_mes)
+	GROUP BY t.turno_esp,e.esp_descripcion
+	ORDER BY 'Cantidad de cancelaciones' DESC
+END
+GO
+
+
+
+
+CREATE PROCEDURE getListado2Semestral
+	@fecha_inicio DATETIME,
+	@fecha_fin DATETIME
+AS
+BEGIN
+	SELECT TOP 5 t.turno_prof 'ID del profesional', CONCAT(p.prof_apellido, ', ', p.prof_nombre) 'Apellido, Nombre',
+				 t.turno_esp 'ID Especialidad',e.esp_descripcion 'Especialidad', COUNT(t.turno_id) 'Cantidad de consultas'
+	FROM turnos t
+	JOIN profesional p ON t.turno_prof = p.prof_id
+	JOIN especialidad e ON t.turno_esp = e.esp_id
+	WHERE turno_estado like '1'
+	AND turno_fecha BETWEEN @fecha_inicio AND @fecha_fin
+	GROUP BY t.turno_prof, p.prof_apellido, p.prof_nombre, t.turno_esp, e.esp_descripcion
+	ORDER BY 'Cantidad de consultas' DESC
+END
+GO
+
+CREATE PROCEDURE getListado2Mensual
+	@fecha_mes DATETIME
+AS
+BEGIN
 SELECT TOP 5 t.turno_prof 'ID del profesional', CONCAT(p.prof_apellido, ', ', p.prof_nombre) 'Apellido, Nombre',
-			 t.turno_esp 'ID Especialidad',e.esp_descripcion 'Especialidad', COUNT(t.turno_id) 'Cantidad de consultas'
-FROM turnos t
-JOIN profesional p ON t.turno_prof = p.prof_id
-JOIN especialidad e ON t.turno_esp = e.esp_id
-WHERE turno_estado like '1' 
-GROUP BY t.turno_prof, p.prof_apellido, p.prof_nombre, t.turno_esp, e.esp_descripcion
-ORDER BY 'Cantidad de consultas' DESC
+				 t.turno_esp 'ID Especialidad',e.esp_descripcion 'Especialidad', COUNT(t.turno_id) 'Cantidad de consultas'
+	FROM turnos t
+	JOIN profesional p ON t.turno_prof = p.prof_id
+	JOIN especialidad e ON t.turno_esp = e.esp_id
+	WHERE turno_estado like '1'
+	AND MONTH(turno_fecha) = MONTH(@fecha_mes)
+	AND YEAR(turno_fecha) = YEAR(@fecha_mes) 
+	GROUP BY t.turno_prof, p.prof_apellido, p.prof_nombre, t.turno_esp, e.esp_descripcion
+	ORDER BY 'Cantidad de consultas' DESC
+END
+GO
 
-SELECT TOP 5 t.turno_prof 'ID del profesional', CONCAT(p.prof_apellido, ', ', p.prof_nombre) 'Apellido, Nombre',
-			 t.turno_esp 'ID Especialidad',e.esp_descripcion 'Especialidad', COUNT(t.turno_id) 'Cantidad de consultas'
-FROM turnos t
-JOIN profesional p ON t.turno_prof = p.prof_id
-JOIN especialidad e ON t.turno_esp = e.esp_id
-WHERE turno_estado like '1' 
-GROUP BY t.turno_prof, p.prof_apellido, p.prof_nombre, t.turno_esp, e.esp_descripcion
-ORDER BY 'Cantidad de consultas' ASC
 
-SELECT TOP 5 b.bono_af 'ID' , b.bono_af_rel 'IDRel', CONCAT(a.af_apellido, ', ', a.af_nombre) 'Apellido, Nombre', COUNT(*) 'Cantidad de bonos comprados'
-FROM bono b
-JOIN afiliado a ON b.bono_af = a.af_id AND b.bono_af_rel = a.af_rel_id
-GROUP BY b.bono_af, b.bono_af_rel, a.af_nombre, a.af_apellido
-ORDER BY 'Cantidad de bonos comprados' DESC
 
-SELECT TOP 5 t.turno_esp'ID de la Especialidad', e.esp_descripcion'Especialidad', COUNT(*) 'Bonos utilizados'
-FROM turnos t
-JOIN especialidad e ON t.turno_esp = e.esp_id
-GROUP BY t.turno_esp, e.esp_descripcion
-ORDER BY 'Bonos utilizados' DESC
+
+CREATE PROCEDURE getListado3Semestral
+	@fecha_inicio DATETIME,
+	@fecha_fin DATETIME
+AS
+BEGIN
+	SELECT TOP 5 t.turno_prof 'ID del profesional', CONCAT(p.prof_apellido, ', ', p.prof_nombre) 'Apellido, Nombre',
+				 t.turno_esp 'ID Especialidad',e.esp_descripcion 'Especialidad', COUNT(t.turno_id) 'Cantidad de consultas'
+	FROM turnos t
+	JOIN profesional p ON t.turno_prof = p.prof_id
+	JOIN especialidad e ON t.turno_esp = e.esp_id
+	WHERE turno_estado like '1'
+	AND turno_fecha BETWEEN @fecha_inicio AND @fecha_fin
+	GROUP BY t.turno_prof, p.prof_apellido, p.prof_nombre, t.turno_esp, e.esp_descripcion
+	ORDER BY 'Cantidad de consultas' ASC
+END
+GO
+
+CREATE PROCEDURE getListado3Mensual
+	@fecha_mes DATETIME
+AS
+BEGIN
+	SELECT TOP 5 t.turno_prof 'ID del profesional', CONCAT(p.prof_apellido, ', ', p.prof_nombre) 'Apellido, Nombre',
+				 t.turno_esp 'ID Especialidad',e.esp_descripcion 'Especialidad', COUNT(t.turno_id) 'Cantidad de consultas'
+	FROM turnos t
+	JOIN profesional p ON t.turno_prof = p.prof_id
+	JOIN especialidad e ON t.turno_esp = e.esp_id
+	WHERE turno_estado like '1'
+	AND MONTH(turno_fecha) = MONTH(@fecha_mes)
+	AND YEAR(turno_fecha) = YEAR(@fecha_mes) 
+	GROUP BY t.turno_prof, p.prof_apellido, p.prof_nombre, t.turno_esp, e.esp_descripcion
+	ORDER BY 'Cantidad de consultas' ASC
+END
+GO
+
+
+
+CREATE PROCEDURE getListado4Semestral
+	@fecha_inicio DATETIME,
+	@fecha_fin DATETIME
+AS
+BEGIN
+	SELECT TOP 5 b.bono_af 'ID' , b.bono_af_rel 'IDRel', CONCAT(a.af_apellido, ', ', a.af_nombre) 'Apellido, Nombre', COUNT(*) 'Cantidad de bonos comprados'
+	FROM bono b
+	JOIN afiliado a ON b.bono_af = a.af_id AND b.bono_af_rel = a.af_rel_id
+	JOIN registro_compra r ON b.bono_compra = r.compra_id
+	WHERE compra_fecha BETWEEN @fecha_inicio AND @fecha_fin
+	GROUP BY b.bono_af, b.bono_af_rel, a.af_nombre, a.af_apellido
+	ORDER BY 'Cantidad de bonos comprados' DESC
+END
+GO
+
+
+CREATE PROCEDURE getListado4Mensual
+	@fecha_mes DATETIME
+AS
+BEGIN
+	SELECT TOP 5 b.bono_af 'ID' , b.bono_af_rel 'IDRel', CONCAT(a.af_apellido, ', ', a.af_nombre) 'Apellido, Nombre', COUNT(*) 'Cantidad de bonos comprados'
+	FROM bono b
+	JOIN afiliado a ON b.bono_af = a.af_id AND b.bono_af_rel = a.af_rel_id
+	JOIN registro_compra r ON b.bono_compra = r.compra_id
+	WHERE MONTH(compra_fecha) = MONTH(@fecha_mes)
+	AND YEAR(compra_fecha) = YEAR(@fecha_mes) 
+	GROUP BY b.bono_af, b.bono_af_rel, a.af_nombre, a.af_apellido
+	ORDER BY 'Cantidad de bonos comprados' DESC
+END
+GO
+
+
+
+CREATE PROCEDURE getListado5Semestral
+	@fecha_inicio DATETIME,
+	@fecha_fin DATETIME
+AS
+BEGIN
+	SELECT TOP 5 t.turno_esp'ID de la Especialidad', e.esp_descripcion'Especialidad', COUNT(*) 'Bonos utilizados'
+	FROM turnos t
+	JOIN especialidad e ON t.turno_esp = e.esp_id
+	WHERE turno_fecha BETWEEN @fecha_inicio AND @fecha_fin
+	GROUP BY t.turno_esp, e.esp_descripcion
+	ORDER BY 'Bonos utilizados' DESC
+END
+GO
+
+
+
+
+CREATE PROCEDURE getListado5Mensual
+	@fecha_mes DATETIME
+AS
+BEGIN
+	SELECT TOP 5 t.turno_esp'ID de la Especialidad', e.esp_descripcion'Especialidad', COUNT(*) 'Bonos utilizados'
+	FROM turnos t
+	JOIN especialidad e ON t.turno_esp = e.esp_id
+	WHERE MONTH(turno_fecha) = MONTH(@fecha_mes)
+	AND YEAR(turno_fecha) = YEAR(@fecha_mes) 
+	GROUP BY t.turno_esp, e.esp_descripcion
+	ORDER BY 'Bonos utilizados' DESC
+END
+GO
