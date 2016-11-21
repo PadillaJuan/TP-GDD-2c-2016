@@ -26,11 +26,13 @@ namespace ClinicaFrba.Listados
         private void radioButton1_CheckedChanged(object sender, EventArgs e)
         {
             dateTimePicker1.Enabled = true;
+            dateTimePicker2.Enabled = false;
         }
 
         private void radioButton2_CheckedChanged(object sender, EventArgs e)
         {
             dateTimePicker2.Enabled = true;
+            dateTimePicker1.Enabled = false;
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -41,23 +43,33 @@ namespace ClinicaFrba.Listados
         private void button2_Click(object sender, EventArgs e)
         {
             int i = validarEntrada();
-            DateTime inicio;
-            DateTime fin;
+            SqlCommand cm;
+            VerListado form;
             switch(i)
             {
                 case 0: 
                     MessageBox.Show("No se ha seleccionado ninguna fecha",Application.ProductName,MessageBoxButtons.OK,MessageBoxIcon.Error);
                     break;
                 case 1:
-                    SqlCommand cm = generateSqlCommand(out inicio, out fin);
-                    
+                    cm = generateSqlCommandSemestral();
+                    form = new VerListado(cm);
+                    form.Show();
+                    break;
+                case 2:
+                    cm = generateSqlCommandMensual();
+                    form = new VerListado(cm);
+                    form.Show();
                     break;
             }
         }
 
-        private SqlCommand generateSqlCommand(out DateTime inicio, out DateTime fin)
+        private SqlCommand generateSqlCommandSemestral()
         {
-            SqlCommand cm = new SqlCommand();
+            SqlConnection cn = (new BDConnection()).getConnection();
+            string query3 = query2 + "Semestral";
+            SqlCommand cm = new SqlCommand(query3,cn);
+            DateTime inicio;
+            DateTime fin;
             if (dateTimePicker1.Value >= new DateTime(dateTimePicker1.Value.Year, 7, 1))
             {
                 inicio = new DateTime(dateTimePicker1.Value.Year, 07, 01);
@@ -68,6 +80,19 @@ namespace ClinicaFrba.Listados
                 inicio = new DateTime(dateTimePicker1.Value.Year, 01, 01);
                 fin = new DateTime(dateTimePicker1.Value.Year, 06, 30);
             }
+            cm.CommandType = CommandType.StoredProcedure;
+            cm.Parameters.AddWithValue("@fecha_inicio", inicio);
+            cm.Parameters.AddWithValue("@fecha_fin", fin);
+            return cm;
+        }
+
+        private SqlCommand generateSqlCommandMensual()
+        {
+            SqlConnection cn = (new BDConnection()).getConnection();
+            string query3 = query2 + "Mensual";
+            SqlCommand cm = new SqlCommand(query3, cn);
+            cm.CommandType = CommandType.StoredProcedure;
+            cm.Parameters.Add("@fecha_mes", dateTimePicker2.Value);
             return cm;
         }
 

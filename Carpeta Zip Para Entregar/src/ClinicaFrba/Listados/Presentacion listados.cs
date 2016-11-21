@@ -15,15 +15,17 @@ namespace ClinicaFrba.Listados
         public Presentacion_Listados()
         {
             InitializeComponent();
+            comboBox1.DropDownStyle = ComboBoxStyle.DropDownList;
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
             if (validarEntrada())
             {
-                string query1 = "getListado" + comboBox1.SelectedIndex.ToString();
+                string query1 = "getListado" + (comboBox1.SelectedIndex + 1).ToString();
                 Seleccionar_Periodo form = new Seleccionar_Periodo(query1);
                 form.Show();
+
             }
 
         }
