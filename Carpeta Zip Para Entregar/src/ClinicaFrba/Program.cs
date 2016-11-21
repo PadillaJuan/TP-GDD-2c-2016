@@ -22,9 +22,9 @@ namespace ClinicaFrba
             Application.SetCompatibleTextRenderingDefault(false);
             //Application.Run(new BuscarAfiliado.BuscarAfi());
             
-            Application.Run(new Pedir_Turno.ListadoProfesionales("pepe"));
-             //Application.Run(new Pedir_Turno.ElegirTurno("3", "Conchudo", "pepe"));
-            //   Application.Run(new VentanaInicial());
+            //Application.Run(new Pedir_Turno.ListadoProfesionales("pepe"));
+            //Application.Run(new Pedir_Turno.ElegirTurno("3", "Conchudo", "pepe"));
+            Application.Run(new VentanaInicial());
         }
 
         public static void testConexionBD()

@@ -47,7 +47,7 @@ IF (OBJECT_ID('getTurnos', 'P') IS NOT NULL)
 IF (OBJECT_ID('getBonosDisponibles', 'P') IS NOT NULL)
 	DROP PROCEDURE getBonosDisponibles;
 IF (OBJECT_ID('generateConsultaMedica', 'P') IS NOT NULL)
-	DROP PROCEDURE generateConsultaMedicas;
+	DROP PROCEDURE generateConsultaMedica;
 	
 GO
 
