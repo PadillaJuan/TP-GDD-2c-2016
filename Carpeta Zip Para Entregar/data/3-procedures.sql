@@ -420,3 +420,44 @@ BEGIN
 				VALUES(@turno_id,@bono_id,@hora_llegada)
 END
 GO
+
+
+------------------LISTADOS------------------LISTADOS------------------LISTADOS------------------LISTADOS------------------LISTADOS
+
+SELECT TOP 5 t.turno_esp 'ID Especialidad', e.esp_descripcion 'Nombre especialidad', COUNT(c.cancel_id) 'Cantidad de cancelaciones'
+FROM cancelacion c
+JOIN turnos t ON c.turno_id = t.turno_id
+JOIN especialidad e ON t.turno_esp = e.esp_id
+WHERE turno_estado like '1'
+GROUP BY t.turno_esp,e.esp_descripcion
+ORDER BY 'Cantidad de cancelaciones' DESC
+
+SELECT TOP 5 t.turno_prof 'ID del profesional', CONCAT(p.prof_apellido, ', ', p.prof_nombre) 'Apellido, Nombre',
+			 t.turno_esp 'ID Especialidad',e.esp_descripcion 'Especialidad', COUNT(t.turno_id) 'Cantidad de consultas'
+FROM turnos t
+JOIN profesional p ON t.turno_prof = p.prof_id
+JOIN especialidad e ON t.turno_esp = e.esp_id
+WHERE turno_estado like '1' 
+GROUP BY t.turno_prof, p.prof_apellido, p.prof_nombre, t.turno_esp, e.esp_descripcion
+ORDER BY 'Cantidad de consultas' DESC
+
+SELECT TOP 5 t.turno_prof 'ID del profesional', CONCAT(p.prof_apellido, ', ', p.prof_nombre) 'Apellido, Nombre',
+			 t.turno_esp 'ID Especialidad',e.esp_descripcion 'Especialidad', COUNT(t.turno_id) 'Cantidad de consultas'
+FROM turnos t
+JOIN profesional p ON t.turno_prof = p.prof_id
+JOIN especialidad e ON t.turno_esp = e.esp_id
+WHERE turno_estado like '1' 
+GROUP BY t.turno_prof, p.prof_apellido, p.prof_nombre, t.turno_esp, e.esp_descripcion
+ORDER BY 'Cantidad de consultas' ASC
+
+SELECT TOP 5 b.bono_af 'ID' , b.bono_af_rel 'IDRel', CONCAT(a.af_apellido, ', ', a.af_nombre) 'Apellido, Nombre', COUNT(*) 'Cantidad de bonos comprados'
+FROM bono b
+JOIN afiliado a ON b.bono_af = a.af_id AND b.bono_af_rel = a.af_rel_id
+GROUP BY b.bono_af, b.bono_af_rel, a.af_nombre, a.af_apellido
+ORDER BY 'Cantidad de bonos comprados' DESC
+
+SELECT TOP 5 t.turno_esp'ID de la Especialidad', e.esp_descripcion'Especialidad', COUNT(*) 'Bonos utilizados'
+FROM turnos t
+JOIN especialidad e ON t.turno_esp = e.esp_id
+GROUP BY t.turno_esp, e.esp_descripcion
+ORDER BY 'Bonos utilizados' DESC
