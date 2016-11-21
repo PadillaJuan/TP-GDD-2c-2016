@@ -64,22 +64,23 @@ BEGIN
 	DECLARE @us_id INT
 	INSERT INTO usuarios VALUES('admin',HASHBYTES('SHA2_256','w23e'),0,'a')
 	
-	SET @us_id = SCOPE_IDENTITY()
+	SELECT @us_id = us_id FROM usuarios WHERE us_username like 'admin'
 	
 	INSERT INTO rol_por_usuarios
 	SELECT @us_id, r.rol_id 
 	FROM rol r
 
-	INSERT INTO afiliado (af_rel_id, us_id,planmed_id)
-		VALUES (0,@us_id,555555)
+	INSERT INTO afiliado (af_rel_id, us_id,planmed_id, af_tipodoc, af_numdoc)
+		VALUES (0,@us_id,555555,'DNI',0)
 
 	INSERT INTO profesional (us_id) VALUES (@us_id)
 
 	INSERT INTO especialidad_por_profesional 
-		SELECT SCOPE_IDENTITY(), esp_id FROM especialidad
+		SELECT (SELECT prof_id FROM profesional WHERE us_id = @us_id), esp_id FROM especialidad
 
 END
 GO
 
 exec setAdmin
 GO
+

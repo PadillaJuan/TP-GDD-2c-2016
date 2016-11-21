@@ -63,9 +63,9 @@ namespace ClinicaFrba.Compra_Bono
             SqlCommand com = new SqlCommand(query, conn);
             com.CommandType = CommandType.StoredProcedure;
             com.Parameters.AddWithValue("@af_id" , idP);
-            com.Parameters.AddWithValue("@af_rel" , idR);
+            com.Parameters.AddWithValue("@af_rel_id" , idR);
             com.Parameters.AddWithValue("@cantidad" , Int32.Parse(textBox3.Text));
-            com.Parameters.AddWithValue("@montoTotal" , Int32.Parse(textBox6.Text));
+            com.Parameters.AddWithValue("@monto" , float.Parse(textBox6.Text));
             com.Parameters.AddWithValue("@fecha", DateTime.Parse(Program.nuevaFechaSistema()));
             com.ExecuteNonQuery();
             com.Dispose();
