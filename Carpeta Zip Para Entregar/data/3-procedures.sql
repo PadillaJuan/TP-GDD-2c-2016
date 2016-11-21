@@ -71,6 +71,10 @@ IF (OBJECT_ID('getListado4Semestral', 'P') IS NOT NULL)
 IF (OBJECT_ID('getListado5Semestral', 'P') IS NOT NULL)
 	DROP PROCEDURE getListado5Semestral;
 
+IF (OBJECT_ID('addHorasAgenda', 'P') IS NOT NULL)
+	DROP PROCEDURE addHorasAgenda;	
+IF (OBJECT_ID('getEspecialidadesPorProfesional', 'P') IS NOT NULL)
+	DROP PROCEDURE getEspecialidadesPorProfesional;
 
 
 GO
@@ -617,5 +621,57 @@ BEGIN
 	AND YEAR(turno_fecha) = YEAR(@fecha_mes) 
 	GROUP BY t.turno_esp, e.esp_descripcion
 	ORDER BY 'Bonos utilizados' DESC
+END
+GO
+
+
+CREATE PROCEDURE addHorasAgenda
+	@id INT,
+	@desde DATETIME,
+	@hasta DATETIME,
+	@dia INT,
+	@hora_inicio TIME,
+	@hora_fin TIME,
+	@especialidad INT
+AS
+BEGIN	
+	
+	DECLARE @fechatemp DATETIME
+	DECLARE @fechatemp_fin DATETIME
+		
+	WHILE (@dia != DATEPART(weekday,@desde))
+	BEGIN
+		SET @desde = DATEADD(day,1,@desde)
+	END
+
+	
+	SET @desde = CONVERT(VARCHAR(30),DATEPART(year,@desde)) + '-'+ CONVERT(VARCHAR(30),DATEPART(month,@desde)) +'-'+ CONVERT(VARCHAR(30),DATEPART(day,@desde)) +' '+CONVERT(VARCHAR(30),DATEPART(hour,@hora_inicio))+':'+CONVERT(VARCHAR(30),DATEPART(minute,@hora_inicio))
+
+	SET @fechatemp_fin = CONVERT(VARCHAR(30),DATEPART(year,@desde)) + '-'+ CONVERT(VARCHAR(30),DATEPART(month,@desde)) +'-'+ CONVERT(VARCHAR(30),DATEPART(day,@desde)) +' '+CONVERT(VARCHAR(30),DATEPART(hour,@hora_fin))+':'+CONVERT(VARCHAR(30),DATEPART(minute,@hora_fin))
+	
+	WHILE (DATEDIFF(day,@desde,@hasta) >= 0)
+	BEGIN		
+		SET @fechatemp = @desde
+		WHILE(DATEDIFF(minute,@fechatemp,@fechatemp_fin) >= 0)
+		BEGIN
+			INSERT INTO agenda_profesional (agenda_prof, agenda_esp, agenda_fechayhora) VALUES (@id,@especialidad,@fechatemp)
+			SET @fechatemp = DATEADD(minute,30,@fechatemp)
+		END	
+		SET @desde = DATEADD(day,7,@desde)
+		SET @fechatemp_fin = DATEADD(day,7,@fechatemp_fin)
+	END
+	
+	
+END
+GO
+
+
+CREATE PROCEDURE getEspecialidadesPorProfesional
+	@us_id INT
+AS
+BEGIN
+	SELECT c.esp_id, c.esp_descripcion
+    FROM profesional a, especialidad_por_profesional b, especialidad c
+	WHERE a.us_id = @us_id AND b.prof_id = a.prof_id AND c.esp_id = b.esp_id
 END
 GO
