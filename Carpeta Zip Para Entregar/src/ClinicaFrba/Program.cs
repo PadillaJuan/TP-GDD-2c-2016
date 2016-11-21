@@ -24,7 +24,11 @@ namespace ClinicaFrba
 
             Application.Run(new Pedir_Turno.ListadoProfesionales("pepe"));
             //Application.Run(new Pedir_Turno.ElegirTurno("3", "Conchudo", "pepe"));
+<<<<<<< HEAD
             //Application.Run(new VentanaInicial());
+=======
+            Application.Run(new Listados.Presentacion_Listados());
+>>>>>>> b1ff54f1389337c5dbb796605e8bdaa072d111e5
         }
 
         public static void testConexionBD()

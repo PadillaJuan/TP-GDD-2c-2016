@@ -10,21 +10,22 @@ using System.Windows.Forms;
 
 namespace ClinicaFrba.Listados
 {
-    public partial class Form1 : Form
+    public partial class Presentacion_Listados : Form
     {
-        public Form1()
+        public Presentacion_Listados()
         {
             InitializeComponent();
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
+            if (validarEntrada())
+            {
+                string query1 = "getListado" + comboBox1.SelectedIndex.ToString();
+                Seleccionar_Periodo form = new Seleccionar_Periodo(query1);
+                form.Show();
+            }
 
-        }
-
-        private void button2_Click(object sender, EventArgs e)
-        {
-            Application.Exit();
         }
 
         private void button3_Click(object sender, EventArgs e)
@@ -32,6 +33,10 @@ namespace ClinicaFrba.Listados
             Close();
         }
 
+        private bool validarEntrada()
+        {
+            return comboBox1.SelectedIndex != -1;
+        }
         
     }
 }
