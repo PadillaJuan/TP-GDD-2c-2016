@@ -44,19 +44,19 @@ namespace ClinicaFrba.Pedir_Turno
         {
             DateTime ini = DateTime.Parse(dateTimePicker1.Text);
             DateTime today = DateTime.Parse(Program.nuevaFechaSistema());
-
+            /*
             if (ini > today)
             {
                 MessageBox.Show("La fecha de inicio tiene que ser posterior o igual a la de hoy", this.Text, MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return false;
-            }
+            }*/
 
             return true;
         }
 
         private void filtrarFecha(DateTime fechaTurno)
         {
-            string query2 = "SELECT agenda_hora  FROM agenda WHERE agenda_dia = DATEPART(dw,fechaTurno)"; 
+            string query2 = "SELECT agenda_hora  FROM agenda_profesional WHERE agenda_dia = DATEPART(dw,"+ fechaTurno +")"; 
             CompletadorDeTablas.hacerQuery(query2, ref dataGridView1);
         }
 
@@ -104,7 +104,7 @@ namespace ClinicaFrba.Pedir_Turno
                 return;
             }
 
-            filtrarFecha(dateTimePicker1.Value);
+            filtrarFecha(DateTime.Parse(dateTimePicker1.Text));
         }
 
         private void button2_Click(object sender, EventArgs e)
