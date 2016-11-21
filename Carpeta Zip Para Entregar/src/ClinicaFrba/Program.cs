@@ -21,10 +21,10 @@ namespace ClinicaFrba
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             //Application.Run(new BuscarAfiliado.BuscarAfi());
-            
-            Application.Run(new Pedir_Turno.ListadoProfesionales("pepe"));
-             //Application.Run(new Pedir_Turno.ElegirTurno("3", "Conchudo", "pepe"));
-            //   Application.Run(new VentanaInicial());
+            //Application.Run(new Abm_Afiliado.ABM_afi(5,6));
+            //Application.Run(new Pedir_Turno.ListadoProfesionales("pepe"));
+             Application.Run(new Pedir_Turno.ElegirTurno("3", "Conchudo", "pepe"));
+             // Application.Run(new VentanaInicial());
         }
 
         public static void testConexionBD()
