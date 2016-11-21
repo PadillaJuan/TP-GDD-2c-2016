@@ -102,6 +102,12 @@
     <Compile Include="Listados\Seleccionar Periodo.Designer.cs">
       <DependentUpon>Seleccionar Periodo.cs</DependentUpon>
     </Compile>
+    <Compile Include="Listados\VerListado.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Listados\VerListado.Designer.cs">
+      <DependentUpon>VerListado.cs</DependentUpon>
+    </Compile>
     <Compile Include="Pedir Turno\ElegirTurno.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -223,6 +229,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Listados\Seleccionar Periodo.resx">
       <DependentUpon>Seleccionar Periodo.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Listados\VerListado.resx">
+      <DependentUpon>VerListado.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Pedir Turno\ElegirTurno.resx">
       <DependentUpon>ElegirTurno.cs</DependentUpon>
