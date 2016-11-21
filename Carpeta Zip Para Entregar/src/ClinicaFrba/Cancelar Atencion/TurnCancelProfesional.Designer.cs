@@ -1,6 +1,6 @@
 ﻿namespace ClinicaFrba.Cancelar_Atencion
 {
-    partial class TurnCancelAfiliado
+    partial class TurnCancelProfesional
     {
         /// <summary>
         /// Required designer variable.
@@ -37,41 +37,39 @@
             // dataGridView1
             // 
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Location = new System.Drawing.Point(42, 53);
+            this.dataGridView1.Location = new System.Drawing.Point(27, 57);
             this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.Size = new System.Drawing.Size(421, 301);
-            this.dataGridView1.TabIndex = 0;
+            this.dataGridView1.Size = new System.Drawing.Size(461, 301);
+            this.dataGridView1.TabIndex = 1;
             this.dataGridView1.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(171, 37);
+            this.label1.Location = new System.Drawing.Point(198, 31);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(150, 13);
-            this.label1.TabIndex = 1;
+            this.label1.TabIndex = 2;
             this.label1.Text = "Elija que turno desea cancelar";
-            this.label1.Click += new System.EventHandler(this.label1_Click);
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(183, 370);
+            this.button1.Location = new System.Drawing.Point(201, 384);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(115, 23);
-            this.button1.TabIndex = 2;
+            this.button1.TabIndex = 3;
             this.button1.Text = "Cancelar Turno";
             this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
-            // TurnCancelAfiliado
+            // TurnCancelProfesional
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(513, 492);
+            this.ClientSize = new System.Drawing.Size(515, 464);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.dataGridView1);
-            this.Name = "TurnCancelAfiliado";
+            this.Name = "TurnCancelProfesional";
             this.Text = "Cancelacion de Turno";
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.ResumeLayout(false);

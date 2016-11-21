@@ -27,9 +27,7 @@ namespace ClinicaFrba.Cancelar_Atencion
             dataGridView1.ReadOnly = true;
 
             afiliadoId = idAfiliado;
-            string query2 = "SELECT DATEPART(hour,turno_fecha)DATEPART(day,turno_fecha),DATEPART(month,turno_fecha),DATEPART(year,turno_fecha) FROM turnos t JOIN afiliado a ON (t.turno_afi=a.af_id) WHERE a.af_id=afiliadoId";
-            
-
+            string query2 = "SELECT DATEPART(hour,turno_fecha),DATEPART(day,turno_fecha),DATEPART(month,turno_fecha),DATEPART(year,turno_fecha) FROM turnos t JOIN afiliado a ON (t.turno_afi=a.af_id) WHERE a.af_id=afiliadoId";
             CompletadorDeTablas.hacerQuery(query2, ref dataGridView1);
 
             
@@ -41,6 +39,11 @@ namespace ClinicaFrba.Cancelar_Atencion
         }
 
         private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
+
+        private void button1_Click(object sender, EventArgs e)
         {
 
         }

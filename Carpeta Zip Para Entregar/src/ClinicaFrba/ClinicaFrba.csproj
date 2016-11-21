@@ -78,6 +78,12 @@
     <Compile Include="Buscar Afiliado\BuscarAfi.Designer.cs">
       <DependentUpon>BuscarAfi.cs</DependentUpon>
     </Compile>
+    <Compile Include="Cancelar Atencion\TurnCancelProfesional.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Cancelar Atencion\TurnCancelProfesional.Designer.cs">
+      <DependentUpon>TurnCancelProfesional.cs</DependentUpon>
+    </Compile>
     <Compile Include="Cancelar Atencion\TurnCancelAfiliado.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -190,6 +196,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Cancelar Atencion\TurnCancelAfiliado.resx">
       <DependentUpon>TurnCancelAfiliado.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Cancelar Atencion\TurnCancelProfesional.resx">
+      <DependentUpon>TurnCancelProfesional.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Compra Bono\Compra_Bono.resx">
       <DependentUpon>Compra_Bono.cs</DependentUpon>
