@@ -21,7 +21,7 @@ namespace ClinicaFrba.Pedir_Turno
 
         public ListadoProfesionales(String nombreAfiliadoPasado)
         {
-          InitializeComponent();
+            InitializeComponent();
             dataGridView1.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dataGridView1.MultiSelect = false;
             dataGridView1.ReadOnly = true;
@@ -47,7 +47,7 @@ namespace ClinicaFrba.Pedir_Turno
          private void inicializar()
          {
              dataGridView1.RowTemplate.MinimumHeight = 33;
-            txtDescrip.Text = "";
+             txtDescrip.Text = "";
 
 
          
