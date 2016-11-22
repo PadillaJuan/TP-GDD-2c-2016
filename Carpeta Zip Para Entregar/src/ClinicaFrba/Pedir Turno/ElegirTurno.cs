@@ -19,6 +19,7 @@ namespace ClinicaFrba.Pedir_Turno
         string wheres;
         Form form;
         String nombreAfiliado;
+        bool control;
 
         public ElegirTurno(string idP, string apellidoP, string nombreAfiliadoPasado)
         {
@@ -37,26 +38,28 @@ namespace ClinicaFrba.Pedir_Turno
         {
             dateTimePicker1.Enabled = true;
             dateTimePicker1.Text = DateTime.Parse(Program.nuevaFechaSistema()).ToString();
-
-        }
+            dateTimePicker1.MinDate = DateTime.Parse(Program.nuevaFechaSistema());
+       }
 
         private bool validaciones()
         {
-            DateTime ini = DateTime.Parse(dateTimePicker1.Text);
-            DateTime today = DateTime.Parse(Program.nuevaFechaSistema());
-            /*
-            if (ini > today)
-            {
-                MessageBox.Show("La fecha de inicio tiene que ser posterior o igual a la de hoy", this.Text, MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return false;
-            }*/
+            string comando = "SELECT agenda_fechayhora FROM agenda_profesional";
+            DataTable dt = (new BDConnection()).cargarTablaSQL(comando);
 
-            return true;
+
+            for (int i = 0; i <= (dt.Rows.Count - 1); i++)
+            {
+                control = false;
+                DateTime idf = Convert.ToDateTime(dt.Rows[i][0]);
+                if(dateTimePicker1.Value == idf) control=true;
+            }
+
+            return control;
         }
 
         private void filtrarFecha(DateTime fechaTurno)
         {
-            string query2 = "SELECT agenda_hora  FROM agenda_profesional WHERE agenda_dia = DATEPART(dw,"+ fechaTurno +")"; 
+            string query2 = "SELECT agenda_hora  FROM agenda_profesional WHERE agenda_dia = DATEPART(dw,"+ fechaTurno.ToString() +")"; 
             CompletadorDeTablas.hacerQuery(query2, ref dataGridView1);
         }
 
@@ -99,11 +102,10 @@ namespace ClinicaFrba.Pedir_Turno
 
         private void button3_Click_1(object sender, EventArgs e)
         {
-            if (!validaciones())
+            if (validaciones() == false)
             {
-                return;
+                MessageBox.Show("El profesional no posee turnos disponibles ese dia");
             }
-
             filtrarFecha(DateTime.Parse(dateTimePicker1.Text));
         }
 
