@@ -53,9 +53,9 @@ namespace ClinicaFrba.Cancelar_Atencion
                 SqlConnection conn = (new BDConnection()).getConnection();
                 SqlCommand com = new SqlCommand(query, conn);
                 com.CommandType = CommandType.StoredProcedure;
-                com.Parameters.Add(new SqlParameter("turno_id", turno_id));
-                com.Parameters.Add(new SqlParameter("cancel_motivo", cancel_motivo));
-                com.Parameters.Add(new SqlParameter("cancel_tipo", 'p'));
+                com.Parameters.Add(new SqlParameter("@turno_id", turno_id));
+                com.Parameters.Add(new SqlParameter("@cancel_motivo", cancel_motivo));
+                com.Parameters.Add(new SqlParameter("@cancel_tipo", 'p'));
                 com.ExecuteNonQuery();
 
                 MessageBox.Show("El turno ha sido cancelado con exito", this.Text, MessageBoxButtons.OK, MessageBoxIcon.None);

@@ -59,7 +59,7 @@ namespace ClinicaFrba.Pedir_Turno
 
         private void filtrarFecha(DateTime fechaTurno)
         {
-            string query2 = "SELECT DATEPART(hour,agenda_fechayhora)  FROM agenda_profesional WHERE agenda_fechayhora = DATEPART(dw,"+ fechaTurno.ToString() +")"; 
+            string query2 = "SELECT DATEPART(hour,agenda_fechayhora)  FROM agenda_profesional WHERE agenda_fechayhora =" + fechaTurno.ToString() +")"; 
             CompletadorDeTablas.hacerQuery(query2, ref dataGridView1);
         }
 
