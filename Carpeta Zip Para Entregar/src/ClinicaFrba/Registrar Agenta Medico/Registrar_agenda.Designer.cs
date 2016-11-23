@@ -1,6 +1,6 @@
 ﻿namespace ClinicaFrba.Registrar_Agenta_Medico
 {
-    partial class Form1
+    partial class Registrar_agenda
     {
         /// <summary>
         /// Required designer variable.
@@ -95,6 +95,11 @@
             this.label24 = new System.Windows.Forms.Label();
             this.especialidad_sabado = new System.Windows.Forms.ComboBox();
             this.button1 = new System.Windows.Forms.Button();
+            this.fecha_desde = new System.Windows.Forms.DateTimePicker();
+            this.fecha_hasta = new System.Windows.Forms.DateTimePicker();
+            this.label25 = new System.Windows.Forms.Label();
+            this.label26 = new System.Windows.Forms.Label();
+            this.label27 = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -115,7 +120,7 @@
             this.groupBox1.Controls.Add(this.horafin_hora_lunes);
             this.groupBox1.Controls.Add(this.label1);
             this.groupBox1.Controls.Add(this.especialidad_lunes);
-            this.groupBox1.Location = new System.Drawing.Point(12, 12);
+            this.groupBox1.Location = new System.Drawing.Point(22, 85);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(553, 65);
             this.groupBox1.TabIndex = 9;
@@ -257,7 +262,7 @@
             this.groupBox2.Controls.Add(this.horafin_hora_martes);
             this.groupBox2.Controls.Add(this.label8);
             this.groupBox2.Controls.Add(this.especialidad_martes);
-            this.groupBox2.Location = new System.Drawing.Point(12, 83);
+            this.groupBox2.Location = new System.Drawing.Point(22, 156);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(553, 65);
             this.groupBox2.TabIndex = 10;
@@ -397,7 +402,7 @@
             this.groupBox3.Controls.Add(this.horafin_hora_miercoles);
             this.groupBox3.Controls.Add(this.label12);
             this.groupBox3.Controls.Add(this.especialidad_miercoles);
-            this.groupBox3.Location = new System.Drawing.Point(12, 154);
+            this.groupBox3.Location = new System.Drawing.Point(22, 227);
             this.groupBox3.Name = "groupBox3";
             this.groupBox3.Size = new System.Drawing.Size(553, 65);
             this.groupBox3.TabIndex = 11;
@@ -537,7 +542,7 @@
             this.groupBox4.Controls.Add(this.horafin_hora_jueves);
             this.groupBox4.Controls.Add(this.label16);
             this.groupBox4.Controls.Add(this.especialidad_jueves);
-            this.groupBox4.Location = new System.Drawing.Point(12, 225);
+            this.groupBox4.Location = new System.Drawing.Point(22, 298);
             this.groupBox4.Name = "groupBox4";
             this.groupBox4.Size = new System.Drawing.Size(553, 65);
             this.groupBox4.TabIndex = 11;
@@ -677,7 +682,7 @@
             this.groupBox5.Controls.Add(this.horafin_hora_viernes);
             this.groupBox5.Controls.Add(this.label20);
             this.groupBox5.Controls.Add(this.especialidad_viernes);
-            this.groupBox5.Location = new System.Drawing.Point(12, 296);
+            this.groupBox5.Location = new System.Drawing.Point(22, 369);
             this.groupBox5.Name = "groupBox5";
             this.groupBox5.Size = new System.Drawing.Size(553, 65);
             this.groupBox5.TabIndex = 11;
@@ -817,7 +822,7 @@
             this.groupBox6.Controls.Add(this.horafin_hora_sabado);
             this.groupBox6.Controls.Add(this.label24);
             this.groupBox6.Controls.Add(this.especialidad_sabado);
-            this.groupBox6.Location = new System.Drawing.Point(12, 367);
+            this.groupBox6.Location = new System.Drawing.Point(22, 440);
             this.groupBox6.Name = "groupBox6";
             this.groupBox6.Size = new System.Drawing.Size(553, 65);
             this.groupBox6.TabIndex = 11;
@@ -931,7 +936,7 @@
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(160, 448);
+            this.button1.Location = new System.Drawing.Point(180, 521);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(180, 23);
             this.button1.TabIndex = 12;
@@ -939,11 +944,57 @@
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
-            // Form1
+            // fecha_desde
+            // 
+            this.fecha_desde.Location = new System.Drawing.Point(71, 49);
+            this.fecha_desde.Name = "fecha_desde";
+            this.fecha_desde.Size = new System.Drawing.Size(200, 20);
+            this.fecha_desde.TabIndex = 14;
+            // 
+            // fecha_hasta
+            // 
+            this.fecha_hasta.Location = new System.Drawing.Point(343, 49);
+            this.fecha_hasta.Name = "fecha_hasta";
+            this.fecha_hasta.Size = new System.Drawing.Size(200, 20);
+            this.fecha_hasta.TabIndex = 15;
+            // 
+            // label25
+            // 
+            this.label25.AutoSize = true;
+            this.label25.Location = new System.Drawing.Point(21, 55);
+            this.label25.Name = "label25";
+            this.label25.Size = new System.Drawing.Size(44, 13);
+            this.label25.TabIndex = 16;
+            this.label25.Text = "Desde: ";
+            // 
+            // label26
+            // 
+            this.label26.AutoSize = true;
+            this.label26.Location = new System.Drawing.Point(293, 55);
+            this.label26.Name = "label26";
+            this.label26.Size = new System.Drawing.Size(38, 13);
+            this.label26.TabIndex = 17;
+            this.label26.Text = "Hasta:";
+            // 
+            // label27
+            // 
+            this.label27.AutoSize = true;
+            this.label27.Location = new System.Drawing.Point(21, 24);
+            this.label27.Name = "label27";
+            this.label27.Size = new System.Drawing.Size(158, 13);
+            this.label27.TabIndex = 18;
+            this.label27.Text = "Seleccionar rango de la agenda";
+            // 
+            // Registrar_agenda
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(598, 493);
+            this.ClientSize = new System.Drawing.Size(597, 556);
+            this.Controls.Add(this.label27);
+            this.Controls.Add(this.label26);
+            this.Controls.Add(this.label25);
+            this.Controls.Add(this.fecha_hasta);
+            this.Controls.Add(this.fecha_desde);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.groupBox6);
             this.Controls.Add(this.groupBox5);
@@ -951,8 +1002,8 @@
             this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
-            this.Name = "Form1";
-            this.Text = "Form1";
+            this.Name = "Registrar_agenda";
+            this.Text = "Registrar Agenda";
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.groupBox2.ResumeLayout(false);
@@ -966,6 +1017,7 @@
             this.groupBox6.ResumeLayout(false);
             this.groupBox6.PerformLayout();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -1038,6 +1090,11 @@
         private System.Windows.Forms.Label label24;
         private System.Windows.Forms.ComboBox especialidad_sabado;
         private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.DateTimePicker fecha_desde;
+        private System.Windows.Forms.DateTimePicker fecha_hasta;
+        private System.Windows.Forms.Label label25;
+        private System.Windows.Forms.Label label26;
+        private System.Windows.Forms.Label label27;
 
     }
 }
