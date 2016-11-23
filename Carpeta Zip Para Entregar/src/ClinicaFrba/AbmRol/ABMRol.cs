@@ -44,7 +44,7 @@ namespace ClinicaFrba.AbmRol
                 SqlConnection conn = (new BDConnection()).getConnection();
                 SqlCommand com = new SqlCommand(query, conn);
                 com.CommandType = CommandType.StoredProcedure;
-                com.Parameters.Add(new SqlParameter("rol_id", rol_id));
+                com.Parameters.Add(new SqlParameter("@rol_id", rol_id));
                 com.ExecuteNonQuery();
                 dt.Rows[index][2] = 'd';
             }
@@ -69,7 +69,7 @@ namespace ClinicaFrba.AbmRol
                 SqlConnection conn = (new BDConnection()).getConnection();
                 SqlCommand cm = new SqlCommand(query, conn);
                 cm.CommandType = CommandType.StoredProcedure;
-                cm.Parameters.Add(new SqlParameter("rol_nombre",textBox2.Text));
+                cm.Parameters.Add(new SqlParameter("@rol_nombre",textBox2.Text));
                 fillDataTable(cm);
             }
         }
