@@ -176,7 +176,7 @@ as
 												  agenda_fechayhora = Turno_Fecha),
 					af_id,af_rel_id,prof_id,Especialidad_Codigo
 		from gd_esquema.Maestra,afiliado,profesional
-		where af_numdoc = Paciente_Dni and prof_numdoc = Medico_Dni and Consulta_Enfermedades is not null
+		where Turno_Numero is not null and af_numdoc = Paciente_Dni and prof_numdoc = Medico_Dni and Consulta_Enfermedades is not null
 		order by Turno_Numero ASC
 
 	SET IDENTITY_INSERT turnos OFF
