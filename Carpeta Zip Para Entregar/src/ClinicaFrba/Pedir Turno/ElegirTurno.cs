@@ -43,7 +43,7 @@ namespace ClinicaFrba.Pedir_Turno
 
         private bool validaciones()
         {
-            string comando = "SELECT agenda_fechayhora FROM agenda_profesional";
+            string comando = "SELECT agenda_fechayhora FROM agenda_profesional a JOIN turnos t ON (t.turno_agenda = a.agenda_id) JOIN cancelacion c ON (c.turno_id = t.turno_id)";
             DataTable dt = (new BDConnection()).cargarTablaSQL(comando);
 
 
@@ -59,7 +59,7 @@ namespace ClinicaFrba.Pedir_Turno
 
         private void filtrarFecha(DateTime fechaTurno)
         {
-            string query2 = "SELECT agenda_hora  FROM agenda_profesional WHERE agenda_dia = DATEPART(dw,"+ fechaTurno.ToString() +")"; 
+            string query2 = "SELECT DATEPART(hour,agenda_fechayhora)  FROM agenda_profesional WHERE agenda_fechayhora = DATEPART(dw,"+ fechaTurno.ToString() +")"; 
             CompletadorDeTablas.hacerQuery(query2, ref dataGridView1);
         }
 
