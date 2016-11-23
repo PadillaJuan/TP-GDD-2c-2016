@@ -11,12 +11,14 @@ using System.Data.SqlClient;
 
 namespace ClinicaFrba.Registrar_Agenta_Medico
 {
-    public partial class Form1 : Form
+    public partial class Registrar_agenda : Form
     {
-        public Form1()
+        int us_id;
+        public Registrar_agenda(int us_id_parametro)
         {
+            us_id = us_id_parametro;
             InitializeComponent();
-            llenarComboBox(5578);
+            llenarComboBox();
         }
 
         private class Item
@@ -49,7 +51,7 @@ namespace ClinicaFrba.Registrar_Agenta_Medico
 
         }
 
-        public void llenarComboBox(int us_id)
+        public void llenarComboBox()
         {
             SqlConnection conn = (new BDConnection()).getConnection();
             string query = "getEspecialidadesPorProfesional";
@@ -81,6 +83,31 @@ namespace ClinicaFrba.Registrar_Agenta_Medico
 
         }
 
+        private int obtenerProfID()
+        {
+            int prof_id;
+            prof_id = -1;
+            //
+            SqlConnection conn = (new BDConnection()).getConnection();
+            string query = "SELECT prof_id FROM profesional WHERE us_id = "+ us_id +"";
+            SqlCommand com = new SqlCommand(query, conn);
+            try
+            {
+                SqlDataReader dr = com.ExecuteReader();
+                while (dr.Read())
+                {
+                    prof_id = dr.GetInt32(0);
+                }
+                dr.Dispose();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            //
+            return prof_id;
+        }
+
         private void button1_Click(object sender, EventArgs e)
         {
             int inicio_hora, inicio_min, fin_hora, fin_min, esp_id, prof_id;
@@ -88,11 +115,17 @@ namespace ClinicaFrba.Registrar_Agenta_Medico
             string hora_inicio, hora_fin, desde, hasta;
             TotalHoralSemanal = 0;
             // DATOS HARDCODEADOS
-            desde = "2016-11-30 12:35";
-            hasta = "2016-12-24 12:35";
-            prof_id = 28;
+            desde = fecha_desde.Value.Year.ToString() + "-" + fecha_desde.Value.Month.ToString() +"-"+ fecha_desde.Value.Day.ToString() +" 00:00";
+            hasta = fecha_hasta.Value.Year.ToString() + "-" + fecha_hasta.Value.Month.ToString() +"-"+ fecha_hasta.Value.Day.ToString() +" 23:59";
+            prof_id = obtenerProfID();
             //
             // Inicio Validacion campos
+            int num_dias = (fecha_hasta.Value - fecha_desde.Value).Days;
+            if (num_dias < 0)
+            {
+                MessageBox.Show(String.Format("Error, Fecha Hasta < Fecha Desde"));
+                return;
+            }
             // Lunes
             if (lunes_activar.Checked)
             {
@@ -108,7 +141,7 @@ namespace ClinicaFrba.Registrar_Agenta_Medico
                 TotalHoralSemanal += diferencia;
                 if (diferencia < 0)
                 {
-                    MessageBox.Show(String.Format("Error, horaInicio < horaFin"));
+                    MessageBox.Show(String.Format("Error, horaFin < horaInicio"));
                     return;
                 }
             }
@@ -128,7 +161,7 @@ namespace ClinicaFrba.Registrar_Agenta_Medico
                 TotalHoralSemanal += diferencia;
                 if (diferencia < 0)
                 {
-                    MessageBox.Show(String.Format("Error, horaInicio < horaFin"));
+                    MessageBox.Show(String.Format("Error, horaFin < horaInicio"));
                     return;
                 }
             }
@@ -148,7 +181,7 @@ namespace ClinicaFrba.Registrar_Agenta_Medico
                 TotalHoralSemanal += diferencia;
                 if (diferencia < 0)
                 {
-                    MessageBox.Show(String.Format("Error, horaInicio < horaFin"));
+                    MessageBox.Show(String.Format("Error, horaFin < horaInicio"));
                     return;
                 }
             }
@@ -168,7 +201,7 @@ namespace ClinicaFrba.Registrar_Agenta_Medico
                 TotalHoralSemanal += diferencia;
                 if (diferencia < 0)
                 {
-                    MessageBox.Show(String.Format("Error, horaInicio < horaFin"));
+                    MessageBox.Show(String.Format("Error, horaFin < horaInicio"));
                     return;
                 }
             }
@@ -188,7 +221,7 @@ namespace ClinicaFrba.Registrar_Agenta_Medico
                 TotalHoralSemanal += diferencia;
                 if (diferencia < 0)
                 {
-                    MessageBox.Show(String.Format("Error, horaInicio < horaFin"));
+                    MessageBox.Show(String.Format("Error, horaFin < horaInicio"));
                     return;
                 }
             }
@@ -208,7 +241,7 @@ namespace ClinicaFrba.Registrar_Agenta_Medico
                 TotalHoralSemanal += diferencia;
                 if (diferencia < 0)
                 {
-                    MessageBox.Show(String.Format("Error, horaInicio < horaFin"));
+                    MessageBox.Show(String.Format("Error, horaFin < horaInicio"));
                     return;
                 }
             }
