@@ -169,21 +169,14 @@ CREATE TABLE plan_medico(
 	plan_precio_bono numeric(18,0),
 );
 
-/* TABLA DE SERVICIOS POR PLANES */
+/* TABLA DE Tipo Especialidad POR PLANES */
 
-CREATE TABLE servicios_por_planes(
+CREATE TABLE tipoEsp_por_planes(
 	planmed_id numeric(18,0),
-	serv_id INT,
-	primary key (planmed_id, serv_id),
+	tipoEsp_id INT,
+	primary key (planmed_id, tipoEsp_id),
 );
 
-
-/* TABLA DE SERVICIOS */
-
-CREATE TABLE servicios(
-	serv_id INT PRIMARY KEY IDENTITY(1,1),
-	serv_desc VARCHAR(100)
-);
 
 /* TABLA DE REGISTRO DE COMPRA */
 
