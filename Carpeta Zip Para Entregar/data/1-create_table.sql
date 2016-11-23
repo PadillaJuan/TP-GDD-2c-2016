@@ -243,9 +243,7 @@ CREATE TABLE agenda_profesional(
 	agenda_id INT PRIMARY KEY IDENTITY(1,1),
 	agenda_prof INT,
 	agenda_esp INT,
-	agenda_hora TIME,
-	agenda_dia INT,
-	agenda_anio INT
+	agenda_fechayhora DATETIME
 );
 
 /* TABLA DE TIPO DE ESPECIALIDADES */
