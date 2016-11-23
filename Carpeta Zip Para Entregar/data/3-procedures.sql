@@ -80,6 +80,9 @@ IF OBJECT_ID('estaLibre') IS NOT NULL
 	DROP FUNCTION estaLibre
 IF OBJECT_ID('fechasLibres') IS NOT NULL
 	DROP PROCEDURE fechasLibres
+	
+IF (OBJECT_ID('cancelTurno', 'P') IS NOT NULL)
+DROP PROCEDURE cancelTurno;
 
 GO
 
@@ -231,7 +234,7 @@ BEGIN
 				END
 				ELSE
 				BEGIN
-					RAISERROR('La contraseña es invalida',16,10)
+					RAISERROR('La contraseÃ±a es invalida',16,10)
 					UPDATE usuarios 
 					SET us_login_fail = us_login_fail+1 
 					WHERE us_id = @us_id
@@ -242,7 +245,7 @@ BEGIN
 		END
 		ELSE
 		BEGIN
-			RAISERROR('El usuario esta bloqueado por ingresar demasiadas veces con una contraseña incorrecta',16,10)
+			RAISERROR('El usuario esta bloqueado por ingresar demasiadas veces con una contraseÃ±a incorrecta',16,10)
 
 		END
 	END	
@@ -715,3 +718,10 @@ begin
 	drop table #fechasLibres
 end
 go
+
+CREATE PROCEDURE cancelTurno
+@turno_id INT, @cancel_motivo VARCHAR(30) , @cancel_tipo CHAR
+AS
+BEGIN
+    INSERT INTO cancelacion VALUES (@cancel_tipo, @cancel_motivo, @turno_id)
+END
