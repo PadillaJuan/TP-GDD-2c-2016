@@ -215,7 +215,7 @@ as
 	insert into consulta_medica
 		select Turno_Numero,Bono_Consulta_Fecha_Impresion,Consulta_Sintomas,Consulta_Enfermedades,Bono_Consulta_Numero
 		from gd_esquema.Maestra
-		where Bono_Consulta_Numero is not null
+		where Consulta_Enfermedades is not null AND Bono_Consulta_Numero is not null
 		order by Turno_Numero
 go
 execute migrarConsultas
