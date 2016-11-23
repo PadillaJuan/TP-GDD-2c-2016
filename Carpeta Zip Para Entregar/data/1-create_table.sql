@@ -15,10 +15,10 @@ IF (OBJECT_ID('FK_plan_ant', 'F') IS NOT NULL)
 IF (OBJECT_ID('FK_plan_new', 'F') IS NOT NULL)
 	ALTER TABLE logs_cambio_plan DROP constraint FK_plan_new;
 
-IF (OBJECT_ID('FK_srv_por_tipoEsp_1', 'F') IS NOT NULL)
-	ALTER TABLE tipoEsp_por_planes DROP constraint FK_srv_por_tipoEsp_1;
-IF (OBJECT_ID('FK_srv_por_tipoEsp_2', 'F') IS NOT NULL)
-	ALTER TABLE tipoEsp_por_planes DROP constraint FK_srv_por_tipoEsp_2;
+IF (OBJECT_ID('FK_srv_por_planes_1', 'F') IS NOT NULL)
+	ALTER TABLE servicios_por_planes DROP constraint FK_srv_por_planes_1;
+IF (OBJECT_ID('FK_srv_por_planes_2', 'F') IS NOT NULL)
+	ALTER TABLE servicios_por_planes DROP constraint FK_srv_por_planes_2;
 	
 
 IF (OBJECT_ID('FK_compra_afi', 'F') IS NOT NULL)
@@ -82,8 +82,8 @@ IF (OBJECT_ID('logs_cambio_plan','U') IS NOT NULL)
 	DROP TABLE logs_cambio_plan;
 IF (OBJECT_ID('plan_medico','U') IS NOT NULL)
 	DROP TABLE plan_medico;
-IF (OBJECT_ID('tipoEsp_por_planes','U') IS NOT NULL)
-	DROP TABLE tipoEsp_por_planes;
+IF (OBJECT_ID('servicios_por_planes','U') IS NOT NULL)
+	DROP TABLE servicios_por_planes;
 IF (OBJECT_ID('servicios','U') IS NOT NULL)
 	DROP TABLE servicios;
 IF (OBJECT_ID('registro_compra','U') IS NOT NULL)
@@ -169,14 +169,21 @@ CREATE TABLE plan_medico(
 	plan_precio_bono numeric(18,0),
 );
 
-/* TABLA DE Tipo Especialidad POR PLANES */
+/* TABLA DE SERVICIOS POR PLANES */
 
-CREATE TABLE tipoEsp_por_planes(
+CREATE TABLE servicios_por_planes(
 	planmed_id numeric(18,0),
-	tipoEsp_id INT,
-	primary key (planmed_id, tipoEsp_id),
+	serv_id INT,
+	primary key (planmed_id, serv_id),
 );
 
+
+/* TABLA DE SERVICIOS */
+
+CREATE TABLE servicios(
+	serv_id INT PRIMARY KEY IDENTITY(1,1),
+	serv_desc VARCHAR(100)
+);
 
 /* TABLA DE REGISTRO DE COMPRA */
 
@@ -195,10 +202,10 @@ CREATE TABLE registro_compra(
 CREATE TABLE bono(
 	bono_id INT PRIMARY KEY IDENTITY(1,1),
 	bono_compra INT,
-	bono_nro_consulta INT,
 	bono_planmed numeric(18,0),
 	bono_af INT,
-	bono_af_rel TINYINT
+	bono_af_rel TINYINT,
+	bono_estado CHAR(1)
 );
 
 /* TABLA DE CONSULTA MEDICA */
@@ -243,9 +250,7 @@ CREATE TABLE agenda_profesional(
 	agenda_id INT PRIMARY KEY IDENTITY(1,1),
 	agenda_prof INT,
 	agenda_esp INT,
-	agenda_hora TIME,
-	agenda_dia INT,
-	agenda_anio INT
+	agenda_fechayhora DATETIME
 );
 
 /* TABLA DE TIPO DE ESPECIALIDADES */
@@ -348,8 +353,8 @@ ALTER TABLE logs_cambio_plan add constraint FK_afi foreign key (af_id,af_rel_id)
 ALTER TABLE logs_cambio_plan add constraint FK_plan_ant foreign key (plan_id_ant) references plan_medico (planmed_id);	
 ALTER TABLE logs_cambio_plan add constraint FK_plan_new foreign key (plan_id_new) references plan_medico (planmed_id);
 
-ALTER TABLE tipoEsp_por_planes add constraint FK_tipoEsp_por_planes_1 foreign key (planmed_id) references plan_medico (planmed_id);
-ALTER TABLE tipoEsp_por_planes add constraint FK_tipoEsp_por_planes_2 foreign key (tipoEsp_id) references tipo_especialidades (tipoEsp_id);
+ALTER TABLE servicios_por_planes add constraint FK_srv_por_planes_1 foreign key (planmed_id) references plan_medico (planmed_id);
+ALTER TABLE servicios_por_planes add constraint FK_srv_por_planes_2 foreign key (serv_id) references servicios (serv_id);
 	
 
 ALTER TABLE registro_compra add constraint FK_compra_afi foreign key (compra_af,compra_af_rel) references afiliado (af_id,af_rel_id);	
@@ -382,8 +387,3 @@ ALTER TABLE rol_por_usuarios add constraint FK_rolxusr_rol foreign key (rol_id) 
 
 ALTER TABLE funcionalidad_por_rol add constraint FK_funxrol_id foreign key (rol_id) references rol (rol_id);
 ALTER TABLE funcionalidad_por_rol add constraint FK_funxrol_fun foreign key (fun_id) references funcionalidad (fun_id);
-
-
-
-
-ALTER TABLE afiliado ADD CONSTRAINT uniqueIdentificacion UNIQUE (af_tipodoc, af_numdoc)
