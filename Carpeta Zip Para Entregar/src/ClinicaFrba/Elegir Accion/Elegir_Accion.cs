@@ -69,6 +69,8 @@ namespace ClinicaFrba.Elegir_Accion
                         break;
                     case "Registrar Agenda Profesional":
                         // REGISTRAR AGENDA PROFESIONAL
+						Registrar_Agenta_Medico.Registrar_agenda f6 = new Registrar_Agenta_Medico.Registrar_agenda(us_idG);
+                        f6.Show();
                         break;
                     case "Compra de Bonos":
                         // COMPRA DE BONOS
