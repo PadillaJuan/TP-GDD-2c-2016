@@ -67,7 +67,7 @@ namespace ClinicaFrba.Cancelar_Atencion
                 com.Parameters.Add(new SqlParameter("cancel_tipo", 'a'));
                 com.ExecuteNonQuery();
 
-
+                MessageBox.Show("El turno ha sido cancelado con exito", this.Text, MessageBoxButtons.OK, MessageBoxIcon.None);
                 Cancelar_Atencion.TurnCancelAfiliado cancelacion = new Cancelar_Atencion.TurnCancelAfiliado(afiliadoId);
                 cancelacion.ShowDialog();
 

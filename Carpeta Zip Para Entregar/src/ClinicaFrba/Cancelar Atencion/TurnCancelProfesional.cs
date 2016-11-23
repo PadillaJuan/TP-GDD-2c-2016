@@ -58,8 +58,8 @@ namespace ClinicaFrba.Cancelar_Atencion
                 com.Parameters.Add(new SqlParameter("cancel_tipo", 'p'));
                 com.ExecuteNonQuery();
 
-
-                Cancelar_Atencion.TurnCancelAfiliado cancelacion = new Cancelar_Atencion.TurnCancelAfiliado(idProfesional);
+                MessageBox.Show("El turno ha sido cancelado con exito", this.Text, MessageBoxButtons.OK, MessageBoxIcon.None);
+                Cancelar_Atencion.TurnCancelProfesional cancelacion = new Cancelar_Atencion.TurnCancelProfesional(idProfesional);
                 cancelacion.ShowDialog();
 
             }
