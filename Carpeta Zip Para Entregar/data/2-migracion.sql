@@ -1,4 +1,3 @@
-
 if OBJECT_ID('migrarAfiliados') is not null
  begin
 	drop procedure migrarAfiliados
@@ -158,30 +157,11 @@ go
 create procedure migrarAgendaProfesional
 as
 	insert into agenda_profesional
-		select prof_id,Especialidad_Codigo,CONVERT(time,Turno_Fecha), datepart(dw,Turno_Fecha),year(Turno_Fecha)
-		from gd_esquema.Maestra,profesional
-		where Turno_Fecha is not null and Bono_Consulta_Numero is not null and prof_numdoc = Medico_Dni
-		group by prof_id,Especialidad_Codigo,CONVERT(time,Turno_Fecha), datepart(dw,Turno_Fecha),year(Turno_Fecha)
-		order by prof_id,datepart(dw,Turno_Fecha),CONVERT(time,Turno_Fecha)
-
-	--Agrego los horarios del 2016
-	insert into agenda_profesional
-		select prof_id,Especialidad_Codigo,CONVERT(time,Turno_Fecha), datepart(dw,Turno_Fecha),2016
-		from gd_esquema.Maestra,profesional
-		where Turno_Fecha is not null and Bono_Consulta_Numero is not null and prof_numdoc = Medico_Dni
-		group by prof_id,Especialidad_Codigo,CONVERT(time,Turno_Fecha), datepart(dw,Turno_Fecha)
-		having CONVERT(time,Turno_Fecha) > convert(time,'08:30:00.0000000')
-		order by prof_id,datepart(dw,Turno_Fecha),CONVERT(time,Turno_Fecha)
-
-	--Agrego los dias Sabados
-	insert into agenda_profesional
-		select prof_id,Especialidad_Codigo,CONVERT(time,Turno_Fecha),7,2016
-		from gd_esquema.Maestra,profesional
-		where Turno_Fecha is not null and Bono_Consulta_Numero is not null and prof_numdoc = Medico_Dni
-		group by prof_id,Especialidad_Codigo,CONVERT(time,Turno_Fecha),datepart(dw,Turno_Fecha)
-		having CONVERT(time,Turno_Fecha) >= convert(time,'10:00:00.0000000') and CONVERT(time,Turno_Fecha) < convert(time,'13:00:00.0000000')and
-				 datepart(dw,Turno_Fecha) = 1
-		order by prof_id,datepart(dw,Turno_Fecha),CONVERT(time,Turno_Fecha)
+		SELECT p.prof_id, m.Especialidad_Codigo, m.Turno_Fecha
+		FROM gd_esquema.Maestra m, profesional p
+		WHERE Turno_Fecha is not null and p.prof_numdoc = m.Medico_Dni
+		GROUP BY p.prof_id, m.Especialidad_Codigo, m.Turno_Fecha
+		ORDER BY m.Turno_Fecha ASC
 go
 execute migrarAgendaProfesional
 go
@@ -193,12 +173,11 @@ as
 	insert into turnos(turno_id,turno_fecha,turno_estado,turno_agenda,turno_af,turno_af_rel,turno_prof,turno_esp)
 		select Turno_Numero,Turno_Fecha,1,(select agenda_id from agenda_profesional
 											where agenda_prof = prof_id and agenda_esp = Especialidad_Codigo and 
-												  convert(time,Turno_Fecha) = agenda_hora and datepart(dw,Turno_Fecha) = agenda_dia and
-												  year(turno_fecha) = agenda_anio),
+												  agenda_fechayhora = Turno_Fecha),
 					af_id,af_rel_id,prof_id,Especialidad_Codigo
 		from gd_esquema.Maestra,afiliado,profesional
 		where af_numdoc = Paciente_Dni and prof_numdoc = Medico_Dni and Consulta_Enfermedades is not null
-		order by Turno_Numero
+		order by Turno_Numero ASC
 
 	SET IDENTITY_INSERT turnos OFF
 go
