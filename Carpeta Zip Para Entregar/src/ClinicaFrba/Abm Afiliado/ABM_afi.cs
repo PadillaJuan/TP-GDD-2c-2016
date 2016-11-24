@@ -49,8 +49,6 @@ namespace ClinicaFrba.Abm_Afiliado
             else
             {
                 this.darAltaAfiliado();
-                
-                Close();
             }
 
         }
@@ -215,25 +213,33 @@ namespace ClinicaFrba.Abm_Afiliado
 
         public void altaFamiliar()
         {
-            string query = "altaFamiliar";
-            SqlConnection conn = (new BDConnection()).getConnection();
-            SqlCommand com = new SqlCommand(query, conn);
-            com.CommandType = CommandType.StoredProcedure;
-            com.Parameters.AddWithValue("@af_id", getId());
-            com.Parameters.AddWithValue("@af_rel_id", (Int16)0);
-            com.Parameters.AddWithValue("@af_nombre", textBox2.Text);
-            com.Parameters.AddWithValue("@af_apellido", textBox3.Text);
-            com.Parameters.AddWithValue("@af_tipodoc", comboBox1.Text);
-            com.Parameters.AddWithValue("@af_numdoc", textBox4.Text);
-            com.Parameters.AddWithValue("@af_direccion", textBox5.Text);
-            com.Parameters.AddWithValue("@af_telefono", textBox6.Text);
-            com.Parameters.AddWithValue("@af_mail", textBox7.Text);
-            com.Parameters.AddWithValue("@af_nacimiento", dateTimePicker1.Value);
-            com.Parameters.AddWithValue("@af_estado_civil", comboBox2.Text);
-            com.Parameters.AddWithValue("@planmed_id", Int32.Parse(comboBox3.Text));
-            com.Parameters.AddWithValue("@af_sexo", comboBox4.Text);
-            com.ExecuteNonQuery();
-            com.Dispose();
+            try
+            {
+                string query = "altaFamiliar";
+                SqlConnection conn = (new BDConnection()).getConnection();
+                SqlCommand com = new SqlCommand(query, conn);
+                com.CommandType = CommandType.StoredProcedure;
+                com.Parameters.AddWithValue("@af_id", getId());
+                com.Parameters.AddWithValue("@af_rel_id", (Int16)0);
+                com.Parameters.AddWithValue("@af_nombre", textBox2.Text);
+                com.Parameters.AddWithValue("@af_apellido", textBox3.Text);
+                com.Parameters.AddWithValue("@af_tipodoc", comboBox1.Text);
+                com.Parameters.AddWithValue("@af_numdoc", textBox4.Text);
+                com.Parameters.AddWithValue("@af_direccion", textBox5.Text);
+                com.Parameters.AddWithValue("@af_telefono", textBox6.Text);
+                com.Parameters.AddWithValue("@af_mail", textBox7.Text);
+                com.Parameters.AddWithValue("@af_nacimiento", dateTimePicker1.Value);
+                com.Parameters.AddWithValue("@af_estado_civil", comboBox2.Text);
+                com.Parameters.AddWithValue("@planmed_id", Int32.Parse(comboBox3.Text));
+                com.Parameters.AddWithValue("@af_sexo", comboBox4.Text);
+                com.ExecuteNonQuery();
+                com.Dispose();
+                Close();
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.Message);
+            }
         }
 
         private void altaNuevoAfiliado()
@@ -259,6 +265,7 @@ namespace ClinicaFrba.Abm_Afiliado
                 com.ExecuteNonQuery();
                 com.Dispose();
                 MessageBox.Show("Si el afiliado tiene familiares para registrar, realizarlo en la opcion \"Agregar Familiar\". Gracias.", "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                Close();
             }
             catch (Exception e)
             {

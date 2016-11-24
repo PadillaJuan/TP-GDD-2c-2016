@@ -144,7 +144,7 @@ BEGIN
 	END
 	ELSE
 	BEGIN
-		RAISERROR('Ya existe un afiliado con ese tipo y Nro de documento',10,16)
+		RAISERROR('Ya existe un afiliado con ese tipo y Nro de documento',11,16)
 	END
 END
 GO
