@@ -53,12 +53,6 @@ namespace ClinicaFrba.AbmRol
 
         }
 
-        private void button4_Click(object sender, EventArgs e)  // SALIR 
-        {
-            Close();
-            Application.Exit();
-        }
-
         private void button5_Click(object sender, EventArgs e)  // Buscar Rol
         {
             if (textBox2.Text.Length == 0)

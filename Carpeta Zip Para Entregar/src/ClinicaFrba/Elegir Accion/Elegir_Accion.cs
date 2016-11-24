@@ -110,6 +110,7 @@ namespace ClinicaFrba.Elegir_Accion
                     case "Listado Estadistico":
                         // LISTADO ESTADISTICO
                         Listados.Presentacion_Listados f10 = new Listados.Presentacion_Listados();
+                        f10.Show();
                         break;
                     default:
                         MessageBox.Show("No se ha seleccionado ninguna accion", Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Error);
