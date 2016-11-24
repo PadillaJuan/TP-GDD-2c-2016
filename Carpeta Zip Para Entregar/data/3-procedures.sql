@@ -82,7 +82,7 @@ IF OBJECT_ID('fechasLibres') IS NOT NULL
 	DROP PROCEDURE fechasLibres
 	
 IF (OBJECT_ID('cancelTurno', 'P') IS NOT NULL)
-DROP PROCEDURE cancelTurno;
+	DROP PROCEDURE cancelTurno;
 
 
 IF (OBJECT_ID('getConsultas', 'P') IS NOT NULL)
@@ -553,6 +553,7 @@ AS
 BEGIN
     INSERT INTO cancelacion VALUES (@cancel_tipo, @cancel_motivo, @turno_id)
 END
+GO
 
 
 CREATE PROCEDURE getConsultas
