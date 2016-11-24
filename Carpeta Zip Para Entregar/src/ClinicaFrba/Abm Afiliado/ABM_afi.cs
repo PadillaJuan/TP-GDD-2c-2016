@@ -49,7 +49,8 @@ namespace ClinicaFrba.Abm_Afiliado
             else
             {
                 this.darAltaAfiliado();
-                MessageBox.Show("Si el afiliado tiene familiares para registrar, realizarlo en la opcion \"Agregar Familiar\". Gracias.", "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                
+                Close();
             }
 
         }
@@ -66,6 +67,7 @@ namespace ClinicaFrba.Abm_Afiliado
             else  
                 {
                     updateAfiliado();
+                    Close();
                 }
             
         }
@@ -187,12 +189,12 @@ namespace ClinicaFrba.Abm_Afiliado
             int n;
             long m;
 
-            if (textBox2.Text.Length == 0 || textBox3.Text.Length == 0 || textBox4.Text.Length == 0) { i = true; }
-            if (!textBox2.Text.All(c => Char.IsLetter(c)) || !textBox3.Text.All(d => Char.IsLetter(d)) || !int.TryParse(textBox4.Text, out n)) { i = true; }
-            if (comboBox1.SelectedIndex == -1 || comboBox2.SelectedIndex == -1 || comboBox3.SelectedIndex == -1 || comboBox4.SelectedIndex == -1) { i = true; }
-            if (dateTimePicker1.Value == DateTime.Parse("1900-01-01 00:00:00.000")) { i = true; }
-            if (dateTimePicker1.Value >= DateTime.Parse(Program.nuevaFechaSistema())) { i = true; }
-            if (textBox5.Text.Length == 0 || textBox6.Text.Length == 0 || textBox7.Text.Length == 0) { i = true;  }
+            if (textBox2.Text.Length == 0 || textBox3.Text.Length == 0 || textBox4.Text.Length == 0) { i = true; MessageBox.Show("1"); }
+            if (!textBox2.Text.All(c => Char.IsLetter(c)) || !textBox3.Text.All(d => Char.IsLetter(d)) || !int.TryParse(textBox4.Text, out n)) { i = true; MessageBox.Show("a1"); }
+            if (comboBox1.SelectedIndex == -1 || comboBox2.SelectedIndex == -1 || comboBox3.SelectedIndex == -1 || comboBox4.SelectedIndex == -1) { i = true; MessageBox.Show("s1"); }
+            if (dateTimePicker1.Value == DateTime.Parse("1900-01-01 00:00:00.000")) { i = true; MessageBox.Show("d1"); }
+            if (dateTimePicker1.Value >= DateTime.Parse(Program.nuevaFechaSistema())) { i = true; MessageBox.Show("f1"); }
+            if (textBox5.Text.Length == 0 || textBox6.Text.Length == 0 || textBox7.Text.Length == 0) { i = true; MessageBox.Show("1g"); }
             if (!long.TryParse(textBox6.Text, out m)) { i = true; }
 
             return i;
@@ -236,24 +238,32 @@ namespace ClinicaFrba.Abm_Afiliado
 
         private void altaNuevoAfiliado()
         {
-            string query = "altaAfiliado";
-            SqlConnection conn = (new BDConnection()).getConnection();
-            SqlCommand com = new SqlCommand(query, conn);
-            com.CommandType = CommandType.StoredProcedure;
-            com.Parameters.AddWithValue("@af_rel_id", (Int16)0);
-            com.Parameters.AddWithValue("@af_nombre", textBox2.Text);
-            com.Parameters.AddWithValue("@af_apellido", textBox3.Text);
-            com.Parameters.AddWithValue("@af_tipodoc", comboBox1.Text);
-            com.Parameters.AddWithValue("@af_numdoc", textBox4.Text);
-            com.Parameters.AddWithValue("@af_direccion", textBox5.Text);
-            com.Parameters.AddWithValue("@af_telefono", textBox6.Text);
-            com.Parameters.AddWithValue("@af_mail", textBox7.Text);
-            com.Parameters.AddWithValue("@af_nacimiento", dateTimePicker1.Value);
-            com.Parameters.AddWithValue("@af_estado_civil", comboBox2.Text);
-            com.Parameters.AddWithValue("@planmed_id", Int32.Parse(comboBox3.Text));
-            com.Parameters.AddWithValue("@af_sexo", comboBox4.Text);
-            com.ExecuteNonQuery();
-            com.Dispose();
+            try
+            {
+                string query = "altaAfiliado";
+                SqlConnection conn = (new BDConnection()).getConnection();
+                SqlCommand com = new SqlCommand(query, conn);
+                com.CommandType = CommandType.StoredProcedure;
+                com.Parameters.AddWithValue("@af_rel_id", (Int16)0);
+                com.Parameters.AddWithValue("@af_nombre", textBox2.Text);
+                com.Parameters.AddWithValue("@af_apellido", textBox3.Text);
+                com.Parameters.AddWithValue("@af_tipodoc", comboBox1.Text);
+                com.Parameters.AddWithValue("@af_numdoc", textBox4.Text);
+                com.Parameters.AddWithValue("@af_direccion", textBox5.Text);
+                com.Parameters.AddWithValue("@af_telefono", textBox6.Text);
+                com.Parameters.AddWithValue("@af_mail", textBox7.Text);
+                com.Parameters.AddWithValue("@af_nacimiento", dateTimePicker1.Value);
+                com.Parameters.AddWithValue("@af_estado_civil", comboBox2.Text);
+                com.Parameters.AddWithValue("@planmed_id", Int32.Parse(comboBox3.Text));
+                com.Parameters.AddWithValue("@af_sexo", comboBox4.Text);
+                com.ExecuteNonQuery();
+                com.Dispose();
+                MessageBox.Show("Si el afiliado tiene familiares para registrar, realizarlo en la opcion \"Agregar Familiar\". Gracias.", "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.Message);
+            }
         }
         
         

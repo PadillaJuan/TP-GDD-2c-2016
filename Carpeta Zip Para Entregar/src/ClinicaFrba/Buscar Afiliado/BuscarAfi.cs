@@ -73,14 +73,9 @@ namespace ClinicaFrba.BuscarAfiliado
             }
         }
 
-        private void button4_Click(object sender, EventArgs e) // CERRAR PROGRAMA
-        {
-            Close();
-        }
-
         private void button5_Click(object sender, EventArgs e) // VOLVER
         {
-            Hide();
+            Close();
         }
 
         private void button6_Click(object sender, EventArgs e) // BUSCAR AFILIADO/S
@@ -272,6 +267,30 @@ namespace ClinicaFrba.BuscarAfiliado
                     button2.Enabled = false;
                     button7.Enabled = false;
                     break;
+            }
+        }
+
+        private void button8_Click(object sender, EventArgs e)
+        {
+            bool flag = true;
+            int index;
+            try
+            {
+                index = dataGridView1.CurrentCell.RowIndex;
+            }
+            catch (Exception a)
+            {
+                flag = false;
+                index = -1;
+            }
+            if (index == -1)
+            {
+                MessageBox.Show("No se ha seleccionado un afiliado", "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            else
+            {
+                Abm_Afiliado.ABM_afi form = new Abm_Afiliado.ABM_afi(1, getId());
+                form.Show();
             }
         }
     }
