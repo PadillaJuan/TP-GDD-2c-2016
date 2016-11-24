@@ -229,7 +229,7 @@ go
 
 create procedure migrarTipo_especialidades_por_planes
 as
-	insert into tipo_especialidad_por_planes
+	insert into tipo_especialidades_por_planes
 		select Plan_Med_Codigo,Tipo_Especialidad_Codigo
 		from gd_esquema.Maestra
 		where Especialidad_Codigo is not null and Plan_Med_Codigo is not null and
