@@ -93,7 +93,12 @@ IF (OBJECT_ID('finalizarConsulta', 'P') IS NOT NULL)
 
 IF (OBJECT_ID('getEspecialidadesMedicas', 'P') IS NOT NULL)
 	DROP PROCEDURE getEspecialidadesMedicas;
+IF (OBJECT_ID('checkBono', 'P') IS NOT NULL)
+	DROP PROCEDURE checkBono;
+
 GO
+
+
 
 /* CREATE PROCEDURE */
 
@@ -324,14 +329,6 @@ CREATE PROCEDURE actualizarAfiliado
 	@fecha DATETIME
 AS
 BEGIN
-	IF @motivoCambio IS NOT NULL
-	BEGIN
-		PRINT @motivoCambio+'HOLA'
-	END
-	IF @motivoCambio != ''
-	BEGIN
-		PRINT @motivoCambio+'CHAU'
-	END
 	IF (@motivoCambio != '')
 	BEGIN
 		INSERT INTO logs_cambio_plan
@@ -377,6 +374,27 @@ AS
 BEGIN
 	INSERT INTO registro_compra(compra_af,compra_af_rel,compra_cantidad,compra_monto,compra_fecha)
 	VALUES(@af_id,@af_rel_id,@cantidad,@monto,@fecha)
+END
+GO
+
+CREATE PROCEDURE checkBono
+	@bono_id INT,
+	@turno_id INT,
+	@af_id BIGINT,
+	@af_rel_id TINYINT
+AS
+BEGIN
+	DECLARE @plan_med INT
+	DECLARE @tipoEsp_id INT
+	
+	SELECT @plan_med = planmed_id FROM afiliado a 
+	JOIN turnos t ON a.af_id = t.turno_af AND a.af_rel_id = t.turno_af_rel
+	WHERE a.af_id = @af_id AND a.af_rel_id = @af_rel_id
+
+	SELECT @tipoEsp_id = tipoEsp_id FROM especialidad WHERE esp_id = (SELECT turno_esp FROM turnos WHERE turno_id = @turno_id)
+
+	IF NOT EXISTS (SELECT 1 FROM tipo_especialidades_pòr_planes WHERE planmed_id = @plan_med AND tipoEsp_id = @tipoEsp_id)
+		RAISERROR('El bono seleccionado para la consulta no es válido', 10, 16)
 END
 GO
 
