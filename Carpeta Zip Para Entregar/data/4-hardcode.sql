@@ -57,6 +57,8 @@ GO
 
 IF (OBJECT_ID('setAdmin', 'P') IS NOT NULL)
 	DROP PROCEDURE setAdmin;
+GO
+
 
 CREATE PROCEDURE setAdmin
 AS
