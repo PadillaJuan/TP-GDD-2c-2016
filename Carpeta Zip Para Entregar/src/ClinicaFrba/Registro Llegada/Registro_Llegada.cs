@@ -77,6 +77,7 @@ namespace ClinicaFrba.Registro_Llegada
         {
             try
             {
+                checkearBono();
                 int turno = getTurno();
                 SqlConnection cn = (new BDConnection()).getConnection();
                 SqlCommand cm = new SqlCommand("generateConsultaMedica", cn);
@@ -163,7 +164,15 @@ namespace ClinicaFrba.Registro_Llegada
             return ret;
         }
 
-        
-
+        public void checkearBono()
+        {
+            SqlConnection cn = new SqlConnection();
+            SqlCommand cm = new SqlCommand("checkBono", cn);
+            cm.CommandType = CommandType.StoredProcedure;
+            cm.Parameters.AddWithValue("@bono_id", bono);
+            cm.Parameters.AddWithValue("@turno_id", getTurno());
+            cm.ExecuteNonQuery();
+            cm.Dispose();
+        }
      }
 }
