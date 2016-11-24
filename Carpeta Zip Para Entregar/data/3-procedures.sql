@@ -84,6 +84,9 @@ IF OBJECT_ID('fechasLibres') IS NOT NULL
 IF (OBJECT_ID('cancelTurno', 'P') IS NOT NULL)
 DROP PROCEDURE cancelTurno;
 
+
+IF (OBJECT_ID('getConsultas', 'P') IS NOT NULL)
+	DROP PROCEDURE getConsultas;
 GO
 
 /* CREATE PROCEDURE */
@@ -725,3 +728,16 @@ AS
 BEGIN
     INSERT INTO cancelacion VALUES (@cancel_tipo, @cancel_motivo, @turno_id)
 END
+
+
+CREATE PROCEDURE getConsultas
+	@af_id BIGINT,
+	@af_rel_id TINYINT
+AS
+BEGIN
+	SELECT c.cons_id, t.turno_prof, t.turno_esp
+	FROM turnos t 
+	JOIN consulta_medica c 
+	ON turno_id = cons_turno
+END
+GO
