@@ -89,6 +89,10 @@ IF (OBJECT_ID('getConsultas', 'P') IS NOT NULL)
 	DROP PROCEDURE getConsultas;
 GO
 
+IF (OBJECT_ID('finalizarConsulta', 'P') IS NOT NULL)
+	DROP PROCEDURE finalizarConsulta;
+GO
+
 /* CREATE PROCEDURE */
 
 CREATE PROCEDURE bajaAfiliado
@@ -704,5 +708,20 @@ BEGIN
 	FROM turnos t 
 	JOIN consulta_medica c 
 	ON turno_id = cons_turno
+	WHERE c.cons_diagnostico = NULL
+	AND c.cons_sintomas = NULL
+END
+GO
+
+CREATE PROCEDURE finalizarConsulta
+	@cons_id INT,
+	@sintomas VARCHAR(200),
+	@diagnostico VARCHAR(200)
+AS
+BEGIN
+	UPDATE consulta_medica 
+	SET cons_sintomas = @sintomas,
+	cons_diagnostico = @diagnostico
+	WHERE cons_id = @cons_id
 END
 GO

@@ -13,6 +13,8 @@ namespace ClinicaFrba.Registro_Resultado
 {
     public partial class Reg_Res : Form
     {
+        int consulta;
+
         public Reg_Res()
         {
             InitializeComponent();
@@ -22,6 +24,7 @@ namespace ClinicaFrba.Registro_Resultado
         private void button1_Click(object sender, EventArgs e)
         {
             button2.Enabled = true;
+            dataGridView1.DataSource = null;
             if (validarEntrada())
             {
                 DataTable table = new DataTable();
@@ -44,7 +47,10 @@ namespace ClinicaFrba.Registro_Resultado
 
         private void button2_Click(object sender, EventArgs e)
         {
-            button4.Enabled = true;
+            if (validarSeleccion())
+            {
+                button4.Enabled = true;
+            }
         }
 
         private void button3_Click(object sender, EventArgs e)
@@ -54,7 +60,17 @@ namespace ClinicaFrba.Registro_Resultado
 
         private void button4_Click(object sender, EventArgs e)
         {
-
+            if (validarTexto())
+            {
+                SqlConnection cn = new SqlConnection();
+                SqlCommand cm = new SqlCommand("finalizarConsulta", cn);
+                cm.CommandType = CommandType.StoredProcedure;
+                cm.Parameters.AddWithValue("@cons_id", consulta);
+                cm.Parameters.AddWithValue("@sintomas", textBox2.Text);
+                cm.Parameters.AddWithValue("@diagnostico", textBox3.Text);
+                cm.ExecuteNonQuery();
+                Close();
+            }
         }
 
         private void setButtons()
@@ -67,6 +83,28 @@ namespace ClinicaFrba.Registro_Resultado
         {
             int n;
             return !Int32.TryParse(textBox1.Text, out n);
+        }
+
+        public bool validarSeleccion()
+        {
+            bool flag = false;
+            try
+            {
+                int index = dataGridView1.CurrentCell.RowIndex;
+                consulta = Int32.Parse(dataGridView1.Rows[index].Cells[0].Value.ToString());
+                flag = true;
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show("No se ha seleccionado ninguna consulta", Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            return flag;
+        }
+
+        public bool validarTexto()
+        {
+            bool n = textBox2.Text.Length > 0 && textBox3.Text.Length > 0;
+            return n;
         }
     }
 }
