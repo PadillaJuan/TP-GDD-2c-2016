@@ -687,41 +687,6 @@ END
 GO
 
 
-create function estaLibre(@unProfesional  int, @unaEspecialidad int, @unaFecha  datetime)
-returns int
-as
-begin
-	if (select count(*) from turnos,cancelacion 
-		where cancelacion.turno_id not in( turnos.turno_id) and convert(date,turno_fecha) = @unaFecha and turno_prof = @unProfesional ) = 0
-		if(select count(*) from periodo_baja 
-		   where prof_id = @unProfesional and periodo_desde >= @unaFecha and periodo_hasta <= @unaFecha) = 0
-			if( select count(*) from agenda_profesional
-				 where agenda_prof = @unProfesional and  agenda_esp = @unaEspecialidad and agenda_dia = DATEPART(dw,@unaFecha) and agenda_anio = year(@unaFecha) ) > 0
-				return 1
-	return 0
-end
-go
-create procedure fechasLibres(@unProfesional int, @unaEspecialidad int)
-as
-begin
-	create table #fechasLibres(fecha date)
-	declare @fechaActual datetime,@diaSiguiente int  = 1 
-    select @fechaActual = GETDATE()
-	while(@diaSiguiente <= 30)
-	begin
-		if (select dbo.estaLibre(@unProfesional,@unaEspecialidad,@fechaActual)) = 1
-			insert into #fechasLibres values(@fechaActual)
-
-		set @diaSiguiente = @diaSiguiente +1
-		SELECT @fechaActual =  DATEADD(day, 1, @fechaActual);
-	end
-	select *
-	from #fechasLibres
-	
-	drop table #fechasLibres
-end
-go
-
 CREATE PROCEDURE cancelTurno
 @turno_id INT, @cancel_motivo VARCHAR(30) , @cancel_tipo CHAR
 AS
