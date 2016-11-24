@@ -338,6 +338,7 @@ CREATE TABLE funcionalidad(
 
 ALTER TABLE afiliado add constraint FK_afi_usuario foreign key (us_id) references usuarios (us_id);
 ALTER TABLE afiliado add constraint FK_plan_med foreign key (planmed_id) references plan_medico (planmed_id);
+ALTER TABLE afiliado ADD CONSTRAINT UN_DNI UNIQUE (af_numdoc, af_tipodoc)
 
 ALTER TABLE logs_cambio_plan add constraint FK_afi foreign key (af_id,af_rel_id) references afiliado (af_id,af_rel_id);
 ALTER TABLE logs_cambio_plan add constraint FK_plan_ant foreign key (plan_id_ant) references plan_medico (planmed_id);	
@@ -346,7 +347,6 @@ ALTER TABLE logs_cambio_plan add constraint FK_plan_new foreign key (plan_id_new
 ALTER TABLE tipo_especialidades_por_planes add constraint FK_esp_por_planes_1 foreign key (planmed_id) references plan_medico (planmed_id);
 ALTER TABLE tipo_especialidades_por_planes add constraint FK_esp_por_planes_2 foreign key (tipoEsp_id) references tipo_especialidades (tipoEsp_id);
 	
-
 ALTER TABLE registro_compra add constraint FK_compra_afi foreign key (compra_af,compra_af_rel) references afiliado (af_id,af_rel_id);	
 
 ALTER TABLE bono add constraint FK_compra_bono foreign key (bono_compra) references registro_compra (compra_id);	
