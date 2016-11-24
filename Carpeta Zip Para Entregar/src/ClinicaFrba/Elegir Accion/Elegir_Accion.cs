@@ -69,43 +69,47 @@ namespace ClinicaFrba.Elegir_Accion
                         break;
                     case "Registrar Agenda Profesional":
                         // REGISTRAR AGENDA PROFESIONAL
-						Registrar_Agenta_Medico.Registrar_agenda f6 = new Registrar_Agenta_Medico.Registrar_agenda(us_idG);
-                        f6.Show();
+						Registrar_Agenta_Medico.Registrar_agenda f3 = new Registrar_Agenta_Medico.Registrar_agenda(us_idG);
+                        f3.Show();
                         break;
                     case "Compra de Bonos":
                         // COMPRA DE BONOS
                         switch (rol)
                         {
                             case 1:
-                                BuscarAfiliado.BuscarAfi f3 = new BuscarAfiliado.BuscarAfi(rol);
-                                f3.Show();
+                                BuscarAfiliado.BuscarAfi f4 = new BuscarAfiliado.BuscarAfi(rol);
+                                f4.Show();
                                 break;
                             case 2:
-                                Compra_Bono.Compra_Bono f4 = new Compra_Bono.Compra_Bono(rol);
-                                f4.Show();
+                                Compra_Bono.Compra_Bono f5 = new Compra_Bono.Compra_Bono(rol);
+                                f5.Show();
                                 break;
                         }
                         break;
                         
                     case "Pedido de Turno":
+                        // PEDIDO DE TURNO
                         string query5 = "SELECT af_nombre FROM afiliado WHERE us_id = us_idG";
                         DataTable dt5 = (new BDConnection()).cargarTablaSQL(query5);
                         string elAfiliadoQuePideElTurno = dt5.Rows[0][0].ToString();
                         
-                        Pedir_Turno.ListadoProfesionales f5 = new Pedir_Turno.ListadoProfesionales(elAfiliadoQuePideElTurno);
-                        f5.Show();
+                        Pedir_Turno.ListadoProfesionales f6 = new Pedir_Turno.ListadoProfesionales(elAfiliadoQuePideElTurno);
+                        f6.Show();
                         break;
                     case "Registro de Llegada":
                         // REGISTRO DE LLEGADA
+                        Registro_Llegada.Registro_Llegada f7 = new Registro_Llegada.Registro_Llegada();
                         break;
                     case "Registro de Resultado":
                         // REGISTRO DE RESULTADO
+                        Registro_Resultado.Reg_Res f8 = new Registro_Resultado.Reg_Res();
                         break;
                     case "Cancelar Atencion Medica":
                         // CANCELAR ATENCION MEDICA
                         break;
                     case "Listado Estadistico":
                         // LISTADO ESTADISTICO
+                        Listados.Presentacion_Listados f10 = new Listados.Presentacion_Listados();
                         break;
                     default:
                         MessageBox.Show("No se ha seleccionado ninguna accion", Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Error);

@@ -34,11 +34,6 @@ namespace ClinicaFrba.Compra_Bono
             textBox1.Enabled = false;
         }
 
-        private void button1_Click(object sender, EventArgs e)
-        {
-            Application.Exit();
-        }
-
         private void button2_Click(object sender, EventArgs e)
         {
             Close();

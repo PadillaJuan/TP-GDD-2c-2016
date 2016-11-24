@@ -69,6 +69,7 @@ namespace ClinicaFrba.Compra_Bono
             com.Parameters.AddWithValue("@fecha", DateTime.Parse(Program.nuevaFechaSistema()));
             com.ExecuteNonQuery();
             com.Dispose();
+            Close();
 
         }
 
