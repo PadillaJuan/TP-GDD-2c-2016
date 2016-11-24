@@ -120,7 +120,6 @@ IF (OBJECT_ID('funcionalidad','U') IS NOT NULL)
 	
 GO 
 
-
 /* TABLA DE AFILIADOS */
 
 CREATE TABLE afiliado(
@@ -196,7 +195,7 @@ CREATE TABLE bono(
 	bono_planmed numeric(18,0),
 	bono_af INT,
 	bono_af_rel TINYINT,
-	bono_estado CHAR(1)
+	bono_nro_consulta INT
 );
 
 /* TABLA DE CONSULTA MEDICA */

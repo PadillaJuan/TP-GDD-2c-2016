@@ -52,7 +52,7 @@ IF (OBJECT_ID('generateConsultaMedica', 'P') IS NOT NULL)
 IF (OBJECT_ID('getListado1Mensual', 'P') IS NOT NULL)
 	DROP PROCEDURE getListado1Mensual;
 IF (OBJECT_ID('getListado2Mensual', 'P') IS NOT NULL)
-	DROP PROCEDURE getListado2Mensuala;
+	DROP PROCEDURE getListado2Mensual;
 IF (OBJECT_ID('getListado3Mensual', 'P') IS NOT NULL)
 	DROP PROCEDURE getListado3Mensual;
 IF (OBJECT_ID('getListado4Mensual', 'P') IS NOT NULL)
@@ -528,7 +528,9 @@ GO
 
 
 CREATE PROCEDURE cancelTurno
-@turno_id INT, @cancel_motivo VARCHAR(30) , @cancel_tipo CHAR
+	@turno_id INT, 
+	@cancel_motivo VARCHAR(30) , 
+	@cancel_tipo CHAR(1)
 AS
 BEGIN
     INSERT INTO cancelacion VALUES (@cancel_tipo, @cancel_motivo, @turno_id)
