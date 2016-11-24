@@ -15,12 +15,15 @@ namespace ClinicaFrba.Registro_Llegada
     {
         DataTable tabla;
         int bono;
+        List<int> lista;
+
         public Registro_Llegada()
         {
             InitializeComponent();
             llenarComboBox();
             button4.Enabled = false;
             button5.Enabled = false;
+            lista = new List<int>();
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -83,6 +86,7 @@ namespace ClinicaFrba.Registro_Llegada
                 cm.Parameters.AddWithValue("@hora_llegada", Program.nuevaFechaSistema());
                 cm.ExecuteNonQuery();
                 cm.Dispose();
+                Close();
             }
             catch (Exception a)
             {
@@ -98,6 +102,7 @@ namespace ClinicaFrba.Registro_Llegada
             SqlDataReader dr = cm.ExecuteReader();
             while (dr.Read())
             {
+                lista.Add(dr.GetInt32(0));
                 comboBox1.Items.Add(dr.GetString(1));
             }
             dr.Close();

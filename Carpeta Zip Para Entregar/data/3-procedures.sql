@@ -87,10 +87,12 @@ DROP PROCEDURE cancelTurno;
 
 IF (OBJECT_ID('getConsultas', 'P') IS NOT NULL)
 	DROP PROCEDURE getConsultas;
-GO
 
 IF (OBJECT_ID('finalizarConsulta', 'P') IS NOT NULL)
 	DROP PROCEDURE finalizarConsulta;
+
+IF (OBJECT_ID('getEspecialidadesMedicas', 'P') IS NOT NULL)
+	DROP PROCEDURE getEspecialidadesMedicas;
 GO
 
 /* CREATE PROCEDURE */
@@ -463,7 +465,102 @@ BEGIN
 END
 GO
 
+CREATE PROCEDURE getEspecialidadesMedicas
+AS
+BEGIN
+	SELECT esp_id, esp_descripcion FROM especialidad
+END
+GO
 
+
+
+
+CREATE PROCEDURE addHorasAgenda
+	@id INT,
+	@desde DATETIME,
+	@hasta DATETIME,
+	@dia INT,
+	@hora_inicio TIME,
+	@hora_fin TIME,
+	@especialidad INT
+AS
+BEGIN	
+	
+	DECLARE @fechatemp DATETIME
+	DECLARE @fechatemp_fin DATETIME
+		
+	WHILE (@dia != DATEPART(weekday,@desde))
+	BEGIN
+		SET @desde = DATEADD(day,1,@desde)
+	END
+
+	
+	SET @desde = CONVERT(VARCHAR(30),DATEPART(year,@desde)) + '-'+ CONVERT(VARCHAR(30),DATEPART(month,@desde)) +'-'+ CONVERT(VARCHAR(30),DATEPART(day,@desde)) +' '+CONVERT(VARCHAR(30),DATEPART(hour,@hora_inicio))+':'+CONVERT(VARCHAR(30),DATEPART(minute,@hora_inicio))
+
+	SET @fechatemp_fin = CONVERT(VARCHAR(30),DATEPART(year,@desde)) + '-'+ CONVERT(VARCHAR(30),DATEPART(month,@desde)) +'-'+ CONVERT(VARCHAR(30),DATEPART(day,@desde)) +' '+CONVERT(VARCHAR(30),DATEPART(hour,@hora_fin))+':'+CONVERT(VARCHAR(30),DATEPART(minute,@hora_fin))
+	
+	WHILE (DATEDIFF(day,@desde,@hasta) >= 0)
+	BEGIN		
+		SET @fechatemp = @desde
+		WHILE(DATEDIFF(minute,@fechatemp,@fechatemp_fin) >= 0)
+		BEGIN
+			INSERT INTO agenda_profesional (agenda_prof, agenda_esp, agenda_fechayhora) VALUES (@id,@especialidad,@fechatemp)
+			SET @fechatemp = DATEADD(minute,30,@fechatemp)
+		END	
+		SET @desde = DATEADD(day,7,@desde)
+		SET @fechatemp_fin = DATEADD(day,7,@fechatemp_fin)
+	END
+	
+	
+END
+GO
+
+
+CREATE PROCEDURE getEspecialidadesPorProfesional
+	@us_id INT
+AS
+BEGIN
+	SELECT c.esp_id, c.esp_descripcion
+    FROM profesional a, especialidad_por_profesional b, especialidad c
+	WHERE a.us_id = @us_id AND b.prof_id = a.prof_id AND c.esp_id = b.esp_id
+END
+GO
+
+
+CREATE PROCEDURE cancelTurno
+@turno_id INT, @cancel_motivo VARCHAR(30) , @cancel_tipo CHAR
+AS
+BEGIN
+    INSERT INTO cancelacion VALUES (@cancel_tipo, @cancel_motivo, @turno_id)
+END
+
+
+CREATE PROCEDURE getConsultas
+	@af_id BIGINT,
+	@af_rel_id TINYINT
+AS
+BEGIN
+	SELECT c.cons_id, t.turno_prof, t.turno_esp
+	FROM turnos t 
+	JOIN consulta_medica c 
+	ON turno_id = cons_turno
+	WHERE c.cons_diagnostico = NULL
+	AND c.cons_sintomas = NULL
+END
+GO
+
+CREATE PROCEDURE finalizarConsulta
+	@cons_id INT,
+	@sintomas VARCHAR(200),
+	@diagnostico VARCHAR(200)
+AS
+BEGIN
+	UPDATE consulta_medica 
+	SET cons_sintomas = @sintomas,
+	cons_diagnostico = @diagnostico
+	WHERE cons_id = @cons_id
+END
+GO
 ------------------LISTADOS------------------LISTADOS------------------LISTADOS------------------LISTADOS------------------LISTADOS
 
 CREATE PROCEDURE getListado1Semestral
@@ -635,93 +732,5 @@ BEGIN
 	AND YEAR(turno_fecha) = YEAR(@fecha_mes) 
 	GROUP BY t.turno_esp, e.esp_descripcion
 	ORDER BY 'Bonos utilizados' DESC
-END
-GO
-
-
-CREATE PROCEDURE addHorasAgenda
-	@id INT,
-	@desde DATETIME,
-	@hasta DATETIME,
-	@dia INT,
-	@hora_inicio TIME,
-	@hora_fin TIME,
-	@especialidad INT
-AS
-BEGIN	
-	
-	DECLARE @fechatemp DATETIME
-	DECLARE @fechatemp_fin DATETIME
-		
-	WHILE (@dia != DATEPART(weekday,@desde))
-	BEGIN
-		SET @desde = DATEADD(day,1,@desde)
-	END
-
-	
-	SET @desde = CONVERT(VARCHAR(30),DATEPART(year,@desde)) + '-'+ CONVERT(VARCHAR(30),DATEPART(month,@desde)) +'-'+ CONVERT(VARCHAR(30),DATEPART(day,@desde)) +' '+CONVERT(VARCHAR(30),DATEPART(hour,@hora_inicio))+':'+CONVERT(VARCHAR(30),DATEPART(minute,@hora_inicio))
-
-	SET @fechatemp_fin = CONVERT(VARCHAR(30),DATEPART(year,@desde)) + '-'+ CONVERT(VARCHAR(30),DATEPART(month,@desde)) +'-'+ CONVERT(VARCHAR(30),DATEPART(day,@desde)) +' '+CONVERT(VARCHAR(30),DATEPART(hour,@hora_fin))+':'+CONVERT(VARCHAR(30),DATEPART(minute,@hora_fin))
-	
-	WHILE (DATEDIFF(day,@desde,@hasta) >= 0)
-	BEGIN		
-		SET @fechatemp = @desde
-		WHILE(DATEDIFF(minute,@fechatemp,@fechatemp_fin) >= 0)
-		BEGIN
-			INSERT INTO agenda_profesional (agenda_prof, agenda_esp, agenda_fechayhora) VALUES (@id,@especialidad,@fechatemp)
-			SET @fechatemp = DATEADD(minute,30,@fechatemp)
-		END	
-		SET @desde = DATEADD(day,7,@desde)
-		SET @fechatemp_fin = DATEADD(day,7,@fechatemp_fin)
-	END
-	
-	
-END
-GO
-
-
-CREATE PROCEDURE getEspecialidadesPorProfesional
-	@us_id INT
-AS
-BEGIN
-	SELECT c.esp_id, c.esp_descripcion
-    FROM profesional a, especialidad_por_profesional b, especialidad c
-	WHERE a.us_id = @us_id AND b.prof_id = a.prof_id AND c.esp_id = b.esp_id
-END
-GO
-
-
-CREATE PROCEDURE cancelTurno
-@turno_id INT, @cancel_motivo VARCHAR(30) , @cancel_tipo CHAR
-AS
-BEGIN
-    INSERT INTO cancelacion VALUES (@cancel_tipo, @cancel_motivo, @turno_id)
-END
-
-
-CREATE PROCEDURE getConsultas
-	@af_id BIGINT,
-	@af_rel_id TINYINT
-AS
-BEGIN
-	SELECT c.cons_id, t.turno_prof, t.turno_esp
-	FROM turnos t 
-	JOIN consulta_medica c 
-	ON turno_id = cons_turno
-	WHERE c.cons_diagnostico = NULL
-	AND c.cons_sintomas = NULL
-END
-GO
-
-CREATE PROCEDURE finalizarConsulta
-	@cons_id INT,
-	@sintomas VARCHAR(200),
-	@diagnostico VARCHAR(200)
-AS
-BEGIN
-	UPDATE consulta_medica 
-	SET cons_sintomas = @sintomas,
-	cons_diagnostico = @diagnostico
-	WHERE cons_id = @cons_id
 END
 GO
