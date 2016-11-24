@@ -150,7 +150,7 @@ namespace ClinicaFrba.Registro_Llegada
         {
             int ret;
             int index = comboBox1.SelectedIndex;
-            ret = int.Parse(tabla.Rows[index][0].ToString());
+            ret = lista[index];
             return ret;
         }
 
