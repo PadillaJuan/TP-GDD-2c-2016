@@ -41,7 +41,7 @@ namespace ClinicaFrba.AbmRol
             {
                 int rol_id = getRolId();
                 string query = "deactivateRol";
-                SqlConnection conn = (new BDConnection()).getConnection();
+                SqlConnection conn = (new BDConnection()).getInstance();
                 SqlCommand com = new SqlCommand(query, conn);
                 com.CommandType = CommandType.StoredProcedure;
                 com.Parameters.Add(new SqlParameter("@rol_id", rol_id));
@@ -60,7 +60,7 @@ namespace ClinicaFrba.AbmRol
             else
             {
                 string query = "getRol";
-                SqlConnection conn = (new BDConnection()).getConnection();
+                SqlConnection conn = (new BDConnection()).getInstance();
                 SqlCommand cm = new SqlCommand(query, conn);
                 cm.CommandType = CommandType.StoredProcedure;
                 cm.Parameters.Add(new SqlParameter("@rol_nombre",textBox2.Text));
@@ -76,7 +76,7 @@ namespace ClinicaFrba.AbmRol
             {
                 int rol_id = getRolId();
                 string query = "activateRol";
-                SqlConnection conn = (new BDConnection()).getConnection();
+                SqlConnection conn = (new BDConnection()).getInstance();
                 SqlCommand com = new SqlCommand(query, conn);
                 com.CommandType = CommandType.StoredProcedure;
                 com.Parameters.Add(new SqlParameter("@rol_id", rol_id));
@@ -90,7 +90,7 @@ namespace ClinicaFrba.AbmRol
         private void button8_Click(object sender, EventArgs e) // Buscar todos los roles
         {
             string query = "getAllRoles";
-            SqlConnection conn = (new BDConnection()).getConnection();
+            SqlConnection conn = (new BDConnection()).getInstance();
             SqlCommand cm = new SqlCommand(query, conn);
             cm.CommandType = CommandType.StoredProcedure;
             fillDataTable(cm);
@@ -127,7 +127,7 @@ namespace ClinicaFrba.AbmRol
         {
             int id_rol = 0;
             string query = String.Format("SELECT id_rol FROM rol WHERE rol_nombre = {0}", rol);
-            SqlConnection conn = (new BDConnection()).getConnection();
+            SqlConnection conn = (new BDConnection()).getInstance();
             SqlCommand cm = new SqlCommand(query, conn);
             SqlDataReader dr = cm.ExecuteReader();
             id_rol = dr.GetInt32(0);

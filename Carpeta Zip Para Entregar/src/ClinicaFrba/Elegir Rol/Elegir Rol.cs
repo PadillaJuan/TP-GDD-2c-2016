@@ -24,7 +24,7 @@ namespace ClinicaFrba.Elegir_Rol
 
         public void llenarComboBox(int us_id) 
         {
-            SqlConnection conn = (new BDConnection()).getConnection();
+            SqlConnection conn = (new BDConnection()).getInstance();
             string query = String.Format("getRolesPorUsuario",us_id);
             SqlCommand com = new SqlCommand(query, conn);
             com.CommandType = CommandType.StoredProcedure;

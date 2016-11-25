@@ -86,7 +86,7 @@ namespace ClinicaFrba.Abm_Afiliado
 
         public void cargarComboBoxPlanMedico()
         {
-            SqlConnection conn = (new BDConnection()).getConnection();
+            SqlConnection conn = (new BDConnection()).getInstance();
             string query = String.Format("getPlanesMedicos");
             SqlCommand com = new SqlCommand(query, conn);
             com.CommandType = CommandType.StoredProcedure;
@@ -136,7 +136,7 @@ namespace ClinicaFrba.Abm_Afiliado
         {
 
             String query = "getDatosDelAfiliado";
-            SqlConnection Conn = (new BDConnection()).getConnection();
+            SqlConnection Conn = (new BDConnection()).getInstance();
             SqlCommand consulta = new SqlCommand(query, Conn);
             consulta.CommandType = CommandType.StoredProcedure;
             consulta.Parameters.AddWithValue("@af_id", getId());
@@ -216,7 +216,7 @@ namespace ClinicaFrba.Abm_Afiliado
             try
             {
                 string query = "altaFamiliar";
-                SqlConnection conn = (new BDConnection()).getConnection();
+                SqlConnection conn = (new BDConnection()).getInstance();
                 SqlCommand com = new SqlCommand(query, conn);
                 com.CommandType = CommandType.StoredProcedure;
                 com.Parameters.AddWithValue("@af_id", getId());
@@ -247,7 +247,7 @@ namespace ClinicaFrba.Abm_Afiliado
             try
             {
                 string query = "altaAfiliado";
-                SqlConnection conn = (new BDConnection()).getConnection();
+                SqlConnection conn = (new BDConnection()).getInstance();
                 SqlCommand com = new SqlCommand(query, conn);
                 com.CommandType = CommandType.StoredProcedure;
                 com.Parameters.AddWithValue("@af_rel_id", (Int16)0);
@@ -277,7 +277,7 @@ namespace ClinicaFrba.Abm_Afiliado
         public void updateAfiliado()
         {
             string query = "actualizarAfiliado";
-            SqlConnection con = (new BDConnection()).getConnection();
+            SqlConnection con = (new BDConnection()).getInstance();
             SqlCommand cm = new SqlCommand(query, con);
             cm.CommandType = CommandType.StoredProcedure;
             cm.Parameters.AddWithValue("@af_id",getId());

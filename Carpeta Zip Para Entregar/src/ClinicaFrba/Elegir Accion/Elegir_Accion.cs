@@ -25,7 +25,7 @@ namespace ClinicaFrba.Elegir_Accion
 
         public void llenarComboBox(int rol_id)
         {
-            SqlConnection conn = (new BDConnection()).getConnection();
+            SqlConnection conn = (new BDConnection()).getInstance();
             string query = "getFuncionalidadDelRol";
             SqlCommand com = new SqlCommand(query, conn);
             com.CommandType = CommandType.StoredProcedure;

@@ -83,7 +83,7 @@ namespace ClinicaFrba.BuscarAfiliado
             if (validarEntrada())
             {
                 String query = generateSearchQuery();
-                SqlConnection conn = (new BDConnection()).getConnection();
+                SqlConnection conn = (new BDConnection()).getInstance();
                 SqlCommand cm = new SqlCommand(query, conn);
                 SqlDataAdapter sda = new SqlDataAdapter(query, conn);
                 dt = new DataTable();
@@ -213,7 +213,7 @@ namespace ClinicaFrba.BuscarAfiliado
             }
             else
             {
-                SqlConnection conn = (new BDConnection()).getConnection();
+                SqlConnection conn = (new BDConnection()).getInstance();
                 String query = String.Format("bajaAfiliado");
                 SqlCommand com = new SqlCommand(query, conn);
                 com.CommandType = CommandType.StoredProcedure;

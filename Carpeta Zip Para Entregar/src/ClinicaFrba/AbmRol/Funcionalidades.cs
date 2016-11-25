@@ -42,7 +42,7 @@ namespace ClinicaFrba.AbmRol
         public void setCheckBox()
         {
             string query = "getAllFuncionalidades";
-            SqlConnection conn = new BDConnection().getConnection();
+            SqlConnection conn = new BDConnection().getInstance();
             SqlCommand cm = new SqlCommand(query, conn);
             cm.CommandType = CommandType.StoredProcedure;
             SqlDataAdapter sda = new SqlDataAdapter(cm);
@@ -85,7 +85,7 @@ namespace ClinicaFrba.AbmRol
         public void checkFuncionalidadesDelRol(int rol_id)
         {
             string query = "getFuncionalidadDelRol";
-            SqlConnection conn = (new BDConnection()).getConnection();
+            SqlConnection conn = (new BDConnection()).getInstance();
             int i;
             SqlCommand cm = new SqlCommand(query, conn);
             cm.CommandType = CommandType.StoredProcedure;
@@ -145,7 +145,7 @@ namespace ClinicaFrba.AbmRol
         public void insertarRol() 
         {
             string query = String.Format("InsertarRol", textBox1.Text);
-            SqlConnection conn = (new BDConnection()).getMiConnectionSQL();
+            SqlConnection conn = (new BDConnection()).getInstance();
             SqlCommand com = new SqlCommand(query, conn);
             com.CommandType = CommandType.StoredProcedure;
             com.Parameters.Add("@nombre_rol", textBox1.Text);
@@ -168,7 +168,7 @@ namespace ClinicaFrba.AbmRol
         public void deleteFun()
         {
             string query = "UpdateRXF";
-            SqlConnection conn = (new BDConnection()).getMiConnectionSQL();
+            SqlConnection conn = (new BDConnection()).getInstance();
             SqlCommand com = new SqlCommand(query, conn);
             com.CommandType = CommandType.StoredProcedure;
             com.Parameters.Add("id_rol", id_rol);
@@ -179,7 +179,7 @@ namespace ClinicaFrba.AbmRol
         {
             int fun_id = (int)dt.Rows[i]["fun_id"];
             string query = "InsertarRolXFuncionalidad";
-            SqlConnection conn = (new BDConnection()).getMiConnectionSQL();
+            SqlConnection conn = (new BDConnection()).getInstance();
             SqlCommand com = new SqlCommand(query, conn);
             com.CommandType = CommandType.StoredProcedure;
             com.Parameters.Add("id_rol",id_rol);
