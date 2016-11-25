@@ -50,6 +50,11 @@ namespace ClinicaFrba.Registro_Resultado
             if (validarSeleccion())
             {
                 button4.Enabled = true;
+                dataGridView1.ReadOnly = true;
+                button2.Enabled = false;
+                textBox1.Enabled = false;
+                textBox2.Enabled = true;
+                textBox3.Enabled = true;
             }
         }
 
@@ -77,6 +82,8 @@ namespace ClinicaFrba.Registro_Resultado
         {
             button2.Enabled = false;
             button4.Enabled = false;
+            textBox2.Enabled = false;
+            textBox3.Enabled = false;
         }
 
         public bool validarEntrada()
