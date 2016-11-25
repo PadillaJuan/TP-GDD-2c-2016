@@ -62,16 +62,19 @@ namespace ClinicaFrba.Elegir_Accion
                         AbmRol.ABMRol f1 = new AbmRol.ABMRol();
                         f1.Show();
                         break;
+
                     case "ABM de Afiliado":
                         // ABM AFILIADO
                         BuscarAfiliado.BuscarAfi f2 = new BuscarAfiliado.BuscarAfi(rol);
                         f2.Show();
                         break;
+
                     case "Registrar Agenda Profesional":
                         // REGISTRAR AGENDA PROFESIONAL
 						Registrar_Agenta_Medico.Registrar_agenda f3 = new Registrar_Agenta_Medico.Registrar_agenda(us_idG);
                         f3.Show();
                         break;
+
                     case "Compra de Bonos":
                         // COMPRA DE BONOS
                         switch (rol)
@@ -89,29 +92,43 @@ namespace ClinicaFrba.Elegir_Accion
                         
                     case "Pedido de Turno":
                         // PEDIDO DE TURNO
-                        
-                        
                         Pedir_Turno.ListadoProfesionales f6 = new Pedir_Turno.ListadoProfesionales(us_idG.ToString());
                         f6.Show();
                         break;
+
                     case "Registro de Llegada":
                         // REGISTRO DE LLEGADA
                         Registro_Llegada.Registro_Llegada f7 = new Registro_Llegada.Registro_Llegada();
                         f7.Show();
                         break;
+
                     case "Registro de Resultado":
                         // REGISTRO DE RESULTADO
                         Registro_Resultado.Reg_Res f8 = new Registro_Resultado.Reg_Res();
                         f8.Show();
                         break;
+
                     case "Cancelar Atencion Medica":
                         // CANCELAR ATENCION MEDICA
+                        switch (rol)
+                        {
+                            case 2:
+                                Cancelar_Atencion.TurnCancelAfiliado f9 = new Cancelar_Atencion.TurnCancelAfiliado(us_idG);
+                                f9.Show();
+                                break;
+                            case 3:
+                                Cancelar_Atencion.TurnCancelProfesional f10 = new Cancelar_Atencion.TurnCancelProfesional(us_idG);
+                                f10.Show();
+                                break;
+                        }
                         break;
+
                     case "Listado Estadistico":
                         // LISTADO ESTADISTICO
-                        Listados.Presentacion_Listados f10 = new Listados.Presentacion_Listados();
-                        f10.Show();
+                        Listados.Presentacion_Listados f11 = new Listados.Presentacion_Listados();
+                        f11.Show();
                         break;
+
                     default:
                         MessageBox.Show("No se ha seleccionado ninguna accion", Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Error);
                         break;

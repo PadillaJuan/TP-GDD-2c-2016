@@ -16,64 +16,160 @@ namespace ClinicaFrba.Cancelar_Atencion
 {
     public partial class TurnCancelProfesional : Form
     {
-        String idProfesional;
-        String cancel_motivo;
-
-        public TurnCancelProfesional(string profesionalId)
+        DataTable tabla;
+        int prof_id;
+        public TurnCancelProfesional(int us_id)
         {
             InitializeComponent();
             dataGridView1.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dataGridView1.MultiSelect = true;
             dataGridView1.ReadOnly = true;
-
-            idProfesional = profesionalId;
-
-
-            string query2 = "SELECT turno_id, DATEPART(hour,turno_fecha),DATEPART(day,turno_fecha),DATEPART(month,turno_fecha),DATEPART(year,turno_fecha) FROM turnos t JOIN profesional p ON (t.turno_afi=p.prof_id) WHERE p.prof_id=idProfesional";
-            CompletadorDeTablas.hacerQuery(query2, ref dataGridView1);
-
-        }
-
-        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
-
+            getprof_id(us_id);
+            dateTimePicker1.MinDate = DateTime.Parse(Program.nuevaFechaSistema());
+            dateTimePicker2.MinDate = DateTime.Parse(Program.nuevaFechaSistema());
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
-            cancel_motivo = "";
-            cancel_motivo = richTextBox1.Text;
-
-            if (dataGridView1.SelectedRows.Count != 0)
+            string cancel_motivo = textBox1.Text;
+            switch (getRadio())
             {
-
-                DataGridViewRow row = this.dataGridView1.SelectedRows[0];
-                string turno_id = row.Cells["turno_Id"].Value.ToString();
-                string query = "cancelTurno";
-                SqlConnection conn = (new BDConnection()).getConnection();
-                SqlCommand com = new SqlCommand(query, conn);
-                com.CommandType = CommandType.StoredProcedure;
-                com.Parameters.Add(new SqlParameter("@turno_id", turno_id));
-                com.Parameters.Add(new SqlParameter("@cancel_motivo", cancel_motivo));
-                com.Parameters.Add(new SqlParameter("@cancel_tipo", 'p'));
-                com.ExecuteNonQuery();
-
-                MessageBox.Show("El turno ha sido cancelado con exito", this.Text, MessageBoxButtons.OK, MessageBoxIcon.None);
-                Cancelar_Atencion.TurnCancelProfesional cancelacion = new Cancelar_Atencion.TurnCancelProfesional(idProfesional);
-                cancelacion.ShowDialog();
-
-            }
-
-            else
-            {
-                MessageBox.Show("Por favor, elija el turno que desea cancelar", this.Text, MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return;
+                case 0:
+                    cancelarIntervalo();
+                    break;
+                case 1:
+                    cancelarTurno();
+                    break;
             }
         }
 
-        private void TurnCancelProfesional_Load(object sender, EventArgs e)
+        private void button2_Click(object sender, EventArgs e)
         {
+            Close();
+        }
 
+        private void button3_Click(object sender, EventArgs e)
+        {
+            tabla = new DataTable();
+            SqlConnection cn = (new BDConnection()).getInstance();
+            SqlCommand cm = new SqlCommand("getTurnosDelProfesional", cn);
+            cm.CommandType = CommandType.StoredProcedure;
+            cm.Parameters.AddWithValue("@prof_id", prof_id);
+            SqlDataAdapter sda = new SqlDataAdapter(cm);
+            sda.Fill(tabla);
+            dataGridView1.DataSource = tabla;
+            sda.Dispose();
+        }
+
+        /*
+            if (dataGridView1.SelectedRows.Count != 0)
+            {
+                if (dataGridView1.SelectedRows.Count != 0)
+                {
+
+                    DataGridViewRow row = this.dataGridView1.SelectedRows[0];
+                    string turno_id = row.Cells["turno_Id"].Value.ToString();
+                    string query = "cancelTurno";
+                    SqlConnection conn = (new BDConnection()).getConnection();
+                    SqlCommand com = new SqlCommand(query, conn);
+                    com.CommandType = CommandType.StoredProcedure;
+                    com.Parameters.Add(new SqlParameter("@turno_id", turno_id));
+                    com.Parameters.Add(new SqlParameter("@cancel_motivo", cancel_motivo));
+                    com.Parameters.Add(new SqlParameter("@cancel_tipo", 'p'));
+                    com.ExecuteNonQuery();
+
+                    MessageBox.Show("El turno ha sido cancelado con exito", Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.None);
+                    Close();
+                }
+                else
+                {
+                    MessageBox.Show("Por favor, elija el turno que desea cancelar", Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
+            }
+            else
+            {
+                MessageBox.Show("Por favor, ingrese el motivo de cancelacion", Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }*/
+
+        private void cancelarIntervalo()
+        {
+            if (dateTimePicker1.Value > dateTimePicker2.Value)
+            {
+                if (textBox1.Text.Length >= 0)
+                {
+                    string query = "bajaIntervalo";
+                    SqlConnection conn = (new BDConnection()).getConnection();
+                    SqlCommand com = new SqlCommand(query, conn);
+                    com.CommandType = CommandType.StoredProcedure;
+                    com.Parameters.Add(new SqlParameter("@prof_id", prof_id));
+                    com.Parameters.Add(new SqlParameter("@cancel_desde", dateTimePicker1.Value));
+                    com.Parameters.Add(new SqlParameter("@cancel_hasta", dateTimePicker2.Value));
+                    com.ExecuteNonQuery();
+                }
+                else
+                {
+                    MessageBox.Show("Por favor, ingrese el motivo de cancelacion", Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+            else
+            {
+                MessageBox.Show("Por favor, ingrese un intervalo de tiempo vàlido", Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void cancelarTurno()
+        {
+            if (dataGridView1.SelectedRows.Count != 0)
+            {
+                if (textBox1.Text.Length >= 0)
+                {
+                    string query = "cancelTurno";
+                    SqlConnection conn = (new BDConnection()).getConnection();
+                    SqlCommand com = new SqlCommand(query, conn);
+                    com.CommandType = CommandType.StoredProcedure;
+                    com.Parameters.Add(new SqlParameter("@turno_id", getTurnoID()));
+                    com.Parameters.Add(new SqlParameter("@cancel_motivo", textBox1.Text));
+                    com.Parameters.Add(new SqlParameter("@cancel_tipo", 'p'));
+                    com.ExecuteNonQuery();
+                }
+                else
+                {
+                    MessageBox.Show("Por favor, ingrese el motivo de cancelacion", Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+            else
+            {
+                MessageBox.Show("Por favor, elija el turno que desea cancelar", Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+
+        }
+
+        private void getprof_id(int us_id)
+        {
+            string query = String.Format("SELECT prof_id FROM profesional WHERE us_id = {0}", us_id);
+            SqlConnection cn = (new BDConnection()).getInstance();
+            SqlCommand cm = new SqlCommand(query, cn);
+            prof_id = (int) cm.ExecuteScalar();
+        }
+        
+        private int getRadio()
+        {
+            if (radioButton1.Checked)
+            {
+                return 0;
+            }
+            else
+            {
+                return 1;
+            }
+        }
+
+        private int getTurnoID()
+        {
+            int row = dataGridView1.SelectedRows[0].Index;
+            int turno_id = Int32.Parse(tabla.Rows[row][0].ToString());
+            return turno_id;
         }
     }
 }

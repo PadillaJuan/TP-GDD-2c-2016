@@ -97,7 +97,11 @@ IF (OBJECT_ID('getEspecialidadesMedicas', 'P') IS NOT NULL)
 	DROP PROCEDURE getEspecialidadesMedicas;
 IF (OBJECT_ID('checkBono', 'P') IS NOT NULL)
 	DROP PROCEDURE checkBono;
+IF (OBJECT_ID('getTurnosDelProfesional', 'P') IS NOT NULL)
+	DROP PROCEDURE getTurnosDelProfesional;
 
+IF (OBJECT_ID('bajaIntervalo', 'P') IS NOT NULL)
+	DROP PROCEDURE bajaIntervalo;
 GO
 
 
@@ -507,6 +511,16 @@ BEGIN
 	END
 GO
 
+CREATE PROCEDURE getTurnosDelProfesional
+	@prof_id INT
+AS
+BEGIN
+	SELECT turno_id, DATEPART(YEAR,turno_fecha), DATEPART(MONTH,turno_fecha), DATEPART(HOUR,turno_fecha), DATEPART(MINUTE,turno_fecha), turno_af, turno_af_rel
+	FROM turnos
+	WHERE turno_prof = @prof_id
+END
+GO
+
 CREATE PROCEDURE getEspecialidadesMedicas
 AS
 BEGIN
@@ -514,7 +528,14 @@ BEGIN
 END
 GO
 
-
+CREATE PROCEDURE bajaIntervalo
+	@prof_id INT,
+	@desde DATETIME,
+	@hasta DATETIME
+AS
+BEGIN
+	INSERT INTO periodo_baja VALUES(@desde, @hasta, @prof_id)
+END
 
 
 CREATE PROCEDURE addHorasAgenda
