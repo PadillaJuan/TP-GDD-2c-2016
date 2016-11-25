@@ -97,10 +97,12 @@ namespace ClinicaFrba.Elegir_Accion
                     case "Registro de Llegada":
                         // REGISTRO DE LLEGADA
                         Registro_Llegada.Registro_Llegada f7 = new Registro_Llegada.Registro_Llegada();
+                        f7.Show();
                         break;
                     case "Registro de Resultado":
                         // REGISTRO DE RESULTADO
                         Registro_Resultado.Reg_Res f8 = new Registro_Resultado.Reg_Res();
+                        f8.Show();
                         break;
                     case "Cancelar Atencion Medica":
                         // CANCELAR ATENCION MEDICA

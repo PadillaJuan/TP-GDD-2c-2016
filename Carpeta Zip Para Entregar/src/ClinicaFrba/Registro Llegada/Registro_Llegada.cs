@@ -20,10 +20,12 @@ namespace ClinicaFrba.Registro_Llegada
         public Registro_Llegada()
         {
             InitializeComponent();
+            lista = new List<int>();
             llenarComboBox();
             button4.Enabled = false;
             button5.Enabled = false;
-            lista = new List<int>();
+            comboBox1.DropDownStyle = ComboBoxStyle.DropDownList;
+
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -47,7 +49,7 @@ namespace ClinicaFrba.Registro_Llegada
                 cm.Parameters.AddWithValue("@af_rel_id", getRelID());
                 cm.Parameters.AddWithValue("@esp_id", getEspID());
                 cm.Parameters.AddWithValue("@prof_apellido",textBox1.Text);
-                cm.Parameters.AddWithValue("@fecha", Program.nuevaFechaSistema());
+                cm.Parameters.AddWithValue("@fecha", DateTime.Parse(Program.nuevaFechaSistema()));
                 SqlDataAdapter sda = new SqlDataAdapter(cm);
                 tabla = new DataTable();
                 sda.Fill(tabla);
@@ -103,7 +105,7 @@ namespace ClinicaFrba.Registro_Llegada
             SqlDataReader dr = cm.ExecuteReader();
             while (dr.Read())
             {
-                lista.Add(dr.GetInt32(0));
+                lista.Add(Int32.Parse(dr.GetValue(0).ToString()));
                 comboBox1.Items.Add(dr.GetString(1));
             }
             dr.Close();
@@ -115,7 +117,7 @@ namespace ClinicaFrba.Registro_Llegada
         {
             bool flag = true;
             int n;
-            if (!Int32.TryParse(textBox2.ToString(), out n))
+            if (Int32.TryParse(textBox2.ToString(), out n))
             {
                 MessageBox.Show("No se ha ingresado ningun numero de afiliado", Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Error);
                 flag = false;

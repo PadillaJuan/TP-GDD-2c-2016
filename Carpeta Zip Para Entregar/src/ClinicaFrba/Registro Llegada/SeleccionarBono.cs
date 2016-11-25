@@ -39,6 +39,8 @@ namespace ClinicaFrba.Registro_Llegada
             SqlConnection cn = (new BDConnection()).getConnection();
             SqlCommand cm = new SqlCommand("getBonosDisponibles", cn);
             cm.CommandType = CommandType.StoredProcedure;
+            cm.Parameters.AddWithValue("@af_id", af_id);
+            cm.Parameters.AddWithValue("@af_rel_id", (short) af_rel_id);
             tabla = new DataTable();
             SqlDataAdapter sda = new SqlDataAdapter(cm);
             sda.Fill(tabla);
