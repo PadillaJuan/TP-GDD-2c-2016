@@ -58,11 +58,7 @@ begin
 	drop procedure migrarAgendaProfesional
 end
 go
-if OBJECT_ID('migrarTipo_especialidades_por_planes') is not null
-begin
-	drop procedure migrarTipo_especialidades_por_planes
-end
-go
+
 
 create procedure migrarPlanMedico
 as

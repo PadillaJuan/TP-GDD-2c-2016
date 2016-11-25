@@ -59,6 +59,12 @@ IF (OBJECT_ID('setAdmin', 'P') IS NOT NULL)
 	DROP PROCEDURE setAdmin;
 GO
 
+if OBJECT_ID('setTipoEspPorPlan') is not null
+begin
+	drop procedure setTipoEspPorPlan
+end
+go
+
 
 CREATE PROCEDURE setAdmin
 AS
@@ -105,8 +111,6 @@ BEGIN
 	INSERT INTO tipo_especialidades_por_planes VALUES (555559,1001)
 	INSERT INTO tipo_especialidades_por_planes VALUES (555559,1002)
 	INSERT INTO tipo_especialidades_por_planes VALUES (555559,1003)
-
-
 
 END
 GO
