@@ -86,3 +86,30 @@ GO
 exec setAdmin
 GO
 
+CREATE PROCEDURE setTipoEspPorPlan
+AS
+BEGIN
+	INSERT INTO tipo_especialidades_por_planes VALUES (555555,1000)
+
+	INSERT INTO tipo_especialidades_por_planes VALUES (555556,1000)
+	INSERT INTO tipo_especialidades_por_planes VALUES (555556,1001)
+
+	INSERT INTO tipo_especialidades_por_planes VALUES (555557,1000)
+	INSERT INTO tipo_especialidades_por_planes VALUES (555557,1002)
+		
+	INSERT INTO tipo_especialidades_por_planes VALUES (555558,1000)
+	INSERT INTO tipo_especialidades_por_planes VALUES (555558,1001)
+	INSERT INTO tipo_especialidades_por_planes VALUES (555558,1002)
+
+	INSERT INTO tipo_especialidades_por_planes VALUES (555559,1000)
+	INSERT INTO tipo_especialidades_por_planes VALUES (555559,1001)
+	INSERT INTO tipo_especialidades_por_planes VALUES (555559,1002)
+	INSERT INTO tipo_especialidades_por_planes VALUES (555559,1003)
+
+
+
+END
+GO
+
+exec setTipoEspPorPlan
+GO
