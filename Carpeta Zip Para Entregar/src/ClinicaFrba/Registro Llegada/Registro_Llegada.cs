@@ -68,6 +68,7 @@ namespace ClinicaFrba.Registro_Llegada
                 bono = form.bono;
                 button5.Enabled = true;
                 textBox2.Enabled = false;
+                dataGridView1.ReadOnly = true;
             }
             else
             {

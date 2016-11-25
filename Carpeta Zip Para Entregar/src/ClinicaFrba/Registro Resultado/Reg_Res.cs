@@ -113,5 +113,6 @@ namespace ClinicaFrba.Registro_Resultado
             bool n = textBox2.Text.Length > 0 && textBox3.Text.Length > 0;
             return n;
         }
+
     }
 }
