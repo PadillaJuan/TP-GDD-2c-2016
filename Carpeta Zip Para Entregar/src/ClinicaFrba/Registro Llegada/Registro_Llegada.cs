@@ -25,6 +25,7 @@ namespace ClinicaFrba.Registro_Llegada
             button4.Enabled = false;
             button5.Enabled = false;
             comboBox1.DropDownStyle = ComboBoxStyle.DropDownList;
+            dataGridView1.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
 
         }
 
@@ -54,7 +55,6 @@ namespace ClinicaFrba.Registro_Llegada
                 tabla = new DataTable();
                 sda.Fill(tabla);
                 dataGridView1.DataSource = tabla;
-                button4.Enabled = true;
             }
         }
 
@@ -176,5 +176,11 @@ namespace ClinicaFrba.Registro_Llegada
             cm.ExecuteNonQuery();
             cm.Dispose();
         }
+
+        private void dataGridView1_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            button4.Enabled = true;
+        }
+
      }
 }

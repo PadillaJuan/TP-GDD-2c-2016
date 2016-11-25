@@ -56,5 +56,20 @@ namespace ClinicaFrba.Registro_Llegada
             ret = int.Parse(tabla.Rows[index][0].ToString());
             return ret;
         }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                int index;
+                index = dataGridView1.CurrentCell.RowIndex;
+                this.button1.DialogResult = System.Windows.Forms.DialogResult.OK;
+                Close();
+            }
+            catch (Exception a)
+            {
+                MessageBox.Show("No se ha seleccionado ningun bono", Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
     }
 }
