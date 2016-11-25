@@ -496,6 +496,8 @@ AS
 BEGIN
 	INSERT INTO consulta_medica(cons_turno,cons_bono,cons_hora_llegada)
 				VALUES(@turno_id,@bono_id,@hora_llegada)
+
+	UPDATE bono SET bono_nro_consulta+=1 WHERE bono_id = @bono_id
 END
 GO
 
