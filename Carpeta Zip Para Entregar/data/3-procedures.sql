@@ -473,12 +473,15 @@ END
 GO
 
 CREATE PROCEDURE getBonosDisponibles
+	@af_id BIGINT,
+	@af_rel_id TINYINT
 AS
 BEGIN
 
 SELECT bono_id, bono_compra
 FROM bono
 WHERE bono_nro_consulta IS NULL
+AND bono_af = @af_id AND bono_af_rel = @af_rel_id
 
 END
 GO
