@@ -63,30 +63,10 @@ namespace ClinicaFrba.Pedir_Turno
 
         private void filtrarFecha(DateTime fechaTurno)
         {
-            string query2 = "SELECT DATEPART(hour,agenda_fechayhora), agenda_id  FROM agenda_profesional WHERE agenda_fechayhora =" + fechaTurno.ToString() +")"; 
+            string query2 = "SELECT DATEPART(hour,agenda_fechayhora), agenda_id  FROM agenda_profesional WHERE agenda_fechayhora =" + fechaTurno +")"; 
             CompletadorDeTablas.hacerQuery(query2, ref dataGridView1);
         }
-
-        private void label1_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void dateTimePicker1_ValueChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void ElegirTurno_Load(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label2_Click(object sender, EventArgs e)
-        {
-
-        }
-
+        
         private void button1_Click(object sender, EventArgs e)
         {
             Hide();
@@ -94,17 +74,7 @@ namespace ClinicaFrba.Pedir_Turno
             volver.ShowDialog();
         }
 
-        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
-
-        }
-
         private void button3_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void button3_Click_1(object sender, EventArgs e)
         {
             if (validaciones() == false)
             {
