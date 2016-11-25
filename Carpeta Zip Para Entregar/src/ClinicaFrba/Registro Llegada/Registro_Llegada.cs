@@ -43,7 +43,7 @@ namespace ClinicaFrba.Registro_Llegada
         {
             if (validarEntrada())
             {
-                SqlConnection cn = (new BDConnection()).getConnection();
+                SqlConnection cn = (new BDConnection()).getInstance();
                 SqlCommand cm = new SqlCommand("getTurnos", cn);
                 cm.CommandType = CommandType.StoredProcedure;
                 cm.Parameters.AddWithValue("@af_id", getID());
@@ -83,7 +83,7 @@ namespace ClinicaFrba.Registro_Llegada
             {
                 checkearBono();
                 int turno = getTurno();
-                SqlConnection cn = (new BDConnection()).getConnection();
+                SqlConnection cn = (new BDConnection()).getInstance();
                 SqlCommand cm = new SqlCommand("generateConsultaMedica", cn);
                 cm.CommandType = CommandType.StoredProcedure;
                 cm.Parameters.AddWithValue("@turno_id", turno);
@@ -103,7 +103,7 @@ namespace ClinicaFrba.Registro_Llegada
 
         private void llenarComboBox()
         {
-            SqlConnection cn = (new BDConnection()).getConnection();
+            SqlConnection cn = (new BDConnection()).getInstance();
             SqlCommand cm = new SqlCommand("getEspecialidadesMedicas", cn);
             cm.CommandType = CommandType.StoredProcedure;
             SqlDataReader dr = cm.ExecuteReader();
@@ -172,7 +172,7 @@ namespace ClinicaFrba.Registro_Llegada
 
         public void checkearBono()
         {
-            SqlConnection cn = new SqlConnection();
+            SqlConnection cn = (new BDConnection()).getInstance();
             SqlCommand cm = new SqlCommand("checkBono", cn);
             cm.CommandType = CommandType.StoredProcedure;
             cm.Parameters.AddWithValue("@bono_id", bono);

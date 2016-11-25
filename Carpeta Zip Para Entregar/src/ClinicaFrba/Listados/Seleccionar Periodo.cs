@@ -65,7 +65,7 @@ namespace ClinicaFrba.Listados
 
         private SqlCommand generateSqlCommandSemestral()
         {
-            SqlConnection cn = (new BDConnection()).getConnection();
+            SqlConnection cn = (new BDConnection()).getInstance();
             string query3 = query2 + "Semestral";
             SqlCommand cm = new SqlCommand(query3,cn);
             DateTime inicio;
@@ -88,7 +88,7 @@ namespace ClinicaFrba.Listados
 
         private SqlCommand generateSqlCommandMensual()
         {
-            SqlConnection cn = (new BDConnection()).getConnection();
+            SqlConnection cn = (new BDConnection()).getInstance();
             string query3 = query2 + "Mensual";
             SqlCommand cm = new SqlCommand(query3, cn);
             cm.CommandType = CommandType.StoredProcedure;

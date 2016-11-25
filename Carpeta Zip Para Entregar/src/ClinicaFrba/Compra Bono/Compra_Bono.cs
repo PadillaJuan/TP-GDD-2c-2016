@@ -65,7 +65,7 @@ namespace ClinicaFrba.Compra_Bono
 
         public void getDatos(int us_id)
         {
-            SqlConnection cn = (new BDConnection()).getConnection();
+            SqlConnection cn = (new BDConnection()).getInstance();
             SqlCommand cm = new SqlCommand ("getDatosForCompraBono",cn);
             cm.CommandType = CommandType.StoredProcedure;
             cm.Parameters.AddWithValue("@us_id",us_id);
