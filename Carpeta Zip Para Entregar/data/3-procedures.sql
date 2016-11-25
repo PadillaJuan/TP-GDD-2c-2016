@@ -83,6 +83,8 @@ IF OBJECT_ID('fechasLibres') IS NOT NULL
 	
 IF (OBJECT_ID('cancelTurno', 'P') IS NOT NULL)
 	DROP PROCEDURE cancelTurno;
+IF (OBJECT_ID('reservarTurno', 'P') IS NOT NULL)
+	DROP PROCEDURE reservarTurno;
 
 
 IF (OBJECT_ID('getConsultas', 'P') IS NOT NULL)
@@ -569,6 +571,19 @@ BEGIN
 END
 GO
 
+CREATE PROCEDURE reservarTurno
+    @turno_afi INT,
+	@turno_fecha DATETIME,
+	@turno_agenda INT,
+	@turno_prof INT,
+	@turno_estado CHAR,
+	@turno_af_rel TINYINT,
+	@turno_esp INT
+AS
+BEGIN
+	INSERT INTO turnos VALUES (@turno_fecha, @turno_estado, @turno_agenda, @turno_afi, @turno_af_rel, @turno_prof, @turno_esp)
+END
+GO
 
 CREATE PROCEDURE getConsultas
 	@af_id BIGINT,

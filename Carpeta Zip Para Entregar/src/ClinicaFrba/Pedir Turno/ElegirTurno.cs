@@ -7,6 +7,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Data.SqlClient;
+using System.Data.Sql;
 
 using ClinicaFrba.Utils;
 
@@ -18,10 +20,11 @@ namespace ClinicaFrba.Pedir_Turno
         string id;
         string wheres;
         Form form;
-        String nombreAfiliado;
+        String idAfiliado;
         bool control;
+        String idProf;
 
-        public ElegirTurno(string idP, string apellidoP, string nombreAfiliadoPasado)
+        public ElegirTurno(string idP, string apellidoP, string idAfiliadoPasado)
         {
             InitializeComponent();
             label2.Text = "Dr. " + apellidoP;
@@ -29,7 +32,8 @@ namespace ClinicaFrba.Pedir_Turno
             dataGridView1.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dataGridView1.MultiSelect = false;
             dataGridView1.ReadOnly = true;
-            nombreAfiliado = nombreAfiliadoPasado;
+            idAfiliado = idAfiliadoPasado;
+            idProf = idP; 
 
             inicializar();
         }
@@ -59,7 +63,7 @@ namespace ClinicaFrba.Pedir_Turno
 
         private void filtrarFecha(DateTime fechaTurno)
         {
-            string query2 = "SELECT DATEPART(hour,agenda_fechayhora)  FROM agenda_profesional WHERE agenda_fechayhora =" + fechaTurno.ToString() +")"; 
+            string query2 = "SELECT DATEPART(hour,agenda_fechayhora), agenda_id  FROM agenda_profesional WHERE agenda_fechayhora =" + fechaTurno.ToString() +")"; 
             CompletadorDeTablas.hacerQuery(query2, ref dataGridView1);
         }
 
@@ -86,7 +90,7 @@ namespace ClinicaFrba.Pedir_Turno
         private void button1_Click(object sender, EventArgs e)
         {
             Hide();
-            Pedir_Turno.ListadoProfesionales volver = new Pedir_Turno.ListadoProfesionales(nombreAfiliado);
+            Pedir_Turno.ListadoProfesionales volver = new Pedir_Turno.ListadoProfesionales(idAfiliado);
             volver.ShowDialog();
         }
 
@@ -118,21 +122,29 @@ namespace ClinicaFrba.Pedir_Turno
                     return;
                 }
 
-                agendar();
+                DataGridViewRow row = this.dataGridView1.SelectedRows[0];
+                String agenda_id = row.Cells["agenda_id"].Value.ToString();
+                DateTime fecha = Convert.ToDateTime(dateTimePicker1.Text);
+
+                agendar(fecha, agenda_id, idAfiliado, idProf);
                 MessageBox.Show("Turno seleccionado correctamente", this.Text, MessageBoxButtons.OK, MessageBoxIcon.None);
                 form.Close();
                 this.Close();
             }
         }
 
-        private void agendar()
+        private void agendar(DateTime turno_fecha, String turno_agenda, String turno_afi, String turno_prof )
         {
-            //string query5 = "SELECT af_id FROM afiliado WHERE af_nombre = '" + nombreAfiliado + "'";
-            //DataTable dt5 = (new BDConnection()).cargarTablaSQL(query5);
-            //string usuarioID = dt5.Rows[0][0].ToString();
-
-            //string agendarTurno = 
-            //(new BDConnection()).ejecutarComandoSQL(agendarTurno);
+            
+            string query = "reservarTurno";
+            SqlConnection conn = (new BDConnection()).getConnection();
+            SqlCommand com = new SqlCommand(query, conn);
+            com.CommandType = CommandType.StoredProcedure;
+            com.Parameters.Add(new SqlParameter("@turno_afi", turno_afi));
+            com.Parameters.Add(new SqlParameter("@turno_fecha", turno_fecha));
+            com.Parameters.Add(new SqlParameter("@turno_agenda", turno_agenda));
+            com.Parameters.Add(new SqlParameter("@turno_prof", turno_prof));
+            com.ExecuteNonQuery();
         }
     }
 }

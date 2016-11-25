@@ -70,6 +70,11 @@ namespace ClinicaFrba.Cancelar_Atencion
                 return;
             }
         }
+
+        private void TurnCancelProfesional_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }
             
