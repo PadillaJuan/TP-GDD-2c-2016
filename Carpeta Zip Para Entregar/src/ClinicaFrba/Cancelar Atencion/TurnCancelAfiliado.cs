@@ -33,18 +33,13 @@ namespace ClinicaFrba.Cancelar_Atencion
             
 
             afiliadoId = idAfiliado;
-            string query2 = "SELECT DATEPART(hour,turno_fecha),DATEPART(day,turno_fecha),DATEPART(month,turno_fecha),DATEPART(year,turno_fecha) FROM turnos t JOIN afiliado a ON (t.turno_afi=a.af_id) WHERE a.af_id=afiliadoId";
-            CompletadorDeTablas.hacerQuery(query2, ref dataGridView1);
-
-        }
-
-        private void label1_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
+            string query ="SELECT DATEPART(MINUTE,turno_fecha), DATEPART(hour,turno_fecha),DATEPART(day,turno_fecha),DATEPART(month,turno_fecha),DATEPART(year,turno_fecha) ";
+            query += "FROM turnos t ";
+            query += "JOIN afiliado a ON (t.turno_af=a.af_id) ";
+            query += "WHERE a.af_id=afiliadoId ";
+            query += "AND t.turno_id NOT IN (SELECT cons_turno FROM consulta_medica ";
+           
+            CompletadorDeTablas.hacerQuery(query, ref dataGridView1);
 
         }
 
@@ -59,7 +54,7 @@ namespace ClinicaFrba.Cancelar_Atencion
                 DataGridViewRow row = this.dataGridView1.SelectedRows[0];
                 string turno_id = row.Cells["turno_id"].Value.ToString();
                 string query = "cancelTurno";
-                SqlConnection conn = (new BDConnection()).getConnection();
+                SqlConnection conn = (new BDConnection()).getInstance();
                 SqlCommand com = new SqlCommand(query, conn);
                 com.CommandType = CommandType.StoredProcedure;
                 com.Parameters.Add(new SqlParameter("@turno_id", turno_id));
@@ -80,14 +75,5 @@ namespace ClinicaFrba.Cancelar_Atencion
             }
         }
 
-        private void label2_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void richTextBox1_TextChanged(object sender, EventArgs e)
-        {
-
-        }
     }
 }

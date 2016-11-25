@@ -43,7 +43,6 @@
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.Size = new System.Drawing.Size(421, 301);
             this.dataGridView1.TabIndex = 0;
-            this.dataGridView1.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
             // 
             // label1
             // 
@@ -53,7 +52,6 @@
             this.label1.Size = new System.Drawing.Size(150, 13);
             this.label1.TabIndex = 1;
             this.label1.Text = "Elija que turno desea cancelar";
-            this.label1.Click += new System.EventHandler(this.label1_Click);
             // 
             // button1
             // 
@@ -63,7 +61,6 @@
             this.button1.TabIndex = 2;
             this.button1.Text = "Cancelar Turno";
             this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // richTextBox1
             // 
@@ -72,7 +69,6 @@
             this.richTextBox1.Size = new System.Drawing.Size(345, 67);
             this.richTextBox1.TabIndex = 4;
             this.richTextBox1.Text = "";
-            this.richTextBox1.TextChanged += new System.EventHandler(this.richTextBox1_TextChanged);
             // 
             // label2
             // 
@@ -82,7 +78,6 @@
             this.label2.Size = new System.Drawing.Size(116, 13);
             this.label2.TabIndex = 5;
             this.label2.Text = "Motivo de Cancelacion";
-            this.label2.Click += new System.EventHandler(this.label2_Click);
             // 
             // TurnCancelAfiliado
             // 
