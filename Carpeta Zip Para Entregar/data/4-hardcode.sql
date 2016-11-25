@@ -36,7 +36,7 @@ GO
 INSERT INTO funcionalidad_por_rol(rol_id, fun_id)
 SELECT tablaRol.rol_id,tablaFuncionalidad.fun_id 
 FROM rol  tablaRol, funcionalidad tablaFuncionalidad
-WHERE tablaRol.rol_nombre = 'Afiliado' AND tablaFuncionalidad.fun_nombre IN ('Compra de Bonos', 'Pedido de Turno','Cancelar Atencion Medica', 'Listado Estadístico');
+WHERE tablaRol.rol_nombre = 'Afiliado' AND tablaFuncionalidad.fun_nombre IN ('Compra de Bonos', 'Pedido de Turno','Cancelar Atencion Medica');
 GO
 
 /*Creo el rol Profesional*/
@@ -49,7 +49,7 @@ GO
 INSERT INTO funcionalidad_por_rol (rol_id,fun_id)
 SELECT tablaRol.rol_id,tablaFuncionalidad.fun_Id 
 FROM rol  tablaRol, funcionalidad tablaFuncionalidad
-WHERE tablaRol.rol_nombre = 'Profesional' AND tablaFuncionalidad.fun_nombre IN ('Registrar Agenda Profesional', 'Registro de Resultado', 'Cancelar Atencion Medica', 'Listado Estadístico');
+WHERE tablaRol.rol_nombre = 'Profesional' AND tablaFuncionalidad.fun_nombre IN ('Registrar Agenda Profesional', 'Registro de Resultado', 'Cancelar Atencion Medica');
 GO
 
 
