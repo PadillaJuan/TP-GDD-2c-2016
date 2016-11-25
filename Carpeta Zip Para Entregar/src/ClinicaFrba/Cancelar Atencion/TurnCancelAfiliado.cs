@@ -19,25 +19,22 @@ namespace ClinicaFrba.Cancelar_Atencion
 {
     public partial class TurnCancelAfiliado : Form
     {
-        String afiliadoId;
-        String cancel_motivo;
+        long afiliadoId;
 
-        public TurnCancelAfiliado(string idAfiliado)
+        public TurnCancelAfiliado(int us_id)
         {
-
+            getID(us_id);
             InitializeComponent();
             dataGridView1.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dataGridView1.MultiSelect = false;
             dataGridView1.ReadOnly = true;
 
-            
-
-            afiliadoId = idAfiliado;
             string query ="SELECT DATEPART(MINUTE,turno_fecha), DATEPART(hour,turno_fecha),DATEPART(day,turno_fecha),DATEPART(month,turno_fecha),DATEPART(year,turno_fecha) ";
             query += "FROM turnos t ";
             query += "JOIN afiliado a ON (t.turno_af=a.af_id) ";
-            query += "WHERE a.af_id=afiliadoId ";
-            query += "AND t.turno_id NOT IN (SELECT cons_turno FROM consulta_medica ";
+            query += String.Format("WHERE a.af_id={0} ", af_id());
+            query += String.Format("AND a.af_rel_id={0} ", af_rel_id());
+            query += "AND t.turno_estado = 0";
            
             CompletadorDeTablas.hacerQuery(query, ref dataGridView1);
 
@@ -45,34 +42,59 @@ namespace ClinicaFrba.Cancelar_Atencion
 
         private void button1_Click(object sender, EventArgs e)
         {
-            cancel_motivo = "";
-            cancel_motivo = richTextBox1.Text;
-
+            string cancel_motivo = textBox1.Text;
+            
             if (dataGridView1.SelectedRows.Count != 0)
             {
+                if (textBox1.Text.Length >= 0)
+                {
+                    DataGridViewRow row = this.dataGridView1.SelectedRows[0];
+                    string turno_id = row.Cells["turno_id"].Value.ToString();
+                    string query = "cancelTurno";
+                    SqlConnection conn = (new BDConnection()).getInstance();
+                    SqlCommand com = new SqlCommand(query, conn);
+                    com.CommandType = CommandType.StoredProcedure;
+                    com.Parameters.Add(new SqlParameter("@turno_id", turno_id));
+                    com.Parameters.Add(new SqlParameter("@cancel_motivo", cancel_motivo));
+                    com.Parameters.Add(new SqlParameter("@cancel_tipo", 'a'));
+                    com.ExecuteNonQuery();
 
-                DataGridViewRow row = this.dataGridView1.SelectedRows[0];
-                string turno_id = row.Cells["turno_id"].Value.ToString();
-                string query = "cancelTurno";
-                SqlConnection conn = (new BDConnection()).getInstance();
-                SqlCommand com = new SqlCommand(query, conn);
-                com.CommandType = CommandType.StoredProcedure;
-                com.Parameters.Add(new SqlParameter("@turno_id", turno_id));
-                com.Parameters.Add(new SqlParameter("@cancel_motivo", cancel_motivo));
-                com.Parameters.Add(new SqlParameter("@cancel_tipo", 'a'));
-                com.ExecuteNonQuery();
-
-                MessageBox.Show("El turno ha sido cancelado con exito", this.Text, MessageBoxButtons.OK, MessageBoxIcon.None);
-                Cancelar_Atencion.TurnCancelAfiliado cancelacion = new Cancelar_Atencion.TurnCancelAfiliado(afiliadoId);
-                cancelacion.ShowDialog();
+                    MessageBox.Show("El turno ha sido cancelado con exito", this.Text, MessageBoxButtons.OK, MessageBoxIcon.None);
+                    Close();
+                }
+                else
+                {
+                    MessageBox.Show("Por favor, ingrese el motivo de la cancelacion del turno", this.Text, MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
 
             }
-
             else
             {
                 MessageBox.Show("Por favor, elija el turno que desea cancelar", this.Text, MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return;
             }
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            Close();
+        }
+
+        private void getID(int us_id)
+        {
+            string query = String.Format("SELECT af_id*100+af_rel_id FROM afiliado WHERE us_id = {0}",us_id);
+            SqlConnection cn = (new BDConnection()).getInstance();
+            SqlCommand cm = new SqlCommand(query, cn);
+            afiliadoId = (long ) cm.ExecuteScalar();
+        }
+
+        private short af_rel_id()
+        {
+            return short.Parse((afiliadoId % 100).ToString());
+        }
+
+        private long af_id()
+        {
+            return (long)afiliadoId / 100; 
         }
 
     }
