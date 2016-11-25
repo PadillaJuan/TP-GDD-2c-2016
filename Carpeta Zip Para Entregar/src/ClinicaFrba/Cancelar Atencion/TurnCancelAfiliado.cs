@@ -57,14 +57,14 @@ namespace ClinicaFrba.Cancelar_Atencion
             {
 
                 DataGridViewRow row = this.dataGridView1.SelectedRows[0];
-                string turno_id = row.Cells["turno_Id"].Value.ToString();
+                string turno_id = row.Cells["turno_id"].Value.ToString();
                 string query = "cancelTurno";
                 SqlConnection conn = (new BDConnection()).getConnection();
                 SqlCommand com = new SqlCommand(query, conn);
                 com.CommandType = CommandType.StoredProcedure;
-                com.Parameters.Add(new SqlParameter("turno_id", turno_id));
-                com.Parameters.Add(new SqlParameter("cancel_motivo", cancel_motivo));
-                com.Parameters.Add(new SqlParameter("cancel_tipo", 'a'));
+                com.Parameters.Add(new SqlParameter("@turno_id", turno_id));
+                com.Parameters.Add(new SqlParameter("@cancel_motivo", cancel_motivo));
+                com.Parameters.Add(new SqlParameter("@cancel_tipo", 'a'));
                 com.ExecuteNonQuery();
 
                 MessageBox.Show("El turno ha sido cancelado con exito", this.Text, MessageBoxButtons.OK, MessageBoxIcon.None);

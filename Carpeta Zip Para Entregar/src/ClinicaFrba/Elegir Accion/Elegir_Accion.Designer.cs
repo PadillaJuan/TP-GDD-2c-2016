@@ -84,6 +84,7 @@
             this.Controls.Add(this.comboBox1);
             this.Name = "Elegir_Accion";
             this.Text = "Clinica FRBA";
+            this.Load += new System.EventHandler(this.Elegir_Accion_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 

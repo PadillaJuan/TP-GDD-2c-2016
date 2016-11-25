@@ -89,11 +89,9 @@ namespace ClinicaFrba.Elegir_Accion
                         
                     case "Pedido de Turno":
                         // PEDIDO DE TURNO
-                        string query5 = "SELECT af_nombre FROM afiliado WHERE us_id = us_idG";
-                        DataTable dt5 = (new BDConnection()).cargarTablaSQL(query5);
-                        string elAfiliadoQuePideElTurno = dt5.Rows[0][0].ToString();
                         
-                        Pedir_Turno.ListadoProfesionales f6 = new Pedir_Turno.ListadoProfesionales(elAfiliadoQuePideElTurno);
+                        
+                        Pedir_Turno.ListadoProfesionales f6 = new Pedir_Turno.ListadoProfesionales(us_idG.ToString());
                         f6.Show();
                         break;
                     case "Registro de Llegada":
@@ -120,6 +118,11 @@ namespace ClinicaFrba.Elegir_Accion
         }
 
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void Elegir_Accion_Load(object sender, EventArgs e)
         {
 
         }

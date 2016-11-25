@@ -17,16 +17,21 @@ namespace ClinicaFrba.Pedir_Turno
     {
         
         String wheres;
-       String nombreAfiliado;
+       String idAfiliado;
 
-        public ListadoProfesionales(String nombreAfiliadoPasado)
+        public ListadoProfesionales(String idUsuarioPasado)
         {
             InitializeComponent();
             dataGridView1.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dataGridView1.MultiSelect = false;
             dataGridView1.ReadOnly = true;
 
-            nombreAfiliado = nombreAfiliadoPasado;
+            string query5 = "SELECT af_id FROM afiliado WHERE us_id ="+ idUsuarioPasado;
+            DataTable dt5 = (new BDConnection()).cargarTablaSQL(query5);
+            string elAfiliadoQuePideElTurno = dt5.Rows[0][0].ToString();
+
+
+            idAfiliado = elAfiliadoQuePideElTurno;
 
             string comando = "SELECT * FROM especialidad";
             DataTable dt = (new BDConnection()).cargarTablaSQL(comando);
@@ -49,7 +54,7 @@ namespace ClinicaFrba.Pedir_Turno
              dataGridView1.RowTemplate.MinimumHeight = 33;
              txtDescrip.Text = "";
 
-
+             
          
 
              for (int i = 0; i <= ChkListEspecialidades.Items.Count - 1; i++)
@@ -128,7 +133,8 @@ namespace ClinicaFrba.Pedir_Turno
                 DataGridViewRow row = this.dataGridView1.SelectedRows[0];
                 string profesional_id = row.Cells["prof_id"].Value.ToString();
                 string profesional_apellido = row.Cells["prof_apellido"].Value.ToString();
-                Pedir_Turno.ElegirTurno turno = new Pedir_Turno.ElegirTurno(profesional_id, profesional_apellido, nombreAfiliado);
+                
+                Pedir_Turno.ElegirTurno turno = new Pedir_Turno.ElegirTurno(profesional_id, profesional_apellido, idAfiliado);
                 turno.ShowDialog();
 
             }
