@@ -489,19 +489,22 @@ END
 GO
 
 CREATE PROCEDURE generateConsultaMedica
-	@turno_id INT,
+@turno_id INT,
 	@bono_id INT,
 	@hora_llegada DATETIME,
 	@af_id BIGINT,
 	@af_rel_id TINYINT
 AS
 BEGIN
+
 	INSERT INTO consulta_medica(cons_turno,cons_bono,cons_hora_llegada)
 				VALUES(@turno_id,@bono_id,@hora_llegada)
 
-	UPDATE bono SET bono_nro_consulta= (SELECT COUNT(*)+1 FROM bono WHERE bono_af = @af_id AND bono_af_rel = @af_rel_id)
+	UPDATE bono SET bono_nro_consulta= (SELECT COUNT(*)+1 FROM bono WHERE bono_af = @af_id AND bono_af_rel = @af_rel_id), bono_af_rel = @af_rel_id
+	WHERE bono_id = @bono_id
+
 	
-END
+	END
 GO
 
 CREATE PROCEDURE getEspecialidadesMedicas
