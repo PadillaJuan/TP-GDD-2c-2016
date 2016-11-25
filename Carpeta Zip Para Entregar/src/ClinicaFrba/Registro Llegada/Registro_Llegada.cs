@@ -67,6 +67,7 @@ namespace ClinicaFrba.Registro_Llegada
             {
                 bono = form.bono;
                 button5.Enabled = true;
+                textBox2.Enabled = false;
             }
             else
             {
@@ -87,6 +88,8 @@ namespace ClinicaFrba.Registro_Llegada
                 cm.Parameters.AddWithValue("@turno_id", turno);
                 cm.Parameters.AddWithValue("@bono_id", bono);
                 cm.Parameters.AddWithValue("@hora_llegada", Program.nuevaFechaSistema());
+                cm.Parameters.AddWithValue("@af_id", getID());
+                cm.Parameters.AddWithValue("@af_rel_id", getRelID());
                 cm.ExecuteNonQuery();
                 cm.Dispose();
                 Close();

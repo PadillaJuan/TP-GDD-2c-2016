@@ -201,11 +201,12 @@ go
 execute migrarRegistroCompra
 go
 
+
 create procedure migrarBonos
 as
 	SET IDENTITY_INSERT bono ON 
-	insert into bono (bono_id,bono_compra,bono_planmed,bono_af,bono_af_rel)
-		select Bono_Consulta_Numero,compra_id,Plan_Med_Codigo,af_id,af_rel_id
+	insert into bono (bono_id,bono_compra,bono_planmed,bono_af,bono_af_rel,bono_nro_consulta)
+		select Bono_Consulta_Numero,compra_id,Plan_Med_Codigo,af_id,af_rel_id, 0
 		from registro_compra,gd_esquema.Maestra,afiliado
 		where compra_fecha = Compra_Bono_Fecha and Bono_Consulta_Numero is not null and Bono_Consulta_Numero is not null and
 			  compra_af = af_id and af_numdoc = Paciente_Dni
@@ -214,6 +215,7 @@ as
 go
 execute migrarBonos
 go
+
 
 create procedure migrarConsultas
 as
