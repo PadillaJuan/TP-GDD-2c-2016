@@ -605,12 +605,11 @@ CREATE PROCEDURE reservarTurno
 	@turno_fecha DATETIME,
 	@turno_agenda INT,
 	@turno_prof INT,
-	@turno_estado CHAR,
 	@turno_af_rel TINYINT,
 	@turno_esp INT
 AS
 BEGIN
-	INSERT INTO turnos VALUES (@turno_fecha, @turno_estado, @turno_agenda, @turno_afi, @turno_af_rel, @turno_prof, @turno_esp)
+	INSERT INTO turnos VALUES (@turno_fecha, 0 , @turno_agenda, @turno_afi, @turno_af_rel, @turno_prof, @turno_esp)
 END
 GO
 
