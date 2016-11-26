@@ -7,6 +7,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Data.SqlClient;
+using System.Data.Sql;
 
 using ClinicaFrba.Utils;
 
@@ -17,9 +19,9 @@ namespace ClinicaFrba.Pedir_Turno
     {
         
         String wheres;
-       String idAfiliado;
+       long afiliadoId;
        DataTable dt;
-        public ListadoProfesionales(String idUsuarioPasado)
+        public ListadoProfesionales(int idUsuarioPasado)
         {
             InitializeComponent();
             dataGridView1.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
@@ -28,10 +30,10 @@ namespace ClinicaFrba.Pedir_Turno
 
             string query5 = "SELECT af_id FROM afiliado WHERE us_id ="+ idUsuarioPasado;
             DataTable dt5 = (new BDConnection()).cargarTablaSQL(query5);
-            string elAfiliadoQuePideElTurno = dt5.Rows[0][0].ToString();
+            long elAfiliadoQuePideElTurno = (long) dt5.Rows[0][0];
 
 
-            idAfiliado = elAfiliadoQuePideElTurno;
+            getID(idUsuarioPasado);
 
             string comando = "SELECT * FROM especialidad";
             dt = (new BDConnection()).cargarTablaSQL(comando);
@@ -136,7 +138,7 @@ namespace ClinicaFrba.Pedir_Turno
 
                 String espId = (dt.Rows[ChkListEspecialidades.SelectedIndex][0]).ToString();
 
-                Pedir_Turno.ElegirTurno turno = new Pedir_Turno.ElegirTurno(profesional_id, profesional_apellido, idAfiliado, espId);
+                Pedir_Turno.ElegirTurno turno = new Pedir_Turno.ElegirTurno(profesional_id, profesional_apellido, af_id(), af_rel_id(), espId, this);
                 turno.ShowDialog();
 
             }
@@ -214,6 +216,29 @@ namespace ClinicaFrba.Pedir_Turno
             {
                 ChkListEspecialidades.SetItemCheckState(i, CheckState.Unchecked);
             }
+        }
+
+        private void getID(int us_id)
+        {
+            string query = String.Format("SELECT af_id*100+af_rel_id FROM afiliado WHERE us_id = {0}", us_id);
+            SqlConnection cn = (new BDConnection()).getInstance();
+            SqlCommand cm = new SqlCommand(query, cn);
+            afiliadoId = (long)cm.ExecuteScalar();
+        }
+
+        private short af_rel_id()
+        {
+            return short.Parse((afiliadoId % 100).ToString());
+        }
+
+        private long af_id()
+        {
+            return (long)afiliadoId / 100;
+        }
+
+        private void TurnCancelAfiliado_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }

@@ -20,12 +20,14 @@ namespace ClinicaFrba.Pedir_Turno
         string id;
         string wheres;
         Form form;
-        String idAfiliado;
+        long idAfiliado;
         bool control;
         String idProf;
         String idEsp;
+        Form formato;+
+        long idRel
 
-        public ElegirTurno(string idP, string apellidoP, string idAfiliadoPasado, string espId)
+        public ElegirTurno(string idP, string apellidoP, long idAfiliadoPasado, long relId, string espId, Form formatopasado)
         {
             InitializeComponent();
             label2.Text = "Dr. " + apellidoP;
@@ -36,6 +38,8 @@ namespace ClinicaFrba.Pedir_Turno
             idAfiliado = idAfiliadoPasado;
             idProf = idP;
             idEsp = espId;
+            idRel = relId;
+            formato = formatopasado;
 
             inicializar();
         }
@@ -59,8 +63,7 @@ namespace ClinicaFrba.Pedir_Turno
         private void button1_Click(object sender, EventArgs e)
         {
             Hide();
-            Pedir_Turno.ListadoProfesionales volver = new Pedir_Turno.ListadoProfesionales(idAfiliado);
-            volver.ShowDialog();
+            formato.ShowDialog();
         }
 
         private void button3_Click(object sender, EventArgs e)
@@ -79,8 +82,6 @@ namespace ClinicaFrba.Pedir_Turno
                 String agenda_id = row.Cells["agenda_id"].Value.ToString();
                 DateTime fecha = DateTime.Parse(dateTimePicker1.Text);
 
-                string idRel = getIdRel();
-
                 agendar(fecha, agenda_id, idAfiliado, idProf, idEsp, idRel);
                 MessageBox.Show("Turno seleccionado correctamente", this.Text, MessageBoxButtons.OK, MessageBoxIcon.None);
                 form.Close();
@@ -88,7 +89,7 @@ namespace ClinicaFrba.Pedir_Turno
             }
         }
 
-        private void agendar(DateTime turno_fecha, String turno_agenda, String turno_afi, String turno_prof, String turno_esp, String turno_af_rel )
+        private void agendar(DateTime turno_fecha, String turno_agenda, long turno_afi, String turno_prof, String turno_esp, long turno_af_rel )
         {
             
             string query = "reservarTurno";
@@ -109,15 +110,7 @@ namespace ClinicaFrba.Pedir_Turno
 
         }
 
-        String getIdRel()
-        {
-
-            string query = String.Format("SELECT af_rel_id FROM afiliado WHERE af_id = {0}", idAfiliado);
-            SqlConnection cn = (new BDConnection()).getInstance();
-            SqlCommand cm = new SqlCommand(query, cn);
-            string idRel = cm.ExecuteScalar().ToString();
-            return idRel;
-        }
+        
 
         private void label3_Click(object sender, EventArgs e)
         {
