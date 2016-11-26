@@ -47,7 +47,6 @@ namespace ClinicaFrba.BuscarAfiliado
 
         private void button3_Click(object sender, EventArgs e) // COMPRAR BONO
         {
-            bool flag = true;
             int index;
             try
             {
@@ -55,7 +54,6 @@ namespace ClinicaFrba.BuscarAfiliado
             }
             catch (Exception a)
             {
-                flag = false;
                 index = -1;
             }
             if (index == -1)
@@ -196,7 +194,6 @@ namespace ClinicaFrba.BuscarAfiliado
 
         private void button2_Click_1(object sender, EventArgs e)
         {
-            bool flag = true;
             int index;
             try
             {
@@ -204,7 +201,6 @@ namespace ClinicaFrba.BuscarAfiliado
             }
             catch (Exception a)
             {
-                flag = false;
                 index = -1;
             }
             if (index == -1)
@@ -227,7 +223,6 @@ namespace ClinicaFrba.BuscarAfiliado
 
         private void button1_Click_1(object sender, EventArgs e)
         {
-            bool flag = true;
             int index;
             try
             {
@@ -235,7 +230,6 @@ namespace ClinicaFrba.BuscarAfiliado
             }
             catch (Exception a)
             {
-                flag = false;
                 index = -1;
             }
             if (index == -1)
@@ -272,7 +266,6 @@ namespace ClinicaFrba.BuscarAfiliado
 
         private void button8_Click(object sender, EventArgs e)
         {
-            bool flag = true;
             int index;
             try
             {
@@ -280,7 +273,6 @@ namespace ClinicaFrba.BuscarAfiliado
             }
             catch (Exception a)
             {
-                flag = false;
                 index = -1;
             }
             if (index == -1)

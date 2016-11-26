@@ -61,7 +61,7 @@ namespace ClinicaFrba.Pedir_Turno
 
              
              
-             filtrarPag(1);
+             filtrarPag();
 
          }
 
@@ -82,7 +82,7 @@ namespace ClinicaFrba.Pedir_Turno
    
          }
 
-        private void filtrarPag(int pagina)
+        private void filtrarPag()
         {
            
             if (ChkListEspecialidades.CheckedIndices.Count == 0)
@@ -94,7 +94,7 @@ namespace ClinicaFrba.Pedir_Turno
             wheres = "";
             armarWhere();
 
-            string query2 = "SELECT DISTINCT(p.prof_id), prof_nombre, prof_apellido FROM especialidad e JOIN especialidad_por_profesional r ON (e.esp_id = r.esp_id) JOIN profesional p ON ( r.prof_id = p.prof_id) WHERE esp_descripcion IN " + wheres;
+            string query2 = "SELECT DISTINCT(p.prof_id), prof_nombre, prof_apellido FROM especialidad e JOIN especialidad_por_profesional r ON (e.esp_id = r.esp_id) JOIN profesional p ON ( r.prof_id = p.prof_id) WHERE prof_apellido != '' AND esp_descripcion IN " + wheres;
             CompletadorDeTablas.hacerQuery(query2, ref dataGridView1);
         }
 
@@ -105,7 +105,7 @@ namespace ClinicaFrba.Pedir_Turno
 
         private void button3_Click(object sender, EventArgs e)
         {
-            filtrarPag(1);
+            filtrarPag();
         }
 
         private void buttonElegirPub_Click(object sender, EventArgs e)
@@ -138,7 +138,7 @@ namespace ClinicaFrba.Pedir_Turno
                 return;
             };
 
-            filtrarPag(1);
+            filtrarPag();
         }
 
 
@@ -174,7 +174,7 @@ namespace ClinicaFrba.Pedir_Turno
             string query = String.Format("SELECT af_id*100+af_rel_id FROM afiliado WHERE us_id = {0}", us_id);
             SqlConnection cn = (new BDConnection()).getInstance();
             SqlCommand cm = new SqlCommand(query, cn);
-            afiliadoId = (long)cm.ExecuteScalar();
+            afiliadoId = long.Parse(cm.ExecuteScalar().ToString());
         }
 
         private short af_rel_id()
