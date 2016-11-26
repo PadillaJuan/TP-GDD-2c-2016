@@ -573,8 +573,6 @@ BEGIN
 		SET @desde = DATEADD(day,7,@desde)
 		SET @fechatemp_fin = DATEADD(day,7,@fechatemp_fin)
 	END
-	
-	
 END
 GO
 

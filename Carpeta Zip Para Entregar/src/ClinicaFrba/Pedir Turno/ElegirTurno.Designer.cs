@@ -111,7 +111,6 @@
             this.label3.Size = new System.Drawing.Size(34, 13);
             this.label3.TabIndex = 7;
             this.label3.Text = "fecha";
-            this.label3.Click += new System.EventHandler(this.label3_Click);
             // 
             // ElegirTurno
             // 
@@ -128,7 +127,6 @@
             this.Controls.Add(this.dateTimePicker1);
             this.Name = "ElegirTurno";
             this.Text = "Seleccion de Turno";
-            this.Load += new System.EventHandler(this.ElegirTurno_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -141,10 +139,10 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.Button button2;
         private System.Windows.Forms.DataGridView dataGridView1;
         private System.Windows.Forms.Button button3;
         private System.Windows.Forms.Label label3;
+        protected System.Windows.Forms.Button button2;
 
     }
 }

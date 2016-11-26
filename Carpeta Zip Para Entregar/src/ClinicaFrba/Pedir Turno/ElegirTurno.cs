@@ -24,8 +24,8 @@ namespace ClinicaFrba.Pedir_Turno
         bool control;
         String idProf;
         String idEsp;
-        Form formato;+
-        long idRel
+        Form formato;
+        long idRel;
 
         public ElegirTurno(string idP, string apellidoP, long idAfiliadoPasado, long relId, string espId, Form formatopasado)
         {
@@ -103,18 +103,6 @@ namespace ClinicaFrba.Pedir_Turno
             com.Parameters.Add(new SqlParameter("@turno_esp", turno_esp));
             com.Parameters.Add(new SqlParameter("@turno_esp", turno_af_rel));
             com.ExecuteNonQuery();
-        }
-
-        private void ElegirTurno_Load(object sender, EventArgs e)
-        {
-
-        }
-
-        
-
-        private void label3_Click(object sender, EventArgs e)
-        {
-
         }
     }
 }

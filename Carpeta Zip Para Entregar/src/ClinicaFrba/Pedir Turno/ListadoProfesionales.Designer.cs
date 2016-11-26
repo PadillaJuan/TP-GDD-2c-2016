@@ -63,7 +63,6 @@
             this.label1.Size = new System.Drawing.Size(204, 13);
             this.label1.TabIndex = 1;
             this.label1.Text = "Seleccione la especialidad del profesional";
-            this.label1.Click += new System.EventHandler(this.label1_Click);
             // 
             // dataGridView1
             // 
@@ -72,7 +71,6 @@
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.Size = new System.Drawing.Size(430, 374);
             this.dataGridView1.TabIndex = 2;
-            this.dataGridView1.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
             // 
             // Cancelar
             // 
@@ -122,7 +120,6 @@
             this.txtDescrip.Name = "txtDescrip";
             this.txtDescrip.Size = new System.Drawing.Size(230, 26);
             this.txtDescrip.TabIndex = 63;
-            this.txtDescrip.TextChanged += new System.EventHandler(this.txtDescrip_TextChanged);
             // 
             // label2
             // 
@@ -132,7 +129,6 @@
             this.label2.Size = new System.Drawing.Size(163, 13);
             this.label2.TabIndex = 64;
             this.label2.Text = "Ingrese el apellido del profesional";
-            this.label2.Click += new System.EventHandler(this.label2_Click);
             // 
             // label3
             // 
@@ -143,11 +139,6 @@
             this.label3.Size = new System.Drawing.Size(167, 17);
             this.label3.TabIndex = 65;
             this.label3.Text = "Seleccione el Profesional";
-            this.label3.Click += new System.EventHandler(this.label3_Click);
-            // 
-            // bindingSource1
-            // 
-            this.bindingSource1.CurrentChanged += new System.EventHandler(this.bindingSource1_CurrentChanged);
             // 
             // buttonReestablecer
             // 
@@ -178,7 +169,6 @@
             this.Controls.Add(this.ChkListEspecialidades);
             this.Name = "ListadoProfesionales";
             this.Text = "Listado de Profesionales";
-            this.Load += new System.EventHandler(this.Form1_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.bindingSource1)).EndInit();
             this.ResumeLayout(false);

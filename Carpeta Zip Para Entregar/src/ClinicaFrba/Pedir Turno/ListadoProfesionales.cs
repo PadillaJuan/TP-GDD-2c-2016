@@ -18,7 +18,7 @@ namespace ClinicaFrba.Pedir_Turno
     public partial class ListadoProfesionales : Form
     {
         
-        String wheres;
+       String wheres;
        long afiliadoId;
        DataTable dt;
         public ListadoProfesionales(int idUsuarioPasado)
@@ -103,21 +103,6 @@ namespace ClinicaFrba.Pedir_Turno
             CompletadorDeTablas.hacerQuery(query2, ref dataGridView1);
         }
 
-        private void checkBox1_CheckedChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void Form1_Load(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label1_Click(object sender, EventArgs e)
-        {
-
-        }
-
         private void button2_Click(object sender, EventArgs e)
         {
             inicializar();
@@ -161,10 +146,6 @@ namespace ClinicaFrba.Pedir_Turno
             filtrarPag(1);
         }
 
-        private void bindingSource1_CurrentChanged(object sender, EventArgs e)
-        {
-
-        }
 
         private void ChkListEspecialidades_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -183,31 +164,6 @@ namespace ClinicaFrba.Pedir_Turno
         private void button1_Click(object sender, EventArgs e)
         {
             this.Close();
-        }
-
-        private void buttonReestablecer_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label2_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label3_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void txtDescrip_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
-
         }
 
         private void buttonReestablecer_Click_1(object sender, EventArgs e)
@@ -234,11 +190,6 @@ namespace ClinicaFrba.Pedir_Turno
         private long af_id()
         {
             return (long)afiliadoId / 100;
-        }
-
-        private void TurnCancelAfiliado_Load(object sender, EventArgs e)
-        {
-
         }
     }
 }
