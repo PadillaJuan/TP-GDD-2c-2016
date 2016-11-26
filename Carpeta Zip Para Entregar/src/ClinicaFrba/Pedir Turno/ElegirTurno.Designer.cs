@@ -116,6 +116,8 @@
             this.Controls.Add(this.dateTimePicker1);
             this.Name = "ElegirTurno";
             this.Text = "Seleccion de Turno";
+            this.Load += new System.EventHandler(this.ElegirTurno_Load);
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 

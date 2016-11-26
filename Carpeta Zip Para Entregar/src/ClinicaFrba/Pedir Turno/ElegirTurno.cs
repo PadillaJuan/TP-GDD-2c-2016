@@ -116,5 +116,10 @@ namespace ClinicaFrba.Pedir_Turno
             com.Parameters.Add(new SqlParameter("@turno_prof", turno_prof));
             com.ExecuteNonQuery();
         }
+
+        private void ElegirTurno_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }

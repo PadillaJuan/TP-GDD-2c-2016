@@ -97,5 +97,10 @@ namespace ClinicaFrba.Cancelar_Atencion
             return (long)afiliadoId / 100; 
         }
 
+        private void TurnCancelAfiliado_Load(object sender, EventArgs e)
+        {
+
+        }
+
     }
 }

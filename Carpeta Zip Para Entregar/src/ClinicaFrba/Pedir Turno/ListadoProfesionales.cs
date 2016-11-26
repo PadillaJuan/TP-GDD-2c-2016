@@ -36,8 +36,8 @@ namespace ClinicaFrba.Pedir_Turno
             string comando = "SELECT * FROM especialidad";
             DataTable dt = (new BDConnection()).cargarTablaSQL(comando);
 
-          
 
+         
             ChkListEspecialidades.Items.Clear();
             for (int i = 0; i <= (dt.Rows.Count - 1); i++)
             {
@@ -164,7 +164,16 @@ namespace ClinicaFrba.Pedir_Turno
 
         private void ChkListEspecialidades_SelectedIndexChanged(object sender, EventArgs e)
         {
+            
+            // Get the items that are selected
+            CheckedListBox.CheckedIndexCollection selectedItems = this.ChkListEspecialidades.CheckedIndices;
 
+            // Check that we have at least 1 item selected
+            if (selectedItems.Count > 0)
+            {
+                // Uncheck the other item
+                this.ChkListEspecialidades.SetItemChecked(selectedItems[0], false);
+            }
         }
 
         private void button1_Click(object sender, EventArgs e)
