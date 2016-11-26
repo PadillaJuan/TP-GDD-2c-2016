@@ -23,8 +23,9 @@ namespace ClinicaFrba.Pedir_Turno
         String idAfiliado;
         bool control;
         String idProf;
+        String idEsp;
 
-        public ElegirTurno(string idP, string apellidoP, string idAfiliadoPasado)
+        public ElegirTurno(string idP, string apellidoP, string idAfiliadoPasado, string espId)
         {
             InitializeComponent();
             label2.Text = "Dr. " + apellidoP;
@@ -33,7 +34,8 @@ namespace ClinicaFrba.Pedir_Turno
             dataGridView1.MultiSelect = false;
             dataGridView1.ReadOnly = true;
             idAfiliado = idAfiliadoPasado;
-            idProf = idP; 
+            idProf = idP;
+            idEsp = espId;
 
             inicializar();
         }
@@ -96,14 +98,16 @@ namespace ClinicaFrba.Pedir_Turno
                 String agenda_id = row.Cells["agenda_id"].Value.ToString();
                 DateTime fecha = Convert.ToDateTime(dateTimePicker1.Text);
 
-                agendar(fecha, agenda_id, idAfiliado, idProf);
+                string idRel = getIdRel();
+
+                agendar(fecha, agenda_id, idAfiliado, idProf, idEsp, idRel);
                 MessageBox.Show("Turno seleccionado correctamente", this.Text, MessageBoxButtons.OK, MessageBoxIcon.None);
                 form.Close();
                 this.Close();
             }
         }
 
-        private void agendar(DateTime turno_fecha, String turno_agenda, String turno_afi, String turno_prof )
+        private void agendar(DateTime turno_fecha, String turno_agenda, String turno_afi, String turno_prof, String turno_esp, String turno_af_rel )
         {
             
             string query = "reservarTurno";
@@ -114,12 +118,24 @@ namespace ClinicaFrba.Pedir_Turno
             com.Parameters.Add(new SqlParameter("@turno_fecha", turno_fecha));
             com.Parameters.Add(new SqlParameter("@turno_agenda", turno_agenda));
             com.Parameters.Add(new SqlParameter("@turno_prof", turno_prof));
+            com.Parameters.Add(new SqlParameter("@turno_esp", turno_esp));
+            com.Parameters.Add(new SqlParameter("@turno_esp", turno_af_rel));
             com.ExecuteNonQuery();
         }
 
         private void ElegirTurno_Load(object sender, EventArgs e)
         {
 
+        }
+
+        String getIdRel()
+        {
+
+            string query = String.Format("SELECT af_id*100+af_rel_id FROM afiliado WHERE us_id = {0}", us_id);
+            SqlConnection cn = (new BDConnection()).getInstance();
+            SqlCommand cm = new SqlCommand(query, cn);
+            string idRel = cm.ExecuteScalar().ToString();
+            return idRel;
         }
     }
 }
