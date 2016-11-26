@@ -19,6 +19,7 @@ namespace ClinicaFrba.Registrar_Agenta_Medico
             us_id = us_id_parametro;
             InitializeComponent();
             llenarComboBox();
+            setComboBox();
         }
 
         private class Item
@@ -48,7 +49,16 @@ namespace ClinicaFrba.Registrar_Agenta_Medico
 
         private void groupBox1_Enter(object sender, EventArgs e)
         {
+        }
 
+        public void setComboBox()
+        {
+            especialidad_lunes.DropDownStyle = ComboBoxStyle.DropDownList;
+            especialidad_martes.DropDownStyle = ComboBoxStyle.DropDownList;
+            especialidad_miercoles.DropDownStyle = ComboBoxStyle.DropDownList;
+            especialidad_jueves.DropDownStyle = ComboBoxStyle.DropDownList;
+            especialidad_viernes.DropDownStyle = ComboBoxStyle.DropDownList;
+            especialidad_sabado.DropDownStyle = ComboBoxStyle.DropDownList;
         }
 
         public void llenarComboBox()
