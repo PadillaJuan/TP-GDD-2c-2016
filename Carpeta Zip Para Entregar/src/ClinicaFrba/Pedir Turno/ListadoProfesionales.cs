@@ -113,10 +113,10 @@ namespace ClinicaFrba.Pedir_Turno
             if (dataGridView1.SelectedRows.Count != 0)
             {
                 DataGridViewRow row = this.dataGridView1.SelectedRows[0];
-                string profesional_id = row.Cells["prof_id"].Value.ToString();
+                int profesional_id = Int32.Parse(row.Cells["prof_id"].Value.ToString());
                 string profesional_apellido = row.Cells["prof_apellido"].Value.ToString();
 
-                String espId = (dt.Rows[ChkListEspecialidades.SelectedIndex][0]).ToString();
+                int espId = Int32.Parse((dt.Rows[ChkListEspecialidades.SelectedIndex][0]).ToString());
 
                 Pedir_Turno.ElegirTurno turno = new Pedir_Turno.ElegirTurno(profesional_id, profesional_apellido, af_id(), af_rel_id(), espId, this);
                 turno.ShowDialog();

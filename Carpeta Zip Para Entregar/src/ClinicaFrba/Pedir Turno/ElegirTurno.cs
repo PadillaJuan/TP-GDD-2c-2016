@@ -22,12 +22,12 @@ namespace ClinicaFrba.Pedir_Turno
         Form form;
         long idAfiliado;
         bool control;
-        String idProf;
-        String idEsp;
+        int idProf;
+        int idEsp;
         Form formato;
         long idRel;
 
-        public ElegirTurno(string idP, string apellidoP, long idAfiliadoPasado, long relId, string espId, Form formatopasado)
+        public ElegirTurno(int idP, string apellidoP, long idAfiliadoPasado, long relId, int espId, Form formatopasado)
         {
             InitializeComponent();
             label2.Text = "Dr. " + apellidoP;
@@ -50,8 +50,6 @@ namespace ClinicaFrba.Pedir_Turno
             dateTimePicker1.Text = DateTime.Parse(Program.nuevaFechaSistema()).ToString();
             dateTimePicker1.MinDate = DateTime.Parse(Program.nuevaFechaSistema());
        }
-
-        
 
         private void filtrarFecha(DateTime fechaTurno)
         {
@@ -79,29 +77,29 @@ namespace ClinicaFrba.Pedir_Turno
               
 
                 DataGridViewRow row = this.dataGridView1.SelectedRows[0];
-                String agenda_id = row.Cells["agenda_id"].Value.ToString();
-                DateTime fecha = DateTime.Parse(dateTimePicker1.Text);
+                int agenda_id = Int32.Parse(row.Cells["agenda_id"].Value.ToString());
+                DateTime fecha = dateTimePicker1.Value;
 
-                agendar(fecha, agenda_id, idAfiliado, idProf, idEsp, idRel);
+                agendar(fecha, agenda_id);
                 MessageBox.Show("Turno seleccionado correctamente", this.Text, MessageBoxButtons.OK, MessageBoxIcon.None);
                 form.Close();
                 this.Close();
             }
         }
 
-        private void agendar(DateTime turno_fecha, String turno_agenda, long turno_afi, String turno_prof, String turno_esp, long turno_af_rel )
+        private void agendar(DateTime turno_fecha, int turno_agenda)
         {
             
             string query = "reservarTurno";
             SqlConnection conn = (new BDConnection()).getConnection();
             SqlCommand com = new SqlCommand(query, conn);
             com.CommandType = CommandType.StoredProcedure;
-            com.Parameters.Add(new SqlParameter("@turno_afi", turno_afi));
+            com.Parameters.Add(new SqlParameter("@turno_afi", idAfiliado));
             com.Parameters.Add(new SqlParameter("@turno_fecha", turno_fecha));
             com.Parameters.Add(new SqlParameter("@turno_agenda", turno_agenda));
-            com.Parameters.Add(new SqlParameter("@turno_prof", turno_prof));
-            com.Parameters.Add(new SqlParameter("@turno_esp", turno_esp));
-            com.Parameters.Add(new SqlParameter("@turno_esp", turno_af_rel));
+            com.Parameters.Add(new SqlParameter("@turno_prof", idProf));
+            com.Parameters.Add(new SqlParameter("@turno_esp", idEsp));
+            com.Parameters.Add(new SqlParameter("@turno_af_rel", idRel));
             com.ExecuteNonQuery();
         }
     }
