@@ -47,26 +47,13 @@ namespace ClinicaFrba.Pedir_Turno
             dateTimePicker1.MinDate = DateTime.Parse(Program.nuevaFechaSistema());
        }
 
-        private bool validaciones()
-        {
-            string comando = "SELECT agenda_fechayhora FROM agenda_profesional a JOIN turnos t ON (t.turno_agenda = a.agenda_id) JOIN cancelacion c ON (c.turno_id = t.turno_id)";
-            DataTable dt = (new BDConnection()).cargarTablaSQL(comando);
-
-
-            for (int i = 0; i <= (dt.Rows.Count - 1); i++)
-            {
-                control = false;
-                DateTime idf = Convert.ToDateTime(dt.Rows[i][0]);
-                if(dateTimePicker1.Value == idf) control=true;
-            }
-
-            return control;
-        }
+        
 
         private void filtrarFecha(DateTime fechaTurno)
         {
-            string query2 = "SELECT DATEPART(hour,agenda_fechayhora), agenda_id  FROM agenda_profesional WHERE agenda_fechayhora =" + fechaTurno +")"; 
-            CompletadorDeTablas.hacerQuery(query2, ref dataGridView1);
+            string query = String.Format("SELECT DATEPART(hour,agenda_fechayhora), DATEPART(minute, agenda_fechayhora), agenda_id  FROM agenda_profesional WHERE agenda_fechayhora = {0} ", fechaTurno);
+            
+            CompletadorDeTablas.hacerQuery(query, ref dataGridView1);
         }
         
         private void button1_Click(object sender, EventArgs e)
@@ -78,25 +65,19 @@ namespace ClinicaFrba.Pedir_Turno
 
         private void button3_Click(object sender, EventArgs e)
         {
-            if (validaciones() == false)
-            {
-                MessageBox.Show("El profesional no posee turnos disponibles ese dia");
-            }
-            filtrarFecha(DateTime.Parse(dateTimePicker1.Text));
+            DateTime fechaFiltrar = DateTime.Parse(dateTimePicker1.Text);
+            filtrarFecha(fechaFiltrar);
         }
 
         private void button2_Click(object sender, EventArgs e)
         {
             if ((MessageBox.Show("¿Desea elegir ese turno?", "Confirmar", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes))
             {
-                if (!validaciones())
-                {
-                    return;
-                }
+              
 
                 DataGridViewRow row = this.dataGridView1.SelectedRows[0];
                 String agenda_id = row.Cells["agenda_id"].Value.ToString();
-                DateTime fecha = Convert.ToDateTime(dateTimePicker1.Text);
+                DateTime fecha = DateTime.Parse(dateTimePicker1.Text);
 
                 string idRel = getIdRel();
 
@@ -136,6 +117,11 @@ namespace ClinicaFrba.Pedir_Turno
             SqlCommand cm = new SqlCommand(query, cn);
             string idRel = cm.ExecuteScalar().ToString();
             return idRel;
+        }
+
+        private void label3_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
