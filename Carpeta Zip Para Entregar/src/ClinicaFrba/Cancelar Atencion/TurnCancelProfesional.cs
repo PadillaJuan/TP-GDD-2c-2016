@@ -96,8 +96,6 @@ namespace ClinicaFrba.Cancelar_Atencion
         {
             if (dateTimePicker1.Value > dateTimePicker2.Value)
             {
-                if (textBox1.Text.Length >= 0)
-                {
                     string query = "bajaIntervalo";
                     SqlConnection conn = (new BDConnection()).getConnection();
                     SqlCommand com = new SqlCommand(query, conn);
@@ -106,11 +104,7 @@ namespace ClinicaFrba.Cancelar_Atencion
                     com.Parameters.Add(new SqlParameter("@cancel_desde", dateTimePicker1.Value));
                     com.Parameters.Add(new SqlParameter("@cancel_hasta", dateTimePicker2.Value));
                     com.ExecuteNonQuery();
-                }
-                else
-                {
-                    MessageBox.Show("Por favor, ingrese el motivo de cancelacion", Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
+                
             }
             else
             {
