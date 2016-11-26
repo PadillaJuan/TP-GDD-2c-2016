@@ -536,6 +536,7 @@ AS
 BEGIN
 	INSERT INTO periodo_baja VALUES(@desde, @hasta, @prof_id)
 END
+GO
 
 
 CREATE PROCEDURE addHorasAgenda

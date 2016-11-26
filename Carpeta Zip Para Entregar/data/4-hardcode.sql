@@ -53,18 +53,20 @@ WHERE tablaRol.rol_nombre = 'Profesional' AND tablaFuncionalidad.fun_nombre IN (
 GO
 
 
+------------------------------------- INGRESO LOS ROLES DE LOS PROFESIONALES Y DE LOS AFILIADOS ----------------------------------------------------------
+
+	INSERT INTO rol_por_usuarios 
+	SELECT us_id, 2 FROM afiliado
+
+		
+	INSERT INTO rol_por_usuarios
+	SELECT us_id, 3  FROM profesional
+
 ----------------------------------------- CUENTA ADMIN -----------------------------------------------------------------
 
 IF (OBJECT_ID('setAdmin', 'P') IS NOT NULL)
 	DROP PROCEDURE setAdmin;
 GO
-
-if OBJECT_ID('setTipoEspPorPlan') is not null
-begin
-	drop procedure setTipoEspPorPlan
-end
-go
-
 
 CREATE PROCEDURE setAdmin
 AS
@@ -93,7 +95,11 @@ exec setAdmin
 GO
 
 ----------------------------------------- SETEO PLANES Y ESPECIALIDADES RELACIONADAS -----------------------------------------------------------------
-
+if OBJECT_ID('setTipoEspPorPlan') is not null
+begin
+	drop procedure setTipoEspPorPlan
+end
+go
 
 CREATE PROCEDURE setTipoEspPorPlan
 AS

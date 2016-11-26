@@ -88,8 +88,6 @@ as
 		where us_username = Paciente_Dni
 		group by us_id,Paciente_Nombre,Paciente_Apellido,Paciente_Dni,Paciente_Direccion,Paciente_Telefono,Paciente_Mail,Paciente_Fecha_Nac,Plan_Med_Codigo
 	 
-	 INSERT INTO rol_por_usuarios VALUES ((SELECT us_id FROM afiliado), 2 )
-
 go
 execute migrarAfiliados
 go
@@ -110,8 +108,6 @@ as
 		where Medico_Dni is not null and us_username = Medico_Dni
 		group by us_id,Medico_Nombre,Medico_Apellido,Medico_Dni,Medico_Direccion,Medico_Telefono,Medico_Mail,Medico_Fecha_Nac
 		order by Medico_Dni
-
-	INSERT INTO rol_por_usuarios VALUES ((SELECT us_id FROM profesional), 3 )
 go
 execute migrarProfesional
 go
