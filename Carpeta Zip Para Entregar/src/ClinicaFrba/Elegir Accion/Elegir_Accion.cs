@@ -92,7 +92,7 @@ namespace ClinicaFrba.Elegir_Accion
                         
                     case "Pedido de Turno":
                         // PEDIDO DE TURNO
-                        Pedir_Turno.ListadoProfesionales f6 = new Pedir_Turno.ListadoProfesionales(us_idG.ToString());
+                        Pedir_Turno.ListadoProfesionales f6 = new Pedir_Turno.ListadoProfesionales(us_idG);
                         f6.Show();
                         break;
 
