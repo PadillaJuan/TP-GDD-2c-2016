@@ -28,11 +28,6 @@ namespace ClinicaFrba.Pedir_Turno
             dataGridView1.MultiSelect = false;
             dataGridView1.ReadOnly = true;
 
-            string query5 = "SELECT af_id FROM afiliado WHERE us_id ="+ idUsuarioPasado;
-            DataTable dt5 = (new BDConnection()).cargarTablaSQL(query5);
-            long elAfiliadoQuePideElTurno = (long) dt5.Rows[0][0];
-
-
             getID(idUsuarioPasado);
 
             string comando = "SELECT * FROM especialidad";

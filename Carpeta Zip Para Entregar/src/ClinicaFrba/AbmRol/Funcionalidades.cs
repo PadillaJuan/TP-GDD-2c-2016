@@ -148,7 +148,7 @@ namespace ClinicaFrba.AbmRol
             SqlConnection conn = (new BDConnection()).getInstance();
             SqlCommand com = new SqlCommand(query, conn);
             com.CommandType = CommandType.StoredProcedure;
-            com.Parameters.Add("@nombre_rol", textBox1.Text);
+            com.Parameters.AddWithValue("@nombre_rol", textBox1.Text);
             com.ExecuteNonQuery();
         }
 
@@ -171,7 +171,7 @@ namespace ClinicaFrba.AbmRol
             SqlConnection conn = (new BDConnection()).getInstance();
             SqlCommand com = new SqlCommand(query, conn);
             com.CommandType = CommandType.StoredProcedure;
-            com.Parameters.Add("id_rol", id_rol);
+            com.Parameters.AddWithValue("id_rol", id_rol);
             com.ExecuteNonQuery();
         }
 
@@ -182,8 +182,8 @@ namespace ClinicaFrba.AbmRol
             SqlConnection conn = (new BDConnection()).getInstance();
             SqlCommand com = new SqlCommand(query, conn);
             com.CommandType = CommandType.StoredProcedure;
-            com.Parameters.Add("id_rol",id_rol);
-            com.Parameters.Add("fun_id",fun_id);
+            com.Parameters.AddWithValue("id_rol",id_rol);
+            com.Parameters.AddWithValue("fun_id",fun_id);
             com.ExecuteNonQuery();
         }
 

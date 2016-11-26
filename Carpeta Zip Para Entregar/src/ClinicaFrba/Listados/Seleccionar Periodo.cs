@@ -92,7 +92,7 @@ namespace ClinicaFrba.Listados
             string query3 = query2 + "Mensual";
             SqlCommand cm = new SqlCommand(query3, cn);
             cm.CommandType = CommandType.StoredProcedure;
-            cm.Parameters.Add("@fecha_mes", dateTimePicker2.Value);
+            cm.Parameters.AddWithValue("@fecha_mes", dateTimePicker2.Value);
             return cm;
         }
 
