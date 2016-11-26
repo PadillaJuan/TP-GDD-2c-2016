@@ -92,6 +92,9 @@ GO
 exec setAdmin
 GO
 
+----------------------------------------- SETEO PLANES Y ESPECIALIDADES RELACIONADAS -----------------------------------------------------------------
+
+
 CREATE PROCEDURE setTipoEspPorPlan
 AS
 BEGIN
