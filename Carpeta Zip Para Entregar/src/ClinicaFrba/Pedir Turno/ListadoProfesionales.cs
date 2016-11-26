@@ -42,27 +42,23 @@ namespace ClinicaFrba.Pedir_Turno
                 ChkListEspecialidades.Items.Insert(i, new Especialidades(idf, dt.Rows[i][1].ToString(), this));
             }
 
-            inicializar();
+            inicializar(true);
           
         }
 
-         private void inicializar()
+         private void inicializar(bool esLaPrimeraVez)
          {
              dataGridView1.RowTemplate.MinimumHeight = 33;
              txtDescrip.Text = "";
-
-             
-         
 
              for (int i = 0; i <= ChkListEspecialidades.Items.Count - 1; i++)
              {
                  ChkListEspecialidades.SetItemCheckState(i, CheckState.Unchecked);
              }
-
-             
-             
-             filtrarPag();
-
+             if (!esLaPrimeraVez)
+             {
+                 filtrarPag();
+             }
          }
 
          private void armarWhere()
@@ -100,7 +96,7 @@ namespace ClinicaFrba.Pedir_Turno
 
         private void button2_Click(object sender, EventArgs e)
         {
-            inicializar();
+            inicializar(false);
         }
 
         private void button3_Click(object sender, EventArgs e)

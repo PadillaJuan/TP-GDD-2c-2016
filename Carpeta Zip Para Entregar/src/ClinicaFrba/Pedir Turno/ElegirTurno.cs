@@ -89,17 +89,17 @@ namespace ClinicaFrba.Pedir_Turno
 
         private void agendar(DateTime turno_fecha, int turno_agenda)
         {
-            
             string query = "reservarTurno";
             SqlConnection conn = (new BDConnection()).getConnection();
             SqlCommand com = new SqlCommand(query, conn);
             com.CommandType = CommandType.StoredProcedure;
-            com.Parameters.Add(new SqlParameter("@turno_afi", idAfiliado));
-            com.Parameters.Add(new SqlParameter("@turno_fecha", turno_fecha));
-            com.Parameters.Add(new SqlParameter("@turno_agenda", turno_agenda));
-            com.Parameters.Add(new SqlParameter("@turno_prof", idProf));
-            com.Parameters.Add(new SqlParameter("@turno_esp", idEsp));
-            com.Parameters.Add(new SqlParameter("@turno_af_rel", idRel));
+            com.Parameters.AddWithValue("@turno_afi", idAfiliado);
+            com.Parameters.AddWithValue("@turno_fecha", turno_fecha);
+            com.Parameters.AddWithValue("@turno_agenda", turno_agenda);
+            com.Parameters.AddWithValue("@turno_prof", idProf);
+            com.Parameters.AddWithValue("@turno_estado" , 0);
+            com.Parameters.AddWithValue("@turno_esp", idEsp);
+            com.Parameters.AddWithValue("@turno_af_rel", idRel);
             com.ExecuteNonQuery();
         }
     }

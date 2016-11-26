@@ -106,11 +106,11 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(215, 118);
+            this.label3.Location = new System.Drawing.Point(222, 118);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(34, 13);
+            this.label3.Size = new System.Drawing.Size(37, 13);
             this.label3.TabIndex = 7;
-            this.label3.Text = "fecha";
+            this.label3.Text = "Fecha";
             // 
             // ElegirTurno
             // 
