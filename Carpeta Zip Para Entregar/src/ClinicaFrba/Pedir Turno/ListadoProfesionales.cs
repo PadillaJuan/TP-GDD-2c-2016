@@ -18,7 +18,7 @@ namespace ClinicaFrba.Pedir_Turno
         
         String wheres;
        String idAfiliado;
-        DataTable dt
+       DataTable dt;
         public ListadoProfesionales(String idUsuarioPasado)
         {
             InitializeComponent();
@@ -62,7 +62,7 @@ namespace ClinicaFrba.Pedir_Turno
                  ChkListEspecialidades.SetItemCheckState(i, CheckState.Unchecked);
              }
 
-             ChkListEspecialidades.SetItemCheckState(0, CheckState.Checked);
+             
              
              filtrarPag(1);
 

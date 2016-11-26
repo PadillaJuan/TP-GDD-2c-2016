@@ -131,7 +131,7 @@ namespace ClinicaFrba.Pedir_Turno
         String getIdRel()
         {
 
-            string query = String.Format("SELECT af_id*100+af_rel_id FROM afiliado WHERE us_id = {0}", us_id);
+            string query = String.Format("SELECT af_rel_id FROM afiliado WHERE af_id = {0}", idAfiliado);
             SqlConnection cn = (new BDConnection()).getInstance();
             SqlCommand cm = new SqlCommand(query, cn);
             string idRel = cm.ExecuteScalar().ToString();
