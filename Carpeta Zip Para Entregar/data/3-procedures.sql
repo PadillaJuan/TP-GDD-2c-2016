@@ -597,7 +597,7 @@ CREATE PROCEDURE cancelTurno
 AS
 BEGIN
     INSERT INTO cancelacion VALUES (@cancel_tipo, @cancel_motivo, @turno_id)
-	UPDATE turnos SET turno_estado = 2 WHERE  turno_id = @turno_id
+	UPDATE turnos SET turno_estado = 2, turno_agenda = NULL WHERE  turno_id = @turno_id
 END
 GO
 
