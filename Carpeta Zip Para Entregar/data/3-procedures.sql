@@ -562,6 +562,7 @@ BEGIN
 	
 	SET @d = CONVERT(DATETIME, @desde)
 	SET @h = CONVERT(DATETIME, @hasta)
+
 	SET @inicialBucle = @hi
 	SET @finalBucle = @hf
 	
@@ -572,13 +573,13 @@ BEGIN
 	
 	WHILE @d <= @h
 	BEGIN
-
 		WHILE @inicialBucle <= @finalBucle
 		BEGIN
 			INSERT INTO agenda_profesional VALUES (@id, @especialidad, @d + CONVERT(DATETIME, @inicialBucle))
 			SET @inicialBucle = DATEADD(MINUTE,30,@inicialBucle)
 		END
-		SET @d = DATEADD(DAY,7,@d)
+		SET @inicialBucle = @hi
+		SET @d = DATEADD(WEEK,1,@d)
 	END
 END
 GO

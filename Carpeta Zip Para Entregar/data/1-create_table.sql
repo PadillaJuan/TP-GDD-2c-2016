@@ -354,7 +354,7 @@ ALTER TABLE bono add constraint FK_plan_bono foreign key (bono_planmed) referenc
 ALTER TABLE bono add constraint FK_afi_bono foreign key (bono_af,bono_af_rel) references afiliado (af_id,af_rel_id);	
 
 ALTER TABLE consulta_medica add constraint FK_consulta_turno foreign key (cons_turno) references turnos (turno_id);	
-ALTER TABLE consulta_medica add constraint FK_consulta_bono foreign key (cons_bono) references bono (bono_id);	
+ALTER TABLE consulta_medica add constraint FK_consulta_bono foreign key (cons_bono) references bono (bono_id);
 
 ALTER TABLE turnos add constraint FK_turno_afi foreign key (turno_af,turno_af_rel) references afiliado (af_id,af_rel_id);
 ALTER TABLE turnos add constraint FK_turno_prof foreign key (turno_prof) references profesional (prof_id);		
@@ -365,7 +365,8 @@ ALTER TABLE cancelacion add constraint FK_cancelacion_turno foreign key (turno_i
 
 ALTER TABLE agenda_profesional add constraint FK_agenda_prof foreign key (agenda_prof) references profesional (prof_id);	
 ALTER TABLE agenda_profesional add constraint FK_agenda_prof2 foreign key (agenda_esp) references especialidad (esp_id);	
-	
+ALTER TABLE agenda_profesional ADD CONSTRAINT UN_DATOS UNIQUE (agenda_prof, agenda_esp, agenda_fechayhora);
+
 ALTER TABLE especialidad add constraint FK_especialidad_tipo foreign key (tipoEsp_id) references tipo_especialidades (tipoEsp_id);
 
 ALTER TABLE profesional add constraint FK_prof_us foreign key (us_id) references usuarios (us_id);
