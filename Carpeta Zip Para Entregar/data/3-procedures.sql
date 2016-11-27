@@ -60,8 +60,6 @@ IF (OBJECT_ID('getListado4', 'P') IS NOT NULL)
 IF (OBJECT_ID('getListado5', 'P') IS NOT NULL)
 	DROP PROCEDURE getListado5;
 
-
-
 IF (OBJECT_ID('addHorasAgenda', 'P') IS NOT NULL)
 	DROP PROCEDURE addHorasAgenda;	
 IF (OBJECT_ID('getEspecialidadesPorProfesional', 'P') IS NOT NULL)
@@ -161,11 +159,85 @@ BEGIN
 END
 GO
 
-CREATE PROCEDURE getPlanesMedicos
+CREATE PROCEDURE altaFamiliar
+	@af_id BIGINT,
+	@af_rel_id TINYINT,
+	@af_nombre VARCHAR(255),
+	@af_apellido VARCHAR(255),
+	@af_tipodoc	 VARCHAR(5),
+	@af_numdoc numeric(18,0),
+	@af_direccion VARCHAR(255),
+	@af_telefono numeric(18,0),
+	@af_mail VARCHAR(255) ,
+	@af_nacimiento DATETIME,
+	@af_estado_civil VARCHAR(11),
+	@planmed_id numeric(18,0),
+	@af_sexo CHAR(1)
 AS
 BEGIN
-SELECT planmed_id
-FROM Plan_medico
+	INSERT INTO usuarios VALUES(CONVERT(varchar(30), @af_numdoc),HASHBYTES('SHA2_256' ,@af_apellido),0,'a')
+	INSERT INTO rol_por_usuarios VALUES((SELECT us_id FROM usuarios u WHERE u.us_username like @af_numdoc),
+										(SELECT rol_id FROM rol r WHERE r.rol_nombre = 'Afiliado'))
+	SET IDENTITY_INSERT afiliado ON;
+	INSERT INTO afiliado(af_id, af_rel_id, us_id, af_nombre ,af_apellido ,af_tipodoc, af_numdoc, af_direccion , af_telefono , af_mail , af_nacimiento , af_estado_civil, af_cantidad_familiares, planmed_id , af_sexo)
+	VALUES (@af_id, (SELECT af_cantidad_familiares FROM afiliado WHERE af_id = @af_id AND af_rel_id = 0)+1, (SELECT us_id FROM usuarios WHERE us_username like CONVERT(varchar(30), @af_numdoc)), 
+			@af_nombre , @af_apellido , @af_tipodoc, @af_numdoc, @af_direccion , @af_telefono , @af_mail , @af_nacimiento , @af_estado_civil, 0, @planmed_id , @af_sexo)
+	SET IDENTITY_INSERT afiliado OFF;
+END
+GO
+
+CREATE PROCEDURE getDatosForCompraBono
+	@us_id INT
+AS
+BEGIN
+SELECT af_id, af_rel_id, planmed_id FROM afiliado WHERE us_id = @us_id
+END
+GO
+
+CREATE PROCEDURE getDatosDelAfiliado
+	@af_id BIGINT,
+	@af_rel_id TINYINT
+AS
+BEGIN
+SELECT * FROM afiliado 
+WHERE af_id = @af_id 
+AND af_rel_id = @af_rel_id
+END
+GO
+
+CREATE PROCEDURE actualizarAfiliado
+	@af_id BIGINT,
+	@af_rel_id TINYINT,
+	@af_direccion VARCHAR(255),
+	@af_telefono numeric(18,0),
+	@af_mail VARCHAR(255) ,
+	@af_estado_civil VARCHAR(11),
+	@planmed_id numeric(18,0),
+	@motivoCambio VARCHAR(100),
+	@fecha DATETIME
+AS
+BEGIN
+	IF (@motivoCambio != '')
+	BEGIN
+		INSERT INTO logs_cambio_plan
+		(af_id,af_rel_id,plan_id_ant,plan_id_new,cambio_plan_motivo,cambio_plan_fecha)
+		VALUES (@af_id,
+				@af_rel_id,
+				(SELECT planmed_id FROM afiliado WHERE af_id = @af_id AND af_rel_id = @af_rel_id),
+				@planmed_id,
+				@motivoCambio,
+				@fecha
+				)
+	END
+	BEGIN
+	UPDATE afiliado 
+		SET af_direccion = @af_direccion,
+		af_telefono = @af_telefono,
+		af_mail = @af_mail,
+		af_estado_civil = @af_estado_civil,
+		planmed_id = @planmed_id
+		WHERE af_id = @af_id AND af_rel_id = @af_rel_id
+	END
 END
 GO
 
@@ -223,6 +295,40 @@ AS
 BEGIN
 	INSERT into funcionalidad_por_rol VALUES( @id_rol, @fun_id)
 END
+GO
+
+CREATE PROCEDURE getRol
+	@rol_nombre VARCHAR(30)
+AS
+BEGIN
+	SELECT rol_id 'ID del Rol', rol_nombre 'Nombre del rol', rol_status 'Estado del Rol' FROM rol WHERE rol_nombre like @rol_nombre
+END
+GO
+
+CREATE PROCEDURE deactivateRol
+	@rol_id INT
+AS BEGIN
+	UPDATE rol SET rol_status = 'd' WHERE rol_id = @rol_id
+END
+GO
+
+CREATE PROCEDURE activateRol
+	@rol_id INT
+AS
+BEGIN
+	UPDATE rol SET rol_status = 'a' 
+	WHERE rol_id = @rol_id
+END
+
+GO
+
+CREATE PROCEDURE updateRXF
+	@id_rol INT
+AS
+BEGIN
+	DELETE FROM funcionalidad_por_rol WHERE rol_id = @id_rol
+END
+
 GO
 
 CREATE PROCEDURE login
@@ -283,85 +389,11 @@ DEALLOCATE loginCursor
 END
 GO
 
-CREATE PROCEDURE getRol
-	@rol_nombre VARCHAR(30)
+CREATE PROCEDURE getPlanesMedicos
 AS
 BEGIN
-	SELECT rol_id 'ID del Rol', rol_nombre 'Nombre del rol', rol_status 'Estado del Rol' FROM rol WHERE rol_nombre like @rol_nombre
-END
-GO
-
-
-CREATE PROCEDURE deactivateRol
-	@rol_id INT
-AS BEGIN
-	UPDATE rol SET rol_status = 'd' WHERE rol_id = @rol_id
-END
-GO
-
-CREATE PROCEDURE activateRol
-	@rol_id INT
-AS
-BEGIN
-	UPDATE rol SET rol_status = 'a' 
-	WHERE rol_id = @rol_id
-END
-
-GO
-
-CREATE PROCEDURE updateRXF
-	@id_rol INT
-AS
-BEGIN
-	DELETE FROM funcionalidad_por_rol WHERE rol_id = @id_rol
-END
-
-GO
-
-CREATE PROCEDURE getDatosDelAfiliado
-	@af_id BIGINT,
-	@af_rel_id TINYINT
-AS
-BEGIN
-SELECT * FROM afiliado 
-WHERE af_id = @af_id 
-AND af_rel_id = @af_rel_id
-END
-GO
-
-CREATE PROCEDURE actualizarAfiliado
-	@af_id BIGINT,
-	@af_rel_id TINYINT,
-	@af_direccion VARCHAR(255),
-	@af_telefono numeric(18,0),
-	@af_mail VARCHAR(255) ,
-	@af_estado_civil VARCHAR(11),
-	@planmed_id numeric(18,0),
-	@motivoCambio VARCHAR(100),
-	@fecha DATETIME
-AS
-BEGIN
-	IF (@motivoCambio != '')
-	BEGIN
-		INSERT INTO logs_cambio_plan
-		(af_id,af_rel_id,plan_id_ant,plan_id_new,cambio_plan_motivo,cambio_plan_fecha)
-		VALUES (@af_id,
-				@af_rel_id,
-				(SELECT planmed_id FROM afiliado WHERE af_id = @af_id AND af_rel_id = @af_rel_id),
-				@planmed_id,
-				@motivoCambio,
-				@fecha
-				)
-	END
-	BEGIN
-	UPDATE afiliado 
-		SET af_direccion = @af_direccion,
-		af_telefono = @af_telefono,
-		af_mail = @af_mail,
-		af_estado_civil = @af_estado_civil,
-		planmed_id = @planmed_id
-		WHERE af_id = @af_id AND af_rel_id = @af_rel_id
-	END
+SELECT planmed_id
+FROM Plan_medico
 END
 GO
 
@@ -374,7 +406,6 @@ FROM plan_medico
 WHERE planmed_id = @planmed_id
 END
 GO
-
 
 CREATE PROCEDURE comprarBonos
 	@af_id BIGINT,
@@ -412,76 +443,6 @@ BEGIN
 END
 GO
 
-
-CREATE PROCEDURE altaFamiliar
-	@af_id BIGINT,
-	@af_rel_id TINYINT,
-	@af_nombre VARCHAR(255),
-	@af_apellido VARCHAR(255),
-	@af_tipodoc	 VARCHAR(5),
-	@af_numdoc numeric(18,0),
-	@af_direccion VARCHAR(255),
-	@af_telefono numeric(18,0),
-	@af_mail VARCHAR(255) ,
-	@af_nacimiento DATETIME,
-	@af_estado_civil VARCHAR(11),
-	@planmed_id numeric(18,0),
-	@af_sexo CHAR(1)
-AS
-BEGIN
-	INSERT INTO usuarios VALUES(CONVERT(varchar(30), @af_numdoc),HASHBYTES('SHA2_256' ,@af_apellido),0,'a')
-	INSERT INTO rol_por_usuarios VALUES((SELECT us_id FROM usuarios u WHERE u.us_username like @af_numdoc),
-										(SELECT rol_id FROM rol r WHERE r.rol_nombre = 'Afiliado'))
-	SET IDENTITY_INSERT afiliado ON;
-	INSERT INTO afiliado(af_id, af_rel_id, us_id, af_nombre ,af_apellido ,af_tipodoc, af_numdoc, af_direccion , af_telefono , af_mail , af_nacimiento , af_estado_civil, af_cantidad_familiares, planmed_id , af_sexo)
-	VALUES (@af_id, (SELECT af_cantidad_familiares FROM afiliado WHERE af_id = @af_id AND af_rel_id = 0)+1, (SELECT us_id FROM usuarios WHERE us_username like CONVERT(varchar(30), @af_numdoc)), 
-			@af_nombre , @af_apellido , @af_tipodoc, @af_numdoc, @af_direccion , @af_telefono , @af_mail , @af_nacimiento , @af_estado_civil, 0, @planmed_id , @af_sexo)
-	SET IDENTITY_INSERT afiliado OFF;
-END
-GO
-
-CREATE PROCEDURE getDatosForCompraBono
-	@us_id INT
-AS
-BEGIN
-SELECT af_id, af_rel_id, planmed_id FROM afiliado WHERE us_id = @us_id
-END
-GO
-
-CREATE PROCEDURE getTurnos
-	@af_id BIGINT,
-	@af_rel_id TINYINT,
-	@esp_id INT,
-	@prof_apellido VARCHAR(50),
-	@fecha DATETIME
-AS
-BEGIN
-
-	SELECT t.turno_id ' ID del turno' , e.esp_descripcion'Nombre de la especialidad' , p.prof_apellido'Apellido del profesiona', a.agenda_fechayhora 'Fecha'
-	FROM turnos t
-	JOIN profesional p ON t.turno_prof = p.prof_id
-	JOIN especialidad e ON e.esp_id = t.turno_esp
-	JOIN agenda_profesional a ON agenda_id = t.turno_agenda 
-	WHERE turno_af = @af_id AND turno_af_rel = @af_rel_id
-	AND (@esp_id = t.turno_esp OR p.prof_apellido = @prof_apellido)
-	AND turno_estado = 0
-
-END
-GO
-
-CREATE PROCEDURE getConsultas
-	@af_id BIGINT,
-	@af_rel_id TINYINT
-AS
-BEGIN
-	SELECT c.cons_id'ID de la consulta', t.turno_prof'ID del profesional', t.turno_esp 'ID de la especialidad'
-	FROM turnos t 
-	JOIN consulta_medica c 
-	ON turno_id = cons_turno
-	WHERE turno_estado = 0
-END
-GO
-
 CREATE PROCEDURE getBonosDisponibles
 	@af_id BIGINT
 AS
@@ -495,35 +456,6 @@ AND bono_af = @af_id
 END
 GO
 
-CREATE PROCEDURE generateConsultaMedica
-	@turno_id INT,
-	@bono_id INT,
-	@hora_llegada VARCHAR(30),
-	@af_id BIGINT,
-	@af_rel_id TINYINT
-AS
-BEGIN
-
-	INSERT INTO consulta_medica(cons_turno,cons_bono,cons_hora_llegada)
-				VALUES(@turno_id,@bono_id,CONVERT(DATETIME,@hora_llegada,126))
-
-	UPDATE bono SET bono_nro_consulta= (SELECT COUNT(*)+1 FROM bono WHERE bono_af = @af_id AND bono_af_rel = @af_rel_id), bono_af_rel = @af_rel_id
-	WHERE bono_id = @bono_id
-
-	
-	END
-GO
-
-CREATE PROCEDURE getTurnosDelProfesional
-	@prof_id INT
-AS
-BEGIN
-	SELECT turno_id 'ID del turno', DATEPART(YEAR,turno_fecha)'Año', DATEPART(MONTH,turno_fecha)'Mes', DATEPART (DAY, turno_fecha) 'Dia', DATEPART(HOUR,turno_fecha)'Hora', DATEPART(MINUTE,turno_fecha)'Minutos', turno_af'ID Familiar', turno_af_rel 'ID Relacional' 
-	FROM turnos
-	WHERE turno_prof = @prof_id
-END
-GO
-
 CREATE PROCEDURE getEspecialidadesMedicas
 AS
 BEGIN
@@ -531,21 +463,15 @@ BEGIN
 END
 GO
 
-CREATE PROCEDURE bajaIntervalo
-	@prof_id INT,
-	@desde VARCHAR(50),
-	@hasta VARCHAR(50)
+CREATE PROCEDURE getEspecialidadesPorProfesional
+	@us_id INT
 AS
 BEGIN
-	SET @desde = CONVERT(DATETIME,@desde,120)
-	SET @hasta = CONVERT(DATETIME,@hasta,120)
-	
-	PRINT @desde + '   ' +  @hasta
-
-	INSERT INTO periodo_baja(periodo_desde,periodo_hasta,prof_id) VALUES(@desde, @hasta, @prof_id)
+	SELECT c.esp_id'ID de la especialidad', c.esp_descripcion 'Nombre de la especialidad'
+    FROM profesional a, especialidad_por_profesional b, especialidad c
+	WHERE a.us_id = @us_id AND b.prof_id = a.prof_id AND c.esp_id = b.esp_id
 END
 GO
-
 
 CREATE PROCEDURE addHorasAgenda
 	@id INT,
@@ -592,26 +518,66 @@ BEGIN
 END
 GO
 
-
-CREATE PROCEDURE getEspecialidadesPorProfesional
-	@us_id INT
+CREATE PROCEDURE getTurnos
+	@af_id BIGINT,
+	@af_rel_id TINYINT,
+	@esp_id INT,
+	@prof_apellido VARCHAR(50),
+	@fecha DATETIME
 AS
 BEGIN
-	SELECT c.esp_id'ID de la especialidad', c.esp_descripcion 'Nombre de la especialidad'
-    FROM profesional a, especialidad_por_profesional b, especialidad c
-	WHERE a.us_id = @us_id AND b.prof_id = a.prof_id AND c.esp_id = b.esp_id
+
+	SELECT t.turno_id ' ID del turno' , e.esp_descripcion'Nombre de la especialidad' , p.prof_apellido'Apellido del profesiona', a.agenda_fechayhora 'Fecha'
+	FROM turnos t
+	JOIN profesional p ON t.turno_prof = p.prof_id
+	JOIN especialidad e ON e.esp_id = t.turno_esp
+	JOIN agenda_profesional a ON agenda_id = t.turno_agenda 
+	WHERE turno_af = @af_id AND turno_af_rel = @af_rel_id
+	AND (@esp_id = t.turno_esp OR p.prof_apellido = @prof_apellido)
+	AND turno_estado = 0
+
 END
 GO
 
-
-CREATE PROCEDURE cancelTurno
-   	@turno_id INT, 
-	@cancel_motivo VARCHAR(30) , 
-	@cancel_tipo CHAR(1)
+CREATE PROCEDURE generateConsultaMedica
+	@turno_id INT,
+	@bono_id INT,
+	@hora_llegada VARCHAR(30),
+	@af_id BIGINT,
+	@af_rel_id TINYINT
 AS
 BEGIN
-    INSERT INTO cancelacion VALUES (@cancel_tipo, @cancel_motivo, @turno_id)
-	UPDATE turnos SET turno_estado = 2, turno_agenda = NULL WHERE  turno_id = @turno_id
+
+	INSERT INTO consulta_medica(cons_turno,cons_bono,cons_hora_llegada)
+				VALUES(@turno_id,@bono_id,CONVERT(DATETIME,@hora_llegada,126))
+
+	UPDATE bono SET bono_nro_consulta= (SELECT COUNT(*)+1 FROM bono WHERE bono_af = @af_id AND bono_af_rel = @af_rel_id), bono_af_rel = @af_rel_id
+	WHERE bono_id = @bono_id
+
+	
+	END
+GO
+
+CREATE PROCEDURE getConsultas
+	@af_id BIGINT,
+	@af_rel_id TINYINT
+AS
+BEGIN
+	SELECT c.cons_id'ID de la consulta', t.turno_prof'ID del profesional', t.turno_esp 'ID de la especialidad'
+	FROM turnos t 
+	JOIN consulta_medica c 
+	ON turno_id = cons_turno
+	WHERE turno_estado = 0
+END
+GO
+
+CREATE PROCEDURE getTurnosDelProfesional
+	@prof_id INT
+AS
+BEGIN
+	SELECT turno_id 'ID del turno', DATEPART(YEAR,turno_fecha)'Año', DATEPART(MONTH,turno_fecha)'Mes', DATEPART (DAY, turno_fecha) 'Dia', DATEPART(HOUR,turno_fecha)'Hora', DATEPART(MINUTE,turno_fecha)'Minutos', turno_af'ID Familiar', turno_af_rel 'ID Relacional' 
+	FROM turnos
+	WHERE turno_prof = @prof_id
 END
 GO
 
@@ -654,6 +620,32 @@ BEGIN
 	UPDATE turnos SET turno_estado = 1 WHERE turno_id = (SELECT cons_turno FROM consulta_medica WHERE cons_id = @cons_id)
 END
 GO
+
+CREATE PROCEDURE bajaIntervalo
+	@prof_id INT,
+	@desde VARCHAR(50),
+	@hasta VARCHAR(50)
+AS
+BEGIN
+	SET @desde = CONVERT(DATETIME,@desde,120)
+	SET @hasta = CONVERT(DATETIME,@hasta,120)
+	
+	PRINT @desde + '   ' +  @hasta
+
+	INSERT INTO periodo_baja(periodo_desde,periodo_hasta,prof_id) VALUES(@desde, @hasta, @prof_id)
+END
+GO
+
+CREATE PROCEDURE cancelTurno
+   	@turno_id INT, 
+	@cancel_motivo VARCHAR(30) , 
+	@cancel_tipo CHAR(1)
+AS
+BEGIN
+    INSERT INTO cancelacion VALUES (@cancel_tipo, @cancel_motivo, @turno_id)
+	UPDATE turnos SET turno_estado = 2, turno_agenda = NULL WHERE  turno_id = @turno_id
+END
+GO
 ------------------LISTADOS------------------LISTADOS------------------LISTADOS------------------LISTADOS------------------LISTADOS
 
 CREATE PROCEDURE getListado1
@@ -671,7 +663,6 @@ BEGIN
 	ORDER BY 'Cantidad de cancelaciones' DESC
 END
 GO
-
 
 CREATE PROCEDURE getListado2
 	@fecha_inicio DATETIME,
@@ -721,7 +712,6 @@ BEGIN
 	ORDER BY 'Cantidad de bonos comprados' DESC
 END
 GO
-
 
 CREATE PROCEDURE getListado5
 	@fecha_inicio DATETIME,
