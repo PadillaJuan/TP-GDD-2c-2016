@@ -1,13 +1,25 @@
-/* DROP PROCEDURE */
+--   STORED
+--   PROCEDURES
 
+-- DROP PROCEDURES
+
+--PARA EL AFILIADO
 IF (OBJECT_ID('bajaAfiliado', 'P') IS NOT NULL)
 	DROP PROCEDURE bajaAfiliado;
 IF (OBJECT_ID('altaAfiliado', 'P') IS NOT NULL)
 	DROP PROCEDURE altaAfiliado;
 IF (OBJECT_ID('getNextRelID', 'P') IS NOT NULL)
 	DROP PROCEDURE getNextRelID;
-IF (OBJECT_ID('getPlanesMedicos', 'P') IS NOT NULL)
-	DROP PROCEDURE getPlanesMedicos;
+IF (OBJECT_ID('altaFamiliar', 'P') IS NOT NULL)
+	DROP PROCEDURE altaFamiliar;
+IF (OBJECT_ID('getDatosForCompraBono', 'P') IS NOT NULL)
+	DROP PROCEDURE getDatosForCompraBono;
+IF (OBJECT_ID('getDatosDelAfiliado', 'P') IS NOT NULL)
+	DROP PROCEDURE getDatosDelAfiliado;
+IF (OBJECT_ID('actualizarAfiliado', 'P') IS NOT NULL)
+	DROP PROCEDURE actualizarAfiliado;
+
+-- PARA ABM ROL
 IF (OBJECT_ID('getRolesPorUsuario', 'P') IS NOT NULL)
 	DROP PROCEDURE getRolesPorUsuario;
 IF (OBJECT_ID('getAllRoles', 'P') IS NOT NULL)
@@ -20,8 +32,6 @@ IF (OBJECT_ID('InsertarRol', 'P') IS NOT NULL)
 	DROP PROCEDURE InsertarRol;
 IF (OBJECT_ID('InsertarRolXFuncionalidad', 'P') IS NOT NULL)
 	DROP PROCEDURE InsertarRolXFuncionalidad;
-IF (OBJECT_ID('login', 'P') IS NOT NULL)
-	DROP PROCEDURE login;
 IF (OBJECT_ID('getRol', 'P') IS NOT NULL)
 	DROP PROCEDURE getRol;
 IF (OBJECT_ID('deactivateRol', 'P') IS NOT NULL)
@@ -30,25 +40,54 @@ IF (OBJECT_ID('activateRol', 'P') IS NOT NULL)
 	DROP PROCEDURE activateRol;
 IF (OBJECT_ID('updateRXF', 'P') IS NOT NULL)
 	DROP PROCEDURE updateRXF;
-IF (OBJECT_ID('getDatosDelAfiliado', 'P') IS NOT NULL)
-	DROP PROCEDURE getDatosDelAfiliado;
-IF (OBJECT_ID('actualizarAfiliado', 'P') IS NOT NULL)
-	DROP PROCEDURE actualizarAfiliado;
+
+-- LOGIN
+IF (OBJECT_ID('login', 'P') IS NOT NULL)
+	DROP PROCEDURE login;
+
+-- PARA COMPRA BONO
+IF (OBJECT_ID('getPlanesMedicos', 'P') IS NOT NULL)
+	DROP PROCEDURE getPlanesMedicos;
 IF (OBJECT_ID('getPrecioBonoDelPlan', 'P') IS NOT NULL)
 	DROP PROCEDURE getPrecioBonoDelPlan;
 IF (OBJECT_ID('comprarBonos', 'P') IS NOT NULL)
 	DROP PROCEDURE comprarBonos;
-IF (OBJECT_ID('altaFamiliar', 'P') IS NOT NULL)
-	DROP PROCEDURE altaFamiliar;
-IF (OBJECT_ID('getDatosForCompraBono', 'P') IS NOT NULL)
-	DROP PROCEDURE getDatosForCompraBono;
-IF (OBJECT_ID('getTurnos', 'P') IS NOT NULL)
-	DROP PROCEDURE getTurnos;
+IF (OBJECT_ID('checkBono', 'P') IS NOT NULL)
+	DROP PROCEDURE checkBono;
 IF (OBJECT_ID('getBonosDisponibles', 'P') IS NOT NULL)
 	DROP PROCEDURE getBonosDisponibles;
+
+	-- PARA REGISTRO DE AGENDA
+IF (OBJECT_ID('getEspecialidadesMedicas', 'P') IS NOT NULL)
+	DROP PROCEDURE getEspecialidadesMedicas;
+IF (OBJECT_ID('getEspecialidadesPorProfesional', 'P') IS NOT NULL)
+	DROP PROCEDURE getEspecialidadesPorProfesional;
+IF (OBJECT_ID('addHorasAgenda', 'P') IS NOT NULL)
+	DROP PROCEDURE addHorasAgenda;	
+IF (OBJECT_ID('getTurnos', 'P') IS NOT NULL)
+	DROP PROCEDURE getTurnos;
+
+
+-- PARA PEDIDO DE TURNOS Y REGISTROS DE LLEGADA/CONSULTA
 IF (OBJECT_ID('generateConsultaMedica', 'P') IS NOT NULL)
 	DROP PROCEDURE generateConsultaMedica;
+IF (OBJECT_ID('getConsultas', 'P') IS NOT NULL)
+	DROP PROCEDURE getConsultas;
+IF (OBJECT_ID('getTurnosDelProfesional', 'P') IS NOT NULL)
+	DROP PROCEDURE getTurnosDelProfesional;
+IF (OBJECT_ID('reservarTurno', 'P') IS NOT NULL)
+	DROP PROCEDURE reservarTurno;
+IF (OBJECT_ID('dameTurnosDisponiblesDeLaFecha', 'P') IS NOT NULL)
+	DROP PROCEDURE dameTurnosDisponiblesDeLaFecha;
+IF (OBJECT_ID('finalizarConsulta', 'P') IS NOT NULL)
+	DROP PROCEDURE finalizarConsulta;
+IF (OBJECT_ID('bajaIntervalo', 'P') IS NOT NULL)
+	DROP PROCEDURE bajaIntervalo;
+IF (OBJECT_ID('cancelTurno', 'P') IS NOT NULL)
+	DROP PROCEDURE cancelTurno;
 
+
+-- LISTADOS
 IF (OBJECT_ID('getListado1', 'P') IS NOT NULL)
 	DROP PROCEDURE getListado1;
 IF (OBJECT_ID('getListado2', 'P') IS NOT NULL)
@@ -59,48 +98,15 @@ IF (OBJECT_ID('getListado4', 'P') IS NOT NULL)
 	DROP PROCEDURE getListado4;
 IF (OBJECT_ID('getListado5', 'P') IS NOT NULL)
 	DROP PROCEDURE getListado5;
-
-IF (OBJECT_ID('addHorasAgenda', 'P') IS NOT NULL)
-	DROP PROCEDURE addHorasAgenda;	
-IF (OBJECT_ID('getEspecialidadesPorProfesional', 'P') IS NOT NULL)
-	DROP PROCEDURE getEspecialidadesPorProfesional;
-
-IF OBJECT_ID('estaLibre') IS NOT NULL
-	DROP FUNCTION estaLibre
-IF OBJECT_ID('fechasLibres') IS NOT NULL
-	DROP PROCEDURE fechasLibres
-	
-IF (OBJECT_ID('cancelTurno', 'P') IS NOT NULL)
-	DROP PROCEDURE cancelTurno;
-IF (OBJECT_ID('reservarTurno', 'P') IS NOT NULL)
-	DROP PROCEDURE reservarTurno;
-
-
-IF (OBJECT_ID('getConsultas', 'P') IS NOT NULL)
-	DROP PROCEDURE getConsultas;
-
-IF (OBJECT_ID('finalizarConsulta', 'P') IS NOT NULL)
-	DROP PROCEDURE finalizarConsulta;
-
-IF (OBJECT_ID('getEspecialidadesMedicas', 'P') IS NOT NULL)
-	DROP PROCEDURE getEspecialidadesMedicas;
-IF (OBJECT_ID('checkBono', 'P') IS NOT NULL)
-	DROP PROCEDURE checkBono;
-IF (OBJECT_ID('getTurnosDelProfesional', 'P') IS NOT NULL)
-	DROP PROCEDURE getTurnosDelProfesional;
-
-IF (OBJECT_ID('bajaIntervalo', 'P') IS NOT NULL)
-	DROP PROCEDURE bajaIntervalo;
-
-IF (OBJECT_ID('dameTurnosDisponiblesDeLaFecha', 'P') IS NOT NULL)
-	DROP PROCEDURE dameTurnosDisponiblesDeLaFecha;
-
 GO
 
 
 
-/* CREATE PROCEDURE */
+			-- CREACION DE PROCEDURES
+			-- CREACION DE PROCEDURES
 
+
+--PARA EL AFILIADO
 CREATE PROCEDURE bajaAfiliado
 	@id INT,
 	@id_rel TINYINT,
@@ -241,6 +247,8 @@ BEGIN
 END
 GO
 
+
+-- PARA ABM ROL
 CREATE PROCEDURE getRolesPorUsuario
 	@us_id INT
 AS
@@ -331,6 +339,8 @@ END
 
 GO
 
+
+-- LOGIN
 CREATE PROCEDURE login
 	@us_name VARCHAR(30),
 	@us_pw VARCHAR(64),
@@ -389,6 +399,8 @@ DEALLOCATE loginCursor
 END
 GO
 
+
+-- PARA COMPRA BONO
 CREATE PROCEDURE getPlanesMedicos
 AS
 BEGIN
@@ -456,6 +468,9 @@ AND bono_af = @af_id
 END
 GO
 
+
+
+-- PARA REGISTRO DE AGENDA
 CREATE PROCEDURE getEspecialidadesMedicas
 AS
 BEGIN
@@ -539,6 +554,9 @@ BEGIN
 END
 GO
 
+
+
+-- PARA PEDIDO DE TURNOS Y REGISTROS DE LLEGADA/CONSULTA
 CREATE PROCEDURE generateConsultaMedica
 	@turno_id INT,
 	@bono_id INT,
@@ -646,8 +664,10 @@ BEGIN
 	UPDATE turnos SET turno_estado = 2, turno_agenda = NULL WHERE  turno_id = @turno_id
 END
 GO
-------------------LISTADOS------------------LISTADOS------------------LISTADOS------------------LISTADOS------------------LISTADOS
 
+
+
+-- LISTADOS
 CREATE PROCEDURE getListado1
 	@fecha_inicio DATETIME,
 	@fecha_fin DATETIME
