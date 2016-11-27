@@ -163,7 +163,7 @@ CREATE PROCEDURE getNextRelID
 	@af_id BIGINT
 AS
 BEGIN
-	SELECT MAX(af_rel_id) +1
+	SELECT MAX(af_rel_id)+1
 	FROM afiliado
 	WHERE af_id = @af_id
 	RETURN
@@ -296,7 +296,7 @@ CREATE PROCEDURE getRol
 	@rol_nombre VARCHAR(30)
 AS
 BEGIN
-	SELECT * FROM rol WHERE rol_nombre like @rol_nombre
+	SELECT rol_id 'ID del Rol', rol_nombre 'Nombre del rol', rol_status 'Estado del Rol' FROM rol WHERE rol_nombre like @rol_nombre
 END
 GO
 
@@ -466,7 +466,7 @@ CREATE PROCEDURE getTurnos
 AS
 BEGIN
 
-	SELECT t.turno_id, e.esp_descripcion, p.prof_apellido, a.agenda_fechayhora
+	SELECT t.turno_id ' ID del turno' , e.esp_descripcion'Nombre de la especialidad' , p.prof_apellido'Apellido del profesiona', a.agenda_fechayhora 'Fecha'
 	FROM turnos t
 	JOIN profesional p ON t.turno_prof = p.prof_id
 	JOIN especialidad e ON e.esp_id = t.turno_esp
@@ -484,7 +484,7 @@ CREATE PROCEDURE getBonosDisponibles
 AS
 BEGIN
 
-SELECT bono_id, bono_compra
+SELECT bono_id 'ID del bono', bono_planmed ' Plan medico que cubre el bono'
 FROM bono
 WHERE bono_nro_consulta IS NULL
 AND bono_af = @af_id AND bono_af_rel = @af_rel_id
@@ -515,7 +515,7 @@ CREATE PROCEDURE getTurnosDelProfesional
 	@prof_id INT
 AS
 BEGIN
-	SELECT turno_id, DATEPART(YEAR,turno_fecha), DATEPART(MONTH,turno_fecha), DATEPART(HOUR,turno_fecha), DATEPART(MINUTE,turno_fecha), turno_af, turno_af_rel
+	SELECT turno_id 'ID del turno', DATEPART(YEAR,turno_fecha)'Año', DATEPART(MONTH,turno_fecha)'Mes', DATEPART (DAY, turno_fecha) 'Dia', DATEPART(HOUR,turno_fecha)'Hora', DATEPART(MINUTE,turno_fecha)'Minutos', turno_af'ID Familiar', turno_af_rel 'ID Relacional' 
 	FROM turnos
 	WHERE turno_prof = @prof_id
 END
@@ -589,7 +589,7 @@ CREATE PROCEDURE getEspecialidadesPorProfesional
 	@us_id INT
 AS
 BEGIN
-	SELECT c.esp_id, c.esp_descripcion
+	SELECT c.esp_id'ID de la especialidad', c.esp_descripcion 'Nombre de la especialidad'
     FROM profesional a, especialidad_por_profesional b, especialidad c
 	WHERE a.us_id = @us_id AND b.prof_id = a.prof_id AND c.esp_id = b.esp_id
 END
@@ -624,7 +624,7 @@ CREATE PROCEDURE dameTurnosDisponiblesDeLaFecha
 	@fecha VARCHAR(20)
 AS
 BEGIN
-	SELECT DATEPART(hour,agenda_fechayhora) Hora, DATEPART(minute, agenda_fechayhora) Minutos, agenda_id  
+	SELECT DATEPART(hour,agenda_fechayhora) 'Hora', DATEPART(minute, agenda_fechayhora) 'Minutos', agenda_id  'ID de la agenda'
 	FROM agenda_profesional
 	WHERE agenda_id NOT IN (SELECT turno_agenda FROM turnos WHERE turno_estado = 0)	
 	AND CONVERT(VARCHAR(10),agenda_fechayhora,126) like CONVERT(VARCHAR(10),@fecha,126)
@@ -637,7 +637,7 @@ CREATE PROCEDURE getConsultas
 	@af_rel_id TINYINT
 AS
 BEGIN
-	SELECT c.cons_id, t.turno_prof, t.turno_esp
+	SELECT c.cons_id'ID de la consulta', t.turno_prof'ID del profesional', t.turno_esp 'ID de la especialidad'
 	FROM turnos t 
 	JOIN consulta_medica c 
 	ON turno_id = cons_turno
