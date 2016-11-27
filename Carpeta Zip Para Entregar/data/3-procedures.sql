@@ -539,8 +539,7 @@ CREATE PROCEDURE getTurnos
 	@af_id BIGINT,
 	@af_rel_id TINYINT,
 	@esp_id INT,
-	@prof_apellido VARCHAR(50),
-	@fecha DATETIME
+	@prof_apellido VARCHAR(50)
 AS
 BEGIN
 

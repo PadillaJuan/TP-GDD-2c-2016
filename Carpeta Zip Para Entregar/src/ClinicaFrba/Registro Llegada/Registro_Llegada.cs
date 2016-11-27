@@ -53,7 +53,6 @@ namespace ClinicaFrba.Registro_Llegada
                 cm.Parameters.AddWithValue("@af_rel_id", getRelID());
                 cm.Parameters.AddWithValue("@esp_id", getEspID());
                 cm.Parameters.AddWithValue("@prof_apellido",textBox1.Text);
-                cm.Parameters.AddWithValue("@fecha", DateTime.Parse(Program.nuevaFechaSistema()));
                 SqlDataAdapter sda = new SqlDataAdapter(cm);
                 tabla = new DataTable();
                 sda.Fill(tabla);
