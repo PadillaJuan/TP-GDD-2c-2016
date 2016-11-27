@@ -254,6 +254,9 @@
     <EmbeddedResource Include="Pedir Turno\ListadoProfesionales.resx">
       <DependentUpon>ListadoProfesionales.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Registrar Agenta Medico\Registrar_agenda.resx">
+      <DependentUpon>Registrar_agenda.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Registro Llegada\Registro_Llegada.resx">
       <DependentUpon>Registro_Llegada.cs</DependentUpon>
     </EmbeddedResource>

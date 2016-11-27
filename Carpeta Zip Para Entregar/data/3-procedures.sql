@@ -541,38 +541,44 @@ GO
 
 CREATE PROCEDURE addHorasAgenda
 	@id INT,
-	@desde DATETIME,
-	@hasta DATETIME,
+	@desde VARCHAR(30),
+	@hasta VARCHAR(30),
 	@dia INT,
-	@hora_inicio TIME,
-	@hora_fin TIME,
+	@hora_inicio VARCHAR(20),
+	@hora_fin VARCHAR(20),
 	@especialidad INT
 AS
 BEGIN	
 	
-	DECLARE @fechatemp DATETIME
-	DECLARE @fechatemp_fin DATETIME
-		
-	WHILE (@dia != DATEPART(weekday,@desde))
+	DECLARE @inicialBucle TIME
+	DECLARE @finalBucle TIME
+	DECLARE @hi TIME
+	DECLARE @hf TIME
+	DECLARE @d DATETIME
+	DECLARE @h DATETIME
+
+	SET @hi = CONVERT(TIME, @hora_inicio)
+	SET @hf = CONVERT(TIME, @hora_fin)
+	
+	SET @d = CONVERT(DATETIME, @desde)
+	SET @h = CONVERT(DATETIME, @hasta)
+	SET @inicialBucle = @hi
+	SET @finalBucle = @hf
+	
+	WHILE (@dia != DATEPART(weekday,@d))
 	BEGIN
-		SET @desde = DATEADD(day,1,@desde)
+		SET @d = DATEADD(DAY,1,@d)
 	END
-
 	
-	SET @desde = CONVERT(VARCHAR(30),DATEPART(year,@desde)) + '-'+ CONVERT(VARCHAR(30),DATEPART(month,@desde)) +'-'+ CONVERT(VARCHAR(30),DATEPART(day,@desde)) +' '+CONVERT(VARCHAR(30),DATEPART(hour,@hora_inicio))+':'+CONVERT(VARCHAR(30),DATEPART(minute,@hora_inicio))
+	WHILE @d <= @h
+	BEGIN
 
-	SET @fechatemp_fin = CONVERT(VARCHAR(30),DATEPART(year,@desde)) + '-'+ CONVERT(VARCHAR(30),DATEPART(month,@desde)) +'-'+ CONVERT(VARCHAR(30),DATEPART(day,@desde)) +' '+CONVERT(VARCHAR(30),DATEPART(hour,@hora_fin))+':'+CONVERT(VARCHAR(30),DATEPART(minute,@hora_fin))
-	
-	WHILE (DATEDIFF(day,@desde,@hasta) >= 0)
-	BEGIN		
-		SET @fechatemp = @desde
-		WHILE(DATEDIFF(minute,@fechatemp,@fechatemp_fin) >= 0)
+		WHILE @inicialBucle <= @finalBucle
 		BEGIN
-			INSERT INTO agenda_profesional (agenda_prof, agenda_esp, agenda_fechayhora) VALUES (@id,@especialidad,@fechatemp)
-			SET @fechatemp = DATEADD(minute,30,@fechatemp)
-		END	
-		SET @desde = DATEADD(day,7,@desde)
-		SET @fechatemp_fin = DATEADD(day,7,@fechatemp_fin)
+			INSERT INTO agenda_profesional VALUES (@id, @especialidad, @d + CONVERT(DATETIME, @inicialBucle))
+			SET @inicialBucle = DATEADD(MINUTE,30,@inicialBucle)
+		END
+		SET @d = DATEADD(DAY,7,@d)
 	END
 END
 GO

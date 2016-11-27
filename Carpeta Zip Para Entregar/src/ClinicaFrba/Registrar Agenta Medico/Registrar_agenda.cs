@@ -67,7 +67,7 @@ namespace ClinicaFrba.Registrar_Agenta_Medico
             string query = "getEspecialidadesPorProfesional";
             SqlCommand com = new SqlCommand(query, conn);
             com.CommandType = CommandType.StoredProcedure;
-            com.Parameters.Add(new SqlParameter("@us_id", us_id));
+            com.Parameters.Add(new SqlParameter("@us_id", 5551));
             string especialidad;
             int esp_id;
             try
@@ -125,8 +125,8 @@ namespace ClinicaFrba.Registrar_Agenta_Medico
             string hora_inicio, hora_fin, desde, hasta;
             TotalHoralSemanal = 0;
             // DATOS HARDCODEADOS
-            desde = fecha_desde.Value.Year.ToString() + "-" + fecha_desde.Value.Month.ToString() +"-"+ fecha_desde.Value.Day.ToString() +" 00:00";
-            hasta = fecha_hasta.Value.Year.ToString() + "-" + fecha_hasta.Value.Month.ToString() +"-"+ fecha_hasta.Value.Day.ToString() +" 23:59";
+            desde = fecha_desde.Value.Year.ToString() + "-" + fecha_desde.Value.Day.ToString() + "-" + fecha_desde.Value.Month.ToString() + " 00:00:00";
+            hasta = fecha_hasta.Value.Year.ToString() + "-" + fecha_hasta.Value.Day.ToString() + "-" + fecha_hasta.Value.Month.ToString() + " 23:59:00";
             prof_id = obtenerProfID();
             //
             // Inicio Validacion campos
@@ -270,117 +270,67 @@ namespace ClinicaFrba.Registrar_Agenta_Medico
                 hora_inicio = horainicio_hora_lunes.SelectedItem.ToString() + ":" + horainicio_min_lunes.SelectedItem.ToString();
                 hora_fin = horafin_hora_lunes.SelectedItem.ToString() + ":" + horafin_min_lunes.SelectedItem.ToString();
                 esp_id = ((Item)especialidad_lunes.SelectedItem).Value;
-                string query = "addHorasAgenda";
-                SqlConnection conn = (new BDConnection()).getConnection();
-                SqlCommand com = new SqlCommand(query, conn);
-                com.CommandType = CommandType.StoredProcedure;
-                com.Parameters.AddWithValue("@id", prof_id);
-                com.Parameters.AddWithValue("@desde", desde);
-                com.Parameters.AddWithValue("@hasta", hasta);
-                com.Parameters.AddWithValue("@dia", "2");
-                com.Parameters.AddWithValue("@hora_inicio", hora_inicio);
-                com.Parameters.AddWithValue("@hora_fin", hora_fin);
-                com.Parameters.AddWithValue("@especialidad", esp_id);
-                com.ExecuteNonQuery();
-                com.Dispose();
+                uploadAgendaToSQL(esp_id, prof_id, hora_inicio, hora_fin, desde, hasta);
             }
             if (martes_activar.Checked)
             {
                 hora_inicio = horainicio_hora_martes.SelectedItem.ToString() + ":" + horainicio_min_martes.SelectedItem.ToString();
                 hora_fin = horafin_hora_martes.SelectedItem.ToString() + ":" + horafin_min_martes.SelectedItem.ToString();
                 esp_id = ((Item)especialidad_martes.SelectedItem).Value;
-                string query = "addHorasAgenda";
-                SqlConnection conn = (new BDConnection()).getConnection();
-                SqlCommand com = new SqlCommand(query, conn);
-                com.CommandType = CommandType.StoredProcedure;
-                com.Parameters.AddWithValue("@id", prof_id);
-                com.Parameters.AddWithValue("@desde", desde);
-                com.Parameters.AddWithValue("@hasta", hasta);
-                com.Parameters.AddWithValue("@dia", "3");
-                com.Parameters.AddWithValue("@hora_inicio", hora_inicio);
-                com.Parameters.AddWithValue("@hora_fin", hora_fin);
-                com.Parameters.AddWithValue("@especialidad", esp_id);
-                com.ExecuteNonQuery();
-                com.Dispose();
+                uploadAgendaToSQL(esp_id, prof_id, hora_inicio, hora_fin, desde, hasta);
             }
             if (miercoles_activar.Checked)
             {
                 hora_inicio = horainicio_hora_miercoles.SelectedItem.ToString() + ":" + horainicio_min_miercoles.SelectedItem.ToString();
                 hora_fin = horafin_hora_miercoles.SelectedItem.ToString() + ":" + horafin_min_miercoles.SelectedItem.ToString();
                 esp_id = ((Item)especialidad_miercoles.SelectedItem).Value;
-                string query = "addHorasAgenda";
-                SqlConnection conn = (new BDConnection()).getConnection();
-                SqlCommand com = new SqlCommand(query, conn);
-                com.CommandType = CommandType.StoredProcedure;
-                com.Parameters.AddWithValue("@id", prof_id);
-                com.Parameters.AddWithValue("@desde", desde);
-                com.Parameters.AddWithValue("@hasta", hasta);
-                com.Parameters.AddWithValue("@dia", "4");
-                com.Parameters.AddWithValue("@hora_inicio", hora_inicio);
-                com.Parameters.AddWithValue("@hora_fin", hora_fin);
-                com.Parameters.AddWithValue("@especialidad", esp_id);
-                com.ExecuteNonQuery();
-                com.Dispose();
+                uploadAgendaToSQL(esp_id, prof_id, hora_inicio, hora_fin, desde, hasta);
             }
             if (jueves_activar.Checked)
             {
                 hora_inicio = horainicio_hora_jueves.SelectedItem.ToString() + ":" + horainicio_min_jueves.SelectedItem.ToString();
                 hora_fin = horafin_hora_jueves.SelectedItem.ToString() + ":" + horafin_min_jueves.SelectedItem.ToString();
                 esp_id = ((Item)especialidad_jueves.SelectedItem).Value;
-                string query = "addHorasAgenda";
-                SqlConnection conn = (new BDConnection()).getConnection();
-                SqlCommand com = new SqlCommand(query, conn);
-                com.CommandType = CommandType.StoredProcedure;
-                com.Parameters.AddWithValue("@id", prof_id);
-                com.Parameters.AddWithValue("@desde", desde);
-                com.Parameters.AddWithValue("@hasta", hasta);
-                com.Parameters.AddWithValue("@dia", "5");
-                com.Parameters.AddWithValue("@hora_inicio", hora_inicio);
-                com.Parameters.AddWithValue("@hora_fin", hora_fin);
-                com.Parameters.AddWithValue("@especialidad", esp_id);
-                com.ExecuteNonQuery();
-                com.Dispose();
+                uploadAgendaToSQL(esp_id, prof_id, hora_inicio, hora_fin, desde, hasta);
             }
             if (viernes_activar.Checked)
             {
                 hora_inicio = horainicio_hora_viernes.SelectedItem.ToString() + ":" + horainicio_min_viernes.SelectedItem.ToString();
                 hora_fin = horafin_hora_viernes.SelectedItem.ToString() + ":" + horafin_min_viernes.SelectedItem.ToString();
                 esp_id = ((Item)especialidad_viernes.SelectedItem).Value;
-                string query = "addHorasAgenda";
-                SqlConnection conn = (new BDConnection()).getConnection();
-                SqlCommand com = new SqlCommand(query, conn);
-                com.CommandType = CommandType.StoredProcedure;
-                com.Parameters.AddWithValue("@id", prof_id);
-                com.Parameters.AddWithValue("@desde", desde);
-                com.Parameters.AddWithValue("@hasta", hasta);
-                com.Parameters.AddWithValue("@dia", "6");
-                com.Parameters.AddWithValue("@hora_inicio", hora_inicio);
-                com.Parameters.AddWithValue("@hora_fin", hora_fin);
-                com.Parameters.AddWithValue("@especialidad", esp_id);
-                com.ExecuteNonQuery();
-                com.Dispose();
+                uploadAgendaToSQL(esp_id, prof_id, hora_inicio, hora_fin, desde, hasta);
             }
             if (sabado_activar.Checked)
             {
                 hora_inicio = horainicio_hora_sabado.SelectedItem.ToString() + ":" + horainicio_min_sabado.SelectedItem.ToString();
                 hora_fin = horafin_hora_sabado.SelectedItem.ToString() + ":" + horafin_min_sabado.SelectedItem.ToString();
                 esp_id = ((Item)especialidad_sabado.SelectedItem).Value;
-                string query = "addHorasAgenda";
-                SqlConnection conn = (new BDConnection()).getConnection();
-                SqlCommand com = new SqlCommand(query, conn);
-                com.CommandType = CommandType.StoredProcedure;
-                com.Parameters.AddWithValue("@id", prof_id);
-                com.Parameters.AddWithValue("@desde", desde);
-                com.Parameters.AddWithValue("@hasta", hasta);
-                com.Parameters.AddWithValue("@dia", "7");
-                com.Parameters.AddWithValue("@hora_inicio", hora_inicio);
-                com.Parameters.AddWithValue("@hora_fin", hora_fin);
-                com.Parameters.AddWithValue("@especialidad", esp_id);
-                com.ExecuteNonQuery();
-                com.Dispose();
+                uploadAgendaToSQL(esp_id, prof_id, hora_inicio, hora_fin, desde, hasta);
             }
             MessageBox.Show(String.Format("Horarios agregados correctamente."));
             return;
+        }
+
+        private static void uploadAgendaToSQL(int esp_id, int prof_id, string hora_inicio, string hora_fin, string desde, string hasta)
+        {
+            string query = "addHorasAgenda";
+            SqlConnection conn = (new BDConnection()).getInstance();
+            SqlCommand com = new SqlCommand(query, conn);
+            com.CommandType = CommandType.StoredProcedure;
+            com.Parameters.AddWithValue("@id", prof_id);
+            com.Parameters.AddWithValue("@desde", desde);
+            com.Parameters.AddWithValue("@hasta", hasta);
+            com.Parameters.AddWithValue("@dia", 2);
+            com.Parameters.AddWithValue("@hora_inicio", hora_inicio);
+            com.Parameters.AddWithValue("@hora_fin", hora_fin);
+            com.Parameters.AddWithValue("@especialidad", esp_id);
+            com.ExecuteNonQuery();
+            com.Dispose();
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            Close();
         }
     }
 }
