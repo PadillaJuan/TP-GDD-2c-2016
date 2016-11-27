@@ -127,7 +127,6 @@ namespace ClinicaFrba.Abm_Afiliado
             textBox2.Enabled = false;
             textBox3.Enabled = false;
             textBox4.Enabled = false;
-            comboBox4.Enabled = false;
             dateTimePicker1.Enabled = false;
         }
 
@@ -286,6 +285,7 @@ namespace ClinicaFrba.Abm_Afiliado
             cm.Parameters.AddWithValue("@af_mail",textBox7.Text);
             cm.Parameters.AddWithValue("@af_estado_civil", comboBox2.Text);
             cm.Parameters.AddWithValue("@planmed_id", Int32.Parse(comboBox3.Text));
+            cm.Parameters.AddWithValue("@af_sexo", comboBox4.Text);
             if (planMed != Int32.Parse(comboBox3.Text))
             {
                 Motivo_Cambio_Plan form = new Motivo_Cambio_Plan();

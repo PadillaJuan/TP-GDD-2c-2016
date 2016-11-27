@@ -220,7 +220,8 @@ CREATE PROCEDURE actualizarAfiliado
 	@af_estado_civil VARCHAR(11),
 	@planmed_id numeric(18,0),
 	@motivoCambio VARCHAR(100),
-	@fecha DATETIME
+	@fecha DATETIME,
+	@af_sexo CHAR
 AS
 BEGIN
 	IF (@motivoCambio != '')
@@ -241,7 +242,8 @@ BEGIN
 		af_telefono = @af_telefono,
 		af_mail = @af_mail,
 		af_estado_civil = @af_estado_civil,
-		planmed_id = @planmed_id
+		planmed_id = @planmed_id,
+		af_sexo = @af_sexo
 		WHERE af_id = @af_id AND af_rel_id = @af_rel_id
 	END
 END
@@ -506,8 +508,8 @@ BEGIN
 	DECLARE @d DATETIME
 	DECLARE @h DATETIME
 
-	SET @hi = CONVERT(TIME, @hora_inicio)
-	SET @hf = CONVERT(TIME, @hora_fin)
+	SET @hi = CONVERT(TIME, @hora_inicio,120)
+	SET @hf = CONVERT(TIME, @hora_fin,120)
 	
 	SET @d = CONVERT(DATETIME, @desde)
 	SET @h = CONVERT(DATETIME, @hasta)
