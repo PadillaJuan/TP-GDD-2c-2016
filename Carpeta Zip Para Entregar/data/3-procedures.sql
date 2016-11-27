@@ -506,10 +506,14 @@ BEGIN
 	DECLARE @hi TIME
 	DECLARE @hf TIME
 	DECLARE @d DATETIME
+	DECLARE @d2 DATETIME
 	DECLARE @h DATETIME
+	DECLARE @error_bandera INT;
+	
+	SET @error_bandera = 0
 
-	SET @hi = CONVERT(TIME, @hora_inicio,120)
-	SET @hf = CONVERT(TIME, @hora_fin,120)
+	SET @hi = CONVERT(TIME, @hora_inicio)
+	SET @hf = CONVERT(TIME, @hora_fin)
 	
 	SET @d = CONVERT(DATETIME, @desde)
 	SET @h = CONVERT(DATETIME, @hasta)
@@ -522,10 +526,33 @@ BEGIN
 		SET @d = DATEADD(DAY,1,@d)
 	END
 	
+	SET @d2 = @d
+	
+	WHILE @d2 <= @h
+	BEGIN
+		WHILE @inicialBucle <= @finalBucle
+		BEGIN
+			IF (SELECT COUNT(*) FROM agenda_profesional WHERE agenda_prof = @id AND agenda_fechayhora = (@d2 + CONVERT(DATETIME, @inicialBucle))) > 0
+			BEGIN
+				SET @error_bandera = 1
+				RAISERROR('Estas sobre-escribiendo una agenda agregada anteriormente',16,1)
+				RETURN 
+			END
+			SET @inicialBucle = DATEADD(MINUTE,30,@inicialBucle)
+		END
+		SET @inicialBucle = @hi
+		SET @d2 = DATEADD(WEEK,1,@d2)
+	END
+	
 	WHILE @d <= @h
 	BEGIN
 		WHILE @inicialBucle <= @finalBucle
 		BEGIN
+			IF (SELECT COUNT(*) FROM agenda_profesional WHERE agenda_prof = @id AND agenda_fechayhora = (@d + CONVERT(DATETIME, @inicialBucle))) > 0
+			BEGIN
+				ROLLBACK TRANSACTION
+				BREAK
+			END
 			INSERT INTO agenda_profesional VALUES (@id, @especialidad, @d + CONVERT(DATETIME, @inicialBucle))
 			SET @inicialBucle = DATEADD(MINUTE,30,@inicialBucle)
 		END

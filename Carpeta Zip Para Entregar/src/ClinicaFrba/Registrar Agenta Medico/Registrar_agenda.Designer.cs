@@ -947,6 +947,7 @@
             // 
             // fecha_desde
             // 
+            this.fecha_desde.CustomFormat = "";
             this.fecha_desde.Location = new System.Drawing.Point(71, 49);
             this.fecha_desde.Name = "fecha_desde";
             this.fecha_desde.Size = new System.Drawing.Size(200, 20);
@@ -954,6 +955,7 @@
             // 
             // fecha_hasta
             // 
+            this.fecha_hasta.CustomFormat = "";
             this.fecha_hasta.Location = new System.Drawing.Point(343, 49);
             this.fecha_hasta.Name = "fecha_hasta";
             this.fecha_hasta.Size = new System.Drawing.Size(200, 20);

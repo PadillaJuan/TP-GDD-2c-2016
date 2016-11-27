@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Data.SqlClient;
+using System.Configuration;
 
 namespace ClinicaFrba.Registrar_Agenta_Medico
 {
@@ -20,6 +21,9 @@ namespace ClinicaFrba.Registrar_Agenta_Medico
             InitializeComponent();
             llenarComboBox();
             setComboBox();
+            string[] fechaEquipo = (ConfigurationManager.AppSettings["FechaGlobal"]).Split('-');
+            fecha_desde.Value = new DateTime(int.Parse(fechaEquipo[0]), int.Parse(fechaEquipo[1]), int.Parse(fechaEquipo[2]));
+            fecha_hasta.Value = new DateTime(int.Parse(fechaEquipo[0]), int.Parse(fechaEquipo[1]), int.Parse(fechaEquipo[2]));
         }
 
         private class Item
@@ -181,8 +185,8 @@ namespace ClinicaFrba.Registrar_Agenta_Medico
             string hora_inicio, hora_fin, desde, hasta;
             TotalHoralSemanal = 0;
             // DATOS HARDCODEADOS
-            desde = fecha_desde.Value.Year.ToString() + "-" + fecha_desde.Value.Day.ToString() + "-" + fecha_desde.Value.Month.ToString() + " 00:00:00";
-            hasta = fecha_hasta.Value.Year.ToString() + "-" + fecha_hasta.Value.Day.ToString() + "-" + fecha_hasta.Value.Month.ToString() + " 23:59:00";
+            desde = fecha_desde.Value.Year.ToString() + "-" + fecha_desde.Value.Month.ToString() + "-" + fecha_desde.Value.Day.ToString() + " 00:00:00";
+            hasta = fecha_hasta.Value.Year.ToString() + "-" + fecha_hasta.Value.Month.ToString() + "-" + fecha_hasta.Value.Day.ToString() + " 23:59:00";
             prof_id = obtenerProfID();
             //
             // Inicio Validacion campos
@@ -195,6 +199,11 @@ namespace ClinicaFrba.Registrar_Agenta_Medico
             // Lunes
             if (lunes_activar.Checked)
             {
+                if (horainicio_hora_lunes.SelectedItem == null || horainicio_min_lunes.SelectedItem == null || horafin_hora_lunes.SelectedItem == null || horafin_min_lunes.SelectedItem == null || especialidad_lunes.SelectedItem == null)
+                {
+                    MessageBox.Show(String.Format("No ha seleccionado un item del Selected"));
+                    return;
+                }
                 inicio_hora = int.Parse(horainicio_hora_lunes.SelectedItem.ToString());
                 inicio_min = int.Parse(horainicio_min_lunes.SelectedItem.ToString());
                 inicio = inicio_hora + ((float)inicio_min / 60);
@@ -215,6 +224,11 @@ namespace ClinicaFrba.Registrar_Agenta_Medico
             // Martes
             if (martes_activar.Checked)
             {
+                if (horainicio_hora_martes.SelectedItem == null || horainicio_min_martes.SelectedItem == null || horafin_hora_martes.SelectedItem == null || horafin_min_martes.SelectedItem == null || especialidad_martes.SelectedItem == null)
+                {
+                    MessageBox.Show(String.Format("No ha seleccionado un item del Selected"));
+                    return;
+                }
                 inicio_hora = int.Parse(horainicio_hora_martes.SelectedItem.ToString());
                 inicio_min = int.Parse(horainicio_min_martes.SelectedItem.ToString());
                 inicio = inicio_hora + ((float)inicio_min / 60);
@@ -235,6 +249,11 @@ namespace ClinicaFrba.Registrar_Agenta_Medico
             // Miercoles
             if (miercoles_activar.Checked)
             {
+                if (horainicio_hora_miercoles.SelectedItem == null || horainicio_min_miercoles.SelectedItem == null || horafin_hora_miercoles.SelectedItem == null || horafin_min_miercoles.SelectedItem == null || especialidad_miercoles.SelectedItem == null)
+                {
+                    MessageBox.Show(String.Format("No ha seleccionado un item del Selected"));
+                    return;
+                }
                 inicio_hora = int.Parse(horainicio_hora_miercoles.SelectedItem.ToString());
                 inicio_min = int.Parse(horainicio_min_miercoles.SelectedItem.ToString());
                 inicio = inicio_hora + ((float)inicio_min / 60);
@@ -255,6 +274,11 @@ namespace ClinicaFrba.Registrar_Agenta_Medico
             // Jueves
             if (jueves_activar.Checked)
             {
+                if (horainicio_hora_jueves.SelectedItem == null || horainicio_min_jueves.SelectedItem == null || horafin_hora_jueves.SelectedItem == null || horafin_min_jueves.SelectedItem == null || especialidad_jueves.SelectedItem == null)
+                {
+                    MessageBox.Show(String.Format("No ha seleccionado un item del Selected"));
+                    return;
+                }
                 inicio_hora = int.Parse(horainicio_hora_jueves.SelectedItem.ToString());
                 inicio_min = int.Parse(horainicio_min_jueves.SelectedItem.ToString());
                 inicio = inicio_hora + ((float)inicio_min / 60);
@@ -275,6 +299,11 @@ namespace ClinicaFrba.Registrar_Agenta_Medico
             // Viernes
             if (viernes_activar.Checked)
             {
+                if (horainicio_hora_viernes.SelectedItem == null || horainicio_min_viernes.SelectedItem == null || horafin_hora_viernes.SelectedItem == null || horafin_min_viernes.SelectedItem == null || especialidad_viernes.SelectedItem == null)
+                {
+                    MessageBox.Show(String.Format("No ha seleccionado un item del Selected"));
+                    return;
+                }
                 inicio_hora = int.Parse(horainicio_hora_viernes.SelectedItem.ToString());
                 inicio_min = int.Parse(horainicio_min_viernes.SelectedItem.ToString());
                 inicio = inicio_hora + ((float)inicio_min / 60);
@@ -295,6 +324,11 @@ namespace ClinicaFrba.Registrar_Agenta_Medico
             // Sabado
             if (sabado_activar.Checked)
             {
+                if (horainicio_hora_sabado.SelectedItem == null || horainicio_min_sabado.SelectedItem == null || horafin_hora_sabado.SelectedItem == null || horafin_min_sabado.SelectedItem == null || especialidad_sabado.SelectedItem == null)
+                {
+                    MessageBox.Show(String.Format("No ha seleccionado un item del Selected"));
+                    return;
+                }
                 inicio_hora = int.Parse(horainicio_hora_sabado.SelectedItem.ToString());
                 inicio_min = int.Parse(horainicio_min_sabado.SelectedItem.ToString());
                 inicio = inicio_hora + (inicio_min / 60);
@@ -326,42 +360,42 @@ namespace ClinicaFrba.Registrar_Agenta_Medico
                 hora_inicio = horainicio_hora_lunes.SelectedItem.ToString() + ":" + horainicio_min_lunes.SelectedItem.ToString();
                 hora_fin = horafin_hora_lunes.SelectedItem.ToString() + ":" + horafin_min_lunes.SelectedItem.ToString();
                 esp_id = ((Item)especialidad_lunes.SelectedItem).Value;
-                uploadAgendaToSQL(esp_id, prof_id,1, hora_inicio, hora_fin, desde, hasta);
+                uploadAgendaToSQL(esp_id, prof_id,2, hora_inicio, hora_fin, desde, hasta);
             }
             if (martes_activar.Checked)
             {
                 hora_inicio = horainicio_hora_martes.SelectedItem.ToString() + ":" + horainicio_min_martes.SelectedItem.ToString();
                 hora_fin = horafin_hora_martes.SelectedItem.ToString() + ":" + horafin_min_martes.SelectedItem.ToString();
                 esp_id = ((Item)especialidad_martes.SelectedItem).Value;
-                uploadAgendaToSQL(esp_id, prof_id,2, hora_inicio, hora_fin, desde, hasta);
+                uploadAgendaToSQL(esp_id, prof_id,3, hora_inicio, hora_fin, desde, hasta);
             }
             if (miercoles_activar.Checked)
             {
                 hora_inicio = horainicio_hora_miercoles.SelectedItem.ToString() + ":" + horainicio_min_miercoles.SelectedItem.ToString();
                 hora_fin = horafin_hora_miercoles.SelectedItem.ToString() + ":" + horafin_min_miercoles.SelectedItem.ToString();
                 esp_id = ((Item)especialidad_miercoles.SelectedItem).Value;
-                uploadAgendaToSQL(esp_id, prof_id,3, hora_inicio, hora_fin, desde, hasta);
+                uploadAgendaToSQL(esp_id, prof_id,4, hora_inicio, hora_fin, desde, hasta);
             }
             if (jueves_activar.Checked)
             {
                 hora_inicio = horainicio_hora_jueves.SelectedItem.ToString() + ":" + horainicio_min_jueves.SelectedItem.ToString();
                 hora_fin = horafin_hora_jueves.SelectedItem.ToString() + ":" + horafin_min_jueves.SelectedItem.ToString();
                 esp_id = ((Item)especialidad_jueves.SelectedItem).Value;
-                uploadAgendaToSQL(esp_id, prof_id,4, hora_inicio, hora_fin, desde, hasta);
+                uploadAgendaToSQL(esp_id, prof_id,5, hora_inicio, hora_fin, desde, hasta);
             }
             if (viernes_activar.Checked)
             {
                 hora_inicio = horainicio_hora_viernes.SelectedItem.ToString() + ":" + horainicio_min_viernes.SelectedItem.ToString();
                 hora_fin = horafin_hora_viernes.SelectedItem.ToString() + ":" + horafin_min_viernes.SelectedItem.ToString();
                 esp_id = ((Item)especialidad_viernes.SelectedItem).Value;
-                uploadAgendaToSQL(esp_id, prof_id,5, hora_inicio, hora_fin, desde, hasta);
+                uploadAgendaToSQL(esp_id, prof_id,6, hora_inicio, hora_fin, desde, hasta);
             }
             if (sabado_activar.Checked)
             {
                 hora_inicio = horainicio_hora_sabado.SelectedItem.ToString() + ":" + horainicio_min_sabado.SelectedItem.ToString();
                 hora_fin = horafin_hora_sabado.SelectedItem.ToString() + ":" + horafin_min_sabado.SelectedItem.ToString();
                 esp_id = ((Item)especialidad_sabado.SelectedItem).Value;
-                uploadAgendaToSQL(esp_id, prof_id,6, hora_inicio, hora_fin, desde, hasta);
+                uploadAgendaToSQL(esp_id, prof_id,7, hora_inicio, hora_fin, desde, hasta);
             }
             MessageBox.Show(String.Format("Horarios agregados correctamente."));
             return;
