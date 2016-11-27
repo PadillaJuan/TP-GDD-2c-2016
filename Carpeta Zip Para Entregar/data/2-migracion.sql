@@ -1,3 +1,5 @@
+-- DROP PROCEDURES PARA LA MIGRACION
+
 if OBJECT_ID('migrarAfiliados') is not null
  begin
 	drop procedure migrarAfiliados
@@ -59,7 +61,8 @@ begin
 end
 go
 
-
+-- CREACION DE PROCEDURES PARA LA MIGRACION
+/*------------------ MIGRACION DE PLANES MEDICOS ----------------------*/
 create procedure migrarPlanMedico
 as
 	SET IDENTITY_INSERT plan_medico ON 
@@ -74,6 +77,8 @@ go
 execute migrarPlanMedico
 go
 
+
+/*------------------ MIGRACION DE AFILIADOS ----------------------*/
 create procedure migrarAfiliados
 as	
 	insert into usuarios
@@ -93,6 +98,7 @@ execute migrarAfiliados
 go
 
 
+/*------------------ MIGRACION DE PROFESIONALES ----------------------*/
 create procedure migrarProfesional
 as
 	insert into usuarios
@@ -112,6 +118,8 @@ go
 execute migrarProfesional
 go
 
+
+/*------------------ MIGRACION DE TIPO DE ESPECIALIDADES ----------------------*/
 create procedure migrarTipoEspecialidades
 as
 	SET IDENTITY_INSERT tipo_especialidades ON 
@@ -126,6 +134,8 @@ go
 execute migrarTipoEspecialidades
 go
 
+
+/*------------------ MIGRACION DE ESPECIALIDADES ----------------------*/
 create procedure migrarEspecialidad
 as
 	SET IDENTITY_INSERT especialidad ON 
@@ -140,6 +150,8 @@ go
 execute migrarEspecialidad
 go
 
+
+/*------------------ MIGRACION DE ESPECIALIDAD POR PROFESIONAL ----------------------*/
 create procedure migrarEspecialidadPorProfesional
 as
 	insert into especialidad_por_profesional(prof_id,esp_id)
@@ -149,11 +161,11 @@ as
 		group by prof_id,Especialidad_Codigo
 		order by prof_id
 go
-
 execute migrarEspecialidadPorProfesional
 go
 
 
+/*------------------ MIGRACION DE AGENDAS PROFESIONALES ----------------------*/
 create procedure migrarAgendaProfesional
 as
 	insert into agenda_profesional
@@ -167,6 +179,7 @@ execute migrarAgendaProfesional
 go
 
 
+/*------------------ MIGRACION DE TURNOS ----------------------*/
 create procedure migrarTurnos
 as
 	SET IDENTITY_INSERT turnos ON 
@@ -184,6 +197,8 @@ go
 execute migrarTurnos
 go
 
+
+/*------------------ MIGRACION DE REGISTROS DE COMPRA ----------------------*/
 create procedure migrarRegistroCompra
 as
 	insert into registro_compra
@@ -197,6 +212,7 @@ execute migrarRegistroCompra
 go
 
 
+/*------------------ MIGRACION DE BONOS ----------------------*/
 create procedure migrarBonos
 as
 	SET IDENTITY_INSERT bono ON 
@@ -212,6 +228,7 @@ execute migrarBonos
 go
 
 
+/*------------------ MIGRACION DE CONSULTAS ----------------------*/
 create procedure migrarConsultas
 as
 	insert into consulta_medica
