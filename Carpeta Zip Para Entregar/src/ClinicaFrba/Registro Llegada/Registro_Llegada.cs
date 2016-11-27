@@ -27,6 +27,8 @@ namespace ClinicaFrba.Registro_Llegada
             comboBox1.DropDownStyle = ComboBoxStyle.DropDownList;
             dataGridView1.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dataGridView1.AutoResizeColumns();
+            dataGridView1.ReadOnly = true;
+            dataGridView1.MultiSelect = false;
 
         }
 

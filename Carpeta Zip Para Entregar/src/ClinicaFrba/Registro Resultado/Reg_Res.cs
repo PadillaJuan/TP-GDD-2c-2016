@@ -19,6 +19,10 @@ namespace ClinicaFrba.Registro_Resultado
         {
             InitializeComponent();
             setButtons();
+            dataGridView1.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            dataGridView1.AutoResizeColumns();
+            dataGridView1.ReadOnly = true;
+            dataGridView1.MultiSelect = false;
         }
 
         private void button1_Click(object sender, EventArgs e)
