@@ -27,6 +27,7 @@ namespace ClinicaFrba.Cancelar_Atencion
             getprof_id(us_id);
             dateTimePicker1.MinDate = DateTime.Parse(Program.nuevaFechaSistema());
             dateTimePicker2.MinDate = DateTime.Parse(Program.nuevaFechaSistema());
+            textBox1.MaxLength = 100;
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -94,17 +95,17 @@ namespace ClinicaFrba.Cancelar_Atencion
 
         private void cancelarIntervalo()
         {
-            if (dateTimePicker1.Value > dateTimePicker2.Value)
+            if (dateTimePicker1.Value < dateTimePicker2.Value)
             {
                     string query = "bajaIntervalo";
                     SqlConnection conn = (new BDConnection()).getConnection();
                     SqlCommand com = new SqlCommand(query, conn);
                     com.CommandType = CommandType.StoredProcedure;
-                    com.Parameters.Add(new SqlParameter("@prof_id", prof_id));
-                    com.Parameters.Add(new SqlParameter("@cancel_desde", dateTimePicker1.Value));
-                    com.Parameters.Add(new SqlParameter("@cancel_hasta", dateTimePicker2.Value));
+                    com.Parameters.AddWithValue("@prof_id", prof_id);
+                    com.Parameters.AddWithValue("@desde", dateTimePicker1.Value.ToString("yyyy-MM-dd HH:mm:ss"));
+                    com.Parameters.AddWithValue("@hasta", dateTimePicker2.Value.ToString("yyyy-MM-dd HH:mm:ss"));
                     com.ExecuteNonQuery();
-                
+                    MessageBox.Show("Los turnos pertenecientes al intervalo fueron dados de baja", Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.None);
             }
             else
             {

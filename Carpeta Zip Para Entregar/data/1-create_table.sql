@@ -229,7 +229,7 @@ CREATE TABLE turnos(
 CREATE TABLE cancelacion(
 	cancel_id  INT PRIMARY KEY IDENTITY(1,1),
 	cancel_tipo CHAR(1),
-	cancel_motivo VARCHAR(30),
+	cancel_motivo VARCHAR(100),
 	turno_id INT,
 );
 

@@ -83,7 +83,7 @@ BEGIN
 	INSERT INTO afiliado (af_rel_id, us_id,planmed_id, af_tipodoc, af_numdoc)
 		VALUES (0,@us_id,555555,'DNI',0)
 
-	INSERT INTO profesional (us_id) VALUES (@us_id)
+	INSERT INTO profesional (us_id,prof_apellido,prof_nombre) VALUES (@us_id,'a','b')
 
 	INSERT INTO especialidad_por_profesional 
 		SELECT (SELECT prof_id FROM profesional WHERE us_id = @us_id), esp_id FROM especialidad

@@ -29,7 +29,7 @@ namespace ClinicaFrba.Cancelar_Atencion
             dataGridView1.MultiSelect = false;
             dataGridView1.ReadOnly = true;
 
-            string query ="SELECT DATEPART(MINUTE,turno_fecha), DATEPART(hour,turno_fecha),DATEPART(day,turno_fecha),DATEPART(month,turno_fecha),DATEPART(year,turno_fecha), turno_id ";
+            string query ="SELECT DATEPART(MINUTE,turno_fecha) 'Minutos', DATEPART(hour,turno_fecha) 'Hora',DATEPART(day,turno_fecha)'Dia',DATEPART(month,turno_fecha)'Mes',DATEPART(year,turno_fecha)'Año', turno_id 'ID del turno' ";
             query += "FROM turnos t ";
             query += "JOIN afiliado a ON (t.turno_af=a.af_id) ";
             query += String.Format("WHERE a.af_id={0} ", af_id());
@@ -49,7 +49,7 @@ namespace ClinicaFrba.Cancelar_Atencion
                 if (textBox1.Text.Length >= 0)
                 {
                     DataGridViewRow row = this.dataGridView1.SelectedRows[0];
-                    string turno_id = row.Cells["turno_id"].Value.ToString();
+                    string turno_id = row.Cells["ID del turno"].Value.ToString();
                     string query = "cancelTurno";
                     SqlConnection conn = (new BDConnection()).getInstance();
                     SqlCommand com = new SqlCommand(query, conn);

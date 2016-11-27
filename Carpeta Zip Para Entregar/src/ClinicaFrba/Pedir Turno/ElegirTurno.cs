@@ -88,15 +88,10 @@ namespace ClinicaFrba.Pedir_Turno
               
 
                 DataGridViewRow row = this.dataGridView1.SelectedRows[0];
-                int agenda_id = Int32.Parse(row.Cells["agenda_id"].Value.ToString());
+                int agenda_id = Int32.Parse(row.Cells["ID de la agenda"].Value.ToString());
                 DateTime fecha = dateTimePicker1.Value;
                 fecha.AddHours(Double.Parse(row.Cells["Hora"].Value.ToString()));
                 fecha.AddMinutes(Double.Parse(row.Cells["Minutos"].Value.ToString()));
-
-                MessageBox.Show(fecha.ToString());
-                MessageBox.Show(Double.Parse(row.Cells["Hora"].Value.ToString()).ToString());
-                MessageBox.Show(Double.Parse(row.Cells["Minutos"].Value.ToString()).ToString());
-
                 agendar(fecha, agenda_id);
                 MessageBox.Show("Turno seleccionado correctamente", this.Text, MessageBoxButtons.OK, MessageBoxIcon.None);
                 this.Close();

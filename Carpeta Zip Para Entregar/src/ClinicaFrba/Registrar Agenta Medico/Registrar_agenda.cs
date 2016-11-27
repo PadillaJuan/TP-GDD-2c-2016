@@ -59,7 +59,63 @@ namespace ClinicaFrba.Registrar_Agenta_Medico
             especialidad_jueves.DropDownStyle = ComboBoxStyle.DropDownList;
             especialidad_viernes.DropDownStyle = ComboBoxStyle.DropDownList;
             especialidad_sabado.DropDownStyle = ComboBoxStyle.DropDownList;
+            setLunes();
+            setMartes();
+            setMiercoles();
+            setJueves();
+            setViernes();
+            setSabado();
         }
+
+        public void setLunes()
+        {
+            horainicio_hora_lunes.DropDownStyle = ComboBoxStyle.DropDownList;
+            horainicio_min_lunes.DropDownStyle = ComboBoxStyle.DropDownList;
+            horafin_hora_lunes.DropDownStyle = ComboBoxStyle.DropDownList;
+            horafin_min_lunes.DropDownStyle = ComboBoxStyle.DropDownList;
+        }
+
+        public void setMartes()
+        {
+            horainicio_hora_martes.DropDownStyle = ComboBoxStyle.DropDownList;
+            horainicio_min_martes.DropDownStyle = ComboBoxStyle.DropDownList;
+            horafin_hora_martes.DropDownStyle = ComboBoxStyle.DropDownList;
+            horafin_min_martes.DropDownStyle = ComboBoxStyle.DropDownList;
+        }
+
+        public void setMiercoles()
+        {
+            horainicio_hora_miercoles.DropDownStyle = ComboBoxStyle.DropDownList;
+            horainicio_min_miercoles.DropDownStyle = ComboBoxStyle.DropDownList;
+            horafin_hora_miercoles.DropDownStyle = ComboBoxStyle.DropDownList;
+            horafin_min_miercoles.DropDownStyle = ComboBoxStyle.DropDownList;
+        }
+
+        public void setJueves()
+        {
+            horainicio_hora_jueves.DropDownStyle = ComboBoxStyle.DropDownList;
+            horainicio_min_jueves.DropDownStyle = ComboBoxStyle.DropDownList;
+            horafin_hora_jueves.DropDownStyle = ComboBoxStyle.DropDownList;
+            horafin_min_jueves.DropDownStyle = ComboBoxStyle.DropDownList;
+        }
+
+        public void setViernes()
+        {
+            horainicio_hora_viernes.DropDownStyle = ComboBoxStyle.DropDownList;
+            horainicio_min_viernes.DropDownStyle = ComboBoxStyle.DropDownList;
+            horafin_hora_viernes.DropDownStyle = ComboBoxStyle.DropDownList;
+            horafin_min_viernes.DropDownStyle = ComboBoxStyle.DropDownList;
+        }
+
+        public void setSabado()
+        {
+            horainicio_hora_sabado.DropDownStyle = ComboBoxStyle.DropDownList;
+            horainicio_min_sabado.DropDownStyle = ComboBoxStyle.DropDownList;
+            horafin_hora_sabado.DropDownStyle = ComboBoxStyle.DropDownList;
+            horafin_min_sabado.DropDownStyle = ComboBoxStyle.DropDownList;
+        }
+
+
 
         public void llenarComboBox()
         {

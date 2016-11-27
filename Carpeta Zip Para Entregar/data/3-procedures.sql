@@ -530,11 +530,16 @@ GO
 
 CREATE PROCEDURE bajaIntervalo
 	@prof_id INT,
-	@desde DATETIME,
-	@hasta DATETIME
+	@desde VARCHAR(50),
+	@hasta VARCHAR(50)
 AS
 BEGIN
-	INSERT INTO periodo_baja VALUES(@desde, @hasta, @prof_id)
+	SET @desde = CONVERT(DATETIME,@desde,120)
+	SET @hasta = CONVERT(DATETIME,@hasta,120)
+	
+	PRINT @desde + '   ' +  @hasta
+
+	INSERT INTO periodo_baja(periodo_desde,periodo_hasta,prof_id) VALUES(@desde, @hasta, @prof_id)
 END
 GO
 
