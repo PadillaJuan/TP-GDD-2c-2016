@@ -145,7 +145,7 @@ namespace ClinicaFrba.AbmRol
         private string getRolNombre()
         {
             int index = dataGridView1.CurrentCell.RowIndex;
-            string nombre = (string)dt.Rows[index]["rol_nombre"];
+            string nombre = (string)dt.Rows[index]["Nombre del rol"];
             return nombre;       
         }
 
