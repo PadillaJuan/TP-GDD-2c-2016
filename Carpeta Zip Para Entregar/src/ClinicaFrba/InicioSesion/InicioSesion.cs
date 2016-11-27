@@ -19,13 +19,7 @@ namespace ClinicaFrba.InicioSesion
             textBox1.Text = "admin";
             textBox2.Text = "w23e";
         }
-
-        private void textBox1_TextChanged(object sender, EventArgs e)
-        {
-           
-
-        }
-        
+     
         private void button1_Click(object sender, EventArgs e)
         {
             int us_id = 0;
@@ -51,5 +45,6 @@ namespace ClinicaFrba.InicioSesion
         {
             textBox2.PasswordChar = '*';
         }
+
     }
 }

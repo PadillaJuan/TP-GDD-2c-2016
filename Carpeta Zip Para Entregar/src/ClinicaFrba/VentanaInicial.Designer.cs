@@ -57,7 +57,6 @@
             this.label1.Size = new System.Drawing.Size(180, 31);
             this.label1.TabIndex = 2;
             this.label1.Text = "Clínica FRBA";
-            this.label1.Click += new System.EventHandler(this.label1_Click);
             // 
             // label2
             // 
@@ -68,7 +67,6 @@
             this.label2.Size = new System.Drawing.Size(228, 24);
             this.label2.TabIndex = 3;
             this.label2.Text = "Bienvenido al sistema de";
-            this.label2.Click += new System.EventHandler(this.label2_Click);
             // 
             // imagenINicial
             // 
@@ -81,7 +79,6 @@
             this.imagenINicial.TabIndex = 0;
             this.imagenINicial.TabStop = false;
             this.imagenINicial.Tag = "imagenInicial";
-            this.imagenINicial.Click += new System.EventHandler(this.pictureBox1_Click);
             // 
             // pictureBox1
             // 
@@ -93,7 +90,6 @@
             this.pictureBox1.TabIndex = 0;
             this.pictureBox1.TabStop = false;
             this.pictureBox1.Tag = "imagenInicial";
-            this.pictureBox1.Click += new System.EventHandler(this.pictureBox1_Click);
             // 
             // button2
             // 
@@ -118,7 +114,6 @@
             this.Controls.Add(this.imagenINicial);
             this.Name = "VentanaInicial";
             this.Text = "Clinica FRBA";
-            this.Load += new System.EventHandler(this.Form1_Load);
             ((System.ComponentModel.ISupportInitialize)(this.imagenINicial)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);

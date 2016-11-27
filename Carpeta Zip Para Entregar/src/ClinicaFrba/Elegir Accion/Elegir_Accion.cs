@@ -135,15 +135,5 @@ namespace ClinicaFrba.Elegir_Accion
             }
             
         }
-
-        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void Elegir_Accion_Load(object sender, EventArgs e)
-        {
-
-        }
     }
 }
