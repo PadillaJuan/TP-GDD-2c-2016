@@ -89,10 +89,15 @@ namespace ClinicaFrba.Listados
         private SqlCommand generateSqlCommandMensual()
         {
             SqlConnection cn = (new BDConnection()).getInstance();
-            string query3 = query2 + "Mensual";
+            string query3 = query2 + "Semestral";
             SqlCommand cm = new SqlCommand(query3, cn);
+            DateTime inicio;
+            DateTime fin;
+            inicio = new DateTime(dateTimePicker2.Value.Year, dateTimePicker2.Value.Month, 01);
+            fin = new DateTime(dateTimePicker2.Value.Year, dateTimePicker2.Value.Month, DateTime.DaysInMonth(dateTimePicker2.Value.Year, dateTimePicker2.Value.Month));
             cm.CommandType = CommandType.StoredProcedure;
-            cm.Parameters.AddWithValue("@fecha_mes1", dateTimePicker2.Value.ToString("yyyy-MM-dd HH:mm:ss"));
+            cm.Parameters.AddWithValue("@fecha_inicio", inicio);
+            cm.Parameters.AddWithValue("@fecha_fin", fin);
             return cm;
         }
 
