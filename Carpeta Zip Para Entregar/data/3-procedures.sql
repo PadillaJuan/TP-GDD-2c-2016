@@ -603,7 +603,6 @@ GO
 
 CREATE PROCEDURE reservarTurno
     @turno_afi INT,
-	@turno_fecha DATETIME,
 	@turno_agenda INT,
 	@turno_prof INT,
 	@turno_af_rel TINYINT,

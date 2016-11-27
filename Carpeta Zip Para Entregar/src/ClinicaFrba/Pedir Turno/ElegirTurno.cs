@@ -89,23 +89,20 @@ namespace ClinicaFrba.Pedir_Turno
 
                 DataGridViewRow row = this.dataGridView1.SelectedRows[0];
                 int agenda_id = Int32.Parse(row.Cells["ID de la agenda"].Value.ToString());
-                DateTime fecha = dateTimePicker1.Value;
-                fecha.AddHours(Double.Parse(row.Cells["Hora"].Value.ToString()));
-                fecha.AddMinutes(Double.Parse(row.Cells["Minutos"].Value.ToString()));
-                agendar(fecha, agenda_id);
+
+                agendar(agenda_id);
                 MessageBox.Show("Turno seleccionado correctamente", this.Text, MessageBoxButtons.OK, MessageBoxIcon.None);
                 this.Close();
             }
         }
 
-        private void agendar(DateTime turno_fecha, int turno_agenda)
+        private void agendar(int turno_agenda)
         {
             string query = "reservarTurno";
             SqlConnection conn = (new BDConnection()).getInstance();
             SqlCommand com = new SqlCommand(query, conn);
             com.CommandType = CommandType.StoredProcedure;
             com.Parameters.AddWithValue("@turno_afi", idAfiliado);
-            com.Parameters.AddWithValue("@turno_fecha", turno_fecha);
             com.Parameters.AddWithValue("@turno_agenda", turno_agenda);
             com.Parameters.AddWithValue("@turno_prof", idProf);
             com.Parameters.AddWithValue("@turno_esp", idEsp);
