@@ -157,8 +157,15 @@ namespace ClinicaFrba.Registro_Llegada
         public int getEspID()
         {
             int ret;
-            int index = comboBox1.SelectedIndex;
-            ret = lista[index];
+            try
+            {
+                int index = comboBox1.SelectedIndex;
+                ret = lista[index];
+            }
+            catch (Exception e)
+            {
+                ret = -1;
+            }
             return ret;
         }
 

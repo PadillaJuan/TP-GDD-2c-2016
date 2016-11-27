@@ -417,7 +417,7 @@ BEGIN
 	SELECT @tipoEsp_id = tipoEsp_id FROM especialidad WHERE esp_id = (SELECT turno_esp FROM turnos WHERE turno_id = @turno_id)
 
 	IF NOT EXISTS (SELECT 1 FROM tipo_especialidades_por_planes WHERE planmed_id = @plan_med AND tipoEsp_id = @tipoEsp_id)
-		RAISERROR('El bono seleccionado para la consulta no es válido', 10, 16)
+		RAISERROR('El bono seleccionado para la consulta no es válido', 16, 16)
 END
 GO
 
@@ -616,7 +616,7 @@ CREATE PROCEDURE reservarTurno
 	@turno_esp INT
 AS
 BEGIN
-	INSERT INTO turnos VALUES (@turno_fecha, 0 , @turno_agenda, @turno_afi, @turno_af_rel, @turno_prof, @turno_esp)
+	INSERT INTO turnos VALUES ((SELECT agenda_fechayhora FROM agenda_profesional WHERE agenda_id = @turno_agenda), 0 , @turno_agenda, @turno_afi, @turno_af_rel, @turno_prof, @turno_esp)
 END
 GO
 
@@ -627,7 +627,7 @@ BEGIN
 	SELECT DATEPART(hour,agenda_fechayhora) Hora, DATEPART(minute, agenda_fechayhora) Minutos, agenda_id  
 	FROM agenda_profesional
 	WHERE agenda_id NOT IN (SELECT turno_agenda FROM turnos WHERE turno_estado = 0)	
-	AND CONVERT(VARCHAR(10),agenda_fechayhora) = CONVERT(VARCHAR(10),@fecha)
+	AND CONVERT(VARCHAR(10),agenda_fechayhora,126) like CONVERT(VARCHAR(10),@fecha,126)
 	ORDER BY Hora, Minutos
 END
 GO

@@ -54,7 +54,6 @@ namespace ClinicaFrba.Pedir_Turno
 
         private void filtrarFecha()
         {
-            MessageBox.Show(dateTimePicker1.Value.ToString("yyyy-MM-dd HH:mm:ss"));
             SqlConnection cn = (new BDConnection()).getInstance();
             SqlCommand cm = new SqlCommand("dameTurnosDisponiblesDeLaFecha", cn);
             cm.CommandType = CommandType.StoredProcedure;
@@ -78,6 +77,12 @@ namespace ClinicaFrba.Pedir_Turno
 
         private void button2_Click(object sender, EventArgs e)
         {
+            if (dataGridView1.SelectedRows.Count == 0)
+            {
+                MessageBox.Show("No se ha seleccionado ningun tunro", this.Text, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
             if ((MessageBox.Show("¿Desea elegir ese turno?", "Confirmar", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes))
             {
               
@@ -85,6 +90,12 @@ namespace ClinicaFrba.Pedir_Turno
                 DataGridViewRow row = this.dataGridView1.SelectedRows[0];
                 int agenda_id = Int32.Parse(row.Cells["agenda_id"].Value.ToString());
                 DateTime fecha = dateTimePicker1.Value;
+                fecha.AddHours(Double.Parse(row.Cells["Hora"].Value.ToString()));
+                fecha.AddMinutes(Double.Parse(row.Cells["Minutos"].Value.ToString()));
+
+                MessageBox.Show(fecha.ToString());
+                MessageBox.Show(Double.Parse(row.Cells["Hora"].Value.ToString()).ToString());
+                MessageBox.Show(Double.Parse(row.Cells["Minutos"].Value.ToString()).ToString());
 
                 agendar(fecha, agenda_id);
                 MessageBox.Show("Turno seleccionado correctamente", this.Text, MessageBoxButtons.OK, MessageBoxIcon.None);

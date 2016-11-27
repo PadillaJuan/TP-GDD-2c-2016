@@ -29,7 +29,7 @@ namespace ClinicaFrba.Cancelar_Atencion
             dataGridView1.MultiSelect = false;
             dataGridView1.ReadOnly = true;
 
-            string query ="SELECT DATEPART(MINUTE,turno_fecha), DATEPART(hour,turno_fecha),DATEPART(day,turno_fecha),DATEPART(month,turno_fecha),DATEPART(year,turno_fecha) ";
+            string query ="SELECT DATEPART(MINUTE,turno_fecha), DATEPART(hour,turno_fecha),DATEPART(day,turno_fecha),DATEPART(month,turno_fecha),DATEPART(year,turno_fecha), turno_id ";
             query += "FROM turnos t ";
             query += "JOIN afiliado a ON (t.turno_af=a.af_id) ";
             query += String.Format("WHERE a.af_id={0} ", af_id());
@@ -84,7 +84,7 @@ namespace ClinicaFrba.Cancelar_Atencion
             string query = String.Format("SELECT af_id*100+af_rel_id FROM afiliado WHERE us_id = {0}",us_id);
             SqlConnection cn = (new BDConnection()).getInstance();
             SqlCommand cm = new SqlCommand(query, cn);
-            afiliadoId = (long ) cm.ExecuteScalar();
+            afiliadoId = long.Parse(cm.ExecuteScalar().ToString());
         }
 
         private short af_rel_id()

@@ -313,19 +313,26 @@ namespace ClinicaFrba.Registrar_Agenta_Medico
 
         private static void uploadAgendaToSQL(int esp_id, int prof_id, int dia,string hora_inicio, string hora_fin, string desde, string hasta)
         {
-            string query = "addHorasAgenda";
-            SqlConnection conn = (new BDConnection()).getInstance();
-            SqlCommand com = new SqlCommand(query, conn);
-            com.CommandType = CommandType.StoredProcedure;
-            com.Parameters.AddWithValue("@id", prof_id);
-            com.Parameters.AddWithValue("@desde", desde);
-            com.Parameters.AddWithValue("@hasta", hasta);
-            com.Parameters.AddWithValue("@dia", dia);
-            com.Parameters.AddWithValue("@hora_inicio", hora_inicio);
-            com.Parameters.AddWithValue("@hora_fin", hora_fin);
-            com.Parameters.AddWithValue("@especialidad", esp_id);
-            com.ExecuteNonQuery();
-            com.Dispose();
+            try
+            {
+                string query = "addHorasAgenda";
+                SqlConnection conn = (new BDConnection()).getInstance();
+                SqlCommand com = new SqlCommand(query, conn);
+                com.CommandType = CommandType.StoredProcedure;
+                com.Parameters.AddWithValue("@id", prof_id);
+                com.Parameters.AddWithValue("@desde", desde);
+                com.Parameters.AddWithValue("@hasta", hasta);
+                com.Parameters.AddWithValue("@dia", dia);
+                com.Parameters.AddWithValue("@hora_inicio", hora_inicio);
+                com.Parameters.AddWithValue("@hora_fin", hora_fin);
+                com.Parameters.AddWithValue("@especialidad", esp_id);
+                com.ExecuteNonQuery();
+                com.Dispose();
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.Message, Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private void button2_Click(object sender, EventArgs e)
