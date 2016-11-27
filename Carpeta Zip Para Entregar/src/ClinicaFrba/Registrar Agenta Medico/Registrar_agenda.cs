@@ -15,6 +15,7 @@ namespace ClinicaFrba.Registrar_Agenta_Medico
     public partial class Registrar_agenda : Form
     {
         int us_id;
+        bool flag;
         public Registrar_agenda(int us_id_parametro)
         {
             us_id = us_id_parametro;
@@ -397,7 +398,7 @@ namespace ClinicaFrba.Registrar_Agenta_Medico
                 esp_id = ((Item)especialidad_sabado.SelectedItem).Value;
                 uploadAgendaToSQL(esp_id, prof_id,7, hora_inicio, hora_fin, desde, hasta);
             }
-            MessageBox.Show(String.Format("Horarios agregados correctamente."));
+            if (flag) { MessageBox.Show(String.Format("Horarios agregados correctamente.")); }
             return;
         }
 
@@ -422,6 +423,7 @@ namespace ClinicaFrba.Registrar_Agenta_Medico
             catch (Exception e)
             {
                 MessageBox.Show(e.Message, Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                flag = false;
             }
         }
 
