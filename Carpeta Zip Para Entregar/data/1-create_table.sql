@@ -1,7 +1,8 @@
 USE GD2C2016;
 GO
 
-/* Elimino las CONSTRAINT */
+-- ELIMINACION DE CONSTRAINTS
+-- ELIMINACION DE CONSTRAINTS
 
 IF (OBJECT_ID('FK_afi_usuario', 'F') IS NOT NULL)
 	ALTER TABLE afiliado DROP constraint FK_afi_usuario;
@@ -74,7 +75,8 @@ IF (OBJECT_ID('FK_funxrol_fun', 'F') IS NOT NULL)
 	
 GO
 	
-/* Elimino las tablas */
+	--ELIMINACION DE TABLAS
+	--ELIMINACION DE TABLAS
 
 IF (OBJECT_ID('afiliado','U') IS NOT NULL)
 	DROP TABLE afiliado;
@@ -119,6 +121,9 @@ IF (OBJECT_ID('funcionalidad','U') IS NOT NULL)
 
 	
 GO 
+
+	-- CREACION DE TABLAS
+	-- CREACION DE TABLAS
 
 /* TABLA DE AFILIADOS */
 
@@ -166,6 +171,7 @@ CREATE TABLE plan_medico(
 	plan_precio_bono numeric(18,0),
 );
 
+
 /* TABLA DE SERVICIOS POR PLANES */
 
 CREATE TABLE tipo_especialidades_por_planes(
@@ -197,6 +203,7 @@ CREATE TABLE bono(
 	bono_af_rel TINYINT,
 	bono_nro_consulta INT
 );
+
 
 /* TABLA DE CONSULTA MEDICA */
 
@@ -243,6 +250,7 @@ CREATE TABLE agenda_profesional(
 	agenda_fechayhora DATETIME
 );
 
+
 /* TABLA DE TIPO DE ESPECIALIDADES */
 
 CREATE TABLE tipo_especialidades(
@@ -250,12 +258,14 @@ CREATE TABLE tipo_especialidades(
 	tipoEsp_descripcion VARCHAR(50)
 );
 
+
 /* TABLA DE ESPECIALIDADES */
 CREATE TABLE especialidad(
 	esp_id INT PRIMARY KEY IDENTITY(1,1),
 	esp_descripcion VARCHAR(100),
 	tipoEsp_id INT
 );
+
 
 /* TABLA DE ESPECIALIDAD POR PROFESIONAL */
 
@@ -283,6 +293,7 @@ CREATE TABLE profesional(
 	prof_sexo CHAR(1)
 );
 
+
 /* TABLA DE PERIODO BAJA DE TURNO */
 CREATE TABLE periodo_baja(
 	periodo_id INT PRIMARY KEY IDENTITY(1,1),
@@ -302,6 +313,7 @@ CREATE TABLE usuarios(
 	us_status CHAR(1)
 );
 
+
 /* TABLA DE ROLES POR USUARIO */
 
 CREATE TABLE rol_por_usuarios(
@@ -309,6 +321,7 @@ CREATE TABLE rol_por_usuarios(
 	rol_id INT,
 	PRIMARY KEY(us_id,rol_id)
 );
+
 
 /* TABLA DE ROLES */
 
@@ -318,6 +331,7 @@ CREATE TABLE rol(
 	rol_status CHAR(1)
 );
 
+
 /* TABLA DE FUNCIONALIDADES POR ROL */
 
 CREATE TABLE funcionalidad_por_rol(
@@ -325,6 +339,7 @@ CREATE TABLE funcionalidad_por_rol(
 	fun_id INT,
 	PRIMARY KEY(rol_id,fun_id)
 );
+
 
 /* TABLA DE FUNCIONALIDADES */
 
@@ -334,11 +349,13 @@ CREATE TABLE funcionalidad(
 	fun_descripcion VARCHAR(100)
 );
 
-/* ------------------ CREACION DE FKs (Por favor en mismo orden de creacion de tablas para no olvidar nada) --------------------*/
+
+-- CREACION DE CONSTRAINTS : FOREIGN KEYS
+-- Nota: Se encuentran en el mismo orden de la creacion de tablas
 
 ALTER TABLE afiliado add constraint FK_afi_usuario foreign key (us_id) references usuarios (us_id);
 ALTER TABLE afiliado add constraint FK_plan_med foreign key (planmed_id) references plan_medico (planmed_id);
-ALTER TABLE afiliado ADD CONSTRAINT UN_DNI UNIQUE (af_numdoc, af_tipodoc)
+
 
 ALTER TABLE logs_cambio_plan add constraint FK_afi foreign key (af_id,af_rel_id) references afiliado (af_id,af_rel_id);
 ALTER TABLE logs_cambio_plan add constraint FK_plan_ant foreign key (plan_id_ant) references plan_medico (planmed_id);	
@@ -365,7 +382,7 @@ ALTER TABLE cancelacion add constraint FK_cancelacion_turno foreign key (turno_i
 
 ALTER TABLE agenda_profesional add constraint FK_agenda_prof foreign key (agenda_prof) references profesional (prof_id);	
 ALTER TABLE agenda_profesional add constraint FK_agenda_prof2 foreign key (agenda_esp) references especialidad (esp_id);	
-ALTER TABLE agenda_profesional ADD CONSTRAINT UN_DATOS UNIQUE (agenda_prof, agenda_esp, agenda_fechayhora);
+
 
 ALTER TABLE especialidad add constraint FK_especialidad_tipo foreign key (tipoEsp_id) references tipo_especialidades (tipoEsp_id);
 
@@ -378,3 +395,8 @@ ALTER TABLE rol_por_usuarios add constraint FK_rolxusr_rol foreign key (rol_id) 
 
 ALTER TABLE funcionalidad_por_rol add constraint FK_funxrol_id foreign key (rol_id) references rol (rol_id);
 ALTER TABLE funcionalidad_por_rol add constraint FK_funxrol_fun foreign key (fun_id) references funcionalidad (fun_id);
+
+-- CREACION DE CONSTRAINTS: UNIQUE FIELDS
+
+ALTER TABLE afiliado ADD CONSTRAINT UN_DNI UNIQUE (af_numdoc, af_tipodoc)
+ALTER TABLE agenda_profesional ADD CONSTRAINT UN_DATOS UNIQUE (agenda_prof, agenda_esp, agenda_fechayhora);
