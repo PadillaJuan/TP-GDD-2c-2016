@@ -674,7 +674,7 @@ BEGIN
 	FROM cancelacion c
 	JOIN turnos t ON c.turno_id = t.turno_id
 	JOIN especialidad e ON t.turno_esp = e.esp_id
-	WHERE turno_estado like '1'
+	WHERE turno_estado like '2'
 	AND turno_fecha BETWEEN @fecha_inicio AND @fecha_fin
 	GROUP BY t.turno_esp,e.esp_descripcion
 	ORDER BY 'Cantidad de cancelaciones' DESC
@@ -682,14 +682,16 @@ END
 GO
 
 CREATE PROCEDURE getListado1Mensual
-	@fecha_mes DATETIME
+	@fecha_mes1 VARCHAR(30)
 AS
 BEGIN
+	DECLARE @fecha_mes DATETIME
+	SET @fecha_mes =  CONVERT(DATETIME,@fecha_mes1, 120)
 	SELECT TOP 5 t.turno_esp 'ID Especialidad', e.esp_descripcion 'Nombre especialidad', COUNT(c.cancel_id) 'Cantidad de cancelaciones'
 	FROM cancelacion c
 	JOIN turnos t ON c.turno_id = t.turno_id
 	JOIN especialidad e ON t.turno_esp = e.esp_id
-	WHERE turno_estado like '1'
+	WHERE turno_estado like '2'
 	AND MONTH(turno_fecha) = MONTH(@fecha_mes)
 	AND YEAR(turno_fecha) = YEAR(@fecha_mes)
 	GROUP BY t.turno_esp,e.esp_descripcion
@@ -718,9 +720,11 @@ END
 GO
 
 CREATE PROCEDURE getListado2Mensual
-	@fecha_mes DATETIME
+	@fecha_mes1 VARCHAR(30)
 AS
 BEGIN
+	DECLARE @fecha_mes DATETIME
+	SET @fecha_mes =  CONVERT(DATETIME,@fecha_mes, 120)
 SELECT TOP 5 t.turno_prof 'ID del profesional', CONCAT(p.prof_apellido, ', ', p.prof_nombre) 'Apellido, Nombre',
 				 t.turno_esp 'ID Especialidad',e.esp_descripcion 'Especialidad', COUNT(t.turno_id) 'Cantidad de consultas'
 	FROM turnos t
@@ -755,9 +759,11 @@ END
 GO
 
 CREATE PROCEDURE getListado3Mensual
-	@fecha_mes DATETIME
+	@fecha_mes1 VARCHAR(30)
 AS
 BEGIN
+	DECLARE @fecha_mes DATETIME
+	SET @fecha_mes =  CONVERT(DATETIME,@fecha_mes, 120)
 	SELECT TOP 5 t.turno_prof 'ID del profesional', CONCAT(p.prof_apellido, ', ', p.prof_nombre) 'Apellido, Nombre',
 				 t.turno_esp 'ID Especialidad',e.esp_descripcion 'Especialidad', COUNT(t.turno_id) 'Cantidad de consultas'
 	FROM turnos t
@@ -790,9 +796,11 @@ GO
 
 
 CREATE PROCEDURE getListado4Mensual
-	@fecha_mes DATETIME
+	@fecha_mes1 VARCHAR(30)
 AS
 BEGIN
+	DECLARE @fecha_mes DATETIME
+	SET @fecha_mes =  CONVERT(DATETIME,@fecha_mes, 120)
 	SELECT TOP 5 b.bono_af 'ID' , b.bono_af_rel 'IDRel', CONCAT(a.af_apellido, ', ', a.af_nombre) 'Apellido, Nombre', COUNT(*) 'Cantidad de bonos comprados'
 	FROM bono b
 	JOIN afiliado a ON b.bono_af = a.af_id AND b.bono_af_rel = a.af_rel_id
@@ -824,9 +832,11 @@ GO
 
 
 CREATE PROCEDURE getListado5Mensual
-	@fecha_mes DATETIME
+	@fecha_mes1 VARCHAR(30)
 AS
 BEGIN
+	DECLARE @fecha_mes DATETIME
+	SET @fecha_mes =  CONVERT(DATETIME,@fecha_mes, 120)
 	SELECT TOP 5 t.turno_esp'ID de la Especialidad', e.esp_descripcion'Especialidad', COUNT(*) 'Bonos utilizados'
 	FROM turnos t
 	JOIN especialidad e ON t.turno_esp = e.esp_id
