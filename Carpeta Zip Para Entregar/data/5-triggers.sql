@@ -10,6 +10,8 @@ GO
 
 /* CREO TRIGGERS */
 
+
+-- PARA LA COMPRA DE BONOS
 CREATE TRIGGER compraDeBonos
 	ON registro_compra
 	AFTER INSERT
@@ -34,6 +36,7 @@ BEGIN
 END
 GO
 
+-- PARA ACTUALIZAR EL CAMPO cantidad_familiares DEL AFILIADO
 CREATE TRIGGER agregarFamiliar
 	ON afiliado
 	AFTER INSERT
@@ -48,6 +51,8 @@ BEGIN
 END
 GO
 
+
+-- PARA DAR DE BAJA LOS TURNOS CUANDO SE EJECUTA EL STORED PROCEDURE bajaIntervalo
 CREATE TRIGGER cancelarTurnosPorIntervalo
 ON periodo_baja
 AFTER INSERT
