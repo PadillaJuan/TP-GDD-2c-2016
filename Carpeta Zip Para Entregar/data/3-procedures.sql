@@ -102,6 +102,10 @@ IF (OBJECT_ID('getTurnosDelProfesional', 'P') IS NOT NULL)
 
 IF (OBJECT_ID('bajaIntervalo', 'P') IS NOT NULL)
 	DROP PROCEDURE bajaIntervalo;
+
+IF (OBJECT_ID('dameTurnosDisponiblesDeLaFecha', 'P') IS NOT NULL)
+	DROP PROCEDURE dameTurnosDisponiblesDeLaFecha;
+
 GO
 
 
@@ -617,6 +621,17 @@ CREATE PROCEDURE reservarTurno
 AS
 BEGIN
 	INSERT INTO turnos VALUES (@turno_fecha, 0 , @turno_agenda, @turno_afi, @turno_af_rel, @turno_prof, @turno_esp)
+END
+GO
+
+CREATE PROCEDURE dameTurnosDisponiblesDeLaFecha
+	@fecha VARCHAR(20)
+AS
+BEGIN
+	SELECT DATEPART(hour,agenda_fechayhora), DATEPART(minute, agenda_fechayhora), agenda_id  
+	FROM agenda_profesional
+	WHERE agenda_id NOT IN (SELECT turno_agenda FROM turnos WHERE turno_estado = 0)	
+	AND CONVERT(VARCHAR(10),agenda_fechayhora) = CONVERT(VARCHAR(10),@fecha)
 END
 GO
 

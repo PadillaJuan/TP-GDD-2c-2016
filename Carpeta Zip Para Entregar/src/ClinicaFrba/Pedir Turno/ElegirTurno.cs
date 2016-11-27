@@ -51,11 +51,17 @@ namespace ClinicaFrba.Pedir_Turno
             dateTimePicker1.MinDate = DateTime.Parse(Program.nuevaFechaSistema());
        }
 
-        private void filtrarFecha(DateTime fechaTurno)
+        private void filtrarFecha()
         {
-            string query = String.Format("SELECT DATEPART(hour,agenda_fechayhora), DATEPART(minute, agenda_fechayhora), agenda_id  FROM agenda_profesional WHERE agenda_fechayhora = CONVERT(DATETIME,'{0}') ", fechaTurno.ToString());
-            
-            CompletadorDeTablas.hacerQuery(query, ref dataGridView1);
+            SqlConnection cn = (new BDConnection()).getInstance();
+            SqlCommand cm = new SqlCommand("dameTurnosDisponiblesDeLaFecha", cn);
+            cm.CommandType = CommandType.StoredProcedure;
+            cm.Parameters.AddWithValue("@fecha", dateTimePicker1.Value.ToString());
+            SqlDataAdapter sda = new SqlDataAdapter(cm);
+            DataTable tabla = new DataTable();
+            sda.Fill(tabla);
+            sda.Dispose();
+            dataGridView1.DataSource = tabla;
         }
         
         private void button1_Click(object sender, EventArgs e)
@@ -65,8 +71,7 @@ namespace ClinicaFrba.Pedir_Turno
 
         private void button3_Click(object sender, EventArgs e)
         {
-            DateTime fechaFiltrar = dateTimePicker1.Value;
-            filtrarFecha(fechaFiltrar);
+            filtrarFecha();
         }
 
         private void button2_Click(object sender, EventArgs e)

@@ -325,7 +325,6 @@ namespace ClinicaFrba.Registrar_Agenta_Medico
             com.Parameters.AddWithValue("@hora_inicio", hora_inicio);
             com.Parameters.AddWithValue("@hora_fin", hora_fin);
             com.Parameters.AddWithValue("@especialidad", esp_id);
-            MessageBox.Show(com.ToString());
             com.ExecuteNonQuery();
             com.Dispose();
         }
