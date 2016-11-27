@@ -632,6 +632,7 @@ BEGIN
 	FROM agenda_profesional
 	WHERE agenda_id NOT IN (SELECT turno_agenda FROM turnos WHERE turno_estado = 0)	
 	AND CONVERT(VARCHAR(10),agenda_fechayhora) = CONVERT(VARCHAR(10),@fecha)
+	ORDER BY Hora, Minutos
 END
 GO
 

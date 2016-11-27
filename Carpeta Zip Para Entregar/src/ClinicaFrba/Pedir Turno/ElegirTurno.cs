@@ -49,14 +49,16 @@ namespace ClinicaFrba.Pedir_Turno
             dateTimePicker1.Enabled = true;
             dateTimePicker1.Text = DateTime.Parse(Program.nuevaFechaSistema()).ToString();
             dateTimePicker1.MinDate = DateTime.Parse(Program.nuevaFechaSistema());
-       }
+            dataGridView1.AutoResizeColumns();
+        }
 
         private void filtrarFecha()
         {
+            MessageBox.Show(dateTimePicker1.Value.ToString("yyyy-MM-dd HH:mm:ss"));
             SqlConnection cn = (new BDConnection()).getInstance();
             SqlCommand cm = new SqlCommand("dameTurnosDisponiblesDeLaFecha", cn);
             cm.CommandType = CommandType.StoredProcedure;
-            cm.Parameters.AddWithValue("@fecha", dateTimePicker1.Value.ToString());
+            cm.Parameters.AddWithValue("@fecha", dateTimePicker1.Value.ToString("yyyy-MM-dd HH:mm:ss"));
             SqlDataAdapter sda = new SqlDataAdapter(cm);
             DataTable tabla = new DataTable();
             sda.Fill(tabla);
@@ -86,7 +88,6 @@ namespace ClinicaFrba.Pedir_Turno
 
                 agendar(fecha, agenda_id);
                 MessageBox.Show("Turno seleccionado correctamente", this.Text, MessageBoxButtons.OK, MessageBoxIcon.None);
-                form.Close();
                 this.Close();
             }
         }
@@ -94,14 +95,13 @@ namespace ClinicaFrba.Pedir_Turno
         private void agendar(DateTime turno_fecha, int turno_agenda)
         {
             string query = "reservarTurno";
-            SqlConnection conn = (new BDConnection()).getConnection();
+            SqlConnection conn = (new BDConnection()).getInstance();
             SqlCommand com = new SqlCommand(query, conn);
             com.CommandType = CommandType.StoredProcedure;
             com.Parameters.AddWithValue("@turno_afi", idAfiliado);
             com.Parameters.AddWithValue("@turno_fecha", turno_fecha);
             com.Parameters.AddWithValue("@turno_agenda", turno_agenda);
             com.Parameters.AddWithValue("@turno_prof", idProf);
-            com.Parameters.AddWithValue("@turno_estado" , 0);
             com.Parameters.AddWithValue("@turno_esp", idEsp);
             com.Parameters.AddWithValue("@turno_af_rel", idRel);
             com.ExecuteNonQuery();
