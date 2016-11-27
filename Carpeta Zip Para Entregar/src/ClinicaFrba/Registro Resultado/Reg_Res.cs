@@ -89,7 +89,7 @@ namespace ClinicaFrba.Registro_Resultado
         public bool validarEntrada()
         {
             int n;
-            return !Int32.TryParse(textBox1.Text, out n);
+            return Int32.TryParse(textBox1.Text, out n);
         }
 
         public bool validarSeleccion()

@@ -400,13 +400,15 @@ GO
 
 CREATE PROCEDURE checkBono
 	@bono_id INT,
-	@turno_id INT,
-	@af_id BIGINT,
-	@af_rel_id TINYINT
+	@turno_id INT
 AS
 BEGIN
 	DECLARE @plan_med INT
 	DECLARE @tipoEsp_id INT
+	DECLARE @af_id BIGINT
+	DECLARE @af_rel_id TINYINT
+	SELECT @af_id = turno_af, @af_rel_id = turno_af_rel FROM turnos
+	WHERE turno_id = @turno_id
 	
 	SELECT @plan_med = planmed_id FROM afiliado a 
 	JOIN turnos t ON a.af_id = t.turno_af AND a.af_rel_id = t.turno_af_rel
@@ -414,7 +416,7 @@ BEGIN
 
 	SELECT @tipoEsp_id = tipoEsp_id FROM especialidad WHERE esp_id = (SELECT turno_esp FROM turnos WHERE turno_id = @turno_id)
 
-	IF NOT EXISTS (SELECT 1 FROM tipo_especialidades_pòr_planes WHERE planmed_id = @plan_med AND tipoEsp_id = @tipoEsp_id)
+	IF NOT EXISTS (SELECT 1 FROM tipo_especialidades_por_planes WHERE planmed_id = @plan_med AND tipoEsp_id = @tipoEsp_id)
 		RAISERROR('El bono seleccionado para la consulta no es válido', 10, 16)
 END
 GO
@@ -464,20 +466,14 @@ CREATE PROCEDURE getTurnos
 AS
 BEGIN
 
-	SELECT t.turno_id, turno_prof, turno_esp, turno_af, turno_af_rel INTO #temporalTurno
+	SELECT t.turno_id, e.esp_descripcion, p.prof_apellido, a.agenda_fechayhora
 	FROM turnos t
-	WHERE YEAR(t.turno_fecha) = YEAR(@fecha)
-	AND	  MONTH(t.turno_fecha) = MONTH(@fecha)
-	AND   DAY(t.turno_fecha) = DAY(@fecha)
-
-	SELECT t.turno_id, e.esp_descripcion, p.prof_apellido
-	FROM #temporalTurno t 
 	JOIN profesional p ON t.turno_prof = p.prof_id
 	JOIN especialidad e ON e.esp_id = t.turno_esp
+	JOIN agenda_profesional a ON agenda_id = t.turno_agenda 
 	WHERE turno_af = @af_id AND turno_af_rel = @af_rel_id
 	AND (@esp_id = t.turno_esp OR p.prof_apellido = @prof_apellido)
-
-	DROP TABLE #temporalTurno
+	AND turno_estado = 0
 
 END
 GO
@@ -497,16 +493,16 @@ END
 GO
 
 CREATE PROCEDURE generateConsultaMedica
-@turno_id INT,
+	@turno_id INT,
 	@bono_id INT,
-	@hora_llegada DATETIME,
+	@hora_llegada VARCHAR(30),
 	@af_id BIGINT,
 	@af_rel_id TINYINT
 AS
 BEGIN
 
 	INSERT INTO consulta_medica(cons_turno,cons_bono,cons_hora_llegada)
-				VALUES(@turno_id,@bono_id,@hora_llegada)
+				VALUES(@turno_id,@bono_id,CONVERT(DATETIME,@hora_llegada,126))
 
 	UPDATE bono SET bono_nro_consulta= (SELECT COUNT(*)+1 FROM bono WHERE bono_af = @af_id AND bono_af_rel = @af_rel_id), bono_af_rel = @af_rel_id
 	WHERE bono_id = @bono_id
@@ -628,7 +624,7 @@ CREATE PROCEDURE dameTurnosDisponiblesDeLaFecha
 	@fecha VARCHAR(20)
 AS
 BEGIN
-	SELECT DATEPART(hour,agenda_fechayhora), DATEPART(minute, agenda_fechayhora), agenda_id  
+	SELECT DATEPART(hour,agenda_fechayhora) Hora, DATEPART(minute, agenda_fechayhora) Minutos, agenda_id  
 	FROM agenda_profesional
 	WHERE agenda_id NOT IN (SELECT turno_agenda FROM turnos WHERE turno_estado = 0)	
 	AND CONVERT(VARCHAR(10),agenda_fechayhora) = CONVERT(VARCHAR(10),@fecha)

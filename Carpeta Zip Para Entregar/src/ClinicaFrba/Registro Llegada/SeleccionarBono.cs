@@ -27,6 +27,7 @@ namespace ClinicaFrba.Registro_Llegada
         {
             InitializeComponent();
             llenarDGV(af_id, af_rel_id);
+            dataGridView1.AutoResizeColumns();
         }
 
         private void button2_Click(object sender, EventArgs e)
@@ -63,7 +64,7 @@ namespace ClinicaFrba.Registro_Llegada
             {
                 int index;
                 index = dataGridView1.CurrentCell.RowIndex;
-                this.button1.DialogResult = System.Windows.Forms.DialogResult.OK;
+                this.DialogResult = System.Windows.Forms.DialogResult.OK;
                 Close();
             }
             catch (Exception a)
