@@ -500,7 +500,7 @@ CREATE PROCEDURE addHorasAgenda
 	@especialidad INT
 AS
 BEGIN	
-	
+	SET DATEFORMAT ymd
 	DECLARE @inicialBucle TIME
 	DECLARE @finalBucle TIME
 	DECLARE @hi TIME
