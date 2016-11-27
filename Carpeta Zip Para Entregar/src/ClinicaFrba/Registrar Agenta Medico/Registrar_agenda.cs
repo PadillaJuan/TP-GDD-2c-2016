@@ -67,7 +67,7 @@ namespace ClinicaFrba.Registrar_Agenta_Medico
             string query = "getEspecialidadesPorProfesional";
             SqlCommand com = new SqlCommand(query, conn);
             com.CommandType = CommandType.StoredProcedure;
-            com.Parameters.Add(new SqlParameter("@us_id", 5551));
+            com.Parameters.Add(new SqlParameter("@us_id", us_id));
             string especialidad;
             int esp_id;
             try
@@ -127,7 +127,6 @@ namespace ClinicaFrba.Registrar_Agenta_Medico
             // DATOS HARDCODEADOS
             desde = fecha_desde.Value.Year.ToString() + "-" + fecha_desde.Value.Day.ToString() + "-" + fecha_desde.Value.Month.ToString() + " 00:00:00";
             hasta = fecha_hasta.Value.Year.ToString() + "-" + fecha_hasta.Value.Day.ToString() + "-" + fecha_hasta.Value.Month.ToString() + " 23:59:00";
-            MessageBox.Show(desde + ' ' + hasta);
             prof_id = obtenerProfID();
             //
             // Inicio Validacion campos
