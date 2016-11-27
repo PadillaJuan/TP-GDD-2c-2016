@@ -28,6 +28,9 @@ namespace ClinicaFrba.Registro_Llegada
             InitializeComponent();
             llenarDGV(af_id, af_rel_id);
             dataGridView1.AutoResizeColumns();
+            dataGridView1.MultiSelect = false;
+            dataGridView1.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            dataGridView1.ReadOnly = true;
         }
 
         private void button2_Click(object sender, EventArgs e)
@@ -41,7 +44,6 @@ namespace ClinicaFrba.Registro_Llegada
             SqlCommand cm = new SqlCommand("getBonosDisponibles", cn);
             cm.CommandType = CommandType.StoredProcedure;
             cm.Parameters.AddWithValue("@af_id", af_id);
-            cm.Parameters.AddWithValue("@af_rel_id", (short) af_rel_id);
             tabla = new DataTable();
             SqlDataAdapter sda = new SqlDataAdapter(cm);
             sda.Fill(tabla);

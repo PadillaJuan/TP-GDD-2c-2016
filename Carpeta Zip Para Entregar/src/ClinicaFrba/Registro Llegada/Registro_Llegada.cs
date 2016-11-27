@@ -122,10 +122,11 @@ namespace ClinicaFrba.Registro_Llegada
         {
             bool flag = true;
             int n;
-            if (Int32.TryParse(textBox2.ToString(), out n))
+            if (!int.TryParse(textBox2.Text, out n))
             {
-                MessageBox.Show("No se ha ingresado ningun numero de afiliado", Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("No se ha ingresado ningun numero de afiliado" + n.ToString(), Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Error);
                 flag = false;
+                
             }
             if (checkBox1.Checked && comboBox1.SelectedIndex == -1)
             {

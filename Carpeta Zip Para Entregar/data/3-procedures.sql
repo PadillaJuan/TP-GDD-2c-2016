@@ -478,16 +478,28 @@ BEGIN
 END
 GO
 
-CREATE PROCEDURE getBonosDisponibles
+CREATE PROCEDURE getConsultas
 	@af_id BIGINT,
 	@af_rel_id TINYINT
+AS
+BEGIN
+	SELECT c.cons_id'ID de la consulta', t.turno_prof'ID del profesional', t.turno_esp 'ID de la especialidad'
+	FROM turnos t 
+	JOIN consulta_medica c 
+	ON turno_id = cons_turno
+	WHERE turno_estado = 0
+END
+GO
+
+CREATE PROCEDURE getBonosDisponibles
+	@af_id BIGINT
 AS
 BEGIN
 
 SELECT bono_id 'ID del bono', bono_planmed ' Plan medico que cubre el bono'
 FROM bono
 WHERE bono_nro_consulta IS NULL
-AND bono_af = @af_id AND bono_af_rel = @af_rel_id
+AND bono_af = @af_id
 
 END
 GO
@@ -637,20 +649,6 @@ BEGIN
 END
 GO
 
-CREATE PROCEDURE getConsultas
-	@af_id BIGINT,
-	@af_rel_id TINYINT
-AS
-BEGIN
-	SELECT c.cons_id'ID de la consulta', t.turno_prof'ID del profesional', t.turno_esp 'ID de la especialidad'
-	FROM turnos t 
-	JOIN consulta_medica c 
-	ON turno_id = cons_turno
-	WHERE c.cons_diagnostico = NULL
-	AND c.cons_sintomas = NULL
-END
-GO
-
 CREATE PROCEDURE finalizarConsulta
 	@cons_id INT,
 	@sintomas VARCHAR(200),
@@ -661,6 +659,8 @@ BEGIN
 	SET cons_sintomas = @sintomas,
 	cons_diagnostico = @diagnostico
 	WHERE cons_id = @cons_id
+
+	UPDATE turnos SET turno_estado = 1 WHERE turno_id = (SELECT cons_turno FROM consulta_medica WHERE cons_id = @cons_id)
 END
 GO
 ------------------LISTADOS------------------LISTADOS------------------LISTADOS------------------LISTADOS------------------LISTADOS

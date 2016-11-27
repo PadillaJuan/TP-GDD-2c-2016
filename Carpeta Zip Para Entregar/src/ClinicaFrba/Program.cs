@@ -17,6 +17,7 @@ namespace ClinicaFrba
         [STAThread]
         static void Main()
         {
+            
             //testConexionBD();
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
@@ -28,7 +29,6 @@ namespace ClinicaFrba
             Application.Run(new VentanaInicial());
 
             //Application.Run(new Listados.Presentacion_Listados());
-
         }
 
         public static void testConexionBD()
