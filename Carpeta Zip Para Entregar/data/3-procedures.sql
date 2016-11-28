@@ -321,6 +321,7 @@ CREATE PROCEDURE deactivateRol
 	@rol_id INT
 AS BEGIN
 	UPDATE rol SET rol_status = 'd' WHERE rol_id = @rol_id
+	DELETE FROM rol_por_usuarios WHERE rol_id = @rol_id
 END
 GO
 
