@@ -184,12 +184,10 @@ create procedure migrarTurnos
 as
 	SET IDENTITY_INSERT turnos ON 
 	insert into turnos(turno_id,turno_fecha,turno_estado,turno_agenda,turno_af,turno_af_rel,turno_prof,turno_esp)
-		select Turno_Numero,Turno_Fecha,1,(select agenda_id from agenda_profesional
-											where agenda_prof = prof_id and agenda_esp = Especialidad_Codigo and 
-												  agenda_fechayhora = Turno_Fecha),
-					af_id,af_rel_id,prof_id,Especialidad_Codigo
-		from gd_esquema.Maestra,afiliado,profesional
-		where Turno_Numero is not null and af_numdoc = Paciente_Dni and prof_numdoc = Medico_Dni and Consulta_Enfermedades is not null
+		select Turno_Numero,Turno_Fecha,1,agenda_id,af_id,af_rel_id,prof_id,Especialidad_Codigo
+		from gd_esquema.Maestra,afiliado,profesional,agenda_profesional
+		where Turno_Numero is not null and af_numdoc = Paciente_Dni and prof_numdoc = Medico_Dni and Consulta_Enfermedades is not null and
+			  agenda_prof = prof_id and agenda_esp = Especialidad_Codigo and agenda_fechayhora = Turno_Fecha
 		order by Turno_Numero ASC
 
 	SET IDENTITY_INSERT turnos OFF
