@@ -191,7 +191,7 @@ namespace ClinicaFrba.Abm_Afiliado
             if (dateTimePicker1.Value == DateTime.Parse("1900-01-01 00:00:00.000")) { i = true; MessageBox.Show("d1"); }
             if (dateTimePicker1.Value >= DateTime.Parse(Program.nuevaFechaSistema())) { i = true; MessageBox.Show("f1"); }
             if (textBox5.Text.Length == 0 || textBox6.Text.Length == 0 || textBox7.Text.Length == 0) { i = true; MessageBox.Show("1g"); }
-            if (!long.TryParse(textBox6.Text, out m)) { i = true; }
+            if (!long.TryParse(textBox6.Text, out m) && dateTimePicker1.Value >= DateTime.Parse(Program.nuevaFechaSistema())) { i = true; }
 
             return i;
         }

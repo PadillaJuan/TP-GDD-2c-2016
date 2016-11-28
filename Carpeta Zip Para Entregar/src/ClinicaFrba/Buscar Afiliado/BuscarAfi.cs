@@ -56,19 +56,23 @@ namespace ClinicaFrba.BuscarAfiliado
             {
                 index = -1;
             }
+            
             if (index == -1)
             {
                 MessageBox.Show("No se ha seleccionado un afiliado", "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
             }
-            else
+            if ('d' == Char.Parse(dt.Rows[index][15].ToString()))
             {
+                MessageBox.Show("El afiliado esta dado de baja, no puede ingresar familiares", "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
                 long id = getIdSinRel();
                 short id_rel = getRel_Id();
                 int plan = getPlanMed();
                 Compra_Bono.Compra_Bono form = new Compra_Bono.Compra_Bono(id,id_rel,plan);
                 Close();
                 form.Show();
-            }
         }
 
         private void button5_Click(object sender, EventArgs e) // VOLVER
@@ -241,12 +245,16 @@ namespace ClinicaFrba.BuscarAfiliado
                 if (int.Parse(dt.Rows[index][1].ToString()) != 0)
                 {
                     MessageBox.Show("Solo un afiliado titular puede agregar familiares", "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
                 }
-                else
+                if ('d' == Char.Parse(dt.Rows[index][15].ToString()))
                 {
-                    Abm_Afiliado.ABM_afi form = new Abm_Afiliado.ABM_afi(2, getId());
-                    form.Show();
+                    MessageBox.Show("El afiliado esta dado de baja, no puede ingresar familiares", "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
                 }
+                Abm_Afiliado.ABM_afi form = new Abm_Afiliado.ABM_afi(2, getId());
+                form.Show();
+
             }
         }
 
@@ -278,12 +286,16 @@ namespace ClinicaFrba.BuscarAfiliado
             if (index == -1)
             {
                 MessageBox.Show("No se ha seleccionado un afiliado", "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
             }
-            else
+            if ('d' == Char.Parse(dt.Rows[index][15].ToString()))
             {
-                Abm_Afiliado.ABM_afi form = new Abm_Afiliado.ABM_afi(1, getId());
-                form.Show();
+                MessageBox.Show("El afiliado esta dado de baja, no puede ingresar familiares", "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
             }
+            Abm_Afiliado.ABM_afi form = new Abm_Afiliado.ABM_afi(1, getId());
+            form.Show();
+            
         }
     }
 }
