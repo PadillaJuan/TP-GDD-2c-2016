@@ -82,7 +82,7 @@ go
 create procedure migrarAfiliados
 as	
 	insert into usuarios
-		select Paciente_Dni,HASHBYTES('SHA2_256',Paciente_Apellido),0,'1'
+		select convert(varchar,Paciente_Dni),HASHBYTES('SHA2_256',Paciente_Apellido),0,'1'
 		from gd_esquema.Maestra
 		group by Paciente_Nombre,Paciente_Apellido,Paciente_Dni,Paciente_Direccion,Paciente_Telefono,Paciente_Mail,Paciente_Fecha_Nac,Plan_Med_Codigo
 
@@ -102,7 +102,7 @@ go
 create procedure migrarProfesional
 as
 	insert into usuarios
-		select Medico_Dni,HASHBYTES('SHA2_256',Medico_Apellido),0,'1'
+		select convert(varchar,Medico_Dni),HASHBYTES('SHA2_256',Medico_Apellido),0,'1'
 		from gd_esquema.Maestra
 		where Medico_Dni is not null
 		group by Medico_Nombre,Medico_Apellido,Medico_Dni,Medico_Direccion,Medico_Telefono,Medico_Mail,Medico_Fecha_Nac
