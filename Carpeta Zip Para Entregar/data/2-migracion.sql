@@ -90,7 +90,7 @@ as
 		select 00,us_id,Paciente_Nombre,Paciente_Apellido,'DNI',Paciente_Dni,
 		       Paciente_Direccion,Paciente_Telefono,Paciente_Mail,Paciente_Fecha_Nac,Plan_Med_Codigo, '', '', 0
 		from gd_esquema.Maestra,usuarios
-		where us_username = Paciente_Dni
+		where us_username = convert(varchar,Paciente_Dni)
 		group by us_id,Paciente_Nombre,Paciente_Apellido,Paciente_Dni,Paciente_Direccion,Paciente_Telefono,Paciente_Mail,Paciente_Fecha_Nac,Plan_Med_Codigo
 	 
 go
@@ -111,13 +111,12 @@ as
 	insert into profesional(us_id,prof_nombre,prof_apellido,prof_tipodoc,prof_numdoc,prof_direccion,prof_telefono,prof_mail,prof_nacimiento)
 		select us_id,Medico_Nombre,Medico_Apellido,'DNI',Medico_Dni,Medico_Direccion,Medico_Telefono,Medico_Mail,Medico_Fecha_Nac
 		from gd_esquema.Maestra,usuarios
-		where Medico_Dni is not null and us_username = Medico_Dni
+		where Medico_Dni is not null and us_username = convert(varchar,Medico_Dni)
 		group by us_id,Medico_Nombre,Medico_Apellido,Medico_Dni,Medico_Direccion,Medico_Telefono,Medico_Mail,Medico_Fecha_Nac
 		order by Medico_Dni
 go
 execute migrarProfesional
 go
-
 
 /*------------------ MIGRACION DE TIPO DE ESPECIALIDADES ----------------------*/
 create procedure migrarTipoEspecialidades
