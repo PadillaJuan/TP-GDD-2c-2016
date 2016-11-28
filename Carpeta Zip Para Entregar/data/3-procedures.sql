@@ -508,6 +508,7 @@ CREATE PROCEDURE comprobar48horas
 AS
 BEGIN	
 	SET DATEFORMAT ymd
+	SET DATEFIRST 7
 	DECLARE @d DATETIME
 	DECLARE @d2 DATETIME
 	DECLARE @h DATETIME
@@ -545,6 +546,7 @@ CREATE PROCEDURE addHorasAgenda
 AS
 BEGIN	
 	SET DATEFORMAT ymd
+	SET DATEFIRST 7
 	DECLARE @inicialBucle TIME
 	DECLARE @finalBucle TIME
 	DECLARE @hi TIME
@@ -579,7 +581,7 @@ BEGIN
 			IF (SELECT COUNT(*) FROM agenda_profesional WHERE agenda_prof = @id AND agenda_fechayhora = (@d2 + CONVERT(DATETIME, @inicialBucle))) > 0
 			BEGIN
 				SET @error_bandera = 1
-				RAISERROR('Estas sobre-escribiendo una agenda agregada anteriormente',16,1)
+				RAISERROR('Algunos horarios no fueron agregados porque se sobre escribian con anteriores',16,1)
 				RETURN 
 			END
 			SET @inicialBucle = DATEADD(MINUTE,30,@inicialBucle)
