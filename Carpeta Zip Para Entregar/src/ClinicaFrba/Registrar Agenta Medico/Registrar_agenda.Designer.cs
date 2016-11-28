@@ -126,8 +126,6 @@
             this.groupBox1.Size = new System.Drawing.Size(553, 65);
             this.groupBox1.TabIndex = 9;
             this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Lunes";
-            this.groupBox1.Enter += new System.EventHandler(this.groupBox1_Enter);
             // 
             // lunes_activar
             // 

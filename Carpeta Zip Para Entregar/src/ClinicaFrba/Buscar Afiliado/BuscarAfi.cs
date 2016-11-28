@@ -168,10 +168,9 @@ namespace ClinicaFrba.BuscarAfiliado
             bool flag= false;
             string query = "SELECT * FROM afiliado WHERE ";
             if (checkBox1.Checked) {
-                String id, rel;
+                String id;
                 id = String.Format("{0}", int.Parse(textBox1.Text) / 100);
-                rel = String.Format("{0}", int.Parse(textBox1.Text) % 100);
-                query += String.Format("af_id = {0} AND af_rel_id = {1} ", id, rel);
+                query += String.Format("(af_id = {0} ) ", id);
                 flag = true;
                 
             }
@@ -252,10 +251,16 @@ namespace ClinicaFrba.BuscarAfiliado
                     MessageBox.Show("El afiliado esta dado de baja, no puede ingresar familiares", "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;
                 }
-                Abm_Afiliado.ABM_afi form = new Abm_Afiliado.ABM_afi(2, getId());
+                Abm_Afiliado.ABM_afi form = new Abm_Afiliado.ABM_afi(2, getIDForFamiliar());
                 form.Show();
 
             }
+        }
+
+        private long getIDForFamiliar()
+        {
+            int index = dataGridView1.SelectedRows[0].Index;
+            return getId() + long.Parse(dt.Rows[index][12].ToString()) + 1;
         }
 
         public void setButtons(int asRol)

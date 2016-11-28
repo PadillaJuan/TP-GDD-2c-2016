@@ -185,12 +185,12 @@ namespace ClinicaFrba.Abm_Afiliado
             int n;
             long m;
 
-            if (textBox2.Text.Length == 0 || textBox3.Text.Length == 0 || textBox4.Text.Length == 0) { i = true; MessageBox.Show("1"); }
+            if (textBox2.Text.Length == 0 || textBox3.Text.Length == 0 || textBox4.Text.Length == 0) { i = true; }
             if (!textBox2.Text.All(c => Char.IsLetter(c)) || !textBox3.Text.All(d => Char.IsLetter(d)) || !int.TryParse(textBox4.Text, out n)) { i = true;}
             if (comboBox1.SelectedIndex == -1 || comboBox2.SelectedIndex == -1 || comboBox3.SelectedIndex == -1 || comboBox4.SelectedIndex == -1) { i = true;}
-            if (dateTimePicker1.Value == DateTime.Parse("1900-01-01 00:00:00.000")) { i = true; MessageBox.Show("d1"); }
-            if (dateTimePicker1.Value >= DateTime.Parse(Program.nuevaFechaSistema())) { i = true; MessageBox.Show("f1"); }
-            if (textBox5.Text.Length == 0 || textBox6.Text.Length == 0 || textBox7.Text.Length == 0) { i = true; MessageBox.Show("1g"); }
+            if (dateTimePicker1.Value == DateTime.Parse("1900-01-01 00:00:00.000")) { i = true;  }
+            if (dateTimePicker1.Value >= DateTime.Parse(Program.nuevaFechaSistema())) { i = true;  }
+            if (textBox5.Text.Length == 0 || textBox6.Text.Length == 0 || textBox7.Text.Length == 0) { i = true;  }
             if (!long.TryParse(textBox6.Text, out m) && dateTimePicker1.Value >= DateTime.Parse(Program.nuevaFechaSistema())) { i = true; }
 
             return i;
