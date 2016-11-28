@@ -557,11 +557,6 @@ BEGIN
 	BEGIN
 		WHILE @inicialBucle <= @finalBucle
 		BEGIN
-			IF (SELECT COUNT(*) FROM agenda_profesional WHERE agenda_prof = @id AND agenda_fechayhora = (@d + CONVERT(DATETIME, @inicialBucle))) > 0
-			BEGIN
-				ROLLBACK TRANSACTION
-				BREAK
-			END
 			INSERT INTO agenda_profesional VALUES (@id, @especialidad, @d + CONVERT(DATETIME, @inicialBucle))
 			SET @inicialBucle = DATEADD(MINUTE,30,@inicialBucle)
 		END
