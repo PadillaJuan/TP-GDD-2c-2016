@@ -606,7 +606,8 @@ BEGIN
 	INSERT INTO consulta_medica(cons_turno,cons_bono,cons_hora_llegada)
 				VALUES(@turno_id,@bono_id,CONVERT(DATETIME,@hora_llegada,126))
 
-	UPDATE bono SET bono_nro_consulta= (SELECT COUNT(*)+1 FROM bono WHERE bono_af = @af_id AND bono_af_rel = @af_rel_id), bono_af_rel = @af_rel_id
+	UPDATE bono SET bono_nro_consulta= (SELECT MAX(bono_nro_consulta)+1 FROM bono WHERE bono_af = @af_id AND bono_af_rel = @af_rel_id),
+	bono_af_rel = @af_rel_id
 	WHERE bono_id = @bono_id
 
 	

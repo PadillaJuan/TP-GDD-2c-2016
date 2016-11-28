@@ -66,8 +66,7 @@ namespace ClinicaFrba.Listados
         private SqlCommand generateSqlCommandSemestral()
         {
             SqlConnection cn = (new BDConnection()).getInstance();
-            string query3 = query2 + "Semestral";
-            SqlCommand cm = new SqlCommand(query3,cn);
+            SqlCommand cm = new SqlCommand(query2,cn);
             DateTime inicio;
             DateTime fin;
             if (dateTimePicker1.Value >= new DateTime(dateTimePicker1.Value.Year, 7, 1))
@@ -89,8 +88,7 @@ namespace ClinicaFrba.Listados
         private SqlCommand generateSqlCommandMensual()
         {
             SqlConnection cn = (new BDConnection()).getInstance();
-            string query3 = query2 + "Semestral";
-            SqlCommand cm = new SqlCommand(query3, cn);
+            SqlCommand cm = new SqlCommand(query2, cn);
             DateTime inicio;
             DateTime fin;
             inicio = new DateTime(dateTimePicker2.Value.Year, dateTimePicker2.Value.Month, 01);
