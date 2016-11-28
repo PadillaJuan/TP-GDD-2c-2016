@@ -91,7 +91,7 @@
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(99, 52);
             this.button3.TabIndex = 4;
-            this.button3.Text = "Modificar Funcionalidades";
+            this.button3.Text = "Modificar";
             this.button3.UseVisualStyleBackColor = true;
             this.button3.Click += new System.EventHandler(this.button3_Click);
             // 

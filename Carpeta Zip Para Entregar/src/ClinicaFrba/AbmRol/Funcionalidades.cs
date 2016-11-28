@@ -22,7 +22,7 @@ namespace ClinicaFrba.AbmRol
             InitializeComponent();
             setCheckBox();
             Funcion = accion;
-            id_rol = rol_id;
+            
             switch (accion)
             {
                 case 0:
@@ -30,6 +30,7 @@ namespace ClinicaFrba.AbmRol
                     break;
                 case 1:
                     oldRol(rol_id, nombreRol);
+                    id_rol = rol_id;
                     break;
             }
         }
@@ -133,13 +134,27 @@ namespace ClinicaFrba.AbmRol
             button4.Enabled = true;
             button5.Enabled = true;
             button6.Enabled = true;
+            textBox1.Enabled = true;
+            textBox1.MaxLength = 30;
         }
 
         private void button4_Click(object sender, EventArgs e)
         {
             if (Funcion == 0) { insertarRol(); }
+            else { setForNewRol(); }
             InsertarFuncionalidades();
             deactivateModifications();
+        }
+
+        public void setForNewRol()
+        {
+            string query = String.Format("updateRol", textBox1.Text);
+            SqlConnection conn = (new BDConnection()).getInstance();
+            SqlCommand com = new SqlCommand(query, conn);
+            com.CommandType = CommandType.StoredProcedure;
+            com.Parameters.AddWithValue("@nombre_rol", textBox1.Text);
+            com.Parameters.AddWithValue("@id_rol", id_rol);
+            com.ExecuteNonQuery();
         }
 
         public void insertarRol() 
@@ -155,7 +170,7 @@ namespace ClinicaFrba.AbmRol
         public void InsertarFuncionalidades() 
         {
             int i = 0;
-            deleteFun();
+            if (Funcion == 1) { deleteFun(); }
             for (i = 0; i < checkedListBox1.Items.Count; i++)
             {
                 if (checkedListBox1.GetItemChecked(i) )
@@ -182,8 +197,8 @@ namespace ClinicaFrba.AbmRol
             SqlConnection conn = (new BDConnection()).getInstance();
             SqlCommand com = new SqlCommand(query, conn);
             com.CommandType = CommandType.StoredProcedure;
-            com.Parameters.AddWithValue("id_rol",id_rol);
-            com.Parameters.AddWithValue("fun_id",fun_id);
+            com.Parameters.AddWithValue("@nombre_rol",textBox1.Text);
+            com.Parameters.AddWithValue("@fun_id",fun_id);
             com.ExecuteNonQuery();
         }
 

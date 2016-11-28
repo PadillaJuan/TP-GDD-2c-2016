@@ -27,6 +27,8 @@ namespace ClinicaFrba.Listados
             sda.Dispose();
             dataGridView1.DataSource = tabla;
             dataGridView1.AutoResizeColumns();
+            dataGridView1.ReadOnly = true;
+            dataGridView1.MultiSelect = false;
         }
 
 

@@ -20,6 +20,10 @@ namespace ClinicaFrba.AbmRol
         public ABMRol()
         {
             InitializeComponent();
+            dataGridView1.AutoResizeColumns();
+            dataGridView1.ReadOnly = true;
+            dataGridView1.ReadOnly = true;
+            dataGridView1.MultiSelect = false;
         }
 
         private void button1_Click(object sender, EventArgs e) // Dar rol de alta

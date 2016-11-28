@@ -399,3 +399,4 @@ ALTER TABLE funcionalidad_por_rol add constraint FK_funxrol_fun foreign key (fun
 
 ALTER TABLE afiliado ADD CONSTRAINT UN_DNI UNIQUE (af_numdoc, af_tipodoc)
 ALTER TABLE agenda_profesional ADD CONSTRAINT UN_DATOS UNIQUE (agenda_prof, agenda_fechayhora);
+ALTER TABLE rol ADD CONSTRAINT UN_NOMBREROL UNIQUE (rol_nombre)

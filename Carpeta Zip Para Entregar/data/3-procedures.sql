@@ -40,6 +40,8 @@ IF (OBJECT_ID('activateRol', 'P') IS NOT NULL)
 	DROP PROCEDURE activateRol;
 IF (OBJECT_ID('updateRXF', 'P') IS NOT NULL)
 	DROP PROCEDURE updateRXF;
+IF (OBJECT_ID('updateRol', 'P') IS NOT NULL)
+	DROP PROCEDURE updateRol;
 
 -- LOGIN
 IF (OBJECT_ID('login', 'P') IS NOT NULL)
@@ -267,7 +269,7 @@ CREATE PROCEDURE getAllRoles
 
 AS
 BEGIN
-	SELECT * FROM rol
+	SELECT rol_id 'ID del rol', rol_nombre 'Nombre del rol', rol_status 'Estado del rol'  FROM rol
 END
 GO
 
@@ -299,11 +301,11 @@ END
 GO
 
 CREATE PROCEDURE InsertarRolXFuncionalidad
-	@id_rol INT,
+	@nombre_rol VARCHAR(30),
 	@fun_id INT
 AS
 BEGIN
-	INSERT into funcionalidad_por_rol VALUES( @id_rol, @fun_id)
+	INSERT into funcionalidad_por_rol VALUES( (SELECT rol_id FROM rol WHERE rol_nombre like @nombre_rol), @fun_id)
 END
 GO
 
@@ -329,7 +331,6 @@ BEGIN
 	UPDATE rol SET rol_status = 'a' 
 	WHERE rol_id = @rol_id
 END
-
 GO
 
 CREATE PROCEDURE updateRXF
@@ -338,9 +339,16 @@ AS
 BEGIN
 	DELETE FROM funcionalidad_por_rol WHERE rol_id = @id_rol
 END
-
 GO
 
+CREATE PROCEDURE updateRol
+	@nombre_rol VARCHAR(30),
+	@id_rol INT
+AS
+BEGIN
+	UPDATE rol SET rol_nombre = @nombre_rol WHERE rol_id = @id_rol
+END
+GO
 
 -- LOGIN
 CREATE PROCEDURE login
