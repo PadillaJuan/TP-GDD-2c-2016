@@ -68,6 +68,8 @@ IF (OBJECT_ID('addHorasAgenda', 'P') IS NOT NULL)
 	DROP PROCEDURE addHorasAgenda;	
 IF (OBJECT_ID('getTurnos', 'P') IS NOT NULL)
 	DROP PROCEDURE getTurnos;
+IF (OBJECT_ID('comprobar48horas', 'P') IS NOT NULL)
+	DROP PROCEDURE comprobar48horas;
 
 
 -- PARA PEDIDO DE TURNOS Y REGISTROS DE LLEGADA/CONSULTA
@@ -498,7 +500,39 @@ BEGIN
 	WHERE a.us_id = @us_id AND b.prof_id = a.prof_id AND c.esp_id = b.esp_id
 END
 GO
-
+CREATE PROCEDURE comprobar48horas
+	@id INT,
+	@desde VARCHAR(30),
+	@hasta VARCHAR(30),
+	@minutos_trabajados INT
+AS
+BEGIN	
+	DECLARE @d DATETIME
+	DECLARE @d2 DATETIME
+	DECLARE @h DATETIME
+	
+	
+	SET @d = CONVERT(DATETIME, @desde)
+	SET @h = CONVERT(DATETIME, @hasta)
+	
+	SET @d = DATEADD(DAY,-DATEPART(WEEK,@d)+2,@d)
+	SET @d2 = DATEADD(DAY,6,@d)
+	SET @d2 = DATEADD(HOUR,23,@d)
+	SET @d2 = DATEADD(MINUTE,59,@d)
+	SET @h = DATEADD(DAY,-DATEPART(WEEK,@h)+1,@h)
+		
+	WHILE @d <= @h
+	BEGIN
+		IF (((ISNULL((SELECT COUNT(*) WHERE agenda_prof = @id AND agenda_fechayhora BETWEEN @d AND @d2),0) *30) + @minutos_trabajados) > 2880)
+		BEGIN
+			RAISERROR('Sobrepasaste las 48 horas semanales',16,1)
+			RETURN 
+		END
+		SET @d = DATEADD(WEEK,1,@d)
+		SET @d2 = DATEADD(WEEK,1,@d)
+	END
+END
+GO
 CREATE PROCEDURE addHorasAgenda
 	@id INT,
 	@desde VARCHAR(30),
