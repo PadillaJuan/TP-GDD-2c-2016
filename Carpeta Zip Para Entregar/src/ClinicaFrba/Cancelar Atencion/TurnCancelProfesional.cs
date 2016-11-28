@@ -25,9 +25,17 @@ namespace ClinicaFrba.Cancelar_Atencion
             dataGridView1.MultiSelect = true;
             dataGridView1.ReadOnly = true;
             getprof_id(us_id);
+            setDatePickers();
+
+            textBox1.MaxLength = 100;
+        }
+
+        private void setDatePickers()
+        {
             dateTimePicker1.MinDate = DateTime.Parse(Program.nuevaFechaSistema());
             dateTimePicker2.MinDate = DateTime.Parse(Program.nuevaFechaSistema());
-            textBox1.MaxLength = 100;
+            dateTimePicker1.Value = DateTime.Parse(Program.nuevaFechaSistema());
+            dateTimePicker2.Value = DateTime.Parse(Program.nuevaFechaSistema());
         }
 
         private void button1_Click(object sender, EventArgs e)

@@ -78,5 +78,6 @@ namespace ClinicaFrba.Compra_Bono
             cm.Dispose();
             textBox1.Text = String.Format("{0}", idFamiliar*100+idRel);
         }
+
     }
 }
