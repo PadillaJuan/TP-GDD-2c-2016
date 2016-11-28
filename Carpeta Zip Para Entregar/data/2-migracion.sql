@@ -217,11 +217,16 @@ create procedure migrarBonos
 as
 	SET IDENTITY_INSERT bono ON 
 	insert into bono (bono_id,bono_compra,bono_planmed,bono_af,bono_af_rel,bono_nro_consulta)
-		select Bono_Consulta_Numero,compra_id,Plan_Med_Codigo,af_id,af_rel_id, 0
-		from registro_compra,gd_esquema.Maestra,afiliado
-		where compra_fecha = Compra_Bono_Fecha and Bono_Consulta_Numero is not null and Bono_Consulta_Numero is not null and
-			  compra_af = af_id and af_numdoc = Paciente_Dni
-		order by Bono_Consulta_Numero
+		select m1.Bono_Consulta_Numero,compra_id,m1.Plan_Med_Codigo,af_id,af_rel_id,(
+			select count(*)
+			from gd_esquema.Maestra m2
+			where m2.Paciente_Dni = m1.Paciente_Dni and m2.Bono_Consulta_Numero is not null and m2.Turno_Numero is null and
+				  m1.Bono_Consulta_Numero >= m2.Bono_Consulta_Numero
+		)
+		from registro_compra ,gd_esquema.Maestra m1,afiliado 
+		where compra_fecha = m1.Compra_Bono_Fecha and m1.Bono_Consulta_Numero is not null and m1.Bono_Consulta_Numero is not null and
+			  compra_af = af_id and af_numdoc = m1.Paciente_Dni
+		order by m1.Bono_Consulta_Numero
 	SET IDENTITY_INSERT bono OFF 
 go
 execute migrarBonos
