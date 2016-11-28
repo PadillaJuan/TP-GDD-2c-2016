@@ -62,7 +62,7 @@ namespace ClinicaFrba.BuscarAfiliado
                 MessageBox.Show("No se ha seleccionado un afiliado", "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
-            if ('d' == Char.Parse(dt.Rows[index][15].ToString()))
+            if ('d' == Char.Parse(dt.Rows[index][12].ToString()))
             {
                 MessageBox.Show("El afiliado esta dado de baja, no puede ingresar familiares", "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
