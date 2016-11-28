@@ -104,9 +104,12 @@
             // 
             // dataGridView1
             // 
-            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridView1.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dataGridView1.Location = new System.Drawing.Point(96, 122);
             this.dataGridView1.Name = "dataGridView1";
+            this.dataGridView1.ReadOnly = true;
+            this.dataGridView1.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dataGridView1.ShowEditingIcon = false;
             this.dataGridView1.Size = new System.Drawing.Size(400, 275);
             this.dataGridView1.TabIndex = 86;
             // 
@@ -126,7 +129,7 @@
             this.button9.Name = "button9";
             this.button9.Size = new System.Drawing.Size(92, 52);
             this.button9.TabIndex = 90;
-            this.button9.Text = "Ver funcionalidades del Rol";
+            this.button9.Text = "Ver funcionalidades / Modificar";
             this.button9.UseVisualStyleBackColor = true;
             this.button9.Click += new System.EventHandler(this.button9_Click);
             // 

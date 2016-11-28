@@ -20,10 +20,6 @@ namespace ClinicaFrba.AbmRol
         public ABMRol()
         {
             InitializeComponent();
-            dataGridView1.AutoResizeColumns();
-            dataGridView1.ReadOnly = true;
-            dataGridView1.ReadOnly = true;
-            dataGridView1.MultiSelect = false;
         }
 
         private void button1_Click(object sender, EventArgs e) // Dar rol de alta
@@ -120,13 +116,16 @@ namespace ClinicaFrba.AbmRol
         }
 
         private void fillDataTable(SqlCommand cm)
-        {
-            
+        { 
             SqlDataAdapter sda = new SqlDataAdapter(cm);
             dt = new DataTable();
             sda.Fill(dt);
             dataGridView1.DataSource = dt;
+            dataGridView1.AutoResizeColumns();
+            dataGridView1.ReadOnly = true;
+            dataGridView1.MultiSelect = false;
         }
+
         public int getRolInsertado(string rol)
         {
             int id_rol = 0;
