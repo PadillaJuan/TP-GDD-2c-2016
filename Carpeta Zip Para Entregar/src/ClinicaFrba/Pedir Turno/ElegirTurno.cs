@@ -49,7 +49,10 @@ namespace ClinicaFrba.Pedir_Turno
             dateTimePicker1.Enabled = true;
             dateTimePicker1.Text = DateTime.Parse(Program.nuevaFechaSistema()).ToString();
             dateTimePicker1.MinDate = DateTime.Parse(Program.nuevaFechaSistema());
-            dataGridView1.AutoResizeColumns();
+            dataGridView1.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            dataGridView1.MultiSelect = false;
+            dataGridView1.ReadOnly = true;
+
         }
 
         private void filtrarFecha()
