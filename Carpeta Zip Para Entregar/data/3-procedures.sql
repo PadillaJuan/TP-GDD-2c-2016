@@ -523,7 +523,7 @@ BEGIN
 		
 	WHILE @d <= @h
 	BEGIN
-		IF (((ISNULL((SELECT COUNT(*) WHERE agenda_prof = @id AND agenda_fechayhora BETWEEN @d AND @d2),0) *30) + @minutos_trabajados) > 2880)
+		IF (((ISNULL((SELECT COUNT(*) FROM agenda_profesional WHERE agenda_prof = @id AND agenda_fechayhora BETWEEN @d AND @d2),0) *30) + @minutos_trabajados) > 2880)
 		BEGIN
 			RAISERROR('Sobrepasaste las 48 horas semanales',16,1)
 			RETURN 
