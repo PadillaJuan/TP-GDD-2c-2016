@@ -1017,6 +1017,7 @@
             this.Controls.Add(this.groupBox1);
             this.Name = "Registrar_agenda";
             this.Text = "Registrar Agenda";
+            this.Load += new System.EventHandler(this.Registrar_agenda_Load);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.groupBox2.ResumeLayout(false);

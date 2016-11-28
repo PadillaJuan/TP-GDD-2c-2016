@@ -175,8 +175,18 @@ namespace ClinicaFrba.Registrar_Agenta_Medico
             hasta = fecha_hasta.Value.Year.ToString() + "-" + fecha_hasta.Value.Month.ToString() + "-" + fecha_hasta.Value.Day.ToString() + " 23:59:00";
             prof_id = obtenerProfID();
             //
+            string[] fechaEquipo = (ConfigurationManager.AppSettings["FechaGlobal"]).Split('-');
+            DateTime fecha_hoy;
+            fecha_hoy = new DateTime(int.Parse(fechaEquipo[0]), int.Parse(fechaEquipo[1]), int.Parse(fechaEquipo[2]));
+            //
             // Inicio Validacion campos
-            int num_dias = (fecha_hasta.Value - fecha_desde.Value).Days;
+            int num_dias = (fecha_desde.Value - fecha_hoy).Days;
+            if (num_dias < 0)
+            {
+                MessageBox.Show(String.Format("Error, Fecha Hoy < Fecha Desde"));
+                return;
+            }
+            num_dias = (fecha_hasta.Value - fecha_desde.Value).Days;
             if (num_dias < 0)
             {
                 MessageBox.Show(String.Format("Error, Fecha Hasta < Fecha Desde"));
@@ -339,52 +349,81 @@ namespace ClinicaFrba.Registrar_Agenta_Medico
                 MessageBox.Show(String.Format("Error, Estas trabajando más de 48 horas semanales."));
                 return;
             }
-            
+            int minutos_trabajos = (int)(TotalHoralSemanal * 60);
+
+            if(comprobar48horas(prof_id, desde, hasta, minutos_trabajos) == 1){
+                return;
+            }
+
             // Inserto en base de datos
             if (lunes_activar.Checked)
             {
                 hora_inicio = horainicio_hora_lunes.SelectedItem.ToString() + ":" + horainicio_min_lunes.SelectedItem.ToString();
                 hora_fin = horafin_hora_lunes.SelectedItem.ToString() + ":" + horafin_min_lunes.SelectedItem.ToString();
                 esp_id = ((Item)especialidad_lunes.SelectedItem).Value;
-                uploadAgendaToSQL(esp_id, prof_id,1, hora_inicio, hora_fin, desde, hasta);
+                uploadAgendaToSQL(esp_id, prof_id,2, hora_inicio, hora_fin, desde, hasta);
             }
             if (martes_activar.Checked)
             {
                 hora_inicio = horainicio_hora_martes.SelectedItem.ToString() + ":" + horainicio_min_martes.SelectedItem.ToString();
                 hora_fin = horafin_hora_martes.SelectedItem.ToString() + ":" + horafin_min_martes.SelectedItem.ToString();
                 esp_id = ((Item)especialidad_martes.SelectedItem).Value;
-                uploadAgendaToSQL(esp_id, prof_id,2, hora_inicio, hora_fin, desde, hasta);
+                uploadAgendaToSQL(esp_id, prof_id,3, hora_inicio, hora_fin, desde, hasta);
             }
             if (miercoles_activar.Checked)
             {
                 hora_inicio = horainicio_hora_miercoles.SelectedItem.ToString() + ":" + horainicio_min_miercoles.SelectedItem.ToString();
                 hora_fin = horafin_hora_miercoles.SelectedItem.ToString() + ":" + horafin_min_miercoles.SelectedItem.ToString();
                 esp_id = ((Item)especialidad_miercoles.SelectedItem).Value;
-                uploadAgendaToSQL(esp_id, prof_id,3, hora_inicio, hora_fin, desde, hasta);
+                uploadAgendaToSQL(esp_id, prof_id,4, hora_inicio, hora_fin, desde, hasta);
             }
             if (jueves_activar.Checked)
             {
                 hora_inicio = horainicio_hora_jueves.SelectedItem.ToString() + ":" + horainicio_min_jueves.SelectedItem.ToString();
                 hora_fin = horafin_hora_jueves.SelectedItem.ToString() + ":" + horafin_min_jueves.SelectedItem.ToString();
                 esp_id = ((Item)especialidad_jueves.SelectedItem).Value;
-                uploadAgendaToSQL(esp_id, prof_id,4, hora_inicio, hora_fin, desde, hasta);
+                uploadAgendaToSQL(esp_id, prof_id,5, hora_inicio, hora_fin, desde, hasta);
             }
             if (viernes_activar.Checked)
             {
                 hora_inicio = horainicio_hora_viernes.SelectedItem.ToString() + ":" + horainicio_min_viernes.SelectedItem.ToString();
                 hora_fin = horafin_hora_viernes.SelectedItem.ToString() + ":" + horafin_min_viernes.SelectedItem.ToString();
                 esp_id = ((Item)especialidad_viernes.SelectedItem).Value;
-                uploadAgendaToSQL(esp_id, prof_id,5, hora_inicio, hora_fin, desde, hasta);
+                uploadAgendaToSQL(esp_id, prof_id,6, hora_inicio, hora_fin, desde, hasta);
             }
             if (sabado_activar.Checked)
             {
                 hora_inicio = horainicio_hora_sabado.SelectedItem.ToString() + ":" + horainicio_min_sabado.SelectedItem.ToString();
                 hora_fin = horafin_hora_sabado.SelectedItem.ToString() + ":" + horafin_min_sabado.SelectedItem.ToString();
                 esp_id = ((Item)especialidad_sabado.SelectedItem).Value;
-                uploadAgendaToSQL(esp_id, prof_id,6, hora_inicio, hora_fin, desde, hasta);
+                uploadAgendaToSQL(esp_id, prof_id,7, hora_inicio, hora_fin, desde, hasta);
             }
             MessageBox.Show(String.Format("Horarios agregados correctamente."));
             return;
+        }
+
+
+        private static int comprobar48horas(int prof_id, string desde, string hasta, int minutos_trabajos){
+            try
+            {
+                string query = "comprobar48horas";
+                SqlConnection conn = (new BDConnection()).getInstance();
+                SqlCommand com = new SqlCommand(query, conn);
+                com.CommandType = CommandType.StoredProcedure;
+                com.Parameters.AddWithValue("@id", prof_id);
+                com.Parameters.AddWithValue("@desde", desde);
+                com.Parameters.AddWithValue("@hasta", hasta);
+                com.Parameters.AddWithValue("@minutos_trabajados", minutos_trabajos);
+                com.ExecuteNonQuery();
+                com.Dispose();
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.Message, Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return 1;
+
+            }
+            return 0;
         }
 
         private static void uploadAgendaToSQL(int esp_id, int prof_id, int dia,string hora_inicio, string hora_fin, string desde, string hasta)
@@ -415,6 +454,11 @@ namespace ClinicaFrba.Registrar_Agenta_Medico
         private void button2_Click(object sender, EventArgs e)
         {
             Close();
+        }
+
+        private void Registrar_agenda_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }
