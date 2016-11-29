@@ -145,7 +145,7 @@ namespace ClinicaFrba.Registrar_Agenta_Medico
             prof_id = -1;
             //
             SqlConnection conn = (new BDConnection()).getConnection();
-            string query = "SELECT prof_id FROM profesional WHERE us_id = "+ us_id +"";
+            string query = "SELECT prof_id FROM DREAM_TEAM.profesional WHERE us_id = "+ us_id +"";
             SqlCommand com = new SqlCommand(query, conn);
             try
             {

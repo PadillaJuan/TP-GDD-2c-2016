@@ -70,37 +70,6 @@ namespace ClinicaFrba.Cancelar_Atencion
             sda.Dispose();
         }
 
-        /*
-            if (dataGridView1.SelectedRows.Count != 0)
-            {
-                if (dataGridView1.SelectedRows.Count != 0)
-                {
-
-                    DataGridViewRow row = this.dataGridView1.SelectedRows[0];
-                    string turno_id = row.Cells["turno_Id"].Value.ToString();
-                    string query = "cancelTurno";
-                    SqlConnection conn = (new BDConnection()).getConnection();
-                    SqlCommand com = new SqlCommand(query, conn);
-                    com.CommandType = CommandType.StoredProcedure;
-                    com.Parameters.Add(new SqlParameter("@turno_id", turno_id));
-                    com.Parameters.Add(new SqlParameter("@cancel_motivo", cancel_motivo));
-                    com.Parameters.Add(new SqlParameter("@cancel_tipo", 'p'));
-                    com.ExecuteNonQuery();
-
-                    MessageBox.Show("El turno ha sido cancelado con exito", Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.None);
-                    Close();
-                }
-                else
-                {
-                    MessageBox.Show("Por favor, elija el turno que desea cancelar", Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                }
-            }
-            else
-            {
-                MessageBox.Show("Por favor, ingrese el motivo de cancelacion", Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-        }*/
-
         private void cancelarIntervalo()
         {
             if (dateTimePicker1.Value < dateTimePicker2.Value)
@@ -150,7 +119,7 @@ namespace ClinicaFrba.Cancelar_Atencion
 
         private void getprof_id(int us_id)
         {
-            string query = String.Format("SELECT prof_id FROM profesional WHERE us_id = {0}", us_id);
+            string query = String.Format("SELECT prof_id FROM DREAM_TEAM.profesional WHERE us_id = {0}", us_id);
             SqlConnection cn = (new BDConnection()).getInstance();
             SqlCommand cm = new SqlCommand(query, cn);
             prof_id = (int) cm.ExecuteScalar();

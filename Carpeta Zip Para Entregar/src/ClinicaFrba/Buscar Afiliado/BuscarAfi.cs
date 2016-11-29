@@ -166,7 +166,7 @@ namespace ClinicaFrba.BuscarAfiliado
         public String generateSearchQuery()
         {
             bool flag= false;
-            string query = "SELECT * FROM afiliado WHERE ";
+            string query = "SELECT * FROM DREAM_TEAM.afiliado WHERE ";
             if (checkBox1.Checked) {
                 String id;
                 id = String.Format("{0}", int.Parse(textBox1.Text) / 100);

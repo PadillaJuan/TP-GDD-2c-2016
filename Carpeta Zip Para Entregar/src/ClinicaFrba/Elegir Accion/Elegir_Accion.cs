@@ -84,7 +84,7 @@ namespace ClinicaFrba.Elegir_Accion
                                 f4.Show();
                                 break;
                             case 2:
-                                Compra_Bono.Compra_Bono f5 = new Compra_Bono.Compra_Bono(rol);
+                                Compra_Bono.Compra_Bono f5 = new Compra_Bono.Compra_Bono(us_idG);
                                 f5.Show();
                                 break;
                         }

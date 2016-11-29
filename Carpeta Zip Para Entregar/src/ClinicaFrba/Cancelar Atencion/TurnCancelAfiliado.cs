@@ -30,8 +30,8 @@ namespace ClinicaFrba.Cancelar_Atencion
             dataGridView1.ReadOnly = true;
 
             string query ="SELECT DATEPART(MINUTE,turno_fecha) 'Minutos', DATEPART(hour,turno_fecha) 'Hora',DATEPART(day,turno_fecha)'Dia',DATEPART(month,turno_fecha)'Mes',DATEPART(year,turno_fecha)'Año', turno_id 'ID del turno' ";
-            query += "FROM turnos t ";
-            query += "JOIN afiliado a ON (t.turno_af=a.af_id) ";
+            query += "FROM DREAM_TEAM.turnos t ";
+            query += "JOIN DREAM_TEAM.afiliado a ON (t.turno_af=a.af_id) ";
             query += String.Format("WHERE a.af_id={0} ", af_id());
             query += String.Format("AND a.af_rel_id={0} ", af_rel_id());
             query += "AND t.turno_estado = 0";
@@ -81,7 +81,7 @@ namespace ClinicaFrba.Cancelar_Atencion
 
         private void getID(int us_id)
         {
-            string query = String.Format("SELECT af_id*100+af_rel_id FROM afiliado WHERE us_id = {0}",us_id);
+            string query = String.Format("SELECT af_id*100+af_rel_id FROM DREAM_TEAM.afiliado WHERE us_id = {0}",us_id);
             SqlConnection cn = (new BDConnection()).getInstance();
             SqlCommand cm = new SqlCommand(query, cn);
             afiliadoId = long.Parse(cm.ExecuteScalar().ToString());

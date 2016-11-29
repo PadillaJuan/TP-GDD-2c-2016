@@ -293,7 +293,6 @@ namespace ClinicaFrba.Abm_Afiliado
                 if (res == DialogResult.OK)
                 {
                     cm.Parameters.AddWithValue("@motivoCambio", form.motivoCambio);
-                    MessageBox.Show(form.motivoCambio);
                 }
             }
             else

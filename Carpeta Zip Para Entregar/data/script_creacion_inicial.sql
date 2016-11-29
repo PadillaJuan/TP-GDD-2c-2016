@@ -7,130 +7,134 @@ GO
 -- ELIMINACION DE CONSTRAINTS
 -- ELIMINACION DE CONSTRAINTS
 
-IF (OBJECT_ID('FK_afi_usuario', 'F') IS NOT NULL)
-	ALTER TABLE afiliado DROP constraint FK_afi_usuario;
-IF (OBJECT_ID('FK_plan_med', 'F') IS NOT NULL)
-	ALTER TABLE afiliado DROP constraint FK_plan_med;
 
+IF (OBJECT_ID('FK_plan_med', 'F') IS NOT NULL)
+	ALTER TABLE DREAM_TEAM.afiliado DROP constraint FK_plan_med
+IF (OBJECT_ID('FK_afi_usuario', 'F') IS NOT NULL)
+	ALTER TABLE DREAM_TEAM.afiliado DROP constraint FK_afi_usuario
 IF (OBJECT_ID('FK_afi', 'F') IS NOT NULL)
-	ALTER TABLE logs_cambio_plan DROP constraint FK_afi;
+	ALTER TABLE DREAM_TEAM.logs_cambio_plan DROP constraint FK_afi
 IF (OBJECT_ID('FK_plan_ant', 'F') IS NOT NULL)
-	ALTER TABLE logs_cambio_plan DROP constraint FK_plan_ant;
+	ALTER TABLE DREAM_TEAM.logs_cambio_plan DROP constraint FK_plan_ant
 IF (OBJECT_ID('FK_plan_new', 'F') IS NOT NULL)
-	ALTER TABLE logs_cambio_plan DROP constraint FK_plan_new;
+	ALTER TABLE DREAM_TEAM.logs_cambio_plan DROP constraint FK_plan_new
 
 IF (OBJECT_ID('FK_esp_por_planes_1', 'F') IS NOT NULL)
-	ALTER TABLE tipo_especialidades_por_planes DROP constraint FK_esp_por_planes_1;
+	ALTER TABLE DREAM_TEAM.tipo_especialidades_por_planes DROP constraint FK_esp_por_planes_1
 IF (OBJECT_ID('FK_esp_por_planes_2', 'F') IS NOT NULL)
-	ALTER TABLE tipo_especialidades_por_planes DROP constraint FK_esp_por_planes_2;
+	ALTER TABLE DREAM_TEAM.tipo_especialidades_por_planes DROP constraint FK_esp_por_planes_2
 	
 
 IF (OBJECT_ID('FK_compra_afi', 'F') IS NOT NULL)
-	ALTER TABLE registro_compra DROP constraint FK_compra_afi;
+	ALTER TABLE DREAM_TEAM.registro_compra DROP constraint FK_compra_afi;
 
 IF (OBJECT_ID('FK_compra_bono', 'F') IS NOT NULL)
-	ALTER TABLE bono DROP constraint FK_compra_bono;
+	ALTER TABLE DREAM_TEAM.bono DROP constraint FK_compra_bono;
 IF (OBJECT_ID('FK_plan_bono', 'F') IS NOT NULL)
-	ALTER TABLE bono DROP constraint FK_plan_bono;
+	ALTER TABLE DREAM_TEAM.bono DROP constraint FK_plan_bono;
 IF (OBJECT_ID('FK_afi_bono', 'F') IS NOT NULL)
-	ALTER TABLE bono DROP constraint FK_afi_bono;
+	ALTER TABLE DREAM_TEAM.bono DROP constraint FK_afi_bono;
 
 IF (OBJECT_ID('FK_consulta_turno', 'F') IS NOT NULL)
-	ALTER TABLE consulta_medica DROP constraint FK_consulta_turno;
+	ALTER TABLE DREAM_TEAM.consulta_medica DROP constraint FK_consulta_turno;
 IF (OBJECT_ID('FK_consulta_bono', 'F') IS NOT NULL)
-	ALTER TABLE consulta_medica DROP constraint FK_consulta_bono;
+	ALTER TABLE DREAM_TEAM.consulta_medica DROP constraint FK_consulta_bono;
 
 IF (OBJECT_ID('FK_turno_afi', 'F') IS NOT NULL)
-	ALTER TABLE turnos DROP constraint FK_turno_afi;
+	ALTER TABLE DREAM_TEAM.turnos DROP constraint FK_turno_afi;
 IF (OBJECT_ID('FK_turno_prof', 'F') IS NOT NULL)
-	ALTER TABLE turnos DROP constraint FK_turno_prof;
+	ALTER TABLE DREAM_TEAM.turnos DROP constraint FK_turno_prof;
 IF (OBJECT_ID('FK_turno_esp', 'F') IS NOT NULL)
-	ALTER TABLE turnos DROP constraint FK_turno_esp;
+	ALTER TABLE DREAM_TEAM.turnos DROP constraint FK_turno_esp;
 IF (OBJECT_ID('FK_turno_agenda', 'F') IS NOT NULL)
-	ALTER TABLE turnos DROP constraint FK_turno_agenda;
+	ALTER TABLE DREAM_TEAM.turnos DROP constraint FK_turno_agenda;
 
 IF (OBJECT_ID('FK_cancelacion_turno', 'F') IS NOT NULL)
-	ALTER TABLE cancelacion DROP constraint FK_cancelacion_turno;
+	ALTER TABLE DREAM_TEAM.cancelacion DROP constraint FK_cancelacion_turno;
 
 IF (OBJECT_ID('FK_agenda_prof', 'F') IS NOT NULL)
-	ALTER TABLE agenda_profesional DROP constraint FK_agenda_prof;
+	ALTER TABLE DREAM_TEAM.agenda_profesional DROP constraint FK_agenda_prof;
 IF (OBJECT_ID('FK_agenda_prof2', 'F') IS NOT NULL)
-	ALTER TABLE agenda_profesional DROP constraint FK_agenda_prof2;
+	ALTER TABLE DREAM_TEAM.agenda_profesional DROP constraint FK_agenda_prof2;
 	
 IF (OBJECT_ID('FK_especialidad_tipo', 'F') IS NOT NULL)
-	ALTER TABLE especialidad DROP constraint FK_especialidad_tipo;
+	ALTER TABLE DREAM_TEAM.especialidad DROP constraint FK_especialidad_tipo;
 
 IF (OBJECT_ID('FK_prof_us', 'F') IS NOT NULL)
-	ALTER TABLE profesional DROP constraint FK_prof_us;
+	ALTER TABLE DREAM_TEAM.profesional DROP constraint FK_prof_us;
 	
 IF (OBJECT_ID('FK_baja_prof', 'F') IS NOT NULL)
-	ALTER TABLE periodo_baja DROP constraint FK_baja_prof;
+	ALTER TABLE DREAM_TEAM.periodo_baja DROP constraint FK_baja_prof;
 
 IF (OBJECT_ID('FK_rolxusr_id', 'F') IS NOT NULL)
-	ALTER TABLE rol_por_usuarios DROP constraint FK_rolxusr_id;
+	ALTER TABLE DREAM_TEAM.rol_por_usuarios DROP constraint FK_rolxusr_id;
 IF (OBJECT_ID('FK_rolxusr_rol', 'F') IS NOT NULL)
-	ALTER TABLE rol_por_usuarios DROP constraint FK_rolxusr_rol;
+	ALTER TABLE DREAM_TEAM.rol_por_usuarios DROP constraint FK_rolxusr_rol;
 
 IF (OBJECT_ID('FK_funxrol_id', 'F') IS NOT NULL)
-	ALTER TABLE funcionalidad_por_rol DROP constraint FK_funxrol_id;
+	ALTER TABLE DREAM_TEAM.funcionalidad_por_rol DROP constraint FK_funxrol_id;
 IF (OBJECT_ID('FK_funxrol_fun', 'F') IS NOT NULL)
-	ALTER TABLE funcionalidad_por_rol DROP constraint FK_funxrol_fun;
+	ALTER TABLE DREAM_TEAM.funcionalidad_por_rol DROP constraint FK_funxrol_fun;
 	
 GO
 	
 	--ELIMINACION DE TABLAS
 	--ELIMINACION DE TABLAS
 
-IF (OBJECT_ID('afiliado','U') IS NOT NULL)
-	DROP TABLE afiliado;
-IF (OBJECT_ID('logs_cambio_plan','U') IS NOT NULL)
-	DROP TABLE logs_cambio_plan;
-IF (OBJECT_ID('plan_medico','U') IS NOT NULL)
-	DROP TABLE plan_medico;
-IF (OBJECT_ID('tipo_especialidades_por_planes','U') IS NOT NULL)
-	DROP TABLE tipo_especialidades_por_planes;
-IF (OBJECT_ID('registro_compra','U') IS NOT NULL)
-	DROP TABLE registro_compra;
-IF (OBJECT_ID('bono','U') IS NOT NULL)
-	DROP TABLE bono;
-IF (OBJECT_ID('consulta_medica','U') IS NOT NULL)
-	DROP TABLE consulta_medica;
-IF (OBJECT_ID('turnos','U') IS NOT NULL)
-	DROP TABLE turnos;
-IF (OBJECT_ID('cancelacion','U') IS NOT NULL)
-	DROP TABLE cancelacion;
-IF (OBJECT_ID('agenda_profesional','U') IS NOT NULL)
-	DROP TABLE agenda_profesional;
-IF (OBJECT_ID('tipo_especialidades','U') IS NOT NULL)
-	DROP TABLE tipo_especialidades;
-IF (OBJECT_ID('especialidad','U') IS NOT NULL)
-	DROP TABLE especialidad;
-IF (OBJECT_ID('especialidad_por_profesional','U') IS NOT NULL)
-	DROP TABLE especialidad_por_profesional;
-IF (OBJECT_ID('profesional','U') IS NOT NULL)
-	DROP TABLE profesional;
-IF (OBJECT_ID('periodo_baja','U') IS NOT NULL)
-	DROP TABLE periodo_baja;
-IF (OBJECT_ID('usuarios','U') IS NOT NULL)
-	DROP TABLE usuarios;
-IF (OBJECT_ID('rol_por_usuarios','U') IS NOT NULL)
-	DROP TABLE rol_por_usuarios;
-IF (OBJECT_ID('rol','U') IS NOT NULL)
-	DROP TABLE rol;
-IF (OBJECT_ID('funcionalidad_por_rol','U') IS NOT NULL)
-	DROP TABLE funcionalidad_por_rol;
-IF (OBJECT_ID('funcionalidad','U') IS NOT NULL)
-	DROP TABLE funcionalidad;
+IF (OBJECT_ID('DREAM_TEAM.afiliado','U') IS NOT NULL)
+	DROP TABLE DREAM_TEAM.afiliado;
+IF (OBJECT_ID('DREAM_TEAM.logs_cambio_plan','U') IS NOT NULL)
+	DROP TABLE DREAM_TEAM.logs_cambio_plan;
+IF (OBJECT_ID('DREAM_TEAM.plan_medico','U') IS NOT NULL)
+	DROP TABLE DREAM_TEAM.plan_medico;
+IF (OBJECT_ID('DREAM_TEAM.tipo_especialidades_por_planes','U') IS NOT NULL)
+	DROP TABLE DREAM_TEAM.tipo_especialidades_por_planes;
+IF (OBJECT_ID('DREAM_TEAM.registro_compra','U') IS NOT NULL)
+	DROP TABLE DREAM_TEAM.registro_compra;
+IF (OBJECT_ID('DREAM_TEAM.bono','U') IS NOT NULL)
+	DROP TABLE DREAM_TEAM.bono;
+IF (OBJECT_ID('DREAM_TEAM.consulta_medica','U') IS NOT NULL)
+	DROP TABLE DREAM_TEAM.consulta_medica;
+IF (OBJECT_ID('DREAM_TEAM.turnos','U') IS NOT NULL)
+	DROP TABLE DREAM_TEAM.turnos;
+IF (OBJECT_ID('DREAM_TEAM.cancelacion','U') IS NOT NULL)
+	DROP TABLE DREAM_TEAM.cancelacion;
+IF (OBJECT_ID('DREAM_TEAM.agenda_profesional','U') IS NOT NULL)
+	DROP TABLE DREAM_TEAM.agenda_profesional;
+IF (OBJECT_ID('DREAM_TEAM.tipo_especialidades','U') IS NOT NULL)
+	DROP TABLE DREAM_TEAM.tipo_especialidades;
+IF (OBJECT_ID('DREAM_TEAM.especialidad','U') IS NOT NULL)
+	DROP TABLE DREAM_TEAM.especialidad;
+IF (OBJECT_ID('DREAM_TEAM.especialidad_por_profesional','U') IS NOT NULL)
+	DROP TABLE DREAM_TEAM.especialidad_por_profesional;
+IF (OBJECT_ID('DREAM_TEAM.profesional','U') IS NOT NULL)
+	DROP TABLE DREAM_TEAM.profesional;
+IF (OBJECT_ID('DREAM_TEAM.periodo_baja','U') IS NOT NULL)
+	DROP TABLE DREAM_TEAM.periodo_baja;
+IF (OBJECT_ID('DREAM_TEAM.usuarios','U') IS NOT NULL)
+	DROP TABLE DREAM_TEAM.usuarios;
+IF (OBJECT_ID('DREAM_TEAM.rol_por_usuarios','U') IS NOT NULL)
+	DROP TABLE DREAM_TEAM.rol_por_usuarios;
+IF (OBJECT_ID('DREAM_TEAM.rol','U') IS NOT NULL)
+	DROP TABLE DREAM_TEAM.rol;
+IF (OBJECT_ID('DREAM_TEAM.funcionalidad_por_rol','U') IS NOT NULL)
+	DROP TABLE DREAM_TEAM.funcionalidad_por_rol;
+IF (OBJECT_ID('DREAM_TEAM.funcionalidad','U') IS NOT NULL)
+	DROP TABLE DREAM_TEAM.funcionalidad;
 
+IF EXISTS (SELECT * FROM sys.schemas WHERE sys.schemas.name = 'DREAM_TEAM')
+	DROP SCHEMA DREAM_TEAM
 	
 GO 
 
+CREATE SCHEMA [DREAM_TEAM] AUTHORIZATION [gd]
+GO
 	-- CREACION DE TABLAS
 	-- CREACION DE TABLAS
 
 /* TABLA DE AFILIADOS */
 
-CREATE TABLE afiliado(
+CREATE TABLE DREAM_TEAM.afiliado(
 	af_id INT IDENTITY(1,1),
 	af_rel_id TINYINT,
 	us_id INT,
@@ -154,7 +158,7 @@ CREATE TABLE afiliado(
 
 /* TABLA DE CAMBIO DE PLAN */
 
-CREATE TABLE logs_cambio_plan(
+CREATE TABLE DREAM_TEAM.logs_cambio_plan(
 	cambio_plan_id INT PRIMARY KEY IDENTITY(1,1),
 	af_id INT,
 	af_rel_id TINYINT,
@@ -167,26 +171,26 @@ CREATE TABLE logs_cambio_plan(
 
 /* TABLA DE PLAN MEDICO */
 
-CREATE TABLE plan_medico(
+CREATE TABLE DREAM_TEAM.plan_medico(
 	planmed_id numeric(18,0) PRIMARY KEY IDENTITY(1,1),
 	plan_cuota numeric(18,0),
-	plan_descripcion VARCHAR(30),
+	plan_descripcion VARCHAR(255),
 	plan_precio_bono numeric(18,0),
 );
 
 
 /* TABLA DE SERVICIOS POR PLANES */
 
-CREATE TABLE tipo_especialidades_por_planes(
+CREATE TABLE DREAM_TEAM.tipo_especialidades_por_planes(
 	planmed_id numeric(18,0),
-	tipoEsp_id INT,
+	tipoEsp_id NUMERIC(18,0),
 	primary key (planmed_id, tipoEsp_id),
 );
 
 
 /* TABLA DE REGISTRO DE COMPRA */
 
-CREATE TABLE registro_compra(
+CREATE TABLE DREAM_TEAM.registro_compra(
 	compra_id INT PRIMARY KEY IDENTITY(1,1),
 	compra_af INT,
 	compra_af_rel TINYINT,
@@ -198,7 +202,7 @@ CREATE TABLE registro_compra(
 
 /* TABLA DE BONO */
 
-CREATE TABLE bono(
+CREATE TABLE DREAM_TEAM.bono(
 	bono_id INT PRIMARY KEY IDENTITY(1,1),
 	bono_compra INT,
 	bono_planmed numeric(18,0),
@@ -210,87 +214,87 @@ CREATE TABLE bono(
 
 /* TABLA DE CONSULTA MEDICA */
 
-CREATE TABLE consulta_medica(
+CREATE TABLE DREAM_TEAM.consulta_medica(
 	cons_id INT PRIMARY KEY IDENTITY(1,1),
-	cons_turno INT,
+	cons_turno NUMERIC(18,0),
 	cons_hora_llegada DATETIME,
-	cons_sintomas VARCHAR(200),
-	cons_diagnostico VARCHAR(200),
+	cons_sintomas VARCHAR(255),
+	cons_diagnostico VARCHAR(255),
 	cons_bono INT
 );
 
 
 /* TABLA DE TURNOS */
 
-CREATE TABLE turnos(
-	turno_id INT PRIMARY KEY IDENTITY(1,1),
+CREATE TABLE DREAM_TEAM.turnos(
+	turno_id NUMERIC(18,0) PRIMARY KEY IDENTITY(1,1),
 	turno_fecha DATETIME,
 	turno_estado CHAR(1),
 	turno_agenda INT,
 	turno_af INT,
 	turno_af_rel TINYINT,
 	turno_prof INT,
-	turno_esp INT,
+	turno_esp NUMERIC(18,0),
 );
 
 
 /* TABLA DE CANCELACIONES */
 
-CREATE TABLE cancelacion(
+CREATE TABLE DREAM_TEAM.cancelacion(
 	cancel_id  INT PRIMARY KEY IDENTITY(1,1),
 	cancel_tipo CHAR(1),
 	cancel_motivo VARCHAR(100),
-	turno_id INT,
+	turno_id NUMERIC(18,0),
 );
 
 
 /* TABLA DE AGENDA DEL PROFESIONAL */
 
-CREATE TABLE agenda_profesional(
+CREATE TABLE DREAM_TEAM.agenda_profesional(
 	agenda_id INT PRIMARY KEY IDENTITY(1,1),
 	agenda_prof INT,
-	agenda_esp INT,
+	agenda_esp NUMERIC(18,0),
 	agenda_fechayhora DATETIME
 );
 
 
 /* TABLA DE TIPO DE ESPECIALIDADES */
 
-CREATE TABLE tipo_especialidades(
-	tipoEsp_id INT PRIMARY KEY IDENTITY(1,1),
-	tipoEsp_descripcion VARCHAR(50)
+CREATE TABLE DREAM_TEAM.tipo_especialidades(
+	tipoEsp_id NUMERIC(18,0) PRIMARY KEY IDENTITY(1,1),
+	tipoEsp_descripcion VARCHAR(255)
 );
 
 
 /* TABLA DE ESPECIALIDADES */
-CREATE TABLE especialidad(
-	esp_id INT PRIMARY KEY IDENTITY(1,1),
-	esp_descripcion VARCHAR(100),
-	tipoEsp_id INT
+CREATE TABLE DREAM_TEAM.especialidad(
+	esp_id NUMERIC(18,0) PRIMARY KEY IDENTITY(1,1),
+	esp_descripcion VARCHAR(255),
+	tipoEsp_id NUMERIC(18,0)
 );
 
 
 /* TABLA DE ESPECIALIDAD POR PROFESIONAL */
 
-CREATE TABLE especialidad_por_profesional(
+CREATE TABLE DREAM_TEAM.especialidad_por_profesional(
 	prof_id INT,
-	esp_id INT,
+	esp_id NUMERIC(18,0),
 	PRIMARY KEY(prof_id,esp_id)
 );
 
 
 /* TABLA DE PROFESIONALES */
 
-CREATE TABLE profesional(
+CREATE TABLE DREAM_TEAM.profesional(
 	prof_id INT PRIMARY KEY IDENTITY(1,1),
 	us_id INT,
-	prof_nombre VARCHAR(50),
-	prof_apellido VARCHAR(50),
+	prof_nombre VARCHAR(255),
+	prof_apellido VARCHAR(255),
 	prof_tipodoc VARCHAR(5),
 	prof_numdoc numeric(18,0) UNIQUE,
-	prof_direccion VARCHAR(50),
-	prof_telefono VARCHAR(20),
-	prof_mail VARCHAR(40),
+	prof_direccion VARCHAR(255),
+	prof_telefono NUMERIC(18,0),
+	prof_mail VARCHAR(255),
 	prof_nacimiento DATETIME,
 	prof_matricula INT,
 	prof_sexo CHAR(1)
@@ -298,7 +302,7 @@ CREATE TABLE profesional(
 
 
 /* TABLA DE PERIODO BAJA DE TURNO */
-CREATE TABLE periodo_baja(
+CREATE TABLE DREAM_TEAM.periodo_baja(
 	periodo_id INT PRIMARY KEY IDENTITY(1,1),
 	periodo_desde DATETIME,
 	periodo_hasta DATETIME,
@@ -308,7 +312,7 @@ CREATE TABLE periodo_baja(
 
 /* TABLA DE USUARIOS */
 
-CREATE TABLE usuarios(
+CREATE TABLE DREAM_TEAM.usuarios(
 	us_id INT PRIMARY KEY IDENTITY(1,1),
 	us_username VARCHAR(30),
 	us_password VARBINARY(64),
@@ -319,7 +323,7 @@ CREATE TABLE usuarios(
 
 /* TABLA DE ROLES POR USUARIO */
 
-CREATE TABLE rol_por_usuarios(
+CREATE TABLE DREAM_TEAM.rol_por_usuarios(
 	us_id INT,
 	rol_id INT,
 	PRIMARY KEY(us_id,rol_id)
@@ -328,7 +332,7 @@ CREATE TABLE rol_por_usuarios(
 
 /* TABLA DE ROLES */
 
-CREATE TABLE rol(
+CREATE TABLE DREAM_TEAM.rol(
 	rol_id INT PRIMARY KEY IDENTITY(1,1),
 	rol_nombre VARCHAR(30),
 	rol_status CHAR(1)
@@ -337,7 +341,7 @@ CREATE TABLE rol(
 
 /* TABLA DE FUNCIONALIDADES POR ROL */
 
-CREATE TABLE funcionalidad_por_rol(
+CREATE TABLE DREAM_TEAM.funcionalidad_por_rol(
 	rol_id INT,
 	fun_id INT,
 	PRIMARY KEY(rol_id,fun_id)
@@ -346,7 +350,7 @@ CREATE TABLE funcionalidad_por_rol(
 
 /* TABLA DE FUNCIONALIDADES */
 
-CREATE TABLE funcionalidad(
+CREATE TABLE DREAM_TEAM.funcionalidad(
 	fun_id INT PRIMARY KEY IDENTITY(1,1),
 	fun_nombre VARCHAR(30),
 	fun_descripcion VARCHAR(100)
@@ -356,52 +360,52 @@ CREATE TABLE funcionalidad(
 -- CREACION DE CONSTRAINTS : FOREIGN KEYS
 -- Nota: Se encuentran en el mismo orden de la creacion de tablas
 
-ALTER TABLE afiliado add constraint FK_afi_usuario foreign key (us_id) references usuarios (us_id);
-ALTER TABLE afiliado add constraint FK_plan_med foreign key (planmed_id) references plan_medico (planmed_id);
+ALTER TABLE DREAM_TEAM.afiliado add constraint FK_afi_usuario foreign key (us_id) references DREAM_TEAM.usuarios (us_id);
+ALTER TABLE DREAM_TEAM.afiliado add constraint FK_plan_med foreign key (planmed_id) references DREAM_TEAM.plan_medico (planmed_id);
 
-ALTER TABLE logs_cambio_plan add constraint FK_afi foreign key (af_id,af_rel_id) references afiliado (af_id,af_rel_id);
-ALTER TABLE logs_cambio_plan add constraint FK_plan_ant foreign key (plan_id_ant) references plan_medico (planmed_id);	
-ALTER TABLE logs_cambio_plan add constraint FK_plan_new foreign key (plan_id_new) references plan_medico (planmed_id);
+ALTER TABLE DREAM_TEAM.logs_cambio_plan add constraint FK_afi foreign key (af_id,af_rel_id) references DREAM_TEAM.afiliado (af_id,af_rel_id);
+ALTER TABLE DREAM_TEAM.logs_cambio_plan add constraint FK_plan_ant foreign key (plan_id_ant) references DREAM_TEAM.plan_medico (planmed_id);	
+ALTER TABLE DREAM_TEAM.logs_cambio_plan add constraint FK_plan_new foreign key (plan_id_new) references DREAM_TEAM.plan_medico (planmed_id);
 
-ALTER TABLE tipo_especialidades_por_planes add constraint FK_esp_por_planes_1 foreign key (planmed_id) references plan_medico (planmed_id);
-ALTER TABLE tipo_especialidades_por_planes add constraint FK_esp_por_planes_2 foreign key (tipoEsp_id) references tipo_especialidades (tipoEsp_id);
+ALTER TABLE DREAM_TEAM.tipo_especialidades_por_planes add constraint FK_esp_por_planes_1 foreign key (planmed_id) references DREAM_TEAM.plan_medico (planmed_id);
+ALTER TABLE DREAM_TEAM.tipo_especialidades_por_planes add constraint FK_esp_por_planes_2 foreign key (tipoEsp_id) references DREAM_TEAM.tipo_especialidades (tipoEsp_id);
 	
-ALTER TABLE registro_compra add constraint FK_compra_afi foreign key (compra_af,compra_af_rel) references afiliado (af_id,af_rel_id);	
+ALTER TABLE DREAM_TEAM.registro_compra add constraint FK_compra_afi foreign key (compra_af,compra_af_rel) references DREAM_TEAM.afiliado (af_id,af_rel_id);	
 
-ALTER TABLE bono add constraint FK_compra_bono foreign key (bono_compra) references registro_compra (compra_id);	
-ALTER TABLE bono add constraint FK_plan_bono foreign key (bono_planmed) references plan_medico (planmed_id);		
-ALTER TABLE bono add constraint FK_afi_bono foreign key (bono_af,bono_af_rel) references afiliado (af_id,af_rel_id);	
+ALTER TABLE DREAM_TEAM.bono add constraint FK_compra_bono foreign key (bono_compra) references DREAM_TEAM.registro_compra (compra_id);	
+ALTER TABLE DREAM_TEAM.bono add constraint FK_plan_bono foreign key (bono_planmed) references DREAM_TEAM.plan_medico (planmed_id);		
+ALTER TABLE DREAM_TEAM.bono add constraint FK_afi_bono foreign key (bono_af,bono_af_rel) references DREAM_TEAM.afiliado (af_id,af_rel_id);	
 
-ALTER TABLE consulta_medica add constraint FK_consulta_turno foreign key (cons_turno) references turnos (turno_id);	
-ALTER TABLE consulta_medica add constraint FK_consulta_bono foreign key (cons_bono) references bono (bono_id);
+ALTER TABLE DREAM_TEAM.consulta_medica add constraint FK_consulta_turno foreign key (cons_turno) references DREAM_TEAM.turnos (turno_id);	
+ALTER TABLE DREAM_TEAM.consulta_medica add constraint FK_consulta_bono foreign key (cons_bono) references DREAM_TEAM.bono (bono_id);
 
-ALTER TABLE turnos add constraint FK_turno_afi foreign key (turno_af,turno_af_rel) references afiliado (af_id,af_rel_id);
-ALTER TABLE turnos add constraint FK_turno_prof foreign key (turno_prof) references profesional (prof_id);		
-ALTER TABLE turnos add constraint FK_turno_esp foreign key (turno_esp) references especialidad (esp_id);
-ALTER TABLE turnos add constraint FK_turno_agenda foreign key (turno_agenda) references agenda_profesional (agenda_id);
+ALTER TABLE DREAM_TEAM.turnos add constraint FK_turno_afi foreign key (turno_af,turno_af_rel) references DREAM_TEAM.afiliado (af_id,af_rel_id);
+ALTER TABLE DREAM_TEAM.turnos add constraint FK_turno_prof foreign key (turno_prof) references DREAM_TEAM.profesional (prof_id);		
+ALTER TABLE DREAM_TEAM.turnos add constraint FK_turno_esp foreign key (turno_esp) references DREAM_TEAM.especialidad (esp_id);
+ALTER TABLE DREAM_TEAM.turnos add constraint FK_turno_agenda foreign key (turno_agenda) references DREAM_TEAM.agenda_profesional (agenda_id);
 
-ALTER TABLE cancelacion add constraint FK_cancelacion_turno foreign key (turno_id) references turnos (turno_id);	
+ALTER TABLE DREAM_TEAM.cancelacion add constraint FK_cancelacion_turno foreign key (turno_id) references DREAM_TEAM.turnos (turno_id);	
 
-ALTER TABLE agenda_profesional add constraint FK_agenda_prof foreign key (agenda_prof) references profesional (prof_id);	
-ALTER TABLE agenda_profesional add constraint FK_agenda_prof2 foreign key (agenda_esp) references especialidad (esp_id);	
+ALTER TABLE DREAM_TEAM.agenda_profesional add constraint FK_agenda_prof foreign key (agenda_prof) references DREAM_TEAM.profesional (prof_id);	
+ALTER TABLE DREAM_TEAM.agenda_profesional add constraint FK_agenda_prof2 foreign key (agenda_esp) references DREAM_TEAM.especialidad (esp_id);	
 
-ALTER TABLE especialidad add constraint FK_especialidad_tipo foreign key (tipoEsp_id) references tipo_especialidades (tipoEsp_id);
+ALTER TABLE DREAM_TEAM.especialidad add constraint FK_especialidad_tipo foreign key (tipoEsp_id) references DREAM_TEAM.tipo_especialidades (tipoEsp_id);
 
-ALTER TABLE profesional add constraint FK_prof_us foreign key (us_id) references usuarios (us_id);
+ALTER TABLE DREAM_TEAM.profesional add constraint FK_prof_us foreign key (us_id) references DREAM_TEAM.usuarios (us_id);
 	
-ALTER TABLE periodo_baja add constraint FK_baja_prof foreign key (prof_id) references profesional (prof_id);	
+ALTER TABLE DREAM_TEAM.periodo_baja add constraint FK_baja_prof foreign key (prof_id) references DREAM_TEAM.profesional (prof_id);	
 
-ALTER TABLE rol_por_usuarios add constraint FK_rolxusr_id foreign key (us_id) references usuarios (us_id);
-ALTER TABLE rol_por_usuarios add constraint FK_rolxusr_rol foreign key (rol_id) references rol (rol_id);
+ALTER TABLE DREAM_TEAM.rol_por_usuarios add constraint FK_rolxusr_id foreign key (us_id) references DREAM_TEAM.usuarios (us_id);
+ALTER TABLE DREAM_TEAM.rol_por_usuarios add constraint FK_rolxusr_rol foreign key (rol_id) references DREAM_TEAM.rol (rol_id);
 
-ALTER TABLE funcionalidad_por_rol add constraint FK_funxrol_id foreign key (rol_id) references rol (rol_id);
-ALTER TABLE funcionalidad_por_rol add constraint FK_funxrol_fun foreign key (fun_id) references funcionalidad (fun_id);
+ALTER TABLE DREAM_TEAM.funcionalidad_por_rol add constraint FK_funxrol_id foreign key (rol_id) references DREAM_TEAM.rol (rol_id);
+ALTER TABLE DREAM_TEAM.funcionalidad_por_rol add constraint FK_funxrol_fun foreign key (fun_id) references DREAM_TEAM.funcionalidad (fun_id);
 
 -- CREACION DE CONSTRAINTS: UNIQUE FIELDS
 
-ALTER TABLE afiliado ADD CONSTRAINT UN_DNI UNIQUE (af_numdoc, af_tipodoc)
-ALTER TABLE agenda_profesional ADD CONSTRAINT UN_DATOS UNIQUE (agenda_prof, agenda_fechayhora);
-ALTER TABLE rol ADD CONSTRAINT UN_NOMBREROL UNIQUE (rol_nombre)
+ALTER TABLE DREAM_TEAM.afiliado ADD CONSTRAINT UN_DNI UNIQUE (af_numdoc, af_tipodoc)
+ALTER TABLE DREAM_TEAM.agenda_profesional ADD CONSTRAINT UN_DATOS UNIQUE (agenda_prof, agenda_fechayhora);
+ALTER TABLE DREAM_TEAM.rol ADD CONSTRAINT UN_NOMBREROL UNIQUE (rol_nombre)
 
 
 ------------------------------------------------------------------------------------------------------------------------------------------
@@ -481,13 +485,13 @@ go
 /*------------------ MIGRACION DE PLANES MEDICOS ----------------------*/
 create procedure migrarPlanMedico
 as
-	SET IDENTITY_INSERT plan_medico ON 
-	insert into plan_medico(planmed_id,plan_descripcion,plan_precio_bono)
+	SET IDENTITY_INSERT DREAM_TEAM.plan_medico ON 
+	insert into DREAM_TEAM.plan_medico(planmed_id,plan_descripcion,plan_precio_bono)
 		select Plan_Med_Codigo,Plan_Med_Descripcion,Plan_Med_Precio_Bono_Consulta
 		from gd_esquema.Maestra
 		group by Plan_Med_Codigo,Plan_Med_Descripcion,Plan_Med_Precio_Bono_Consulta,Plan_Med_Precio_Bono_Farmacia
 		order by Plan_Med_Codigo asc
-	SET IDENTITY_INSERT plan_medico OFF
+	SET IDENTITY_INSERT DREAM_TEAM.plan_medico OFF
 
 go
 execute migrarPlanMedico
@@ -497,15 +501,15 @@ go
 /*------------------ MIGRACION DE AFILIADOS ----------------------*/
 create procedure migrarAfiliados
 as	
-	insert into usuarios
+	insert into DREAM_TEAM.usuarios
 		select convert(varchar,Paciente_Dni),HASHBYTES('SHA2_256',Paciente_Apellido),0,'1'
 		from gd_esquema.Maestra
 		group by Paciente_Nombre,Paciente_Apellido,Paciente_Dni,Paciente_Direccion,Paciente_Telefono,Paciente_Mail,Paciente_Fecha_Nac,Plan_Med_Codigo
 
-	insert into afiliado(af_rel_id,us_id,af_nombre,af_apellido,af_tipodoc,af_numdoc,af_direccion,af_telefono,af_mail,af_nacimiento,planmed_id, af_estado_civil, af_sexo, af_cantidad_familiares)
+	insert into DREAM_TEAM.afiliado(af_rel_id,us_id,af_nombre,af_apellido,af_tipodoc,af_numdoc,af_direccion,af_telefono,af_mail,af_nacimiento,planmed_id, af_estado_civil, af_sexo, af_cantidad_familiares)
 		select 00,us_id,Paciente_Nombre,Paciente_Apellido,'DNI',Paciente_Dni,
 		       Paciente_Direccion,Paciente_Telefono,Paciente_Mail,Paciente_Fecha_Nac,Plan_Med_Codigo, '', '', 0
-		from gd_esquema.Maestra,usuarios
+		from gd_esquema.Maestra,DREAM_TEAM.usuarios
 		where us_username = convert(varchar,Paciente_Dni)
 		group by us_id,Paciente_Nombre,Paciente_Apellido,Paciente_Dni,Paciente_Direccion,Paciente_Telefono,Paciente_Mail,Paciente_Fecha_Nac,Plan_Med_Codigo
 	 
@@ -517,16 +521,16 @@ go
 /*------------------ MIGRACION DE PROFESIONALES ----------------------*/
 create procedure migrarProfesional
 as
-	insert into usuarios
+	insert into DREAM_TEAM.usuarios
 		select convert(varchar,Medico_Dni),HASHBYTES('SHA2_256',Medico_Apellido),0,'1'
 		from gd_esquema.Maestra
 		where Medico_Dni is not null
 		group by Medico_Nombre,Medico_Apellido,Medico_Dni,Medico_Direccion,Medico_Telefono,Medico_Mail,Medico_Fecha_Nac
 		order by Medico_Dni
 
-	insert into profesional(us_id,prof_nombre,prof_apellido,prof_tipodoc,prof_numdoc,prof_direccion,prof_telefono,prof_mail,prof_nacimiento)
+	insert into DREAM_TEAM.profesional(us_id,prof_nombre,prof_apellido,prof_tipodoc,prof_numdoc,prof_direccion,prof_telefono,prof_mail,prof_nacimiento)
 		select us_id,Medico_Nombre,Medico_Apellido,'DNI',Medico_Dni,Medico_Direccion,Medico_Telefono,Medico_Mail,Medico_Fecha_Nac
-		from gd_esquema.Maestra,usuarios
+		from gd_esquema.Maestra,DREAM_TEAM.usuarios
 		where Medico_Dni is not null and us_username = convert(varchar,Medico_Dni)
 		group by us_id,Medico_Nombre,Medico_Apellido,Medico_Dni,Medico_Direccion,Medico_Telefono,Medico_Mail,Medico_Fecha_Nac
 		order by Medico_Dni
@@ -537,14 +541,14 @@ go
 /*------------------ MIGRACION DE TIPO DE ESPECIALIDADES ----------------------*/
 create procedure migrarTipoEspecialidades
 as
-	SET IDENTITY_INSERT tipo_especialidades ON 
-	insert into tipo_especialidades (tipoEsp_id,tipoEsp_descripcion)
+	SET IDENTITY_INSERT DREAM_TEAM.tipo_especialidades ON 
+	insert into DREAM_TEAM.tipo_especialidades (tipoEsp_id,tipoEsp_descripcion)
 		select Tipo_Especialidad_Codigo,Tipo_Especialidad_Descripcion
 		from gd_esquema.Maestra
 		where Tipo_Especialidad_Codigo is not null
 		group by Tipo_Especialidad_Codigo,Tipo_Especialidad_Descripcion
 		order by Tipo_Especialidad_Codigo
-	SET IDENTITY_INSERT tipo_especialidades OFF 
+	SET IDENTITY_INSERT DREAM_TEAM.tipo_especialidades OFF 
 go
 execute migrarTipoEspecialidades
 go
@@ -553,14 +557,14 @@ go
 /*------------------ MIGRACION DE ESPECIALIDADES ----------------------*/
 create procedure migrarEspecialidad
 as
-	SET IDENTITY_INSERT especialidad ON 
-	insert into especialidad(esp_id,esp_descripcion,tipoEsp_id)
+	SET IDENTITY_INSERT DREAM_TEAM.especialidad ON 
+	insert into DREAM_TEAM.especialidad(esp_id,esp_descripcion,tipoEsp_id)
 		select Especialidad_Codigo,Especialidad_Descripcion,Tipo_Especialidad_Codigo
 		from gd_esquema.Maestra
 		where Tipo_Especialidad_Codigo is not null
 		group by Especialidad_Codigo,Especialidad_Descripcion,Tipo_Especialidad_Codigo
 		order by Especialidad_Codigo
-	SET IDENTITY_INSERT especialidad OFF
+	SET IDENTITY_INSERT DREAM_TEAM.especialidad OFF
 go
 execute migrarEspecialidad
 go
@@ -569,9 +573,9 @@ go
 /*------------------ MIGRACION DE ESPECIALIDAD POR PROFESIONAL ----------------------*/
 create procedure migrarEspecialidadPorProfesional
 as
-	insert into especialidad_por_profesional(prof_id,esp_id)
+	insert into DREAM_TEAM.especialidad_por_profesional(prof_id,esp_id)
 		select prof_id,Especialidad_Codigo
-		from gd_esquema.Maestra,profesional
+		from gd_esquema.Maestra,DREAM_TEAM.profesional
 		where prof_numdoc = Medico_Dni
 		group by prof_id,Especialidad_Codigo
 		order by prof_id
@@ -583,9 +587,9 @@ go
 /*------------------ MIGRACION DE AGENDAS PROFESIONALES ----------------------*/
 create procedure migrarAgendaProfesional
 as
-	insert into agenda_profesional
+	insert into DREAM_TEAM.agenda_profesional
 		SELECT p.prof_id, m.Especialidad_Codigo, m.Turno_Fecha
-		FROM gd_esquema.Maestra m, profesional p
+		FROM gd_esquema.Maestra m, DREAM_TEAM.profesional p
 		WHERE Turno_Fecha is not null and p.prof_numdoc = m.Medico_Dni
 		GROUP BY p.prof_id, m.Especialidad_Codigo, m.Turno_Fecha
 		ORDER BY m.Turno_Fecha ASC
@@ -597,15 +601,15 @@ go
 /*------------------ MIGRACION DE TURNOS ----------------------*/
 create procedure migrarTurnos
 as
-	SET IDENTITY_INSERT turnos ON 
-	insert into turnos(turno_id,turno_fecha,turno_estado,turno_agenda,turno_af,turno_af_rel,turno_prof,turno_esp)
+	SET IDENTITY_INSERT DREAM_TEAM.turnos ON 
+	insert into DREAM_TEAM.turnos(turno_id,turno_fecha,turno_estado,turno_agenda,turno_af,turno_af_rel,turno_prof,turno_esp)
 		select Turno_Numero,Turno_Fecha,1,agenda_id,af_id,af_rel_id,prof_id,Especialidad_Codigo
-		from gd_esquema.Maestra,afiliado,profesional,agenda_profesional
+		from gd_esquema.Maestra,DREAM_TEAM.afiliado,DREAM_TEAM.profesional,DREAM_TEAM.agenda_profesional
 		where Turno_Numero is not null and af_numdoc = Paciente_Dni and prof_numdoc = Medico_Dni and Consulta_Enfermedades is not null and
 			  agenda_prof = prof_id and agenda_esp = Especialidad_Codigo and agenda_fechayhora = Turno_Fecha
 		order by Turno_Numero ASC
 
-	SET IDENTITY_INSERT turnos OFF
+	SET IDENTITY_INSERT DREAM_TEAM.turnos OFF
 go
 execute migrarTurnos
 go
@@ -614,9 +618,9 @@ go
 /*------------------ MIGRACION DE REGISTROS DE COMPRA ----------------------*/
 create procedure migrarRegistroCompra
 as
-	insert into registro_compra
+	insert into DREAM_TEAM.registro_compra
 		select af_id,af_rel_id,count(*),sum(Plan_Med_Precio_Bono_Consulta),Compra_Bono_Fecha
-		from gd_esquema.Maestra,afiliado
+		from gd_esquema.Maestra,DREAM_TEAM.afiliado
 		where Bono_Consulta_Numero is not null and Compra_Bono_Fecha is not null and af_numdoc = Paciente_Dni
 		group by af_id, af_rel_id, Compra_Bono_Fecha
 		order by Compra_Bono_Fecha
@@ -628,19 +632,19 @@ go
 /*------------------ MIGRACION DE BONOS ----------------------*/
 create procedure migrarBonos
 as
-	SET IDENTITY_INSERT bono ON 
-	insert into bono (bono_id,bono_compra,bono_planmed,bono_af,bono_af_rel,bono_nro_consulta)
+	SET IDENTITY_INSERT DREAM_TEAM.bono ON 
+	insert into DREAM_TEAM.bono (bono_id,bono_compra,bono_planmed,bono_af,bono_af_rel,bono_nro_consulta)
 		select m1.Bono_Consulta_Numero,compra_id,m1.Plan_Med_Codigo,af_id,af_rel_id,(
 			select count(*)
 			from gd_esquema.Maestra m2
 			where m2.Paciente_Dni = m1.Paciente_Dni and m2.Bono_Consulta_Numero is not null and m2.Turno_Numero is null and
 				  m1.Bono_Consulta_Numero >= m2.Bono_Consulta_Numero
 		)
-		from registro_compra ,gd_esquema.Maestra m1,afiliado 
+		from DREAM_TEAM.registro_compra ,gd_esquema.Maestra m1,DREAM_TEAM.afiliado 
 		where compra_fecha = m1.Compra_Bono_Fecha and m1.Bono_Consulta_Numero is not null and m1.Bono_Consulta_Numero is not null and
 			  compra_af = af_id and af_numdoc = m1.Paciente_Dni
 		order by m1.Bono_Consulta_Numero
-	SET IDENTITY_INSERT bono OFF 
+	SET IDENTITY_INSERT DREAM_TEAM.bono OFF 
 go
 execute migrarBonos
 go
@@ -649,7 +653,7 @@ go
 /*------------------ MIGRACION DE CONSULTAS ----------------------*/
 create procedure migrarConsultas
 as
-	insert into consulta_medica
+	insert into DREAM_TEAM.consulta_medica
 		select Turno_Numero,Bono_Consulta_Fecha_Impresion,Consulta_Sintomas,Consulta_Enfermedades,Bono_Consulta_Numero
 		from gd_esquema.Maestra
 		where Consulta_Enfermedades is not null AND Bono_Consulta_Numero is not null
@@ -788,7 +792,7 @@ CREATE PROCEDURE bajaAfiliado
 	@af_fechaBaja DATETIME
 AS
 BEGIN
-	UPDATE afiliado
+	UPDATE DREAM_TEAM.afiliado
 	SET af_status = 'd',
 	af_fechaBaja = @af_fechaBaja
 	WHERE af_id = @id AND af_rel_id = @id_rel
@@ -811,15 +815,15 @@ CREATE PROCEDURE altaAfiliado
 AS
 BEGIN	
 
-	IF NOT EXISTS (SELECT 1 FROM afiliado WHERE af_numdoc = @af_numdoc AND af_tipodoc = @af_tipodoc)
+	IF NOT EXISTS (SELECT 1 FROM DREAM_TEAM.afiliado WHERE af_numdoc = @af_numdoc AND af_tipodoc = @af_tipodoc)
 	BEGIN
-		INSERT INTO afiliado(af_rel_id, af_nombre ,af_apellido ,af_tipodoc, af_numdoc, af_direccion , af_telefono , af_mail , af_nacimiento , af_estado_civil, af_cantidad_familiares, planmed_id , af_sexo, af_status)
+		INSERT INTO DREAM_TEAM.afiliado(af_rel_id, af_nombre ,af_apellido ,af_tipodoc, af_numdoc, af_direccion , af_telefono , af_mail , af_nacimiento , af_estado_civil, af_cantidad_familiares, planmed_id , af_sexo, af_status)
 		VALUES (00,  @af_nombre , @af_apellido , @af_tipodoc, @af_numdoc, @af_direccion , @af_telefono , @af_mail , @af_nacimiento , @af_estado_civil, 0, @planmed_id , @af_sexo, 'a')
 
-		INSERT INTO usuarios VALUES(CONVERT(varchar(30), @af_numdoc),HASHBYTES('SHA2_256' ,@af_apellido),0,'a')
-		INSERT INTO rol_por_usuarios VALUES((SELECT us_id FROM usuarios u WHERE u.us_username like @af_numdoc),(SELECT rol_id FROM rol r WHERE r.rol_nombre = 'Afiliado'))
+		INSERT INTO DREAM_TEAM.usuarios VALUES(CONVERT(varchar(30), @af_numdoc),HASHBYTES('SHA2_256' ,@af_apellido),0,'a')
+		INSERT INTO DREAM_TEAM.rol_por_usuarios VALUES((SELECT us_id FROM DREAM_TEAM.usuarios u WHERE u.us_username like @af_numdoc),(SELECT rol_id FROM DREAM_TEAM.rol r WHERE r.rol_nombre = 'Afiliado'))
 
-		UPDATE afiliado SET us_id = (SELECT us_id FROM usuarios WHERE us_username like CONVERT(varchar(30), @af_numdoc))
+		UPDATE DREAM_TEAM.afiliado SET us_id = (SELECT us_id FROM DREAM_TEAM.usuarios WHERE us_username like CONVERT(varchar(30), @af_numdoc))
 		WHERE af_numdoc = @af_numdoc AND af_tipodoc = @af_tipodoc
 	END
 	ELSE
@@ -834,7 +838,7 @@ CREATE PROCEDURE getNextRelID
 AS
 BEGIN
 	SELECT MAX(af_rel_id)+1
-	FROM afiliado
+	FROM DREAM_TEAM.afiliado
 	WHERE af_id = @af_id
 	RETURN
 END
@@ -856,14 +860,14 @@ CREATE PROCEDURE altaFamiliar
 	@af_sexo CHAR(1)
 AS
 BEGIN
-	INSERT INTO usuarios VALUES(CONVERT(varchar(30), @af_numdoc),HASHBYTES('SHA2_256' ,@af_apellido),0,'a')
-	INSERT INTO rol_por_usuarios VALUES((SELECT us_id FROM usuarios u WHERE u.us_username like @af_numdoc),
-										(SELECT rol_id FROM rol r WHERE r.rol_nombre = 'Afiliado'))
-	SET IDENTITY_INSERT afiliado ON;
-	INSERT INTO afiliado(af_id, af_rel_id, us_id, af_nombre ,af_apellido ,af_tipodoc, af_numdoc, af_direccion , af_telefono , af_mail , af_nacimiento , af_estado_civil, af_cantidad_familiares, planmed_id , af_sexo, af_status)
-	VALUES (@af_id, (SELECT af_cantidad_familiares FROM afiliado WHERE af_id = @af_id AND af_rel_id = 0)+1, (SELECT us_id FROM usuarios WHERE us_username like CONVERT(varchar(30), @af_numdoc)), 
+	INSERT INTO DREAM_TEAM.usuarios VALUES(CONVERT(varchar(30), @af_numdoc),HASHBYTES('SHA2_256' ,@af_apellido),0,'a')
+	INSERT INTO DREAM_TEAM.rol_por_usuarios VALUES((SELECT us_id FROM DREAM_TEAM.usuarios u WHERE u.us_username like @af_numdoc),
+										(SELECT rol_id FROM DREAM_TEAM.rol r WHERE r.rol_nombre = 'Afiliado'))
+	SET IDENTITY_INSERT DREAM_TEAM.afiliado ON;
+	INSERT INTO DREAM_TEAM.afiliado(af_id, af_rel_id, us_id, af_nombre ,af_apellido ,af_tipodoc, af_numdoc, af_direccion , af_telefono , af_mail , af_nacimiento , af_estado_civil, af_cantidad_familiares, planmed_id , af_sexo, af_status)
+	VALUES (@af_id, (SELECT af_cantidad_familiares FROM DREAM_TEAM.afiliado WHERE af_id = @af_id AND af_rel_id = 0)+1, (SELECT us_id FROM DREAM_TEAM.usuarios WHERE us_username like CONVERT(varchar(30), @af_numdoc)), 
 			@af_nombre , @af_apellido , @af_tipodoc, @af_numdoc, @af_direccion , @af_telefono , @af_mail , @af_nacimiento , @af_estado_civil, 0, @planmed_id , @af_sexo, 'a')
-	SET IDENTITY_INSERT afiliado OFF;
+	SET IDENTITY_INSERT DREAM_TEAM.afiliado OFF;
 END
 GO
 
@@ -871,7 +875,7 @@ CREATE PROCEDURE getDatosForCompraBono
 	@us_id INT
 AS
 BEGIN
-SELECT af_id, af_rel_id, planmed_id FROM afiliado WHERE us_id = @us_id
+SELECT af_id, af_rel_id, planmed_id FROM DREAM_TEAM.afiliado WHERE us_id = @us_id
 END
 GO
 
@@ -880,7 +884,7 @@ CREATE PROCEDURE getDatosDelAfiliado
 	@af_rel_id TINYINT
 AS
 BEGIN
-SELECT * FROM afiliado 
+SELECT * FROM DREAM_TEAM.afiliado 
 WHERE af_id = @af_id 
 AND af_rel_id = @af_rel_id
 END
@@ -901,18 +905,18 @@ AS
 BEGIN
 	IF (@motivoCambio != '')
 	BEGIN
-		INSERT INTO logs_cambio_plan
+		INSERT INTO DREAM_TEAM.logs_cambio_plan
 		(af_id,af_rel_id,plan_id_ant,plan_id_new,cambio_plan_motivo,cambio_plan_fecha)
 		VALUES (@af_id,
 				@af_rel_id,
-				(SELECT planmed_id FROM afiliado WHERE af_id = @af_id AND af_rel_id = @af_rel_id),
+				(SELECT planmed_id FROM DREAM_TEAM.afiliado WHERE af_id = @af_id AND af_rel_id = @af_rel_id),
 				@planmed_id,
 				@motivoCambio,
 				@fecha
 				)
 	END
 	BEGIN
-	UPDATE afiliado 
+	UPDATE DREAM_TEAM.afiliado 
 		SET af_direccion = @af_direccion,
 		af_telefono = @af_telefono,
 		af_mail = @af_mail,
@@ -931,8 +935,8 @@ CREATE PROCEDURE getRolesPorUsuario
 AS
 BEGIN
 	SELECT r.rol_id, r.rol_nombre, r.rol_status
-        FROM rol r 
-	JOIN rol_por_usuarios u ON r.rol_id = u.rol_id 
+        FROM DREAM_TEAM.rol r 
+	JOIN DREAM_TEAM.rol_por_usuarios u ON r.rol_id = u.rol_id 
 	WHERE u.us_id = @us_id
 	AND r.rol_status like 'a'	
 END
@@ -942,7 +946,7 @@ CREATE PROCEDURE getAllRoles
 
 AS
 BEGIN
-	SELECT rol_id 'ID del rol', rol_nombre 'Nombre del rol', rol_status 'Estado del rol'  FROM rol
+	SELECT rol_id 'ID del rol', rol_nombre 'Nombre del rol', rol_status 'Estado del rol'  FROM DREAM_TEAM.rol
 END
 GO
 
@@ -950,7 +954,7 @@ CREATE PROCEDURE getAllFuncionalidades
 
 AS
 BEGIN
-	SELECT * FROM funcionalidad
+	SELECT * FROM DREAM_TEAM.funcionalidad
 END
 GO
 
@@ -959,7 +963,7 @@ CREATE PROCEDURE getFuncionalidadDelRol
 AS
 BEGIN
 	SELECT f.fun_id, f.fun_nombre 
-	FROM funcionalidad_por_rol r JOIN funcionalidad f
+	FROM DREAM_TEAM.funcionalidad_por_rol r JOIN DREAM_TEAM.funcionalidad f
 	ON r.fun_id = f.fun_id
 	WHERE rol_id = @id_rol
 END
@@ -969,7 +973,7 @@ CREATE PROCEDURE InsertarRol
 	@nombre_rol VARCHAR(30)
 AS
 BEGIN
-	INSERT into rol(rol_nombre,rol_status)VALUES(@nombre_rol,'a')
+	INSERT into DREAM_TEAM.rol(rol_nombre,rol_status)VALUES(@nombre_rol,'a')
 END
 GO
 
@@ -978,7 +982,7 @@ CREATE PROCEDURE InsertarRolXFuncionalidad
 	@fun_id INT
 AS
 BEGIN
-	INSERT into funcionalidad_por_rol VALUES( (SELECT rol_id FROM rol WHERE rol_nombre like @nombre_rol), @fun_id)
+	INSERT into DREAM_TEAM.funcionalidad_por_rol VALUES( (SELECT rol_id FROM DREAM_TEAM.rol WHERE rol_nombre like @nombre_rol), @fun_id)
 END
 GO
 
@@ -986,15 +990,15 @@ CREATE PROCEDURE getRol
 	@rol_nombre VARCHAR(30)
 AS
 BEGIN
-	SELECT rol_id 'ID del Rol', rol_nombre 'Nombre del rol', rol_status 'Estado del Rol' FROM rol WHERE rol_nombre like @rol_nombre
+	SELECT rol_id 'ID del Rol', rol_nombre 'Nombre del rol', rol_status 'Estado del Rol' FROM DREAM_TEAM.rol WHERE rol_nombre like @rol_nombre
 END
 GO
 
 CREATE PROCEDURE deactivateRol
 	@rol_id INT
 AS BEGIN
-	UPDATE rol SET rol_status = 'd' WHERE rol_id = @rol_id
-	DELETE FROM rol_por_usuarios WHERE rol_id = @rol_id
+	UPDATE DREAM_TEAM.rol SET rol_status = 'd' WHERE rol_id = @rol_id
+	DELETE FROM DREAM_TEAM.rol_por_usuarios WHERE rol_id = @rol_id
 END
 GO
 
@@ -1002,7 +1006,7 @@ CREATE PROCEDURE activateRol
 	@rol_id INT
 AS
 BEGIN
-	UPDATE rol SET rol_status = 'a' 
+	UPDATE DREAM_TEAM.rol SET rol_status = 'a' 
 	WHERE rol_id = @rol_id
 END
 GO
@@ -1011,7 +1015,7 @@ CREATE PROCEDURE updateRXF
 	@id_rol INT
 AS
 BEGIN
-	DELETE FROM funcionalidad_por_rol WHERE rol_id = @id_rol
+	DELETE FROM DREAM_TEAM.funcionalidad_por_rol WHERE rol_id = @id_rol
 END
 GO
 
@@ -1020,7 +1024,7 @@ CREATE PROCEDURE updateRol
 	@id_rol INT
 AS
 BEGIN
-	UPDATE rol SET rol_nombre = @nombre_rol WHERE rol_id = @id_rol
+	UPDATE DREAM_TEAM.rol SET rol_nombre = @nombre_rol WHERE rol_id = @id_rol
 END
 GO
 
@@ -1034,7 +1038,7 @@ AS
 BEGIN
 SET @us_idR = -1
 DECLARE loginCursor CURSOR FOR
-SELECT * FROM usuarios 
+SELECT * FROM DREAM_TEAM.usuarios 
 WHERE us_username = @us_name
 
 DECLARE @us_id INT,
@@ -1055,13 +1059,13 @@ BEGIN
 				IF HASHBYTES('SHA2_256',@us_pw) = @us_pwC
 				BEGIN
 					SET @us_idR = @us_id
-					UPDATE usuarios SET us_login_fail = 0 WHERE us_id = @us_id
+					UPDATE DREAM_TEAM.usuarios SET us_login_fail = 0 WHERE us_id = @us_id
 					RETURN
 				END
 				ELSE
 				BEGIN
 					RAISERROR('La contraseña es invalida',16,10)
-					UPDATE usuarios 
+					UPDATE DREAM_TEAM.usuarios 
 					SET us_login_fail = us_login_fail+1 
 					WHERE us_id = @us_id
 				END
@@ -1089,7 +1093,7 @@ CREATE PROCEDURE getPlanesMedicos
 AS
 BEGIN
 SELECT planmed_id
-FROM Plan_medico
+FROM DREAM_TEAM.plan_medico
 END
 GO
 
@@ -1098,7 +1102,7 @@ CREATE PROCEDURE getPrecioBonoDelPlan
 AS
 BEGIN
 SELECT plan_precio_bono
-FROM plan_medico
+FROM DREAM_TEAM.plan_medico
 WHERE planmed_id = @planmed_id
 END
 GO
@@ -1111,7 +1115,7 @@ CREATE PROCEDURE comprarBonos
 	@fecha DATETIME
 AS
 BEGIN
-	INSERT INTO registro_compra(compra_af,compra_af_rel,compra_cantidad,compra_monto,compra_fecha)
+	INSERT INTO DREAM_TEAM.registro_compra(compra_af,compra_af_rel,compra_cantidad,compra_monto,compra_fecha)
 	VALUES(@af_id,@af_rel_id,@cantidad,@monto,@fecha)
 END
 GO
@@ -1125,16 +1129,16 @@ BEGIN
 	DECLARE @tipoEsp_id INT
 	DECLARE @af_id BIGINT
 	DECLARE @af_rel_id TINYINT
-	SELECT @af_id = turno_af, @af_rel_id = turno_af_rel FROM turnos
+	SELECT @af_id = turno_af, @af_rel_id = turno_af_rel FROM DREAM_TEAM.turnos
 	WHERE turno_id = @turno_id
 	
-	SELECT @plan_med = planmed_id FROM afiliado a 
-	JOIN turnos t ON a.af_id = t.turno_af AND a.af_rel_id = t.turno_af_rel
+	SELECT @plan_med = planmed_id FROM DREAM_TEAM.afiliado a 
+	JOIN DREAM_TEAM.turnos t ON a.af_id = t.turno_af AND a.af_rel_id = t.turno_af_rel
 	WHERE a.af_id = @af_id AND a.af_rel_id = @af_rel_id
 
-	SELECT @tipoEsp_id = tipoEsp_id FROM especialidad WHERE esp_id = (SELECT turno_esp FROM turnos WHERE turno_id = @turno_id)
+	SELECT @tipoEsp_id = tipoEsp_id FROM DREAM_TEAM.especialidad WHERE esp_id = (SELECT turno_esp FROM DREAM_TEAM.turnos WHERE turno_id = @turno_id)
 
-	IF NOT EXISTS (SELECT 1 FROM tipo_especialidades_por_planes WHERE planmed_id = @plan_med AND tipoEsp_id = @tipoEsp_id)
+	IF NOT EXISTS (SELECT 1 FROM DREAM_TEAM.tipo_especialidades_por_planes WHERE planmed_id = @plan_med AND tipoEsp_id = @tipoEsp_id)
 		RAISERROR('El bono seleccionado para la consulta no es válido', 16, 16)
 END
 GO
@@ -1145,7 +1149,7 @@ AS
 BEGIN
 
 SELECT bono_id 'ID del bono', bono_planmed ' Plan medico que cubre el bono'
-FROM bono
+FROM DREAM_TEAM.bono
 WHERE bono_nro_consulta IS NULL
 AND bono_af = @af_id
 
@@ -1158,7 +1162,7 @@ GO
 CREATE PROCEDURE getEspecialidadesMedicas
 AS
 BEGIN
-	SELECT esp_id, esp_descripcion FROM especialidad
+	SELECT esp_id, esp_descripcion FROM DREAM_TEAM.especialidad
 END
 GO
 
@@ -1167,7 +1171,7 @@ CREATE PROCEDURE getEspecialidadesPorProfesional
 AS
 BEGIN
 	SELECT c.esp_id'ID de la especialidad', c.esp_descripcion 'Nombre de la especialidad'
-    FROM profesional a, especialidad_por_profesional b, especialidad c
+    FROM DREAM_TEAM.profesional a, DREAM_TEAM.especialidad_por_profesional b, DREAM_TEAM.especialidad c
 	WHERE a.us_id = @us_id AND b.prof_id = a.prof_id AND c.esp_id = b.esp_id
 END
 GO
@@ -1196,7 +1200,7 @@ BEGIN
 		
 	WHILE @d <= @h
 	BEGIN
-		IF (((ISNULL((SELECT COUNT(*) FROM agenda_profesional WHERE agenda_prof = @id AND agenda_fechayhora BETWEEN @d AND @d2),0) *30) + @minutos_trabajados) > 2880)
+		IF (((ISNULL((SELECT COUNT(*) FROM DREAM_TEAM.agenda_profesional WHERE agenda_prof = @id AND agenda_fechayhora BETWEEN @d AND @d2),0) *30) + @minutos_trabajados) > 2880)
 		BEGIN
 			RAISERROR('Sobrepasaste las 48 horas semanales',16,1)
 			RETURN 
@@ -1249,7 +1253,7 @@ BEGIN
 	BEGIN
 		WHILE @inicialBucle <= @finalBucle
 		BEGIN
-			IF (SELECT COUNT(*) FROM agenda_profesional WHERE agenda_prof = @id AND agenda_fechayhora = (@d2 + CONVERT(DATETIME, @inicialBucle))) > 0
+			IF (SELECT COUNT(*) FROM DREAM_TEAM.agenda_profesional WHERE agenda_prof = @id AND agenda_fechayhora = (@d2 + CONVERT(DATETIME, @inicialBucle))) > 0
 			BEGIN
 				SET @error_bandera = 1
 				RAISERROR('Algunos horarios no fueron agregados porque se sobre escribian con anteriores',16,1)
@@ -1265,7 +1269,7 @@ BEGIN
 	BEGIN
 		WHILE @inicialBucle <= @finalBucle
 		BEGIN
-			INSERT INTO agenda_profesional VALUES (@id, @especialidad, @d + CONVERT(DATETIME, @inicialBucle))
+			INSERT INTO DREAM_TEAM.agenda_profesional VALUES (@id, @especialidad, @d + CONVERT(DATETIME, @inicialBucle))
 			SET @inicialBucle = DATEADD(MINUTE,30,@inicialBucle)
 		END
 		SET @inicialBucle = @hi
@@ -1282,11 +1286,11 @@ CREATE PROCEDURE getTurnos
 AS
 BEGIN
 
-	SELECT t.turno_id ' ID del turno' , e.esp_descripcion'Nombre de la especialidad' , p.prof_apellido'Apellido del profesiona', a.agenda_fechayhora 'Fecha'
-	FROM turnos t
-	JOIN profesional p ON t.turno_prof = p.prof_id
-	JOIN especialidad e ON e.esp_id = t.turno_esp
-	JOIN agenda_profesional a ON agenda_id = t.turno_agenda 
+	SELECT t.turno_id ' ID del turno' , e.esp_descripcion'Nombre de la especialidad' , p.prof_apellido'Apellido del profesional', a.agenda_fechayhora 'Fecha'
+	FROM DREAM_TEAM.turnos t
+	JOIN DREAM_TEAM.profesional p ON t.turno_prof = p.prof_id
+	JOIN DREAM_TEAM.especialidad e ON e.esp_id = t.turno_esp
+	JOIN DREAM_TEAM.agenda_profesional a ON agenda_id = t.turno_agenda 
 	WHERE turno_af = @af_id AND turno_af_rel = @af_rel_id
 	AND (@esp_id = t.turno_esp OR p.prof_apellido = @prof_apellido)
 	AND turno_estado = 0
@@ -1306,10 +1310,10 @@ CREATE PROCEDURE generateConsultaMedica
 AS
 BEGIN
 
-	INSERT INTO consulta_medica(cons_turno,cons_bono,cons_hora_llegada)
+	INSERT INTO DREAM_TEAM.consulta_medica(cons_turno,cons_bono,cons_hora_llegada)
 				VALUES(@turno_id,@bono_id,CONVERT(DATETIME,@hora_llegada,126))
 
-	UPDATE bono SET bono_nro_consulta= (SELECT MAX(bono_nro_consulta)+1 FROM bono WHERE bono_af = @af_id AND bono_af_rel = @af_rel_id),
+	UPDATE DREAM_TEAM.bono SET bono_nro_consulta= (SELECT MAX(bono_nro_consulta)+1 FROM DREAM_TEAM.bono WHERE bono_af = @af_id AND bono_af_rel = @af_rel_id),
 	bono_af_rel = @af_rel_id
 	WHERE bono_id = @bono_id
 
@@ -1323,8 +1327,8 @@ CREATE PROCEDURE getConsultas
 AS
 BEGIN
 	SELECT c.cons_id'ID de la consulta', t.turno_prof'ID del profesional', t.turno_esp 'ID de la especialidad'
-	FROM turnos t 
-	JOIN consulta_medica c 
+	FROM DREAM_TEAM.turnos t 
+	JOIN DREAM_TEAM.consulta_medica c 
 	ON turno_id = cons_turno
 	WHERE turno_estado = 0
 END
@@ -1335,7 +1339,7 @@ CREATE PROCEDURE getTurnosDelProfesional
 AS
 BEGIN
 	SELECT turno_id 'ID del turno', DATEPART(YEAR,turno_fecha)'Año', DATEPART(MONTH,turno_fecha)'Mes', DATEPART (DAY, turno_fecha) 'Dia', DATEPART(HOUR,turno_fecha)'Hora', DATEPART(MINUTE,turno_fecha)'Minutos', turno_af'ID Familiar', turno_af_rel 'ID Relacional' 
-	FROM turnos
+	FROM DREAM_TEAM.turnos
 	WHERE turno_prof = @prof_id
 END
 GO
@@ -1348,7 +1352,7 @@ CREATE PROCEDURE reservarTurno
 	@turno_esp INT
 AS
 BEGIN
-	INSERT INTO turnos VALUES ((SELECT agenda_fechayhora FROM agenda_profesional WHERE agenda_id = @turno_agenda), 0 , @turno_agenda, @turno_afi, @turno_af_rel, @turno_prof, @turno_esp)
+	INSERT INTO DREAM_TEAM.turnos VALUES ((SELECT agenda_fechayhora FROM DREAM_TEAM.agenda_profesional WHERE agenda_id = @turno_agenda), 0 , @turno_agenda, @turno_afi, @turno_af_rel, @turno_prof, @turno_esp)
 END
 GO
 
@@ -1357,8 +1361,8 @@ CREATE PROCEDURE dameTurnosDisponiblesDeLaFecha
 AS
 BEGIN
 	SELECT DATEPART(hour,agenda_fechayhora) 'Hora', DATEPART(minute, agenda_fechayhora) 'Minutos', agenda_id  'ID de la agenda'
-	FROM agenda_profesional
-	WHERE agenda_id NOT IN (SELECT turno_agenda FROM turnos WHERE turno_estado = 0)	
+	FROM DREAM_TEAM.agenda_profesional
+	WHERE agenda_id NOT IN (SELECT turno_agenda FROM DREAM_TEAM.turnos WHERE turno_estado = 0)	
 	AND CONVERT(VARCHAR(10),agenda_fechayhora,126) like CONVERT(VARCHAR(10),@fecha,126)
 	ORDER BY Hora, Minutos
 END
@@ -1370,12 +1374,12 @@ CREATE PROCEDURE finalizarConsulta
 	@diagnostico VARCHAR(200)
 AS
 BEGIN
-	UPDATE consulta_medica 
+	UPDATE DREAM_TEAM.consulta_medica 
 	SET cons_sintomas = @sintomas,
 	cons_diagnostico = @diagnostico
 	WHERE cons_id = @cons_id
 
-	UPDATE turnos SET turno_estado = 1 WHERE turno_id = (SELECT cons_turno FROM consulta_medica WHERE cons_id = @cons_id)
+	UPDATE DREAM_TEAM.turnos SET turno_estado = 1 WHERE turno_id = (SELECT cons_turno FROM DREAM_TEAM.consulta_medica WHERE cons_id = @cons_id)
 END
 GO
 
@@ -1387,21 +1391,19 @@ AS
 BEGIN
 	SET @desde = CONVERT(DATETIME,@desde,120)
 	SET @hasta = CONVERT(DATETIME,@hasta,120)
-	
-	PRINT @desde + '   ' +  @hasta
 
-	INSERT INTO periodo_baja(periodo_desde,periodo_hasta,prof_id) VALUES(@desde, @hasta, @prof_id)
+	INSERT INTO DREAM_TEAM.periodo_baja(periodo_desde,periodo_hasta,prof_id) VALUES(@desde, @hasta, @prof_id)
 END
 GO
 
 CREATE PROCEDURE cancelTurno
    	@turno_id INT, 
-	@cancel_motivo VARCHAR(30) , 
+	@cancel_motivo VARCHAR(30), 
 	@cancel_tipo CHAR(1)
 AS
 BEGIN
-    INSERT INTO cancelacion VALUES (@cancel_tipo, @cancel_motivo, @turno_id)
-	UPDATE turnos SET turno_estado = 2, turno_agenda = NULL WHERE  turno_id = @turno_id
+    INSERT INTO DREAM_TEAM.cancelacion VALUES (@cancel_tipo, @cancel_motivo, @turno_id)
+	UPDATE DREAM_TEAM.turnos SET turno_estado = 2, turno_agenda = NULL WHERE  turno_id = @turno_id
 END
 GO
 
@@ -1414,9 +1416,9 @@ CREATE PROCEDURE getListado1
 AS
 BEGIN
 	SELECT TOP 5 t.turno_esp 'ID Especialidad', e.esp_descripcion 'Nombre especialidad', COUNT(c.cancel_id) 'Cantidad de cancelaciones'
-	FROM cancelacion c
-	JOIN turnos t ON c.turno_id = t.turno_id
-	JOIN especialidad e ON t.turno_esp = e.esp_id
+	FROM DREAM_TEAM.cancelacion c
+	JOIN DREAM_TEAM.turnos t ON c.turno_id = t.turno_id
+	JOIN DREAM_TEAM.especialidad e ON t.turno_esp = e.esp_id
 	WHERE turno_estado like '2'
 	AND turno_fecha BETWEEN @fecha_inicio AND @fecha_fin
 	GROUP BY t.turno_esp,e.esp_descripcion
@@ -1431,9 +1433,9 @@ AS
 BEGIN
 	SELECT TOP 5 t.turno_prof 'ID del profesional', CONCAT(p.prof_apellido, ', ', p.prof_nombre) 'Apellido, Nombre',
 				 t.turno_esp 'ID Especialidad',e.esp_descripcion 'Especialidad', COUNT(t.turno_id) 'Cantidad de consultas'
-	FROM turnos t
-	JOIN profesional p ON t.turno_prof = p.prof_id
-	JOIN especialidad e ON t.turno_esp = e.esp_id
+	FROM DREAM_TEAM.turnos t
+	JOIN DREAM_TEAM.profesional p ON t.turno_prof = p.prof_id
+	JOIN DREAM_TEAM.especialidad e ON t.turno_esp = e.esp_id
 	WHERE turno_estado like '1'
 	AND turno_fecha BETWEEN @fecha_inicio AND @fecha_fin
 	GROUP BY t.turno_prof, p.prof_apellido, p.prof_nombre, t.turno_esp, e.esp_descripcion
@@ -1448,9 +1450,9 @@ AS
 BEGIN
 	SELECT TOP 5 t.turno_prof 'ID del profesional', CONCAT(p.prof_apellido, ', ', p.prof_nombre) 'Apellido, Nombre',
 				 t.turno_esp 'ID Especialidad',e.esp_descripcion 'Especialidad', COUNT(t.turno_id) 'Cantidad de consultas'
-	FROM turnos t
-	JOIN profesional p ON t.turno_prof = p.prof_id
-	JOIN especialidad e ON t.turno_esp = e.esp_id
+	FROM DREAM_TEAM.turnos t
+	JOIN DREAM_TEAM.profesional p ON t.turno_prof = p.prof_id
+	JOIN DREAM_TEAM.especialidad e ON t.turno_esp = e.esp_id
 	WHERE turno_estado like '1'
 	AND turno_fecha BETWEEN @fecha_inicio AND @fecha_fin
 	GROUP BY t.turno_prof, p.prof_apellido, p.prof_nombre, t.turno_esp, e.esp_descripcion
@@ -1464,9 +1466,9 @@ CREATE PROCEDURE getListado4
 AS
 BEGIN
 	SELECT TOP 5 b.bono_af 'ID' , b.bono_af_rel 'IDRel', CONCAT(a.af_apellido, ', ', a.af_nombre) 'Apellido, Nombre', COUNT(*) 'Cantidad de bonos comprados'
-	FROM bono b
-	JOIN afiliado a ON b.bono_af = a.af_id AND b.bono_af_rel = a.af_rel_id
-	JOIN registro_compra r ON b.bono_compra = r.compra_id
+	FROM DREAM_TEAM.bono b
+	JOIN DREAM_TEAM.afiliado a ON b.bono_af = a.af_id AND b.bono_af_rel = a.af_rel_id
+	JOIN DREAM_TEAM.registro_compra r ON b.bono_compra = r.compra_id
 	WHERE compra_fecha BETWEEN @fecha_inicio AND @fecha_fin
 	GROUP BY b.bono_af, b.bono_af_rel, a.af_nombre, a.af_apellido
 	ORDER BY 'Cantidad de bonos comprados' DESC
@@ -1479,8 +1481,8 @@ CREATE PROCEDURE getListado5
 AS
 BEGIN
 	SELECT TOP 5 t.turno_esp'ID de la Especialidad', e.esp_descripcion'Especialidad', COUNT(*) 'Bonos utilizados'
-	FROM turnos t
-	JOIN especialidad e ON t.turno_esp = e.esp_id
+	FROM DREAM_TEAM.turnos t
+	JOIN DREAM_TEAM.especialidad e ON t.turno_esp = e.esp_id
 	WHERE turno_fecha BETWEEN @fecha_inicio AND @fecha_fin
 	AND turno_estado = 1
 	GROUP BY t.turno_esp, e.esp_descripcion
@@ -1502,67 +1504,67 @@ GO
 
 ---------------------------------------------CREO FUNCIONALIDADES ----------------------------------------------------
 
-INSERT INTO funcionalidad (fun_nombre) VALUES ('ABM de Rol');
-INSERT INTO funcionalidad (fun_nombre) VALUES ('ABM de Afiliado');
-INSERT INTO funcionalidad (fun_nombre) VALUES ('Registrar Agenda Profesional');
-INSERT INTO funcionalidad (fun_nombre) VALUES ('Compra de Bonos');
-INSERT INTO funcionalidad (fun_nombre) VALUES ('Pedido de Turno');
-INSERT INTO funcionalidad (fun_nombre) VALUES ('Registro de Llegada');
-INSERT INTO funcionalidad (fun_nombre) VALUES ('Registro de Resultado');
-INSERT INTO funcionalidad (fun_nombre) VALUES ('Cancelar Atencion Medica');
-INSERT INTO funcionalidad (fun_nombre) VALUES ('Listado Estadistico');
+INSERT INTO DREAM_TEAM.funcionalidad (fun_nombre) VALUES ('ABM de Rol');
+INSERT INTO DREAM_TEAM.funcionalidad (fun_nombre) VALUES ('ABM de Afiliado');
+INSERT INTO DREAM_TEAM.funcionalidad (fun_nombre) VALUES ('Registrar Agenda Profesional');
+INSERT INTO DREAM_TEAM.funcionalidad (fun_nombre) VALUES ('Compra de Bonos');
+INSERT INTO DREAM_TEAM.funcionalidad (fun_nombre) VALUES ('Pedido de Turno');
+INSERT INTO DREAM_TEAM.funcionalidad (fun_nombre) VALUES ('Registro de Llegada');
+INSERT INTO DREAM_TEAM.funcionalidad (fun_nombre) VALUES ('Registro de Resultado');
+INSERT INTO DREAM_TEAM.funcionalidad (fun_nombre) VALUES ('Cancelar Atencion Medica');
+INSERT INTO DREAM_TEAM.funcionalidad (fun_nombre) VALUES ('Listado Estadistico');
 
 
 ------------------------------------------------- CREACION DE ROLES -----------------------------------------------------
 
-/*Creo el rol Administrativo*/
+/*Creo el DREAM_TEAM.rol Administrativo*/
 
-INSERT INTO rol(rol_nombre, rol_status) VALUES('Administrativo', 'a');
+INSERT INTO DREAM_TEAM.rol(rol_nombre, rol_status) VALUES('Administrativo', 'a');
 GO
 
-/*Se agregan funcionalidades al rol Administrativo*/
+/*Se agregan DREAM_TEAM.funcionalidades al DREAM_TEAM.rol Administrativo*/
 
-INSERT INTO funcionalidad_por_rol (rol_id, fun_id)
+INSERT INTO DREAM_TEAM.funcionalidad_por_rol (rol_id, fun_id)
 SELECT tablaRol.rol_id,tablaFuncionalidad.fun_id 
-FROM rol  tablaRol, funcionalidad tablaFuncionalidad
+FROM DREAM_TEAM.rol  tablaRol, DREAM_TEAM.funcionalidad tablaFuncionalidad
 WHERE tablaRol.rol_nombre = 'Administrativo' AND tablaFuncionalidad.fun_nombre IN ('ABM de Rol', 'ABM de Afiliado', 'Compra de Bonos', 'Registro de Llegada','Listado Estadistico');
 GO
 
-/*Creo el rol Afiliado*/
+/*Creo el DREAM_TEAM.rol Afiliado*/
 
-INSERT INTO rol(rol_nombre, rol_status) VALUES('Afiliado', 'a');
+INSERT INTO DREAM_TEAM.rol(rol_nombre, rol_status) VALUES('Afiliado', 'a');
 GO
 
-/*Se agregan funcionalidades al rol Afiliado*/
+/*Se agregan DREAM_TEAM.funcionalidades al DREAM_TEAM.rol Afiliado*/
 
-INSERT INTO funcionalidad_por_rol(rol_id, fun_id)
+INSERT INTO DREAM_TEAM.funcionalidad_por_rol(rol_id, fun_id)
 SELECT tablaRol.rol_id,tablaFuncionalidad.fun_id 
-FROM rol  tablaRol, funcionalidad tablaFuncionalidad
+FROM DREAM_TEAM.rol  tablaRol, DREAM_TEAM.funcionalidad tablaFuncionalidad
 WHERE tablaRol.rol_nombre = 'Afiliado' AND tablaFuncionalidad.fun_nombre IN ('Compra de Bonos', 'Pedido de Turno','Cancelar Atencion Medica');
 GO
 
-/*Creo el rol Profesional*/
+/*Creo el DREAM_TEAM.rol Profesional*/
 
-INSERT INTO rol(rol_nombre, rol_status) VALUES('Profesional', 'a');
+INSERT INTO DREAM_TEAM.rol(rol_nombre, rol_status) VALUES('Profesional', 'a');
 GO
 
-/*Se agregan funcionalidades al rol Profesional*/
+/*Se agregan DREAM_TEAM.funcionalidades al DREAM_TEAM.rol Profesional*/
 
-INSERT INTO funcionalidad_por_rol (rol_id,fun_id)
+INSERT INTO DREAM_TEAM.funcionalidad_por_rol (rol_id,fun_id)
 SELECT tablaRol.rol_id,tablaFuncionalidad.fun_Id 
-FROM rol  tablaRol, funcionalidad tablaFuncionalidad
+FROM DREAM_TEAM.rol  tablaRol, DREAM_TEAM.funcionalidad tablaFuncionalidad
 WHERE tablaRol.rol_nombre = 'Profesional' AND tablaFuncionalidad.fun_nombre IN ('Registrar Agenda Profesional', 'Registro de Resultado', 'Cancelar Atencion Medica');
 GO
 
 
 ------------------------------------- INGRESO LOS ROLES DE LOS PROFESIONALES Y DE LOS AFILIADOS ----------------------------------------------------------
 
-	INSERT INTO rol_por_usuarios 
-	SELECT us_id, 2 FROM afiliado
+	INSERT INTO DREAM_TEAM.rol_por_usuarios 
+	SELECT us_id, 2 FROM DREAM_TEAM.afiliado
 
 		
-	INSERT INTO rol_por_usuarios
-	SELECT us_id, 3  FROM profesional
+	INSERT INTO DREAM_TEAM.rol_por_usuarios
+	SELECT us_id, 3  FROM DREAM_TEAM.profesional
 
 ----------------------------------------- CUENTA ADMIN -----------------------------------------------------------------
 
@@ -1574,21 +1576,21 @@ CREATE PROCEDURE setAdmin
 AS
 BEGIN
 	DECLARE @us_id INT
-	INSERT INTO usuarios VALUES('admin',HASHBYTES('SHA2_256','w23e'),0,'a')
+	INSERT INTO DREAM_TEAM.usuarios VALUES('admin',HASHBYTES('SHA2_256','w23e'),0,'1')
 	
-	SELECT @us_id = us_id FROM usuarios WHERE us_username like 'admin'
+	SELECT @us_id = us_id FROM DREAM_TEAM.usuarios WHERE us_username like 'admin'
 	
-	INSERT INTO rol_por_usuarios
+	INSERT INTO DREAM_TEAM.rol_por_usuarios
 	SELECT @us_id, r.rol_id 
-	FROM rol r
+	FROM DREAM_TEAM.rol r
 
-	INSERT INTO afiliado (af_rel_id, us_id,planmed_id, af_tipodoc, af_numdoc)
-		VALUES (0,@us_id,555555,'DNI',0)
+	INSERT INTO DREAM_TEAM.afiliado (af_nombre,af_apellido,af_rel_id, us_id,planmed_id, af_tipodoc, af_numdoc, af_status)
+		VALUES ('admin','admin', 0, @us_id, 555559, 'DNI', 0, 'a')
 
-	INSERT INTO profesional (us_id,prof_apellido,prof_nombre) VALUES (@us_id,'a','b')
+	INSERT INTO DREAM_TEAM.profesional (us_id,prof_apellido,prof_nombre) VALUES (@us_id,'admin','admin')
 
-	INSERT INTO especialidad_por_profesional 
-		SELECT (SELECT prof_id FROM profesional WHERE us_id = @us_id), esp_id FROM especialidad
+	INSERT INTO DREAM_TEAM.especialidad_por_profesional 
+		SELECT (SELECT prof_id FROM DREAM_TEAM.profesional WHERE us_id = @us_id), esp_id FROM DREAM_TEAM.especialidad
 
 END
 GO
@@ -1596,6 +1598,7 @@ GO
 exec setAdmin
 GO
 
+DROP PROCEDURE setAdmin
 ----------------------------------------- SETEO PLANES Y ESPECIALIDADES RELACIONADAS -----------------------------------------------------------------
 if OBJECT_ID('setTipoEspPorPlan') is not null
 begin
@@ -1606,28 +1609,30 @@ go
 CREATE PROCEDURE setTipoEspPorPlan
 AS
 BEGIN
-	INSERT INTO tipo_especialidades_por_planes VALUES (555555,1000)
+	INSERT INTO DREAM_TEAM.tipo_especialidades_por_planes VALUES (555555,1000)
 
-	INSERT INTO tipo_especialidades_por_planes VALUES (555556,1000)
-	INSERT INTO tipo_especialidades_por_planes VALUES (555556,1001)
+	INSERT INTO DREAM_TEAM.tipo_especialidades_por_planes VALUES (555556,1000)
+	INSERT INTO DREAM_TEAM.tipo_especialidades_por_planes VALUES (555556,1001)
 
-	INSERT INTO tipo_especialidades_por_planes VALUES (555557,1000)
-	INSERT INTO tipo_especialidades_por_planes VALUES (555557,1002)
+	INSERT INTO DREAM_TEAM.tipo_especialidades_por_planes VALUES (555557,1000)
+	INSERT INTO DREAM_TEAM.tipo_especialidades_por_planes VALUES (555557,1002)
 		
-	INSERT INTO tipo_especialidades_por_planes VALUES (555558,1000)
-	INSERT INTO tipo_especialidades_por_planes VALUES (555558,1001)
-	INSERT INTO tipo_especialidades_por_planes VALUES (555558,1002)
+	INSERT INTO DREAM_TEAM.tipo_especialidades_por_planes VALUES (555558,1000)
+	INSERT INTO DREAM_TEAM.tipo_especialidades_por_planes VALUES (555558,1001)
+	INSERT INTO DREAM_TEAM.tipo_especialidades_por_planes VALUES (555558,1002)
 
-	INSERT INTO tipo_especialidades_por_planes VALUES (555559,1000)
-	INSERT INTO tipo_especialidades_por_planes VALUES (555559,1001)
-	INSERT INTO tipo_especialidades_por_planes VALUES (555559,1002)
-	INSERT INTO tipo_especialidades_por_planes VALUES (555559,1003)
+	INSERT INTO DREAM_TEAM.tipo_especialidades_por_planes VALUES (555559,1000)
+	INSERT INTO DREAM_TEAM.tipo_especialidades_por_planes VALUES (555559,1001)
+	INSERT INTO DREAM_TEAM.tipo_especialidades_por_planes VALUES (555559,1002)
+	INSERT INTO DREAM_TEAM.tipo_especialidades_por_planes VALUES (555559,1003)
 
 END
 GO
 
 exec setTipoEspPorPlan
 GO
+
+DROP PROCEDURE setTipoEspPorPlan
 
 
 ------------------------------------------------------------------------------------------------------------------------------------------
@@ -1654,7 +1659,7 @@ GO
 
 -- PARA LA COMPRA DE BONOS
 CREATE TRIGGER compraDeBonos
-	ON registro_compra
+	ON DREAM_TEAM.registro_compra
 	AFTER INSERT
 AS
 BEGIN
@@ -1669,8 +1674,8 @@ BEGIN
 
 	WHILE @contador < @cantidad
 	BEGIN
-		INSERT INTO bono(bono_compra,bono_planmed,bono_af,bono_af_rel)
-		VALUES(@compra_id,(SELECT planmed_id FROM afiliado a WHERE a.af_id = @af_id AND a.af_rel_id = @af_rel_id),@af_id,@af_rel_id)
+		INSERT INTO DREAM_TEAM.bono(bono_compra,bono_planmed,bono_af,bono_af_rel)
+		VALUES(@compra_id,(SELECT planmed_id FROM DREAM_TEAM.afiliado a WHERE a.af_id = @af_id AND a.af_rel_id = @af_rel_id),@af_id,@af_rel_id)
 		SET @contador +=1
 	END
 
@@ -1679,7 +1684,7 @@ GO
 
 -- PARA ACTUALIZAR EL CAMPO cantidad_familiares DEL AFILIADO
 CREATE TRIGGER agregarFamiliar
-	ON afiliado
+	ON DREAM_TEAM.afiliado
 	AFTER INSERT
 AS
 BEGIN
@@ -1687,7 +1692,7 @@ BEGIN
 	DECLARE @af_rel_id TINYINT
 	SELECT @af_id = i.af_id, @af_rel_id = i.af_rel_id FROM inserted i
 	IF (@af_rel_id <> 0)
-		UPDATE afiliado SET af_cantidad_familiares+=1
+		UPDATE DREAM_TEAM.afiliado SET af_cantidad_familiares+=1
 		WHERE af_id = @af_id AND af_rel_id = 0
 END
 GO
@@ -1695,7 +1700,7 @@ GO
 
 -- PARA DAR DE BAJA LOS TURNOS CUANDO SE EJECUTA EL STORED PROCEDURE bajaIntervalo
 CREATE TRIGGER cancelarTurnosPorIntervalo
-ON periodo_baja
+ON DREAM_TEAM.periodo_baja
 AFTER INSERT
 AS
 BEGIN
@@ -1710,8 +1715,8 @@ BEGIN
 
 	DECLARE cursorDeTurnos CURSOR FOR
 		SELECT turno_id
-		FROM turnos t 
-		JOIN agenda_profesional a ON t.turno_agenda = a.agenda_id
+		FROM DREAM_TEAM.turnos t 
+		JOIN DREAM_TEAM.agenda_profesional a ON t.turno_agenda = a.agenda_id
 		WHERE a.agenda_fechayhora BETWEEN @desde AND @hasta
 		AND a.agenda_prof = @prof_id
 
@@ -1722,9 +1727,9 @@ BEGIN
 	WHILE @@FETCH_STATUS = 0
 	BEGIN
 
-		INSERT into cancelacion VALUES ('p', 'El profesional dio de baja el turno por un intervalo', @turno_id)
+		INSERT into DREAM_TEAM.cancelacion VALUES ('p', 'El profesional dio de baja el turno por un intervalo de tiempo determinado', @turno_id)
 
-		UPDATE turnos SET turno_estado = 2 WHERE turno_id = @turno_id
+		UPDATE DREAM_TEAM.turnos SET turno_estado = 2 WHERE turno_id = @turno_id
 
 		FETCH NEXT FROM cursorDeTurnos INTO @turno_id
 

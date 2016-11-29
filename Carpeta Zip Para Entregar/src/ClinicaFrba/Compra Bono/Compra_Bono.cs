@@ -23,7 +23,7 @@ namespace ClinicaFrba.Compra_Bono
             idFamiliar = id;
             idRel = id_rel;
             planMed = plan;
-            textBox1.Text = String.Format("{0}",id);
+            textBox1.Text = id.ToString();
             textBox1.Enabled = false;
         }
 
@@ -76,7 +76,7 @@ namespace ClinicaFrba.Compra_Bono
             planMed = int.Parse(dr.GetValue(2).ToString());
             dr.Close();
             cm.Dispose();
-            textBox1.Text = String.Format("{0}", idFamiliar*100+idRel);
+            textBox1.Text = String.Format("{0}", idFamiliar);
         }
 
     }

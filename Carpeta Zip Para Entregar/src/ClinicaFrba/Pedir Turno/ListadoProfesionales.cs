@@ -30,7 +30,7 @@ namespace ClinicaFrba.Pedir_Turno
 
             getID(idUsuarioPasado);
 
-            string comando = "SELECT * FROM especialidad";
+            string comando = "SELECT * FROM DREAM_TEAM.especialidad";
             dt = (new BDConnection()).cargarTablaSQL(comando);
 
 
@@ -90,7 +90,7 @@ namespace ClinicaFrba.Pedir_Turno
             wheres = "";
             armarWhere();
 
-            string query2 = "SELECT DISTINCT(p.prof_id), prof_nombre, prof_apellido FROM especialidad e JOIN especialidad_por_profesional r ON (e.esp_id = r.esp_id) JOIN profesional p ON ( r.prof_id = p.prof_id) WHERE prof_apellido != '' AND esp_descripcion IN " + wheres;
+            string query2 = "SELECT DISTINCT(p.prof_id), prof_nombre, prof_apellido FROM DREAM_TEAM.especialidad e JOIN DREAM_TEAM.especialidad_por_profesional r ON (e.esp_id = r.esp_id) JOIN DREAM_TEAM.profesional p ON ( r.prof_id = p.prof_id) WHERE prof_apellido != '' AND esp_descripcion IN " + wheres;
             CompletadorDeTablas.hacerQuery(query2, ref dataGridView1);
         }
 
@@ -167,7 +167,7 @@ namespace ClinicaFrba.Pedir_Turno
 
         private void getID(int us_id)
         {
-            string query = String.Format("SELECT af_id*100+af_rel_id FROM afiliado WHERE us_id = {0}", us_id);
+            string query = String.Format("SELECT af_id*100+af_rel_id FROM DREAM_TEAM.afiliado WHERE us_id = {0}", us_id);
             SqlConnection cn = (new BDConnection()).getInstance();
             SqlCommand cm = new SqlCommand(query, cn);
             afiliadoId = long.Parse(cm.ExecuteScalar().ToString());

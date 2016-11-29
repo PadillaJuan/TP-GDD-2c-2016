@@ -129,7 +129,7 @@ namespace ClinicaFrba.AbmRol
         public int getRolInsertado(string rol)
         {
             int id_rol = 0;
-            string query = String.Format("SELECT id_rol FROM rol WHERE rol_nombre = {0}", rol);
+            string query = String.Format("SELECT id_rol FROM DREAM_TEAM.rol WHERE rol_nombre = {0}", rol);
             SqlConnection conn = (new BDConnection()).getInstance();
             SqlCommand cm = new SqlCommand(query, conn);
             SqlDataReader dr = cm.ExecuteReader();
