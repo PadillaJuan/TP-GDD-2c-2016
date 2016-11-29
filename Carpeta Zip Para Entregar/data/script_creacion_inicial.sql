@@ -1743,7 +1743,7 @@ BEGIN
 END
 GO
 
-exec setAdmin
+exec DREAM_TEAM.setAdmin
 GO
 
 ----------------------------------------- SETEO PLANES Y ESPECIALIDADES RELACIONADAS -----------------------------------------------------------------
