@@ -1,95 +1,100 @@
+USE GD2C2016;
+GO
+
+-- ELIMINACION DE CONSTRAINTS
+-- ELIMINACION DE CONSTRAINTS
 
 
-IF (OBJECT_ID('FK_plan_med', 'F') IS NOT NULL)
+IF (OBJECT_ID('DREAM_TEAM.FK_plan_med', 'F') IS NOT NULL)
 	ALTER TABLE DREAM_TEAM.afiliado DROP constraint FK_plan_med;
 GO
-IF (OBJECT_ID('FK_afi_usuario', 'F') IS NOT NULL)
+IF (OBJECT_ID('DREAM_TEAM.FK_afi_usuario', 'F') IS NOT NULL)
 	ALTER TABLE DREAM_TEAM.afiliado DROP constraint FK_afi_usuario;
 GO
-IF (OBJECT_ID('FK_afi', 'F') IS NOT NULL)
+IF (OBJECT_ID('DREAM_TEAM.FK_afi', 'F') IS NOT NULL)
 	ALTER TABLE DREAM_TEAM.logs_cambio_plan DROP constraint FK_afi;
 GO
-IF (OBJECT_ID('FK_plan_ant', 'F') IS NOT NULL)
+IF (OBJECT_ID('DREAM_TEAM.FK_plan_ant', 'F') IS NOT NULL)
 	ALTER TABLE DREAM_TEAM.logs_cambio_plan DROP constraint FK_plan_ant;
 GO
-IF (OBJECT_ID('FK_plan_new', 'F') IS NOT NULL)
+IF (OBJECT_ID('DREAM_TEAM.FK_plan_new', 'F') IS NOT NULL)
 	ALTER TABLE DREAM_TEAM.logs_cambio_plan DROP constraint FK_plan_new;
 
-IF (OBJECT_ID('FK_esp_por_planes_1', 'F') IS NOT NULL)
+IF (OBJECT_ID('DREAM_TEAM.FK_esp_por_planes_1', 'F') IS NOT NULL)
 	ALTER TABLE DREAM_TEAM.tipo_especialidades_por_planes DROP constraint FK_esp_por_planes_1
 GO
-IF (OBJECT_ID('FK_esp_por_planes_2', 'F') IS NOT NULL)
+IF (OBJECT_ID('DREAM_TEAM.FK_esp_por_planes_2', 'F') IS NOT NULL)
 	ALTER TABLE DREAM_TEAM.tipo_especialidades_por_planes DROP constraint FK_esp_por_planes_2
 GO
 	
-IF (OBJECT_ID('FK_compra_afi', 'F') IS NOT NULL)
+IF (OBJECT_ID('DREAM_TEAM.FK_compra_afi', 'F') IS NOT NULL)
 	ALTER TABLE DREAM_TEAM.registro_compra DROP constraint FK_compra_afi;
 GO
 
-IF (OBJECT_ID('FK_compra_bono', 'F') IS NOT NULL)
+IF (OBJECT_ID('DREAM_TEAM.FK_compra_bono', 'F') IS NOT NULL)
 	ALTER TABLE DREAM_TEAM.bono DROP constraint FK_compra_bono;
 GO
-IF (OBJECT_ID('FK_plan_bono', 'F') IS NOT NULL)
+IF (OBJECT_ID('DREAM_TEAM.FK_plan_bono', 'F') IS NOT NULL)
 	ALTER TABLE DREAM_TEAM.bono DROP constraint FK_plan_bono;
 GO
-IF (OBJECT_ID('FK_afi_bono', 'F') IS NOT NULL)
+IF (OBJECT_ID('DREAM_TEAM.FK_afi_bono', 'F') IS NOT NULL)
 	ALTER TABLE DREAM_TEAM.bono DROP constraint FK_afi_bono;
 GO
 
-IF (OBJECT_ID('FK_consulta_turno', 'F') IS NOT NULL)
+IF (OBJECT_ID('DREAM_TEAM.FK_consulta_turno', 'F') IS NOT NULL)
 	ALTER TABLE DREAM_TEAM.consulta_medica DROP constraint FK_consulta_turno;
 GO
-IF (OBJECT_ID('FK_consulta_bono', 'F') IS NOT NULL)
+IF (OBJECT_ID('DREAM_TEAM.FK_consulta_bono', 'F') IS NOT NULL)
 	ALTER TABLE DREAM_TEAM.consulta_medica DROP constraint FK_consulta_bono;
 GO
 
-IF (OBJECT_ID('FK_turno_afi', 'F') IS NOT NULL)
+IF (OBJECT_ID('DREAM_TEAM.FK_turno_afi', 'F') IS NOT NULL)
 	ALTER TABLE DREAM_TEAM.turnos DROP constraint FK_turno_afi;
 GO
-IF (OBJECT_ID('FK_turno_prof', 'F') IS NOT NULL)
+IF (OBJECT_ID('DREAM_TEAM.FK_turno_prof', 'F') IS NOT NULL)
 	ALTER TABLE DREAM_TEAM.turnos DROP constraint FK_turno_prof;
 GO
-IF (OBJECT_ID('FK_turno_esp', 'F') IS NOT NULL)
+IF (OBJECT_ID('DREAM_TEAM.FK_turno_esp', 'F') IS NOT NULL)
 	ALTER TABLE DREAM_TEAM.turnos DROP constraint FK_turno_esp;
 GO
-IF (OBJECT_ID('FK_turno_agenda', 'F') IS NOT NULL)
+IF (OBJECT_ID('DREAM_TEAM.FK_turno_agenda', 'F') IS NOT NULL)
 	ALTER TABLE DREAM_TEAM.turnos DROP constraint FK_turno_agenda;
 GO
 
-IF (OBJECT_ID('FK_cancelacion_turno', 'F') IS NOT NULL)
+IF (OBJECT_ID('DREAM_TEAM.FK_cancelacion_turno', 'F') IS NOT NULL)
 	ALTER TABLE DREAM_TEAM.cancelacion DROP constraint FK_cancelacion_turno;
 GO
 
-IF (OBJECT_ID('FK_agenda_prof', 'F') IS NOT NULL)
+IF (OBJECT_ID('DREAM_TEAM.FK_agenda_prof', 'F') IS NOT NULL)
 	ALTER TABLE DREAM_TEAM.agenda_profesional DROP constraint FK_agenda_prof;
 GO
-IF (OBJECT_ID('FK_agenda_prof2', 'F') IS NOT NULL)
+IF (OBJECT_ID('DREAM_TEAM.FK_agenda_prof2', 'F') IS NOT NULL)
 	ALTER TABLE DREAM_TEAM.agenda_profesional DROP constraint FK_agenda_prof2;
 GO
 	
-IF (OBJECT_ID('FK_especialidad_tipo', 'F') IS NOT NULL)
+IF (OBJECT_ID('DREAM_TEAM.FK_especialidad_tipo', 'F') IS NOT NULL)
 	ALTER TABLE DREAM_TEAM.especialidad DROP constraint FK_especialidad_tipo;
 GO
 
-IF (OBJECT_ID('FK_prof_us', 'F') IS NOT NULL)
+IF (OBJECT_ID('DREAM_TEAM.FK_prof_us', 'F') IS NOT NULL)
 	ALTER TABLE DREAM_TEAM.profesional DROP constraint FK_prof_us;
 GO
 	
-IF (OBJECT_ID('FK_baja_prof', 'F') IS NOT NULL)
+IF (OBJECT_ID('DREAM_TEAM.FK_baja_prof', 'F') IS NOT NULL)
 	ALTER TABLE DREAM_TEAM.periodo_baja DROP constraint FK_baja_prof;
 GO
 
-IF (OBJECT_ID('FK_rolxusr_id', 'F') IS NOT NULL)
+IF (OBJECT_ID('DREAM_TEAM.FK_rolxusr_id', 'F') IS NOT NULL)
 	ALTER TABLE DREAM_TEAM.rol_por_usuarios DROP constraint FK_rolxusr_id;
 GO
-IF (OBJECT_ID('FK_rolxusr_rol', 'F') IS NOT NULL)
+IF (OBJECT_ID('DREAM_TEAM.FK_rolxusr_rol', 'F') IS NOT NULL)
 	ALTER TABLE DREAM_TEAM.rol_por_usuarios DROP constraint FK_rolxusr_rol;
 GO
 
-IF (OBJECT_ID('FK_funxrol_id', 'F') IS NOT NULL)
+IF (OBJECT_ID('DREAM_TEAM.FK_funxrol_id', 'F') IS NOT NULL)
 	ALTER TABLE DREAM_TEAM.funcionalidad_por_rol DROP constraint FK_funxrol_id;
 GO
-IF (OBJECT_ID('FK_funxrol_fun', 'F') IS NOT NULL)
+IF (OBJECT_ID('DREAM_TEAM.FK_funxrol_fun', 'F') IS NOT NULL)
 	ALTER TABLE DREAM_TEAM.funcionalidad_por_rol DROP constraint FK_funxrol_fun;
 GO
 	
@@ -157,11 +162,9 @@ IF (OBJECT_ID('DREAM_TEAM.funcionalidad','U') IS NOT NULL)
 	DROP TABLE DREAM_TEAM.funcionalidad;
 GO
 
+--											MIGRACION
 
-IF EXISTS (SELECT * FROM sys.schemas WHERE sys.schemas.name = 'DREAM_TEAM')
-	DROP SCHEMA DREAM_TEAM
-GO
-
+-- DROP PROCEDURES PARA LA MIGRACION
 
 if OBJECT_ID('DREAM_TEAM.migrarAfiliados') is not null
  begin
@@ -229,6 +232,9 @@ begin
 end
 go
 
+-- DROP PROCEDURES
+
+--PARA EL AFILIADO
 IF (OBJECT_ID('DREAM_TEAM.bajaAfiliado', 'P') IS NOT NULL)
 	DROP PROCEDURE DREAM_TEAM.bajaAfiliado;
 GO
@@ -371,7 +377,6 @@ IF (OBJECT_ID('DREAM_TEAM.getListado5', 'P') IS NOT NULL)
 	DROP PROCEDURE DREAM_TEAM.getListado5;
 GO
 
-
 IF (OBJECT_ID('DREAM_TEAM.setAdmin', 'P') IS NOT NULL)
 	DROP PROCEDURE DREAM_TEAM.setAdmin;
 GO
@@ -382,6 +387,8 @@ begin
 end
 go
 
+/* ELIMINO TRIGGERS */
+
 IF (OBJECT_ID('DREAM_TEAM.compraDeBonos', 'TR') IS NOT NULL)
 	DROP TRIGGER DREAM_TEAM.compraDeBonos;
 GO
@@ -391,3 +398,8 @@ GO
 IF (OBJECT_ID('DREAM_TEAM.cancelarTurnosPorIntervalo', 'TR') IS NOT NULL)
 	DROP TRIGGER DREAM_TEAM.cancelarTurnosPorIntervalo;
 GO 
+
+IF EXISTS (SELECT * FROM sys.schemas WHERE sys.schemas.name = 'DREAM_TEAM')
+	DROP SCHEMA DREAM_TEAM
+GO
+	
