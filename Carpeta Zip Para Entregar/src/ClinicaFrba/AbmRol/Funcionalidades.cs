@@ -42,7 +42,7 @@ namespace ClinicaFrba.AbmRol
 
         public void setCheckBox()
         {
-            string query = "getAllFuncionalidades";
+            string query = "DREAM_TEAM.getAllFuncionalidades";
             SqlConnection conn = new BDConnection().getInstance();
             SqlCommand cm = new SqlCommand(query, conn);
             cm.CommandType = CommandType.StoredProcedure;
@@ -85,7 +85,7 @@ namespace ClinicaFrba.AbmRol
 
         public void checkFuncionalidadesDelRol(int rol_id)
         {
-            string query = "getFuncionalidadDelRol";
+            string query = "DREAM_TEAM.getFuncionalidadDelRol";
             SqlConnection conn = (new BDConnection()).getInstance();
             int i;
             SqlCommand cm = new SqlCommand(query, conn);
@@ -148,7 +148,7 @@ namespace ClinicaFrba.AbmRol
 
         public void setForNewRol()
         {
-            string query = String.Format("updateRol", textBox1.Text);
+            string query = String.Format("DREAM_TEAM.updateRol", textBox1.Text);
             SqlConnection conn = (new BDConnection()).getInstance();
             SqlCommand com = new SqlCommand(query, conn);
             com.CommandType = CommandType.StoredProcedure;
@@ -159,7 +159,7 @@ namespace ClinicaFrba.AbmRol
 
         public void insertarRol() 
         {
-            string query = String.Format("InsertarRol", textBox1.Text);
+            string query = String.Format("DREAM_TEAM.InsertarRol", textBox1.Text);
             SqlConnection conn = (new BDConnection()).getInstance();
             SqlCommand com = new SqlCommand(query, conn);
             com.CommandType = CommandType.StoredProcedure;
@@ -182,7 +182,7 @@ namespace ClinicaFrba.AbmRol
 
         public void deleteFun()
         {
-            string query = "UpdateRXF";
+            string query = "DREAM_TEAM.UpdateRXF";
             SqlConnection conn = (new BDConnection()).getInstance();
             SqlCommand com = new SqlCommand(query, conn);
             com.CommandType = CommandType.StoredProcedure;
@@ -193,7 +193,7 @@ namespace ClinicaFrba.AbmRol
         public void insertFuncionalidad(int id_rol, int i)
         {
             int fun_id = (int)dt.Rows[i]["fun_id"];
-            string query = "InsertarRolXFuncionalidad";
+            string query = "DREAM_TEAM.InsertarRolXFuncionalidad";
             SqlConnection conn = (new BDConnection()).getInstance();
             SqlCommand com = new SqlCommand(query, conn);
             com.CommandType = CommandType.StoredProcedure;

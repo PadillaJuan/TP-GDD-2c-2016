@@ -213,7 +213,7 @@ namespace ClinicaFrba.BuscarAfiliado
             else
             {
                 SqlConnection conn = (new BDConnection()).getInstance();
-                String query = String.Format("bajaAfiliado");
+                String query = String.Format("DREAM_TEAM.bajaAfiliado");
                 SqlCommand com = new SqlCommand(query, conn);
                 com.CommandType = CommandType.StoredProcedure;
                 com.Parameters.AddWithValue("@id", getIdSinRel());

@@ -40,7 +40,7 @@ namespace ClinicaFrba.AbmRol
             if ( ((String)linea.Cells[2].Value).Equals("a") )
             {
                 int rol_id = getRolId();
-                string query = "deactivateRol";
+                string query = "DREAM_TEAM.deactivateRol";
                 SqlConnection conn = (new BDConnection()).getInstance();
                 SqlCommand com = new SqlCommand(query, conn);
                 com.CommandType = CommandType.StoredProcedure;
@@ -59,7 +59,7 @@ namespace ClinicaFrba.AbmRol
             { MessageBox.Show("No se ha ingresado ningun valor de busqueda", "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Error); }
             else
             {
-                string query = "getRol";
+                string query = "DREAM_TEAM.getRol";
                 SqlConnection conn = (new BDConnection()).getInstance();
                 SqlCommand cm = new SqlCommand(query, conn);
                 cm.CommandType = CommandType.StoredProcedure;
@@ -75,7 +75,7 @@ namespace ClinicaFrba.AbmRol
             if (((String)linea.Cells[2].Value).Equals("d"))
             {
                 int rol_id = getRolId();
-                string query = "activateRol";
+                string query = "DREAM_TEAM.activateRol";
                 SqlConnection conn = (new BDConnection()).getInstance();
                 SqlCommand com = new SqlCommand(query, conn);
                 com.CommandType = CommandType.StoredProcedure;
@@ -89,7 +89,7 @@ namespace ClinicaFrba.AbmRol
 
         private void button8_Click(object sender, EventArgs e) // Buscar todos los roles
         {
-            string query = "getAllRoles";
+            string query = "DREAM_TEAM.getAllRoles";
             SqlConnection conn = (new BDConnection()).getInstance();
             SqlCommand cm = new SqlCommand(query, conn);
             cm.CommandType = CommandType.StoredProcedure;

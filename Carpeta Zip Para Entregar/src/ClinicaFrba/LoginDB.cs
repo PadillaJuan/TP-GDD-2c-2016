@@ -19,7 +19,7 @@ namespace ClinicaFrba
         {
             int us_id = -1;
             SqlConnection conn = (new BDConnection()).getInstance();
-            SqlCommand consulta = new SqlCommand("login", conn);
+            SqlCommand consulta = new SqlCommand("DREAM_TEAM.login", conn);
             consulta.CommandType = CommandType.StoredProcedure;
             consulta.Parameters.Add(new SqlParameter("@us_name",username));
             consulta.Parameters.Add(new SqlParameter("@us_pw", text));

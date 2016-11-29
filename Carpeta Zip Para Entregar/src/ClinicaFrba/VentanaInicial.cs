@@ -21,7 +21,7 @@ namespace ClinicaFrba
         {
             InicioSesion.VentanaInicioSesion form = new InicioSesion.VentanaInicioSesion();
             form.Show();
-            Close();
+            Hide();
         }
 
         private void button2_Click(object sender, EventArgs e)

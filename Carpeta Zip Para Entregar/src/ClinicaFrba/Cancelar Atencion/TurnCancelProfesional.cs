@@ -61,7 +61,7 @@ namespace ClinicaFrba.Cancelar_Atencion
         {
             tabla = new DataTable();
             SqlConnection cn = (new BDConnection()).getInstance();
-            SqlCommand cm = new SqlCommand("getTurnosDelProfesional", cn);
+            SqlCommand cm = new SqlCommand("DREAM_TEAM.getTurnosDelProfesional", cn);
             cm.CommandType = CommandType.StoredProcedure;
             cm.Parameters.AddWithValue("@prof_id", prof_id);
             SqlDataAdapter sda = new SqlDataAdapter(cm);
@@ -74,7 +74,7 @@ namespace ClinicaFrba.Cancelar_Atencion
         {
             if (dateTimePicker1.Value < dateTimePicker2.Value)
             {
-                    string query = "bajaIntervalo";
+                    string query = "DREAM_TEAM.bajaIntervalo";
                     SqlConnection conn = (new BDConnection()).getConnection();
                     SqlCommand com = new SqlCommand(query, conn);
                     com.CommandType = CommandType.StoredProcedure;
@@ -96,7 +96,7 @@ namespace ClinicaFrba.Cancelar_Atencion
             {
                 if (textBox1.Text.Length >= 0)
                 {
-                    string query = "cancelTurno";
+                    string query = "DREAM_TEAM.cancelTurno";
                     SqlConnection conn = (new BDConnection()).getConnection();
                     SqlCommand com = new SqlCommand(query, conn);
                     com.CommandType = CommandType.StoredProcedure;

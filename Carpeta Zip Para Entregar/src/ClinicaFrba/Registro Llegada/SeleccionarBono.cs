@@ -41,7 +41,7 @@ namespace ClinicaFrba.Registro_Llegada
         public void llenarDGV(long af_id, int af_rel_id)
         {
             SqlConnection cn = (new BDConnection()).getInstance();
-            SqlCommand cm = new SqlCommand("getBonosDisponibles", cn);
+            SqlCommand cm = new SqlCommand("DREAM_TEAM.getBonosDisponibles", cn);
             cm.CommandType = CommandType.StoredProcedure;
             cm.Parameters.AddWithValue("@af_id", af_id);
             tabla = new DataTable();

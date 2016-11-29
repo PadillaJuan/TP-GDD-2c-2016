@@ -17,7 +17,7 @@ namespace ClinicaFrba.Abm_Afiliado
         long id_;
         int planMed;
         int accionElegida;
-
+        
         public ABM_afi(int accion, long id)
         {
             InitializeComponent();
@@ -86,7 +86,7 @@ namespace ClinicaFrba.Abm_Afiliado
         public void cargarComboBoxPlanMedico()
         {
             SqlConnection conn = (new BDConnection()).getInstance();
-            string query = String.Format("getPlanesMedicos");
+            string query = String.Format("DREAM_TEAM.getPlanesMedicos");
             SqlCommand com = new SqlCommand(query, conn);
             com.CommandType = CommandType.StoredProcedure;
             try
@@ -133,7 +133,7 @@ namespace ClinicaFrba.Abm_Afiliado
         public void cargarDatosALaPlantilla() 
         {
 
-            String query = "getDatosDelAfiliado";
+            String query = "DREAM_TEAM.getDatosDelAfiliado";
             SqlConnection Conn = (new BDConnection()).getInstance();
             SqlCommand consulta = new SqlCommand(query, Conn);
             consulta.CommandType = CommandType.StoredProcedure;
@@ -213,7 +213,7 @@ namespace ClinicaFrba.Abm_Afiliado
         {
             try
             {
-                string query = "altaFamiliar";
+                string query = "DREAM_TEAM.altaFamiliar";
                 SqlConnection conn = (new BDConnection()).getInstance();
                 SqlCommand com = new SqlCommand(query, conn);
                 com.CommandType = CommandType.StoredProcedure;
@@ -244,7 +244,7 @@ namespace ClinicaFrba.Abm_Afiliado
         {
             try
             {
-                string query = "altaAfiliado";
+                string query = "DREAM_TEAM.altaAfiliado";
                 SqlConnection conn = (new BDConnection()).getInstance();
                 SqlCommand com = new SqlCommand(query, conn);
                 com.CommandType = CommandType.StoredProcedure;
@@ -274,7 +274,7 @@ namespace ClinicaFrba.Abm_Afiliado
         
         public void updateAfiliado()
         {
-            string query = "actualizarAfiliado";
+            string query = "DREAM_TEAM.actualizarAfiliado";
             SqlConnection con = (new BDConnection()).getInstance();
             SqlCommand cm = new SqlCommand(query, con);
             cm.CommandType = CommandType.StoredProcedure;

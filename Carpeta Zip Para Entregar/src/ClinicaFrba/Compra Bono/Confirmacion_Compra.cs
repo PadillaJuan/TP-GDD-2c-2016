@@ -47,7 +47,7 @@ namespace ClinicaFrba.Compra_Bono
         {
             float precio;
             SqlConnection conn = (new BDConnection()).getInstance();
-            string query = String.Format("getPrecioBonoDelPlan");
+            string query = String.Format("DREAM_TEAM.getPrecioBonoDelPlan");
             SqlCommand com = new SqlCommand(query, conn);
             com.CommandType = CommandType.StoredProcedure;
             com.Parameters.AddWithValue("@planmed_id", planMedico);
@@ -59,7 +59,7 @@ namespace ClinicaFrba.Compra_Bono
         private void button1_Click(object sender, EventArgs e)
         {
             SqlConnection conn = (new BDConnection()).getInstance();
-            string query = String.Format("comprarBonos");
+            string query = String.Format("DREAM_TEAM.comprarBonos");
             SqlCommand com = new SqlCommand(query, conn);
             com.CommandType = CommandType.StoredProcedure;
             com.Parameters.AddWithValue("@af_id" , idP);

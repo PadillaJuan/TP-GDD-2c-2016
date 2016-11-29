@@ -35,7 +35,7 @@ namespace ClinicaFrba.Registro_Resultado
                 int id = Int32.Parse(textBox1.Text)/100;
                 int id_rel = Int32.Parse(textBox1.Text)%100;
                 SqlConnection cn = (new BDConnection()).getInstance();
-                SqlCommand cm = new SqlCommand("getConsultas", cn);
+                SqlCommand cm = new SqlCommand("DREAM_TEAM.getConsultas", cn);
                 cm.CommandType = CommandType.StoredProcedure;
                 cm.Parameters.AddWithValue("@af_id", id);
                 cm.Parameters.AddWithValue("@af_rel_id", id_rel);
@@ -72,7 +72,7 @@ namespace ClinicaFrba.Registro_Resultado
             if (validarTexto())
             {
                 SqlConnection cn = (new BDConnection()).getInstance();
-                SqlCommand cm = new SqlCommand("finalizarConsulta", cn);
+                SqlCommand cm = new SqlCommand("DREAM_TEAM.finalizarConsulta", cn);
                 cm.CommandType = CommandType.StoredProcedure;
                 cm.Parameters.AddWithValue("@cons_id", consulta);
                 cm.Parameters.AddWithValue("@sintomas", textBox2.Text);

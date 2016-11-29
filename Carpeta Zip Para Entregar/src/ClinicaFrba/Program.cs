@@ -33,7 +33,7 @@ namespace ClinicaFrba
 
         public static void testConexionBD()
         {
-            string query = "SELECT TOP 1 us_username FROM usuarios";
+            string query = "SELECT TOP 1 us_username FROM DREAM_TEAM.usuarios";
             SqlConnection conn = (new BDConnection()).getConnection();
             SqlCommand cmd = new SqlCommand(query, conn);
             conn.Open();
@@ -77,26 +77,6 @@ namespace ClinicaFrba
             return ConfigurationManager.AppSettings["user"];
         }
 
-        /* public void ConnectToSql()
-         {
-             System.Data.SqlClient.SqlConnection conn = new System.Data.SqlClient.SqlConnection();
-             // TODO: Modify the connection string and include any
-             // additional required properties for your database.
-             conn.ConnectionString = "integrated security=SSPI;data source=SQL Server Name;" + "persist security info=False;initial catalog=northwind";
-             try
-             {
-                 conn.Open();
-                 // Insert code to process data.
-             }
-             catch (Exception ex)
-             {
-                 MessageBox.Show("Failed to connect to data source");
-             }
-             finally
-             {
-                 conn.Close();
-             }
-         }*/
     }
 
 }

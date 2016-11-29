@@ -50,7 +50,7 @@ namespace ClinicaFrba.Cancelar_Atencion
                 {
                     DataGridViewRow row = this.dataGridView1.SelectedRows[0];
                     string turno_id = row.Cells["ID del turno"].Value.ToString();
-                    string query = "cancelTurno";
+                    string query = "DREAM_TEAM.cancelTurno";
                     SqlConnection conn = (new BDConnection()).getInstance();
                     SqlCommand com = new SqlCommand(query, conn);
                     com.CommandType = CommandType.StoredProcedure;

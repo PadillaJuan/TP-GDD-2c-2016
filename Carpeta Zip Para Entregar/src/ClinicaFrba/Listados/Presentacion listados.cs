@@ -22,7 +22,7 @@ namespace ClinicaFrba.Listados
         {
             if (validarEntrada())
             {
-                string query1 = "getListado" + (comboBox1.SelectedIndex + 1).ToString();
+                string query1 = "DREAM_TEAM.getListado" + (comboBox1.SelectedIndex + 1).ToString();
                 Seleccionar_Periodo form = new Seleccionar_Periodo(query1);
                 form.Show();
 

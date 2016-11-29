@@ -47,7 +47,7 @@ namespace ClinicaFrba.Registro_Llegada
             if (validarEntrada())
             {
                 SqlConnection cn = (new BDConnection()).getInstance();
-                SqlCommand cm = new SqlCommand("getTurnos", cn);
+                SqlCommand cm = new SqlCommand("DREAM_TEAM.getTurnos", cn);
                 cm.CommandType = CommandType.StoredProcedure;
                 cm.Parameters.AddWithValue("@af_id", getID());
                 cm.Parameters.AddWithValue("@af_rel_id", getRelID());
@@ -86,7 +86,7 @@ namespace ClinicaFrba.Registro_Llegada
                 checkearBono();
                 int turno = getTurno();
                 SqlConnection cn = (new BDConnection()).getInstance();
-                SqlCommand cm = new SqlCommand("generateConsultaMedica", cn);
+                SqlCommand cm = new SqlCommand("DREAM_TEAM.generateConsultaMedica", cn);
                 cm.CommandType = CommandType.StoredProcedure;
                 cm.Parameters.AddWithValue("@turno_id", turno);
                 cm.Parameters.AddWithValue("@bono_id", bono);
@@ -106,7 +106,7 @@ namespace ClinicaFrba.Registro_Llegada
         private void llenarComboBox()
         {
             SqlConnection cn = (new BDConnection()).getInstance();
-            SqlCommand cm = new SqlCommand("getEspecialidadesMedicas", cn);
+            SqlCommand cm = new SqlCommand("DREAM_TEAM.getEspecialidadesMedicas", cn);
             cm.CommandType = CommandType.StoredProcedure;
             SqlDataReader dr = cm.ExecuteReader();
             while (dr.Read())
@@ -183,7 +183,7 @@ namespace ClinicaFrba.Registro_Llegada
         public void checkearBono()
         {
             SqlConnection cn = (new BDConnection()).getInstance();
-            SqlCommand cm = new SqlCommand("checkBono", cn);
+            SqlCommand cm = new SqlCommand("DREAM_TEAM.checkBono", cn);
             cm.CommandType = CommandType.StoredProcedure;
             cm.Parameters.AddWithValue("@bono_id", bono);
             cm.Parameters.AddWithValue("@turno_id", getTurno());

@@ -110,7 +110,7 @@ namespace ClinicaFrba.Registrar_Agenta_Medico
         public void llenarComboBox()
         {
             SqlConnection conn = (new BDConnection()).getConnection();
-            string query = "getEspecialidadesPorProfesional";
+            string query = "DREAM_TEAM.getEspecialidadesPorProfesional";
             SqlCommand com = new SqlCommand(query, conn);
             com.CommandType = CommandType.StoredProcedure;
             com.Parameters.Add(new SqlParameter("@us_id", us_id));
@@ -406,7 +406,7 @@ namespace ClinicaFrba.Registrar_Agenta_Medico
         private static int comprobar48horas(int prof_id, string desde, string hasta, int minutos_trabajos){
             try
             {
-                string query = "comprobar48horas";
+                string query = "DREAM_TEAM.comprobar48horas";
                 SqlConnection conn = (new BDConnection()).getInstance();
                 SqlCommand com = new SqlCommand(query, conn);
                 com.CommandType = CommandType.StoredProcedure;

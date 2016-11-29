@@ -58,7 +58,7 @@ namespace ClinicaFrba.Pedir_Turno
         private void filtrarFecha()
         {
             SqlConnection cn = (new BDConnection()).getInstance();
-            SqlCommand cm = new SqlCommand("dameTurnosDisponiblesDeLaFecha", cn);
+            SqlCommand cm = new SqlCommand("DREAM_TEAM.dameTurnosDisponiblesDeLaFecha", cn);
             cm.CommandType = CommandType.StoredProcedure;
             cm.Parameters.AddWithValue("@fecha", dateTimePicker1.Value.ToString("yyyy-MM-dd HH:mm:ss"));
             SqlDataAdapter sda = new SqlDataAdapter(cm);
@@ -101,7 +101,7 @@ namespace ClinicaFrba.Pedir_Turno
 
         private void agendar(int turno_agenda)
         {
-            string query = "reservarTurno";
+            string query = "DREAM_TEAM.reservarTurno";
             SqlConnection conn = (new BDConnection()).getInstance();
             SqlCommand com = new SqlCommand(query, conn);
             com.CommandType = CommandType.StoredProcedure;
