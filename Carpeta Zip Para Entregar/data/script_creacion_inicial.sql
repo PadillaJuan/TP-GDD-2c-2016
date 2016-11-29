@@ -4,78 +4,102 @@ SET DATEFORMAT ymd
 SET LANGUAGE us_english
 SET DATEFIRST 7
 GO
+
 -- ELIMINACION DE CONSTRAINTS
 -- ELIMINACION DE CONSTRAINTS
 
 
 IF (OBJECT_ID('FK_plan_med', 'F') IS NOT NULL)
-	ALTER TABLE DREAM_TEAM.afiliado DROP constraint FK_plan_med
+	ALTER TABLE DREAM_TEAM.afiliado DROP constraint FK_plan_med;
+GO
 IF (OBJECT_ID('FK_afi_usuario', 'F') IS NOT NULL)
-	ALTER TABLE DREAM_TEAM.afiliado DROP constraint FK_afi_usuario
+	ALTER TABLE DREAM_TEAM.afiliado DROP constraint FK_afi_usuario;
+GO
 IF (OBJECT_ID('FK_afi', 'F') IS NOT NULL)
-	ALTER TABLE DREAM_TEAM.logs_cambio_plan DROP constraint FK_afi
+	ALTER TABLE DREAM_TEAM.logs_cambio_plan DROP constraint FK_afi;
+GO
 IF (OBJECT_ID('FK_plan_ant', 'F') IS NOT NULL)
-	ALTER TABLE DREAM_TEAM.logs_cambio_plan DROP constraint FK_plan_ant
+	ALTER TABLE DREAM_TEAM.logs_cambio_plan DROP constraint FK_plan_ant;
+GO
 IF (OBJECT_ID('FK_plan_new', 'F') IS NOT NULL)
-	ALTER TABLE DREAM_TEAM.logs_cambio_plan DROP constraint FK_plan_new
+	ALTER TABLE DREAM_TEAM.logs_cambio_plan DROP constraint FK_plan_new;
 
 IF (OBJECT_ID('FK_esp_por_planes_1', 'F') IS NOT NULL)
 	ALTER TABLE DREAM_TEAM.tipo_especialidades_por_planes DROP constraint FK_esp_por_planes_1
+GO
 IF (OBJECT_ID('FK_esp_por_planes_2', 'F') IS NOT NULL)
 	ALTER TABLE DREAM_TEAM.tipo_especialidades_por_planes DROP constraint FK_esp_por_planes_2
+GO
 	
-
 IF (OBJECT_ID('FK_compra_afi', 'F') IS NOT NULL)
 	ALTER TABLE DREAM_TEAM.registro_compra DROP constraint FK_compra_afi;
+GO
 
 IF (OBJECT_ID('FK_compra_bono', 'F') IS NOT NULL)
 	ALTER TABLE DREAM_TEAM.bono DROP constraint FK_compra_bono;
+GO
 IF (OBJECT_ID('FK_plan_bono', 'F') IS NOT NULL)
 	ALTER TABLE DREAM_TEAM.bono DROP constraint FK_plan_bono;
+GO
 IF (OBJECT_ID('FK_afi_bono', 'F') IS NOT NULL)
 	ALTER TABLE DREAM_TEAM.bono DROP constraint FK_afi_bono;
+GO
 
 IF (OBJECT_ID('FK_consulta_turno', 'F') IS NOT NULL)
 	ALTER TABLE DREAM_TEAM.consulta_medica DROP constraint FK_consulta_turno;
+GO
 IF (OBJECT_ID('FK_consulta_bono', 'F') IS NOT NULL)
 	ALTER TABLE DREAM_TEAM.consulta_medica DROP constraint FK_consulta_bono;
+GO
 
 IF (OBJECT_ID('FK_turno_afi', 'F') IS NOT NULL)
 	ALTER TABLE DREAM_TEAM.turnos DROP constraint FK_turno_afi;
+GO
 IF (OBJECT_ID('FK_turno_prof', 'F') IS NOT NULL)
 	ALTER TABLE DREAM_TEAM.turnos DROP constraint FK_turno_prof;
+GO
 IF (OBJECT_ID('FK_turno_esp', 'F') IS NOT NULL)
 	ALTER TABLE DREAM_TEAM.turnos DROP constraint FK_turno_esp;
+GO
 IF (OBJECT_ID('FK_turno_agenda', 'F') IS NOT NULL)
 	ALTER TABLE DREAM_TEAM.turnos DROP constraint FK_turno_agenda;
+GO
 
 IF (OBJECT_ID('FK_cancelacion_turno', 'F') IS NOT NULL)
 	ALTER TABLE DREAM_TEAM.cancelacion DROP constraint FK_cancelacion_turno;
+GO
 
 IF (OBJECT_ID('FK_agenda_prof', 'F') IS NOT NULL)
 	ALTER TABLE DREAM_TEAM.agenda_profesional DROP constraint FK_agenda_prof;
+GO
 IF (OBJECT_ID('FK_agenda_prof2', 'F') IS NOT NULL)
 	ALTER TABLE DREAM_TEAM.agenda_profesional DROP constraint FK_agenda_prof2;
+GO
 	
 IF (OBJECT_ID('FK_especialidad_tipo', 'F') IS NOT NULL)
 	ALTER TABLE DREAM_TEAM.especialidad DROP constraint FK_especialidad_tipo;
+GO
 
 IF (OBJECT_ID('FK_prof_us', 'F') IS NOT NULL)
 	ALTER TABLE DREAM_TEAM.profesional DROP constraint FK_prof_us;
+GO
 	
 IF (OBJECT_ID('FK_baja_prof', 'F') IS NOT NULL)
 	ALTER TABLE DREAM_TEAM.periodo_baja DROP constraint FK_baja_prof;
+GO
 
 IF (OBJECT_ID('FK_rolxusr_id', 'F') IS NOT NULL)
 	ALTER TABLE DREAM_TEAM.rol_por_usuarios DROP constraint FK_rolxusr_id;
+GO
 IF (OBJECT_ID('FK_rolxusr_rol', 'F') IS NOT NULL)
 	ALTER TABLE DREAM_TEAM.rol_por_usuarios DROP constraint FK_rolxusr_rol;
+GO
 
 IF (OBJECT_ID('FK_funxrol_id', 'F') IS NOT NULL)
 	ALTER TABLE DREAM_TEAM.funcionalidad_por_rol DROP constraint FK_funxrol_id;
+GO
 IF (OBJECT_ID('FK_funxrol_fun', 'F') IS NOT NULL)
 	ALTER TABLE DREAM_TEAM.funcionalidad_por_rol DROP constraint FK_funxrol_fun;
-	
 GO
 	
 	--ELIMINACION DE TABLAS
@@ -83,49 +107,70 @@ GO
 
 IF (OBJECT_ID('DREAM_TEAM.afiliado','U') IS NOT NULL)
 	DROP TABLE DREAM_TEAM.afiliado;
+GO
 IF (OBJECT_ID('DREAM_TEAM.logs_cambio_plan','U') IS NOT NULL)
 	DROP TABLE DREAM_TEAM.logs_cambio_plan;
+GO
 IF (OBJECT_ID('DREAM_TEAM.plan_medico','U') IS NOT NULL)
 	DROP TABLE DREAM_TEAM.plan_medico;
+GO
 IF (OBJECT_ID('DREAM_TEAM.tipo_especialidades_por_planes','U') IS NOT NULL)
 	DROP TABLE DREAM_TEAM.tipo_especialidades_por_planes;
+GO
 IF (OBJECT_ID('DREAM_TEAM.registro_compra','U') IS NOT NULL)
 	DROP TABLE DREAM_TEAM.registro_compra;
+GO
 IF (OBJECT_ID('DREAM_TEAM.bono','U') IS NOT NULL)
 	DROP TABLE DREAM_TEAM.bono;
+GO
 IF (OBJECT_ID('DREAM_TEAM.consulta_medica','U') IS NOT NULL)
 	DROP TABLE DREAM_TEAM.consulta_medica;
+GO
 IF (OBJECT_ID('DREAM_TEAM.turnos','U') IS NOT NULL)
 	DROP TABLE DREAM_TEAM.turnos;
+GO
 IF (OBJECT_ID('DREAM_TEAM.cancelacion','U') IS NOT NULL)
 	DROP TABLE DREAM_TEAM.cancelacion;
+GO
 IF (OBJECT_ID('DREAM_TEAM.agenda_profesional','U') IS NOT NULL)
 	DROP TABLE DREAM_TEAM.agenda_profesional;
+GO
 IF (OBJECT_ID('DREAM_TEAM.tipo_especialidades','U') IS NOT NULL)
 	DROP TABLE DREAM_TEAM.tipo_especialidades;
+GO
 IF (OBJECT_ID('DREAM_TEAM.especialidad','U') IS NOT NULL)
 	DROP TABLE DREAM_TEAM.especialidad;
+GO
 IF (OBJECT_ID('DREAM_TEAM.especialidad_por_profesional','U') IS NOT NULL)
 	DROP TABLE DREAM_TEAM.especialidad_por_profesional;
+GO
 IF (OBJECT_ID('DREAM_TEAM.profesional','U') IS NOT NULL)
 	DROP TABLE DREAM_TEAM.profesional;
+GO
 IF (OBJECT_ID('DREAM_TEAM.periodo_baja','U') IS NOT NULL)
 	DROP TABLE DREAM_TEAM.periodo_baja;
+GO
 IF (OBJECT_ID('DREAM_TEAM.usuarios','U') IS NOT NULL)
 	DROP TABLE DREAM_TEAM.usuarios;
+GO
 IF (OBJECT_ID('DREAM_TEAM.rol_por_usuarios','U') IS NOT NULL)
 	DROP TABLE DREAM_TEAM.rol_por_usuarios;
+GO
 IF (OBJECT_ID('DREAM_TEAM.rol','U') IS NOT NULL)
 	DROP TABLE DREAM_TEAM.rol;
+GO
 IF (OBJECT_ID('DREAM_TEAM.funcionalidad_por_rol','U') IS NOT NULL)
 	DROP TABLE DREAM_TEAM.funcionalidad_por_rol;
+GO
 IF (OBJECT_ID('DREAM_TEAM.funcionalidad','U') IS NOT NULL)
 	DROP TABLE DREAM_TEAM.funcionalidad;
+GO
 
 IF EXISTS (SELECT * FROM sys.schemas WHERE sys.schemas.name = 'DREAM_TEAM')
 	DROP SCHEMA DREAM_TEAM
+GO
 	
-GO 
+ 
 
 CREATE SCHEMA [DREAM_TEAM] AUTHORIZATION [gd]
 GO
@@ -154,6 +199,7 @@ CREATE TABLE DREAM_TEAM.afiliado(
 	af_fechaBaja DATETIME,
 	PRIMARY KEY(af_id, af_rel_id)
  );
+GO
 
 
 /* TABLA DE CAMBIO DE PLAN */
@@ -167,6 +213,7 @@ CREATE TABLE DREAM_TEAM.logs_cambio_plan(
 	cambio_plan_motivo VARCHAR(100),
 	cambio_plan_fecha DATETIME
 );
+GO
 
 
 /* TABLA DE PLAN MEDICO */
@@ -177,6 +224,7 @@ CREATE TABLE DREAM_TEAM.plan_medico(
 	plan_descripcion VARCHAR(255),
 	plan_precio_bono numeric(18,0),
 );
+GO
 
 
 /* TABLA DE SERVICIOS POR PLANES */
@@ -186,6 +234,7 @@ CREATE TABLE DREAM_TEAM.tipo_especialidades_por_planes(
 	tipoEsp_id NUMERIC(18,0),
 	primary key (planmed_id, tipoEsp_id),
 );
+GO
 
 
 /* TABLA DE REGISTRO DE COMPRA */
@@ -198,6 +247,7 @@ CREATE TABLE DREAM_TEAM.registro_compra(
 	compra_monto DECIMAL(7,2),
 	compra_fecha DATETIME
 );
+GO
 
 
 /* TABLA DE BONO */
@@ -210,6 +260,7 @@ CREATE TABLE DREAM_TEAM.bono(
 	bono_af_rel TINYINT,
 	bono_nro_consulta INT
 );
+GO
 
 
 /* TABLA DE CONSULTA MEDICA */
@@ -222,6 +273,7 @@ CREATE TABLE DREAM_TEAM.consulta_medica(
 	cons_diagnostico VARCHAR(255),
 	cons_bono INT
 );
+GO
 
 
 /* TABLA DE TURNOS */
@@ -236,6 +288,7 @@ CREATE TABLE DREAM_TEAM.turnos(
 	turno_prof INT,
 	turno_esp NUMERIC(18,0),
 );
+GO
 
 
 /* TABLA DE CANCELACIONES */
@@ -246,6 +299,7 @@ CREATE TABLE DREAM_TEAM.cancelacion(
 	cancel_motivo VARCHAR(100),
 	turno_id NUMERIC(18,0),
 );
+GO
 
 
 /* TABLA DE AGENDA DEL PROFESIONAL */
@@ -256,6 +310,7 @@ CREATE TABLE DREAM_TEAM.agenda_profesional(
 	agenda_esp NUMERIC(18,0),
 	agenda_fechayhora DATETIME
 );
+GO
 
 
 /* TABLA DE TIPO DE ESPECIALIDADES */
@@ -264,6 +319,7 @@ CREATE TABLE DREAM_TEAM.tipo_especialidades(
 	tipoEsp_id NUMERIC(18,0) PRIMARY KEY IDENTITY(1,1),
 	tipoEsp_descripcion VARCHAR(255)
 );
+GO
 
 
 /* TABLA DE ESPECIALIDADES */
@@ -272,6 +328,7 @@ CREATE TABLE DREAM_TEAM.especialidad(
 	esp_descripcion VARCHAR(255),
 	tipoEsp_id NUMERIC(18,0)
 );
+GO
 
 
 /* TABLA DE ESPECIALIDAD POR PROFESIONAL */
@@ -281,6 +338,7 @@ CREATE TABLE DREAM_TEAM.especialidad_por_profesional(
 	esp_id NUMERIC(18,0),
 	PRIMARY KEY(prof_id,esp_id)
 );
+GO
 
 
 /* TABLA DE PROFESIONALES */
@@ -299,6 +357,7 @@ CREATE TABLE DREAM_TEAM.profesional(
 	prof_matricula INT,
 	prof_sexo CHAR(1)
 );
+GO
 
 
 /* TABLA DE PERIODO BAJA DE TURNO */
@@ -308,6 +367,7 @@ CREATE TABLE DREAM_TEAM.periodo_baja(
 	periodo_hasta DATETIME,
 	prof_id INT
 );
+GO
 
 
 /* TABLA DE USUARIOS */
@@ -319,6 +379,7 @@ CREATE TABLE DREAM_TEAM.usuarios(
 	us_login_fail TINYINT,
 	us_status CHAR(1)
 );
+GO
 
 
 /* TABLA DE ROLES POR USUARIO */
@@ -328,6 +389,7 @@ CREATE TABLE DREAM_TEAM.rol_por_usuarios(
 	rol_id INT,
 	PRIMARY KEY(us_id,rol_id)
 );
+GO
 
 
 /* TABLA DE ROLES */
@@ -337,6 +399,7 @@ CREATE TABLE DREAM_TEAM.rol(
 	rol_nombre VARCHAR(30),
 	rol_status CHAR(1)
 );
+GO
 
 
 /* TABLA DE FUNCIONALIDADES POR ROL */
@@ -346,6 +409,7 @@ CREATE TABLE DREAM_TEAM.funcionalidad_por_rol(
 	fun_id INT,
 	PRIMARY KEY(rol_id,fun_id)
 );
+GO
 
 
 /* TABLA DE FUNCIONALIDADES */
@@ -355,57 +419,88 @@ CREATE TABLE DREAM_TEAM.funcionalidad(
 	fun_nombre VARCHAR(30),
 	fun_descripcion VARCHAR(100)
 );
+GO
 
 
 -- CREACION DE CONSTRAINTS : FOREIGN KEYS
 -- Nota: Se encuentran en el mismo orden de la creacion de tablas
 
 ALTER TABLE DREAM_TEAM.afiliado add constraint FK_afi_usuario foreign key (us_id) references DREAM_TEAM.usuarios (us_id);
+GO
 ALTER TABLE DREAM_TEAM.afiliado add constraint FK_plan_med foreign key (planmed_id) references DREAM_TEAM.plan_medico (planmed_id);
+GO
 
 ALTER TABLE DREAM_TEAM.logs_cambio_plan add constraint FK_afi foreign key (af_id,af_rel_id) references DREAM_TEAM.afiliado (af_id,af_rel_id);
+GO
 ALTER TABLE DREAM_TEAM.logs_cambio_plan add constraint FK_plan_ant foreign key (plan_id_ant) references DREAM_TEAM.plan_medico (planmed_id);	
+GO
 ALTER TABLE DREAM_TEAM.logs_cambio_plan add constraint FK_plan_new foreign key (plan_id_new) references DREAM_TEAM.plan_medico (planmed_id);
+GO
 
 ALTER TABLE DREAM_TEAM.tipo_especialidades_por_planes add constraint FK_esp_por_planes_1 foreign key (planmed_id) references DREAM_TEAM.plan_medico (planmed_id);
+GO
 ALTER TABLE DREAM_TEAM.tipo_especialidades_por_planes add constraint FK_esp_por_planes_2 foreign key (tipoEsp_id) references DREAM_TEAM.tipo_especialidades (tipoEsp_id);
+GO
 	
 ALTER TABLE DREAM_TEAM.registro_compra add constraint FK_compra_afi foreign key (compra_af,compra_af_rel) references DREAM_TEAM.afiliado (af_id,af_rel_id);	
+GO
 
 ALTER TABLE DREAM_TEAM.bono add constraint FK_compra_bono foreign key (bono_compra) references DREAM_TEAM.registro_compra (compra_id);	
+GO
 ALTER TABLE DREAM_TEAM.bono add constraint FK_plan_bono foreign key (bono_planmed) references DREAM_TEAM.plan_medico (planmed_id);		
+GO
 ALTER TABLE DREAM_TEAM.bono add constraint FK_afi_bono foreign key (bono_af,bono_af_rel) references DREAM_TEAM.afiliado (af_id,af_rel_id);	
+GO
 
 ALTER TABLE DREAM_TEAM.consulta_medica add constraint FK_consulta_turno foreign key (cons_turno) references DREAM_TEAM.turnos (turno_id);	
+GO
 ALTER TABLE DREAM_TEAM.consulta_medica add constraint FK_consulta_bono foreign key (cons_bono) references DREAM_TEAM.bono (bono_id);
+GO
 
 ALTER TABLE DREAM_TEAM.turnos add constraint FK_turno_afi foreign key (turno_af,turno_af_rel) references DREAM_TEAM.afiliado (af_id,af_rel_id);
+GO
 ALTER TABLE DREAM_TEAM.turnos add constraint FK_turno_prof foreign key (turno_prof) references DREAM_TEAM.profesional (prof_id);		
+GO
 ALTER TABLE DREAM_TEAM.turnos add constraint FK_turno_esp foreign key (turno_esp) references DREAM_TEAM.especialidad (esp_id);
+GO
 ALTER TABLE DREAM_TEAM.turnos add constraint FK_turno_agenda foreign key (turno_agenda) references DREAM_TEAM.agenda_profesional (agenda_id);
+GO
 
 ALTER TABLE DREAM_TEAM.cancelacion add constraint FK_cancelacion_turno foreign key (turno_id) references DREAM_TEAM.turnos (turno_id);	
+GO
 
 ALTER TABLE DREAM_TEAM.agenda_profesional add constraint FK_agenda_prof foreign key (agenda_prof) references DREAM_TEAM.profesional (prof_id);	
+GO
 ALTER TABLE DREAM_TEAM.agenda_profesional add constraint FK_agenda_prof2 foreign key (agenda_esp) references DREAM_TEAM.especialidad (esp_id);	
+GO
 
 ALTER TABLE DREAM_TEAM.especialidad add constraint FK_especialidad_tipo foreign key (tipoEsp_id) references DREAM_TEAM.tipo_especialidades (tipoEsp_id);
+GO
 
 ALTER TABLE DREAM_TEAM.profesional add constraint FK_prof_us foreign key (us_id) references DREAM_TEAM.usuarios (us_id);
+GO
 	
 ALTER TABLE DREAM_TEAM.periodo_baja add constraint FK_baja_prof foreign key (prof_id) references DREAM_TEAM.profesional (prof_id);	
+GO
 
 ALTER TABLE DREAM_TEAM.rol_por_usuarios add constraint FK_rolxusr_id foreign key (us_id) references DREAM_TEAM.usuarios (us_id);
+GO
 ALTER TABLE DREAM_TEAM.rol_por_usuarios add constraint FK_rolxusr_rol foreign key (rol_id) references DREAM_TEAM.rol (rol_id);
+GO
 
 ALTER TABLE DREAM_TEAM.funcionalidad_por_rol add constraint FK_funxrol_id foreign key (rol_id) references DREAM_TEAM.rol (rol_id);
+GO
 ALTER TABLE DREAM_TEAM.funcionalidad_por_rol add constraint FK_funxrol_fun foreign key (fun_id) references DREAM_TEAM.funcionalidad (fun_id);
+GO
 
 -- CREACION DE CONSTRAINTS: UNIQUE FIELDS
 
 ALTER TABLE DREAM_TEAM.afiliado ADD CONSTRAINT UN_DNI UNIQUE (af_numdoc, af_tipodoc)
+GO
 ALTER TABLE DREAM_TEAM.agenda_profesional ADD CONSTRAINT UN_DATOS UNIQUE (agenda_prof, agenda_fechayhora);
+GO
 ALTER TABLE DREAM_TEAM.rol ADD CONSTRAINT UN_NOMBREROL UNIQUE (rol_nombre)
+GO
 
 
 ------------------------------------------------------------------------------------------------------------------------------------------
@@ -420,70 +515,75 @@ ALTER TABLE DREAM_TEAM.rol ADD CONSTRAINT UN_NOMBREROL UNIQUE (rol_nombre)
 
 -- DROP PROCEDURES PARA LA MIGRACION
 
-if OBJECT_ID('migrarAfiliados') is not null
+if OBJECT_ID('DREAM_TEAM.migrarAfiliados') is not null
  begin
-	drop procedure migrarAfiliados
+	drop procedure DREAM_TEAM.migrarAfiliados
  end
  go
 
- if OBJECT_ID('migrarPlanMedico') is not null
+ if OBJECT_ID('DREAM_TEAM.migrarPlanMedico') is not null
  begin
-	drop procedure migrarPlanMedico
+	drop procedure DREAM_TEAM.migrarPlanMedico
  end
  go
 
- if OBJECT_ID('migrarProfesional') is not null
+ if OBJECT_ID('DREAM_TEAM.migrarProfesional') is not null
  begin
-	drop procedure migrarProfesional
+	drop procedure DREAM_TEAM.migrarProfesional
  end
  go
 
- if OBJECT_ID('migrarTipoEspecialidades') is not null
+ if OBJECT_ID('DREAM_TEAM.migrarTipoEspecialidades') is not null
  begin
-	drop procedure migrarTipoEspecialidades
+	drop procedure DREAM_TEAM.migrarTipoEspecialidades
  end
  go
 
- if OBJECT_ID('migrarEspecialidad') is not null
+ if OBJECT_ID('DREAM_TEAM.migrarEspecialidad') is not null
  begin
-	drop procedure migrarEspecialidad
+	drop procedure DREAM_TEAM.migrarEspecialidad
  end
  go
 
- if OBJECT_ID('migrarEspecialidadPorProfesional') is not null
+ if OBJECT_ID('DREAM_TEAM.migrarEspecialidadPorProfesional') is not null
  begin
-	drop procedure migrarEspecialidadPorProfesional
+	drop procedure DREAM_TEAM.migrarEspecialidadPorProfesional
 end
 go
- if OBJECT_ID('migrarTurnos') is not null
+
+ if OBJECT_ID('DREAM_TEAM.migrarTurnos') is not null
  begin
-	drop procedure migrarTurnos
+	drop procedure DREAM_TEAM.migrarTurnos
  end
  go
-if OBJECT_ID('migrarRegistroCompra') is not null
+
+if OBJECT_ID('DREAM_TEAM.migrarRegistroCompra') is not null
 begin
-	drop procedure migrarRegistroCompra
+	drop procedure DREAM_TEAM.migrarRegistroCompra
 end
 go
-if OBJECT_ID('migrarBonos') is not null
+
+if OBJECT_ID('DREAM_TEAM.migrarBonos') is not null
 begin
-	drop procedure migrarBonos
+	drop procedure DREAM_TEAM.migrarBonos
 end
 go
-if OBJECT_ID('migrarConsultas') is not null
+
+if OBJECT_ID('DREAM_TEAM.migrarConsultas') is not null
 begin
-	drop procedure migrarConsultas
+	drop procedure DREAM_TEAM.migrarConsultas
 end
 go
-if OBJECT_ID('migrarAgendaProfesional') is not null
+
+if OBJECT_ID('DREAM_TEAM.migrarAgendaProfesional') is not null
 begin
-	drop procedure migrarAgendaProfesional
+	drop procedure DREAM_TEAM.migrarAgendaProfesional
 end
 go
 
 -- CREACION DE PROCEDURES PARA LA MIGRACION
 /*------------------ MIGRACION DE PLANES MEDICOS ----------------------*/
-create procedure migrarPlanMedico
+create procedure DREAM_TEAM.migrarPlanMedico
 as
 	SET IDENTITY_INSERT DREAM_TEAM.plan_medico ON 
 	insert into DREAM_TEAM.plan_medico(planmed_id,plan_descripcion,plan_precio_bono)
@@ -494,12 +594,12 @@ as
 	SET IDENTITY_INSERT DREAM_TEAM.plan_medico OFF
 
 go
-execute migrarPlanMedico
+execute DREAM_TEAM.migrarPlanMedico
 go
 
 
 /*------------------ MIGRACION DE AFILIADOS ----------------------*/
-create procedure migrarAfiliados
+create procedure DREAM_TEAM.migrarAfiliados
 as	
 	insert into DREAM_TEAM.usuarios
 		select convert(varchar,Paciente_Dni),HASHBYTES('SHA2_256',Paciente_Apellido),0,'1'
@@ -514,12 +614,12 @@ as
 		group by us_id,Paciente_Nombre,Paciente_Apellido,Paciente_Dni,Paciente_Direccion,Paciente_Telefono,Paciente_Mail,Paciente_Fecha_Nac,Plan_Med_Codigo
 	 
 go
-execute migrarAfiliados
+execute DREAM_TEAM.migrarAfiliados
 go
 
 
 /*------------------ MIGRACION DE PROFESIONALES ----------------------*/
-create procedure migrarProfesional
+create procedure DREAM_TEAM.migrarProfesional
 as
 	insert into DREAM_TEAM.usuarios
 		select convert(varchar,Medico_Dni),HASHBYTES('SHA2_256',Medico_Apellido),0,'1'
@@ -535,11 +635,11 @@ as
 		group by us_id,Medico_Nombre,Medico_Apellido,Medico_Dni,Medico_Direccion,Medico_Telefono,Medico_Mail,Medico_Fecha_Nac
 		order by Medico_Dni
 go
-execute migrarProfesional
+execute DREAM_TEAM.migrarProfesional
 go
 
 /*------------------ MIGRACION DE TIPO DE ESPECIALIDADES ----------------------*/
-create procedure migrarTipoEspecialidades
+create procedure DREAM_TEAM.migrarTipoEspecialidades
 as
 	SET IDENTITY_INSERT DREAM_TEAM.tipo_especialidades ON 
 	insert into DREAM_TEAM.tipo_especialidades (tipoEsp_id,tipoEsp_descripcion)
@@ -550,12 +650,12 @@ as
 		order by Tipo_Especialidad_Codigo
 	SET IDENTITY_INSERT DREAM_TEAM.tipo_especialidades OFF 
 go
-execute migrarTipoEspecialidades
+execute DREAM_TEAM.migrarTipoEspecialidades
 go
 
 
 /*------------------ MIGRACION DE ESPECIALIDADES ----------------------*/
-create procedure migrarEspecialidad
+create procedure DREAM_TEAM.migrarEspecialidad
 as
 	SET IDENTITY_INSERT DREAM_TEAM.especialidad ON 
 	insert into DREAM_TEAM.especialidad(esp_id,esp_descripcion,tipoEsp_id)
@@ -566,12 +666,12 @@ as
 		order by Especialidad_Codigo
 	SET IDENTITY_INSERT DREAM_TEAM.especialidad OFF
 go
-execute migrarEspecialidad
+execute DREAM_TEAM.migrarEspecialidad
 go
 
 
 /*------------------ MIGRACION DE ESPECIALIDAD POR PROFESIONAL ----------------------*/
-create procedure migrarEspecialidadPorProfesional
+create procedure DREAM_TEAM.migrarEspecialidadPorProfesional
 as
 	insert into DREAM_TEAM.especialidad_por_profesional(prof_id,esp_id)
 		select prof_id,Especialidad_Codigo
@@ -580,12 +680,12 @@ as
 		group by prof_id,Especialidad_Codigo
 		order by prof_id
 go
-execute migrarEspecialidadPorProfesional
+execute DREAM_TEAM. migrarEspecialidadPorProfesional
 go
 
 
 /*------------------ MIGRACION DE AGENDAS PROFESIONALES ----------------------*/
-create procedure migrarAgendaProfesional
+create procedure DREAM_TEAM.migrarAgendaProfesional
 as
 	insert into DREAM_TEAM.agenda_profesional
 		SELECT p.prof_id, m.Especialidad_Codigo, m.Turno_Fecha
@@ -594,12 +694,12 @@ as
 		GROUP BY p.prof_id, m.Especialidad_Codigo, m.Turno_Fecha
 		ORDER BY m.Turno_Fecha ASC
 go
-execute migrarAgendaProfesional
+execute DREAM_TEAM.migrarAgendaProfesional
 go
 
 
 /*------------------ MIGRACION DE TURNOS ----------------------*/
-create procedure migrarTurnos
+create procedure DREAM_TEAM.migrarTurnos
 as
 	SET IDENTITY_INSERT DREAM_TEAM.turnos ON 
 	insert into DREAM_TEAM.turnos(turno_id,turno_fecha,turno_estado,turno_agenda,turno_af,turno_af_rel,turno_prof,turno_esp)
@@ -611,12 +711,12 @@ as
 
 	SET IDENTITY_INSERT DREAM_TEAM.turnos OFF
 go
-execute migrarTurnos
+execute DREAM_TEAM.migrarTurnos
 go
 
 
 /*------------------ MIGRACION DE REGISTROS DE COMPRA ----------------------*/
-create procedure migrarRegistroCompra
+create procedure DREAM_TEAM.migrarRegistroCompra
 as
 	insert into DREAM_TEAM.registro_compra
 		select af_id,af_rel_id,count(*),sum(Plan_Med_Precio_Bono_Consulta),Compra_Bono_Fecha
@@ -625,12 +725,12 @@ as
 		group by af_id, af_rel_id, Compra_Bono_Fecha
 		order by Compra_Bono_Fecha
 go
-execute migrarRegistroCompra
+execute DREAM_TEAM.migrarRegistroCompra
 go
 
 
 /*------------------ MIGRACION DE BONOS ----------------------*/
-create procedure migrarBonos
+create procedure DREAM_TEAM.migrarBonos
 as
 	SET IDENTITY_INSERT DREAM_TEAM.bono ON 
 	insert into DREAM_TEAM.bono (bono_id,bono_compra,bono_planmed,bono_af,bono_af_rel,bono_nro_consulta)
@@ -646,12 +746,12 @@ as
 		order by m1.Bono_Consulta_Numero
 	SET IDENTITY_INSERT DREAM_TEAM.bono OFF 
 go
-execute migrarBonos
+execute DREAM_TEAM.migrarBonos
 go
 
 
 /*------------------ MIGRACION DE CONSULTAS ----------------------*/
-create procedure migrarConsultas
+create procedure DREAM_TEAM.migrarConsultas
 as
 	insert into DREAM_TEAM.consulta_medica
 		select Turno_Numero,Bono_Consulta_Fecha_Impresion,Consulta_Sintomas,Consulta_Enfermedades,Bono_Consulta_Numero
@@ -659,7 +759,7 @@ as
 		where Consulta_Enfermedades is not null AND Bono_Consulta_Numero is not null
 		order by Turno_Numero
 go
-execute migrarConsultas
+execute DREAM_TEAM.migrarConsultas
 go
 
 
@@ -679,105 +779,148 @@ go
 -- DROP PROCEDURES
 
 --PARA EL AFILIADO
-IF (OBJECT_ID('bajaAfiliado', 'P') IS NOT NULL)
-	DROP PROCEDURE bajaAfiliado;
-IF (OBJECT_ID('altaAfiliado', 'P') IS NOT NULL)
-	DROP PROCEDURE altaAfiliado;
-IF (OBJECT_ID('getNextRelID', 'P') IS NOT NULL)
-	DROP PROCEDURE getNextRelID;
-IF (OBJECT_ID('altaFamiliar', 'P') IS NOT NULL)
-	DROP PROCEDURE altaFamiliar;
-IF (OBJECT_ID('getDatosForCompraBono', 'P') IS NOT NULL)
-	DROP PROCEDURE getDatosForCompraBono;
-IF (OBJECT_ID('getDatosDelAfiliado', 'P') IS NOT NULL)
-	DROP PROCEDURE getDatosDelAfiliado;
-IF (OBJECT_ID('actualizarAfiliado', 'P') IS NOT NULL)
-	DROP PROCEDURE actualizarAfiliado;
+IF (OBJECT_ID('DREAM_TEAM.bajaAfiliado', 'P') IS NOT NULL)
+	DROP PROCEDURE DREAM_TEAM.bajaAfiliado;
+GO
+
+IF (OBJECT_ID('DREAM_TEAM.altaAfiliado', 'P') IS NOT NULL)
+	DROP PROCEDURE DREAM_TEAM.altaAfiliado;
+GO
+IF (OBJECT_ID('DREAM_TEAM.getNextRelID', 'P') IS NOT NULL)
+	DROP PROCEDURE DREAM_TEAM.getNextRelID;
+GO
+IF (OBJECT_ID('DREAM_TEAM.altaFamiliar', 'P') IS NOT NULL)
+	DROP PROCEDURE DREAM_TEAM.altaFamiliar;
+GO
+IF (OBJECT_ID('DREAM_TEAM.getDatosForCompraBono', 'P') IS NOT NULL)
+	DROP PROCEDURE DREAM_TEAM.getDatosForCompraBono;
+GO
+IF (OBJECT_ID('DREAM_TEAM.getDatosDelAfiliado', 'P') IS NOT NULL)
+	DROP PROCEDURE DREAM_TEAM.getDatosDelAfiliado;
+GO
+IF (OBJECT_ID('DREAM_TEAM.actualizarAfiliado', 'P') IS NOT NULL)
+	DROP PROCEDURE DREAM_TEAM.actualizarAfiliado;
+GO
 
 -- PARA ABM ROL
-IF (OBJECT_ID('getRolesPorUsuario', 'P') IS NOT NULL)
-	DROP PROCEDURE getRolesPorUsuario;
-IF (OBJECT_ID('getAllRoles', 'P') IS NOT NULL)
-	DROP PROCEDURE getAllRoles;
-IF (OBJECT_ID('getAllFuncionalidades', 'P') IS NOT NULL)
-	DROP PROCEDURE getAllFuncionalidades;
-IF (OBJECT_ID('getFuncionalidadDelRol', 'P') IS NOT NULL)
-	DROP PROCEDURE getFuncionalidadDelRol;
-IF (OBJECT_ID('InsertarRol', 'P') IS NOT NULL)
-	DROP PROCEDURE InsertarRol;
-IF (OBJECT_ID('InsertarRolXFuncionalidad', 'P') IS NOT NULL)
-	DROP PROCEDURE InsertarRolXFuncionalidad;
-IF (OBJECT_ID('getRol', 'P') IS NOT NULL)
-	DROP PROCEDURE getRol;
-IF (OBJECT_ID('deactivateRol', 'P') IS NOT NULL)
-	DROP PROCEDURE deactivateRol;
-IF (OBJECT_ID('activateRol', 'P') IS NOT NULL)
-	DROP PROCEDURE activateRol;
-IF (OBJECT_ID('updateRXF', 'P') IS NOT NULL)
-	DROP PROCEDURE updateRXF;
-IF (OBJECT_ID('updateRol', 'P') IS NOT NULL)
-	DROP PROCEDURE updateRol;
+IF (OBJECT_ID('DREAM_TEAM.getRolesPorUsuario', 'P') IS NOT NULL)
+	DROP PROCEDURE DREAM_TEAM.getRolesPorUsuario;
+GO
+IF (OBJECT_ID('DREAM_TEAM.getAllRoles', 'P') IS NOT NULL)
+	DROP PROCEDURE DREAM_TEAM.getAllRoles;
+GO
+IF (OBJECT_ID('DREAM_TEAM.getAllFuncionalidades', 'P') IS NOT NULL)
+	DROP PROCEDURE DREAM_TEAM.getAllFuncionalidades;
+GO
+IF (OBJECT_ID('DREAM_TEAM.getFuncionalidadDelRol', 'P') IS NOT NULL)
+	DROP PROCEDURE DREAM_TEAM.getFuncionalidadDelRol;
+GO
+IF (OBJECT_ID('DREAM_TEAM.InsertarRol', 'P') IS NOT NULL)
+	DROP PROCEDURE DREAM_TEAM.InsertarRol;
+GO
+IF (OBJECT_ID('DREAM_TEAM.InsertarRolXFuncionalidad', 'P') IS NOT NULL)
+	DROP PROCEDURE DREAM_TEAM.InsertarRolXFuncionalidad;
+GO
+IF (OBJECT_ID('DREAM_TEAM.getRol', 'P') IS NOT NULL)
+	DROP PROCEDURE DREAM_TEAM.getRol;
+GO
+IF (OBJECT_ID('DREAM_TEAM.deactivateRol', 'P') IS NOT NULL)
+	DROP PROCEDURE DREAM_TEAM.deactivateRol;
+GO
+IF (OBJECT_ID('DREAM_TEAM.activateRol', 'P') IS NOT NULL)
+	DROP PROCEDURE DREAM_TEAM.activateRol;
+GO
+IF (OBJECT_ID('DREAM_TEAM.updateRXF', 'P') IS NOT NULL)
+	DROP PROCEDURE DREAM_TEAM.updateRXF;
+GO
+IF (OBJECT_ID('DREAM_TEAM.updateRol', 'P') IS NOT NULL)
+	DROP PROCEDURE DREAM_TEAM.updateRol;
+GO
 
 -- LOGIN
-IF (OBJECT_ID('login', 'P') IS NOT NULL)
-	DROP PROCEDURE login;
+IF (OBJECT_ID('DREAM_TEAM.login', 'P') IS NOT NULL)
+	DROP PROCEDURE DREAM_TEAM.login;
+GO
 
 -- PARA COMPRA BONO
-IF (OBJECT_ID('getPlanesMedicos', 'P') IS NOT NULL)
-	DROP PROCEDURE getPlanesMedicos;
-IF (OBJECT_ID('getPrecioBonoDelPlan', 'P') IS NOT NULL)
-	DROP PROCEDURE getPrecioBonoDelPlan;
-IF (OBJECT_ID('comprarBonos', 'P') IS NOT NULL)
-	DROP PROCEDURE comprarBonos;
-IF (OBJECT_ID('checkBono', 'P') IS NOT NULL)
-	DROP PROCEDURE checkBono;
-IF (OBJECT_ID('getBonosDisponibles', 'P') IS NOT NULL)
-	DROP PROCEDURE getBonosDisponibles;
+IF (OBJECT_ID('DREAM_TEAM.getPlanesMedicos', 'P') IS NOT NULL)
+	DROP PROCEDURE DREAM_TEAM.getPlanesMedicos;
+GO
+IF (OBJECT_ID('DREAM_TEAM.getPrecioBonoDelPlan', 'P') IS NOT NULL)
+	DROP PROCEDURE DREAM_TEAM.getPrecioBonoDelPlan;
+GO
+IF (OBJECT_ID('DREAM_TEAM.comprarBonos', 'P') IS NOT NULL)
+	DROP PROCEDURE DREAM_TEAM.comprarBonos;
+GO
+IF (OBJECT_ID('DREAM_TEAM.checkBono', 'P') IS NOT NULL)
+	DROP PROCEDURE DREAM_TEAM.checkBono;
+GO
+IF (OBJECT_ID('DREAM_TEAM.getBonosDisponibles', 'P') IS NOT NULL)
+	DROP PROCEDURE DREAM_TEAM.getBonosDisponibles;
+GO
 
 	-- PARA REGISTRO DE AGENDA
-IF (OBJECT_ID('getEspecialidadesMedicas', 'P') IS NOT NULL)
-	DROP PROCEDURE getEspecialidadesMedicas;
-IF (OBJECT_ID('getEspecialidadesPorProfesional', 'P') IS NOT NULL)
-	DROP PROCEDURE getEspecialidadesPorProfesional;
-IF (OBJECT_ID('addHorasAgenda', 'P') IS NOT NULL)
-	DROP PROCEDURE addHorasAgenda;	
-IF (OBJECT_ID('getTurnos', 'P') IS NOT NULL)
-	DROP PROCEDURE getTurnos;
-IF (OBJECT_ID('comprobar48horas', 'P') IS NOT NULL)
-	DROP PROCEDURE comprobar48horas;
+IF (OBJECT_ID('DREAM_TEAM.getEspecialidadesMedicas', 'P') IS NOT NULL)
+	DROP PROCEDURE DREAM_TEAM.getEspecialidadesMedicas;
+GO
+IF (OBJECT_ID('DREAM_TEAM.getEspecialidadesPorProfesional', 'P') IS NOT NULL)
+	DROP PROCEDURE DREAM_TEAM.getEspecialidadesPorProfesional;
+GO
+IF (OBJECT_ID('DREAM_TEAM.addHorasAgenda', 'P') IS NOT NULL)
+	DROP PROCEDURE DREAM_TEAM.addHorasAgenda;	
+GO
+IF (OBJECT_ID('DREAM_TEAM.getTurnos', 'P') IS NOT NULL)
+	DROP PROCEDURE DREAM_TEAM.getTurnos;
+GO
+IF (OBJECT_ID('DREAM_TEAM.comprobar48horas', 'P') IS NOT NULL)
+	DROP PROCEDURE DREAM_TEAM.comprobar48horas;
+GO
 
 
 -- PARA PEDIDO DE TURNOS Y REGISTROS DE LLEGADA/CONSULTA
-IF (OBJECT_ID('generateConsultaMedica', 'P') IS NOT NULL)
-	DROP PROCEDURE generateConsultaMedica;
-IF (OBJECT_ID('getConsultas', 'P') IS NOT NULL)
-	DROP PROCEDURE getConsultas;
-IF (OBJECT_ID('getTurnosDelProfesional', 'P') IS NOT NULL)
-	DROP PROCEDURE getTurnosDelProfesional;
-IF (OBJECT_ID('reservarTurno', 'P') IS NOT NULL)
-	DROP PROCEDURE reservarTurno;
-IF (OBJECT_ID('dameTurnosDisponiblesDeLaFecha', 'P') IS NOT NULL)
-	DROP PROCEDURE dameTurnosDisponiblesDeLaFecha;
-IF (OBJECT_ID('finalizarConsulta', 'P') IS NOT NULL)
-	DROP PROCEDURE finalizarConsulta;
-IF (OBJECT_ID('bajaIntervalo', 'P') IS NOT NULL)
-	DROP PROCEDURE bajaIntervalo;
-IF (OBJECT_ID('cancelTurno', 'P') IS NOT NULL)
-	DROP PROCEDURE cancelTurno;
+IF (OBJECT_ID('DREAM_TEAM.generateConsultaMedica', 'P') IS NOT NULL)
+	DROP PROCEDURE DREAM_TEAM.generateConsultaMedica;
+GO
+IF (OBJECT_ID('DREAM_TEAM.getConsultas', 'P') IS NOT NULL)
+	DROP PROCEDURE DREAM_TEAM.getConsultas;
+GO
+IF (OBJECT_ID('DREAM_TEAM.getTurnosDelProfesional', 'P') IS NOT NULL)
+	DROP PROCEDURE DREAM_TEAM.getTurnosDelProfesional;
+GO
+IF (OBJECT_ID('DREAM_TEAM.reservarTurno', 'P') IS NOT NULL)
+	DROP PROCEDURE DREAM_TEAM.reservarTurno;
+GO
+IF (OBJECT_ID('DREAM_TEAM.dameTurnosDisponiblesDeLaFecha', 'P') IS NOT NULL)
+	DROP PROCEDURE DREAM_TEAM.dameTurnosDisponiblesDeLaFecha;
+GO
+IF (OBJECT_ID('DREAM_TEAM.finalizarConsulta', 'P') IS NOT NULL)
+	DROP PROCEDURE DREAM_TEAM.finalizarConsulta;
+GO
+IF (OBJECT_ID('DREAM_TEAM.bajaIntervalo', 'P') IS NOT NULL)
+	DROP PROCEDURE DREAM_TEAM.bajaIntervalo;
+GO
+IF (OBJECT_ID('DREAM_TEAM.cancelTurno', 'P') IS NOT NULL)
+	DROP PROCEDURE DREAM_TEAM.cancelTurno;
+GO
 
 
 -- LISTADOS
-IF (OBJECT_ID('getListado1', 'P') IS NOT NULL)
-	DROP PROCEDURE getListado1;
-IF (OBJECT_ID('getListado2', 'P') IS NOT NULL)
-	DROP PROCEDURE getListado2;
-IF (OBJECT_ID('getListado3', 'P') IS NOT NULL)
-	DROP PROCEDURE getListado3;
-IF (OBJECT_ID('getListado4', 'P') IS NOT NULL)
-	DROP PROCEDURE getListado4;
-IF (OBJECT_ID('getListado5', 'P') IS NOT NULL)
-	DROP PROCEDURE getListado5;
+IF (OBJECT_ID('DREAM_TEAM.getListado1', 'P') IS NOT NULL)
+	DROP PROCEDURE DREAM_TEAM.getListado1;
 GO
+IF (OBJECT_ID('DREAM_TEAM.getListado2', 'P') IS NOT NULL)
+	DROP PROCEDURE DREAM_TEAM.getListado2;
+GO
+IF (OBJECT_ID('DREAM_TEAM.getListado3', 'P') IS NOT NULL)
+	DROP PROCEDURE DREAM_TEAM.getListado3;
+GO
+IF (OBJECT_ID('DREAM_TEAM.getListado4', 'P') IS NOT NULL)
+	DROP PROCEDURE DREAM_TEAM.getListado4;
+GO
+IF (OBJECT_ID('DREAM_TEAM.getListado5', 'P') IS NOT NULL)
+	DROP PROCEDURE DREAM_TEAM.getListado5;
+GO
+
 
 
 
@@ -786,7 +929,7 @@ GO
 
 
 --PARA EL AFILIADO
-CREATE PROCEDURE bajaAfiliado
+CREATE PROCEDURE DREAM_TEAM.bajaAfiliado
 	@id INT,
 	@id_rel TINYINT,
 	@af_fechaBaja DATETIME
@@ -799,7 +942,7 @@ BEGIN
 END
 GO
 
-CREATE PROCEDURE altaAfiliado
+CREATE PROCEDURE DREAM_TEAM.altaAfiliado
 	@af_rel_id TINYINT,
 	@af_nombre VARCHAR(255),
 	@af_apellido VARCHAR(255),
@@ -833,7 +976,7 @@ BEGIN
 END
 GO
 
-CREATE PROCEDURE getNextRelID
+CREATE PROCEDURE DREAM_TEAM.getNextRelID
 	@af_id BIGINT
 AS
 BEGIN
@@ -844,7 +987,7 @@ BEGIN
 END
 GO
 
-CREATE PROCEDURE altaFamiliar
+CREATE PROCEDURE DREAM_TEAM.altaFamiliar
 	@af_id BIGINT,
 	@af_rel_id TINYINT,
 	@af_nombre VARCHAR(255),
@@ -871,7 +1014,7 @@ BEGIN
 END
 GO
 
-CREATE PROCEDURE getDatosForCompraBono
+CREATE PROCEDURE DREAM_TEAM.getDatosForCompraBono
 	@us_id INT
 AS
 BEGIN
@@ -879,7 +1022,7 @@ SELECT af_id, af_rel_id, planmed_id FROM DREAM_TEAM.afiliado WHERE us_id = @us_i
 END
 GO
 
-CREATE PROCEDURE getDatosDelAfiliado
+CREATE PROCEDURE DREAM_TEAM.getDatosDelAfiliado
 	@af_id BIGINT,
 	@af_rel_id TINYINT
 AS
@@ -890,7 +1033,7 @@ AND af_rel_id = @af_rel_id
 END
 GO
 
-CREATE PROCEDURE actualizarAfiliado
+CREATE PROCEDURE DREAM_TEAM.actualizarAfiliado
 	@af_id BIGINT,
 	@af_rel_id TINYINT,
 	@af_direccion VARCHAR(255),
@@ -930,7 +1073,7 @@ GO
 
 
 -- PARA ABM ROL
-CREATE PROCEDURE getRolesPorUsuario
+CREATE PROCEDURE DREAM_TEAM.getRolesPorUsuario
 	@us_id INT
 AS
 BEGIN
@@ -942,7 +1085,7 @@ BEGIN
 END
 GO
 
-CREATE PROCEDURE getAllRoles
+CREATE PROCEDURE DREAM_TEAM.getAllRoles
 
 AS
 BEGIN
@@ -950,7 +1093,7 @@ BEGIN
 END
 GO
 
-CREATE PROCEDURE getAllFuncionalidades
+CREATE PROCEDURE DREAM_TEAM.getAllFuncionalidades
 
 AS
 BEGIN
@@ -958,7 +1101,7 @@ BEGIN
 END
 GO
 
-CREATE PROCEDURE getFuncionalidadDelRol
+CREATE PROCEDURE DREAM_TEAM.getFuncionalidadDelRol
 	@id_rol INT
 AS
 BEGIN
@@ -969,7 +1112,7 @@ BEGIN
 END
 GO
 	
-CREATE PROCEDURE InsertarRol
+CREATE PROCEDURE DREAM_TEAM.InsertarRol
 	@nombre_rol VARCHAR(30)
 AS
 BEGIN
@@ -977,7 +1120,7 @@ BEGIN
 END
 GO
 
-CREATE PROCEDURE InsertarRolXFuncionalidad
+CREATE PROCEDURE DREAM_TEAM.InsertarRolXFuncionalidad
 	@nombre_rol VARCHAR(30),
 	@fun_id INT
 AS
@@ -986,7 +1129,7 @@ BEGIN
 END
 GO
 
-CREATE PROCEDURE getRol
+CREATE PROCEDURE DREAM_TEAM.getRol
 	@rol_nombre VARCHAR(30)
 AS
 BEGIN
@@ -994,7 +1137,7 @@ BEGIN
 END
 GO
 
-CREATE PROCEDURE deactivateRol
+CREATE PROCEDURE DREAM_TEAM.deactivateRol
 	@rol_id INT
 AS BEGIN
 	UPDATE DREAM_TEAM.rol SET rol_status = 'd' WHERE rol_id = @rol_id
@@ -1002,7 +1145,7 @@ AS BEGIN
 END
 GO
 
-CREATE PROCEDURE activateRol
+CREATE PROCEDURE DREAM_TEAM.activateRol
 	@rol_id INT
 AS
 BEGIN
@@ -1011,7 +1154,7 @@ BEGIN
 END
 GO
 
-CREATE PROCEDURE updateRXF
+CREATE PROCEDURE DREAM_TEAM.updateRXF
 	@id_rol INT
 AS
 BEGIN
@@ -1019,7 +1162,7 @@ BEGIN
 END
 GO
 
-CREATE PROCEDURE updateRol
+CREATE PROCEDURE DREAM_TEAM.updateRol
 	@nombre_rol VARCHAR(30),
 	@id_rol INT
 AS
@@ -1029,7 +1172,7 @@ END
 GO
 
 -- LOGIN
-CREATE PROCEDURE login
+CREATE PROCEDURE DREAM_TEAM.login
 	@us_name VARCHAR(30),
 	@us_pw VARCHAR(64),
 	@us_idR INT OUT
@@ -1089,7 +1232,7 @@ GO
 
 
 -- PARA COMPRA BONO
-CREATE PROCEDURE getPlanesMedicos
+CREATE PROCEDURE DREAM_TEAM.getPlanesMedicos
 AS
 BEGIN
 SELECT planmed_id
@@ -1097,7 +1240,7 @@ FROM DREAM_TEAM.plan_medico
 END
 GO
 
-CREATE PROCEDURE getPrecioBonoDelPlan
+CREATE PROCEDURE DREAM_TEAM.getPrecioBonoDelPlan
 	@planmed_id INT
 AS
 BEGIN
@@ -1107,7 +1250,7 @@ WHERE planmed_id = @planmed_id
 END
 GO
 
-CREATE PROCEDURE comprarBonos
+CREATE PROCEDURE DREAM_TEAM.comprarBonos
 	@af_id BIGINT,
 	@af_rel_id TINYINT,
 	@cantidad INT,
@@ -1120,7 +1263,7 @@ BEGIN
 END
 GO
 
-CREATE PROCEDURE checkBono
+CREATE PROCEDURE DREAM_TEAM.checkBono
 	@bono_id INT,
 	@turno_id INT
 AS
@@ -1143,7 +1286,7 @@ BEGIN
 END
 GO
 
-CREATE PROCEDURE getBonosDisponibles
+CREATE PROCEDURE DREAM_TEAM.getBonosDisponibles
 	@af_id BIGINT
 AS
 BEGIN
@@ -1159,14 +1302,14 @@ GO
 
 
 -- PARA REGISTRO DE AGENDA
-CREATE PROCEDURE getEspecialidadesMedicas
+CREATE PROCEDURE DREAM_TEAM.getEspecialidadesMedicas
 AS
 BEGIN
 	SELECT esp_id, esp_descripcion FROM DREAM_TEAM.especialidad
 END
 GO
 
-CREATE PROCEDURE getEspecialidadesPorProfesional
+CREATE PROCEDURE DREAM_TEAM.getEspecialidadesPorProfesional
 	@us_id INT
 AS
 BEGIN
@@ -1175,7 +1318,8 @@ BEGIN
 	WHERE a.us_id = @us_id AND b.prof_id = a.prof_id AND c.esp_id = b.esp_id
 END
 GO
-CREATE PROCEDURE comprobar48horas
+
+CREATE PROCEDURE DREAM_TEAM.comprobar48horas
 	@id INT,
 	@desde VARCHAR(30),
 	@hasta VARCHAR(30),
@@ -1210,7 +1354,8 @@ BEGIN
 	END
 END
 GO
-CREATE PROCEDURE addHorasAgenda
+
+CREATE PROCEDURE DREAM_TEAM.addHorasAgenda
 	@id INT,
 	@desde VARCHAR(30),
 	@hasta VARCHAR(30),
@@ -1278,7 +1423,7 @@ BEGIN
 END
 GO
 
-CREATE PROCEDURE getTurnos
+CREATE PROCEDURE DREAM_TEAM.getTurnos
 	@af_id BIGINT,
 	@af_rel_id TINYINT,
 	@esp_id INT,
@@ -1301,7 +1446,7 @@ GO
 
 
 -- PARA PEDIDO DE TURNOS Y REGISTROS DE LLEGADA/CONSULTA
-CREATE PROCEDURE generateConsultaMedica
+CREATE PROCEDURE DREAM_TEAM.generateConsultaMedica
 	@turno_id INT,
 	@bono_id INT,
 	@hora_llegada VARCHAR(30),
@@ -1318,10 +1463,10 @@ BEGIN
 	WHERE bono_id = @bono_id
 
 	
-	END
+END
 GO
 
-CREATE PROCEDURE getConsultas
+CREATE PROCEDURE DREAM_TEAM.getConsultas
 	@af_id BIGINT,
 	@af_rel_id TINYINT
 AS
@@ -1334,7 +1479,7 @@ BEGIN
 END
 GO
 
-CREATE PROCEDURE getTurnosDelProfesional
+CREATE PROCEDURE DREAM_TEAM.getTurnosDelProfesional
 	@prof_id INT
 AS
 BEGIN
@@ -1344,7 +1489,7 @@ BEGIN
 END
 GO
 
-CREATE PROCEDURE reservarTurno
+CREATE PROCEDURE DREAM_TEAM.reservarTurno
     @turno_afi INT,
 	@turno_agenda INT,
 	@turno_prof INT,
@@ -1356,7 +1501,7 @@ BEGIN
 END
 GO
 
-CREATE PROCEDURE dameTurnosDisponiblesDeLaFecha
+CREATE PROCEDURE DREAM_TEAM.dameTurnosDisponiblesDeLaFecha
 	@fecha VARCHAR(20)
 AS
 BEGIN
@@ -1368,7 +1513,7 @@ BEGIN
 END
 GO
 
-CREATE PROCEDURE finalizarConsulta
+CREATE PROCEDURE DREAM_TEAM.finalizarConsulta
 	@cons_id INT,
 	@sintomas VARCHAR(200),
 	@diagnostico VARCHAR(200)
@@ -1383,7 +1528,7 @@ BEGIN
 END
 GO
 
-CREATE PROCEDURE bajaIntervalo
+CREATE PROCEDURE DREAM_TEAM.bajaIntervalo
 	@prof_id INT,
 	@desde VARCHAR(50),
 	@hasta VARCHAR(50)
@@ -1396,7 +1541,7 @@ BEGIN
 END
 GO
 
-CREATE PROCEDURE cancelTurno
+CREATE PROCEDURE DREAM_TEAM.cancelTurno
    	@turno_id INT, 
 	@cancel_motivo VARCHAR(30), 
 	@cancel_tipo CHAR(1)
@@ -1410,7 +1555,7 @@ GO
 
 
 -- LISTADOS
-CREATE PROCEDURE getListado1
+CREATE PROCEDURE DREAM_TEAM.getListado1
 	@fecha_inicio DATETIME,
 	@fecha_fin DATETIME
 AS
@@ -1426,7 +1571,7 @@ BEGIN
 END
 GO
 
-CREATE PROCEDURE getListado2
+CREATE PROCEDURE DREAM_TEAM.getListado2
 	@fecha_inicio DATETIME,
 	@fecha_fin DATETIME
 AS
@@ -1443,7 +1588,7 @@ BEGIN
 END
 GO
 
-CREATE PROCEDURE getListado3
+CREATE PROCEDURE DREAM_TEAM.getListado3
 	@fecha_inicio DATETIME,
 	@fecha_fin DATETIME
 AS
@@ -1460,7 +1605,7 @@ BEGIN
 END
 GO
 
-CREATE PROCEDURE getListado4
+CREATE PROCEDURE DREAM_TEAM.getListado4
 	@fecha_inicio DATETIME,
 	@fecha_fin DATETIME
 AS
@@ -1475,7 +1620,7 @@ BEGIN
 END
 GO
 
-CREATE PROCEDURE getListado5
+CREATE PROCEDURE DREAM_TEAM.getListado5
 	@fecha_inicio DATETIME,
 	@fecha_fin DATETIME
 AS
@@ -1513,16 +1658,17 @@ INSERT INTO DREAM_TEAM.funcionalidad (fun_nombre) VALUES ('Registro de Llegada')
 INSERT INTO DREAM_TEAM.funcionalidad (fun_nombre) VALUES ('Registro de Resultado');
 INSERT INTO DREAM_TEAM.funcionalidad (fun_nombre) VALUES ('Cancelar Atencion Medica');
 INSERT INTO DREAM_TEAM.funcionalidad (fun_nombre) VALUES ('Listado Estadistico');
+GO
 
 
 ------------------------------------------------- CREACION DE ROLES -----------------------------------------------------
 
-/*Creo el DREAM_TEAM.rol Administrativo*/
+/*Creo el rol Administrativo*/
 
 INSERT INTO DREAM_TEAM.rol(rol_nombre, rol_status) VALUES('Administrativo', 'a');
 GO
 
-/*Se agregan DREAM_TEAM.funcionalidades al DREAM_TEAM.rol Administrativo*/
+/*Se agregan funcionalidades al rol Administrativo*/
 
 INSERT INTO DREAM_TEAM.funcionalidad_por_rol (rol_id, fun_id)
 SELECT tablaRol.rol_id,tablaFuncionalidad.fun_id 
@@ -1530,12 +1676,12 @@ FROM DREAM_TEAM.rol  tablaRol, DREAM_TEAM.funcionalidad tablaFuncionalidad
 WHERE tablaRol.rol_nombre = 'Administrativo' AND tablaFuncionalidad.fun_nombre IN ('ABM de Rol', 'ABM de Afiliado', 'Compra de Bonos', 'Registro de Llegada','Listado Estadistico');
 GO
 
-/*Creo el DREAM_TEAM.rol Afiliado*/
+/*Creo el rol Afiliado*/
 
 INSERT INTO DREAM_TEAM.rol(rol_nombre, rol_status) VALUES('Afiliado', 'a');
 GO
 
-/*Se agregan DREAM_TEAM.funcionalidades al DREAM_TEAM.rol Afiliado*/
+/*Se agregan funcionalidades al rol Afiliado*/
 
 INSERT INTO DREAM_TEAM.funcionalidad_por_rol(rol_id, fun_id)
 SELECT tablaRol.rol_id,tablaFuncionalidad.fun_id 
@@ -1543,12 +1689,12 @@ FROM DREAM_TEAM.rol  tablaRol, DREAM_TEAM.funcionalidad tablaFuncionalidad
 WHERE tablaRol.rol_nombre = 'Afiliado' AND tablaFuncionalidad.fun_nombre IN ('Compra de Bonos', 'Pedido de Turno','Cancelar Atencion Medica');
 GO
 
-/*Creo el DREAM_TEAM.rol Profesional*/
+/*Creo el rol Profesional*/
 
 INSERT INTO DREAM_TEAM.rol(rol_nombre, rol_status) VALUES('Profesional', 'a');
 GO
 
-/*Se agregan DREAM_TEAM.funcionalidades al DREAM_TEAM.rol Profesional*/
+/*Se agregan funcionalidades al rol Profesional*/
 
 INSERT INTO DREAM_TEAM.funcionalidad_por_rol (rol_id,fun_id)
 SELECT tablaRol.rol_id,tablaFuncionalidad.fun_Id 
@@ -1561,18 +1707,20 @@ GO
 
 	INSERT INTO DREAM_TEAM.rol_por_usuarios 
 	SELECT us_id, 2 FROM DREAM_TEAM.afiliado
+GO
 
 		
 	INSERT INTO DREAM_TEAM.rol_por_usuarios
 	SELECT us_id, 3  FROM DREAM_TEAM.profesional
+GO
 
 ----------------------------------------- CUENTA ADMIN -----------------------------------------------------------------
 
-IF (OBJECT_ID('setAdmin', 'P') IS NOT NULL)
-	DROP PROCEDURE setAdmin;
+IF (OBJECT_ID('DREAM_TEAM.setAdmin', 'P') IS NOT NULL)
+	DROP PROCEDURE DREAM_TEAM.setAdmin;
 GO
 
-CREATE PROCEDURE setAdmin
+CREATE PROCEDURE DREAM_TEAM.setAdmin
 AS
 BEGIN
 	DECLARE @us_id INT
@@ -1598,15 +1746,14 @@ GO
 exec setAdmin
 GO
 
-DROP PROCEDURE setAdmin
 ----------------------------------------- SETEO PLANES Y ESPECIALIDADES RELACIONADAS -----------------------------------------------------------------
-if OBJECT_ID('setTipoEspPorPlan') is not null
+if OBJECT_ID('DREAM_TEAM.setTipoEspPorPlan') is not null
 begin
-	drop procedure setTipoEspPorPlan
+	drop procedure DREAM_TEAM.setTipoEspPorPlan
 end
 go
 
-CREATE PROCEDURE setTipoEspPorPlan
+CREATE PROCEDURE DREAM_TEAM.setTipoEspPorPlan
 AS
 BEGIN
 	INSERT INTO DREAM_TEAM.tipo_especialidades_por_planes VALUES (555555,1000)
@@ -1629,10 +1776,11 @@ BEGIN
 END
 GO
 
-exec setTipoEspPorPlan
+exec DREAM_TEAM.setTipoEspPorPlan
 GO
 
-DROP PROCEDURE setTipoEspPorPlan
+DROP PROCEDURE DREAM_TEAM.setTipoEspPorPlan
+GO
 
 
 ------------------------------------------------------------------------------------------------------------------------------------------
@@ -1646,19 +1794,21 @@ DROP PROCEDURE setTipoEspPorPlan
 
 /* ELIMINO TRIGGERS */
 
-IF (OBJECT_ID('compraDeBonos', 'TR') IS NOT NULL)
-	DROP TRIGGER compraDeBonos;
-IF (OBJECT_ID('agregarFamiliar', 'TR') IS NOT NULL)
-	DROP TRIGGER agregarFamiliar;
-IF (OBJECT_ID('cancelarTurnosPorIntervalo', 'TR') IS NOT NULL)
-	DROP TRIGGER cancelarTurnosPorIntervalo;
+IF (OBJECT_ID('DREAM_TEAM.compraDeBonos', 'TR') IS NOT NULL)
+	DROP TRIGGER DREAM_TEAM.compraDeBonos;
+GO
+IF (OBJECT_ID('DREAM_TEAM.agregarFamiliar', 'TR') IS NOT NULL)
+	DROP TRIGGER DREAM_TEAM.agregarFamiliar;
+GO
+IF (OBJECT_ID('DREAM_TEAM.cancelarTurnosPorIntervalo', 'TR') IS NOT NULL)
+	DROP TRIGGER DREAM_TEAM.cancelarTurnosPorIntervalo;
 GO 
 
 /* CREO TRIGGERS */
 
 
 -- PARA LA COMPRA DE BONOS
-CREATE TRIGGER compraDeBonos
+CREATE TRIGGER DREAM_TEAM.compraDeBonos
 	ON DREAM_TEAM.registro_compra
 	AFTER INSERT
 AS
@@ -1683,7 +1833,7 @@ END
 GO
 
 -- PARA ACTUALIZAR EL CAMPO cantidad_familiares DEL AFILIADO
-CREATE TRIGGER agregarFamiliar
+CREATE TRIGGER DREAM_TEAM.agregarFamiliar
 	ON DREAM_TEAM.afiliado
 	AFTER INSERT
 AS
@@ -1699,7 +1849,7 @@ GO
 
 
 -- PARA DAR DE BAJA LOS TURNOS CUANDO SE EJECUTA EL STORED PROCEDURE bajaIntervalo
-CREATE TRIGGER cancelarTurnosPorIntervalo
+CREATE TRIGGER DREAM_TEAM.cancelarTurnosPorIntervalo
 ON DREAM_TEAM.periodo_baja
 AFTER INSERT
 AS
