@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Data.SqlClient;
 using System.Configuration;
+using System.Globalization;
 
 namespace ClinicaFrba.Registrar_Agenta_Medico
 {
@@ -398,7 +399,6 @@ namespace ClinicaFrba.Registrar_Agenta_Medico
                 esp_id = ((Item)especialidad_sabado.SelectedItem).Value;
                 uploadAgendaToSQL(esp_id, prof_id,7, hora_inicio, hora_fin, desde, hasta);
             }
-            MessageBox.Show(String.Format("Horarios agregados correctamente."));
             return;
         }
 
@@ -430,7 +430,7 @@ namespace ClinicaFrba.Registrar_Agenta_Medico
         {
             try
             {
-                string query = "addHorasAgenda";
+                string query = "DREAM_TEAM.addHorasAgenda";
                 SqlConnection conn = (new BDConnection()).getInstance();
                 SqlCommand com = new SqlCommand(query, conn);
                 com.CommandType = CommandType.StoredProcedure;
@@ -443,6 +443,9 @@ namespace ClinicaFrba.Registrar_Agenta_Medico
                 com.Parameters.AddWithValue("@especialidad", esp_id);
                 com.ExecuteNonQuery();
                 com.Dispose();
+                CultureInfo espaniol = new CultureInfo("es-AR");
+                string nombreDia = espaniol.DateTimeFormat.DayNames[dia-1];
+                MessageBox.Show(String.Format("Los horarios los dias {0} se han ingresado correctamente.",nombreDia),Application.ProductName,MessageBoxButtons.OK,MessageBoxIcon.Information);
             }
             catch (Exception e)
             {

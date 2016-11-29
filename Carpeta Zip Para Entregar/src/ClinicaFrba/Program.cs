@@ -21,8 +21,7 @@ namespace ClinicaFrba
             //testConexionBD();
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            //Application.Run(new VentanaInicial());
-            Application.Run(new Registrar_Agenta_Medico.Registrar_agenda(5551));
+            Application.Run(new VentanaInicial());
         }
 
         public static void testConexionBD()
