@@ -512,26 +512,28 @@ BEGIN
 	DECLARE @d DATETIME
 	DECLARE @d2 DATETIME
 	DECLARE @h DATETIME
+	DECLARE @min_enbd INT
 	
 	
 	SET @d = CONVERT(DATETIME, @desde)
 	SET @h = CONVERT(DATETIME, @hasta)
 	
-	SET @d = DATEADD(DAY,-DATEPART(WEEK,@d)+2,@d)
+	SET @d = DATEADD(DAY,-DATEPART(WEEKDAY,@d)+2,@d)
 	SET @d2 = DATEADD(DAY,6,@d)
-	SET @d2 = DATEADD(HOUR,23,@d)
-	SET @d2 = DATEADD(MINUTE,59,@d)
-	SET @h = DATEADD(DAY,-DATEPART(WEEK,@h)+1,@h)
-		
+	SET @d2 = DATEADD(HOUR,23,@d2)
+	SET @d2 = DATEADD(MINUTE,59,@d2)
+	SET @h = DATEADD(DAY,-DATEPART(WEEKDAY,@h)+1,@h)
+
 	WHILE @d <= @h
 	BEGIN
-		IF (((ISNULL((SELECT COUNT(*) FROM agenda_profesional WHERE agenda_prof = @id AND agenda_fechayhora BETWEEN @d AND @d2),0) *30) + @minutos_trabajados) > 2880)
+	    SET @min_enbd = (SELECT COUNT(*) FROM agenda_profesional WHERE agenda_prof = @id AND agenda_fechayhora BETWEEN @d AND @d2)
+		IF (((@min_enbd *30) + @minutos_trabajados) > 2880)
 		BEGIN
 			RAISERROR('Sobrepasaste las 48 horas semanales',16,1)
 			RETURN 
 		END
 		SET @d = DATEADD(WEEK,1,@d)
-		SET @d2 = DATEADD(WEEK,1,@d)
+		SET @d2 = DATEADD(WEEK,1,@d2)
 	END
 END
 GO
@@ -576,7 +578,7 @@ BEGIN
 	
 	WHILE @d2 <= @h
 	BEGIN
-		WHILE @inicialBucle <= @finalBucle
+		WHILE @inicialBucle < @finalBucle
 		BEGIN
 			IF (SELECT COUNT(*) FROM agenda_profesional WHERE agenda_prof = @id AND agenda_fechayhora = (@d2 + CONVERT(DATETIME, @inicialBucle))) > 0
 			BEGIN
@@ -592,7 +594,7 @@ BEGIN
 	
 	WHILE @d <= @h
 	BEGIN
-		WHILE @inicialBucle <= @finalBucle
+		WHILE @inicialBucle < @finalBucle
 		BEGIN
 			INSERT INTO agenda_profesional VALUES (@id, @especialidad, @d + CONVERT(DATETIME, @inicialBucle))
 			SET @inicialBucle = DATEADD(MINUTE,30,@inicialBucle)
@@ -601,6 +603,7 @@ BEGIN
 		SET @d = DATEADD(WEEK,1,@d)
 	END
 END
+GO
 GO
 
 CREATE PROCEDURE getTurnos
