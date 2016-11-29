@@ -21,14 +21,8 @@ namespace ClinicaFrba
             //testConexionBD();
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            //Application.Run(new BuscarAfiliado.BuscarAfi());
-
-            //Application.Run(new Pedir_Turno.ListadoProfesionales(1));
-            //Application.Run(new Pedir_Turno.ElegirTurno("3", "Conchudo", "pepe"));
-
-            Application.Run(new VentanaInicial());
-
-            //Application.Run(new Listados.Presentacion_Listados());
+            //Application.Run(new VentanaInicial());
+            Application.Run(new Registrar_Agenta_Medico.Registrar_agenda(5551));
         }
 
         public static void testConexionBD()

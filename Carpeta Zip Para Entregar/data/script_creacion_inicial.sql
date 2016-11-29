@@ -775,9 +775,9 @@ as
 		from gd_esquema.Maestra
 		group by Paciente_Nombre,Paciente_Apellido,Paciente_Dni,Paciente_Direccion,Paciente_Telefono,Paciente_Mail,Paciente_Fecha_Nac,Plan_Med_Codigo
 
-	insert into DREAM_TEAM.afiliado(af_rel_id,us_id,af_nombre,af_apellido,af_tipodoc,af_numdoc,af_direccion,af_telefono,af_mail,af_nacimiento,planmed_id, af_estado_civil, af_sexo, af_cantidad_familiares)
+	insert into DREAM_TEAM.afiliado(af_rel_id,us_id,af_nombre,af_apellido,af_tipodoc,af_numdoc,af_direccion,af_telefono,af_mail,af_nacimiento,planmed_id, af_estado_civil, af_sexo, af_cantidad_familiares, af_status)
 		select 00,us_id,Paciente_Nombre,Paciente_Apellido,'DNI',Paciente_Dni,
-		       Paciente_Direccion,Paciente_Telefono,Paciente_Mail,Paciente_Fecha_Nac,Plan_Med_Codigo, '', '', 0
+		       Paciente_Direccion,Paciente_Telefono,Paciente_Mail,Paciente_Fecha_Nac,Plan_Med_Codigo, '', '', 0, 'a'
 		from gd_esquema.Maestra,DREAM_TEAM.usuarios
 		where us_username = convert(varchar,Paciente_Dni)
 		group by us_id,Paciente_Nombre,Paciente_Apellido,Paciente_Dni,Paciente_Direccion,Paciente_Telefono,Paciente_Mail,Paciente_Fecha_Nac,Plan_Med_Codigo
@@ -1339,7 +1339,7 @@ CREATE PROCEDURE DREAM_TEAM.getEspecialidadesPorProfesional
 	@us_id INT
 AS
 BEGIN
-	SELECT c.esp_id'ID de la especialidad', c.esp_descripcion 'Nombre de la especialidad'
+	SELECT CAST(c.esp_id AS INT), c.esp_descripcion
     FROM DREAM_TEAM.profesional a, DREAM_TEAM.especialidad_por_profesional b, DREAM_TEAM.especialidad c
 	WHERE a.us_id = @us_id AND b.prof_id = a.prof_id AND c.esp_id = b.esp_id
 END

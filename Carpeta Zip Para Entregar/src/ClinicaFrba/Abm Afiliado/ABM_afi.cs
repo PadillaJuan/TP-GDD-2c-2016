@@ -48,6 +48,7 @@ namespace ClinicaFrba.Abm_Afiliado
             else
             {
                 this.darAltaAfiliado();
+                MessageBox.Show("El afiliado se ha dado de alta con éxito.", Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
 
         }
@@ -64,6 +65,7 @@ namespace ClinicaFrba.Abm_Afiliado
             else  
                 {
                     updateAfiliado();
+                    MessageBox.Show("El afiliado se ha actualizado con éxito.", Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Information);
                     Close();
                 }
             
