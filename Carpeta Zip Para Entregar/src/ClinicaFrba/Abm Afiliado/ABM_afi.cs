@@ -41,6 +41,8 @@ namespace ClinicaFrba.Abm_Afiliado
             }
         }
 
+
+
         private void button1_Click(object sender, EventArgs e) // DAR DE ALTA
         {
             if (this.checkearDatos())

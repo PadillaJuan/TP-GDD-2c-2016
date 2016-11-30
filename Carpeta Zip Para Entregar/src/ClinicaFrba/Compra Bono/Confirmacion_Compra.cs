@@ -56,6 +56,7 @@ namespace ClinicaFrba.Compra_Bono
             return precio;
         }
 
+        // REALIZA LA COMPRA DE BONOS
         private void button1_Click(object sender, EventArgs e)
         {
             SqlConnection conn = (new BDConnection()).getInstance();

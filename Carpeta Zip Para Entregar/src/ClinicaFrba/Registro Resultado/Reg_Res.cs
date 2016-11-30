@@ -25,6 +25,7 @@ namespace ClinicaFrba.Registro_Resultado
             dataGridView1.MultiSelect = false;
         }
 
+        // TRAE LAS CONSULTAS DEL AFILIADO
         private void button1_Click(object sender, EventArgs e)
         {
             button2.Enabled = true;
@@ -67,6 +68,7 @@ namespace ClinicaFrba.Registro_Resultado
             Close();
         }
 
+        // FINALIZA LA CONSULTA ACTUALIZANDO LOS SINTOMAS Y EL DIAGNOSTICO
         private void button4_Click(object sender, EventArgs e)
         {
             if (validarTexto())

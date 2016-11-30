@@ -55,6 +55,7 @@ namespace ClinicaFrba.Pedir_Turno
 
         }
 
+        // TRAE LOS TURNOS DISPONIBLES DE LA FECHA SELECCIONADA
         private void filtrarFecha()
         {
             SqlConnection cn = (new BDConnection()).getInstance();
@@ -82,7 +83,7 @@ namespace ClinicaFrba.Pedir_Turno
         {
             if (dataGridView1.SelectedRows.Count == 0)
             {
-                MessageBox.Show("No se ha seleccionado ningun tunro", this.Text, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("No se ha seleccionado ningun turno", this.Text, MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 
@@ -99,6 +100,7 @@ namespace ClinicaFrba.Pedir_Turno
             }
         }
 
+        //GENERA EL TURNO
         private void agendar(int turno_agenda)
         {
             string query = "DREAM_TEAM.reservarTurno";

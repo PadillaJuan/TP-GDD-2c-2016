@@ -7,6 +7,7 @@ using System.Windows.Forms;
 
 namespace ClinicaFrba
 {
+    // CLASE PARA LAS ESPECIALIDADES UTILIZADA EN PEDIR_TURNO
     class Especialidades
     {
         int id;

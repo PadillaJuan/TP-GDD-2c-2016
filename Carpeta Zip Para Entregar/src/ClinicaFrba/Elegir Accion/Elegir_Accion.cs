@@ -23,6 +23,7 @@ namespace ClinicaFrba.Elegir_Accion
             llenarComboBox(rol_id);
         }
 
+        // TRAE LAS FUNCIONALDIADES DEL ROL
         public void llenarComboBox(int rol_id)
         {
             SqlConnection conn = (new BDConnection()).getInstance();
@@ -51,7 +52,7 @@ namespace ClinicaFrba.Elegir_Accion
             Close();
             Application.Exit();
         }
-
+        // SELECCION DE ACCION
         private void button1_Click(object sender, EventArgs e)
         {
                 String texto = comboBox1.Text;

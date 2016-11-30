@@ -57,6 +57,7 @@ namespace ClinicaFrba.Cancelar_Atencion
             Close();
         }
 
+        // TRAE LOS TURNOS DEL PROFESIONAL
         private void button3_Click(object sender, EventArgs e)
         {
             tabla = new DataTable();

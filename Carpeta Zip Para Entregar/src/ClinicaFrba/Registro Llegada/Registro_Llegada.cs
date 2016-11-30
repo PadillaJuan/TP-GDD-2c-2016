@@ -42,6 +42,7 @@ namespace ClinicaFrba.Registro_Llegada
             Close();
         }
 
+        // TRAE LOS TURNOS DEL AFILIADO
         private void button3_Click(object sender, EventArgs e)
         {
             if (validarEntrada())
@@ -60,6 +61,7 @@ namespace ClinicaFrba.Registro_Llegada
             }
         }
 
+        // SELECCIONAR BONO PARA LA ATENCION
         private void button4_Click(object sender, EventArgs e)
         {
             SeleccionarBono form = new SeleccionarBono(getID(), getRelID());
@@ -79,6 +81,7 @@ namespace ClinicaFrba.Registro_Llegada
             
         }
 
+        // GENERAR CONSULTA MEDICA
         private void button5_Click(object sender, EventArgs e)
         {
             try
@@ -103,6 +106,7 @@ namespace ClinicaFrba.Registro_Llegada
             }
         }
 
+        // LLENAR EL COMBO BOX PARA LA BUSQUEDA DEL TURNO
         private void llenarComboBox()
         {
             SqlConnection cn = (new BDConnection()).getInstance();
@@ -180,6 +184,7 @@ namespace ClinicaFrba.Registro_Llegada
             return ret;
         }
 
+        //CHECKEA QUE EL BONO SEA VÁLIDO PARA LA ATENCION.
         public void checkearBono()
         {
             SqlConnection cn = (new BDConnection()).getInstance();

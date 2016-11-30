@@ -49,7 +49,6 @@ namespace ClinicaFrba
             return ConfigurationManager.AppSettings["puerto"];
         }
 
-
         public static String nuevaFechaSistema()
         {
             return ConfigurationManager.AppSettings["FechaGlobal"];

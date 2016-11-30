@@ -30,11 +30,17 @@ namespace ClinicaFrba.Pedir_Turno
 
             getID(idUsuarioPasado);
 
+            cargarEspecialidades();
+          
+        }
+
+        private void cargarEspecialidades()
+        {
             string comando = "SELECT * FROM DREAM_TEAM.especialidad";
             dt = (new BDConnection()).cargarTablaSQL(comando);
 
 
-         
+
             ChkListEspecialidades.Items.Clear();
             for (int i = 0; i <= (dt.Rows.Count - 1); i++)
             {
@@ -43,7 +49,6 @@ namespace ClinicaFrba.Pedir_Turno
             }
 
             inicializar(true);
-          
         }
 
          private void inicializar(bool esLaPrimeraVez)
@@ -61,6 +66,7 @@ namespace ClinicaFrba.Pedir_Turno
              }
          }
 
+         // GENERA EL SEARCH QUERY
          private void armarWhere()
          {
              wheres = wheres + "(";
@@ -78,6 +84,7 @@ namespace ClinicaFrba.Pedir_Turno
    
          }
 
+        // BUSCA A LOS PROFESIONALES
         private void filtrarPag()
         {
            
@@ -104,6 +111,7 @@ namespace ClinicaFrba.Pedir_Turno
             filtrarPag();
         }
 
+        // PEDIR TURNO
         private void buttonElegirPub_Click(object sender, EventArgs e)
         {
             if (dataGridView1.SelectedRows.Count != 0)
@@ -118,7 +126,6 @@ namespace ClinicaFrba.Pedir_Turno
                 turno.ShowDialog();
 
             }
-
             else
             {
                 MessageBox.Show("Por favor, elija un Profesional", this.Text, MessageBoxButtons.OK, MessageBoxIcon.Warning);

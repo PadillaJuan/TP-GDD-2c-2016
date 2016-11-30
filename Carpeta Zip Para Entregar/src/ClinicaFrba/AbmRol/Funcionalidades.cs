@@ -83,6 +83,8 @@ namespace ClinicaFrba.AbmRol
             textBox1.Enabled = false;
         }
 
+
+        //Pone en checked o no las funcionalidades del rol
         public void checkFuncionalidadesDelRol(int rol_id)
         {
             string query = "DREAM_TEAM.getFuncionalidadDelRol";
@@ -146,6 +148,7 @@ namespace ClinicaFrba.AbmRol
             deactivateModifications();
         }
 
+        // Update al nombre del rol
         public void setForNewRol()
         {
             string query = String.Format("DREAM_TEAM.updateRol", textBox1.Text);
@@ -157,6 +160,7 @@ namespace ClinicaFrba.AbmRol
             com.ExecuteNonQuery();
         }
 
+        // Inserta el nuevo rol
         public void insertarRol() 
         {
             string query = String.Format("DREAM_TEAM.InsertarRol", textBox1.Text);
@@ -180,6 +184,7 @@ namespace ClinicaFrba.AbmRol
             }       
         }
 
+        // Saca las funcionalidades viejas
         public void deleteFun()
         {
             string query = "DREAM_TEAM.UpdateRXF";
@@ -189,7 +194,7 @@ namespace ClinicaFrba.AbmRol
             com.Parameters.AddWithValue("id_rol", id_rol);
             com.ExecuteNonQuery();
         }
-
+        // Inserta individualmente las funcionalidades
         public void insertFuncionalidad(int id_rol, int i)
         {
             int fun_id = (int)dt.Rows[i]["fun_id"];

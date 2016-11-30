@@ -27,6 +27,7 @@ namespace ClinicaFrba.Registrar_Agenta_Medico
             fecha_hasta.Value = new DateTime(int.Parse(fechaEquipo[0]), int.Parse(fechaEquipo[1]), int.Parse(fechaEquipo[2]));
         }
 
+        // ITEMS PARA LOS COMBOBOX DE LAS ESPECIALIDADES
         private class Item
         {
             public string Name;
@@ -44,18 +45,23 @@ namespace ClinicaFrba.Registrar_Agenta_Medico
 
         public void setComboBox()
         {
-            especialidad_lunes.DropDownStyle = ComboBoxStyle.DropDownList;
-            especialidad_martes.DropDownStyle = ComboBoxStyle.DropDownList;
-            especialidad_miercoles.DropDownStyle = ComboBoxStyle.DropDownList;
-            especialidad_jueves.DropDownStyle = ComboBoxStyle.DropDownList;
-            especialidad_viernes.DropDownStyle = ComboBoxStyle.DropDownList;
-            especialidad_sabado.DropDownStyle = ComboBoxStyle.DropDownList;
+            setEspecialidadesComboBox();
             setLunes();
             setMartes();
             setMiercoles();
             setJueves();
             setViernes();
             setSabado();
+        }
+
+        private void setEspecialidadesComboBox()
+        {
+            especialidad_lunes.DropDownStyle = ComboBoxStyle.DropDownList;
+            especialidad_martes.DropDownStyle = ComboBoxStyle.DropDownList;
+            especialidad_miercoles.DropDownStyle = ComboBoxStyle.DropDownList;
+            especialidad_jueves.DropDownStyle = ComboBoxStyle.DropDownList;
+            especialidad_viernes.DropDownStyle = ComboBoxStyle.DropDownList;
+            especialidad_sabado.DropDownStyle = ComboBoxStyle.DropDownList;
         }
 
         public void setLunes()
@@ -106,8 +112,7 @@ namespace ClinicaFrba.Registrar_Agenta_Medico
             horafin_min_sabado.DropDownStyle = ComboBoxStyle.DropDownList;
         }
 
-
-
+        // LLENA LOS COMBOBOX DE ESPECIALIDADES DEL MEDICO
         public void llenarComboBox()
         {
             SqlConnection conn = (new BDConnection()).getConnection();
@@ -165,6 +170,7 @@ namespace ClinicaFrba.Registrar_Agenta_Medico
             return prof_id;
         }
 
+        //GENERAR AGENDA MEDICA
         private void button1_Click(object sender, EventArgs e)
         {
             int inicio_hora, inicio_min, fin_hora, fin_min, esp_id, prof_id;
@@ -426,6 +432,7 @@ namespace ClinicaFrba.Registrar_Agenta_Medico
             return 0;
         }
 
+        // INSERTAR EL INTERVALO DE TIEMPO DE ATENCION EN EL SQL
         private static void uploadAgendaToSQL(int esp_id, int prof_id, int dia,string hora_inicio, string hora_fin, string desde, string hasta)
         {
             try

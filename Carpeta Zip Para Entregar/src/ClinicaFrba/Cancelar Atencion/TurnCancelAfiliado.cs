@@ -21,6 +21,7 @@ namespace ClinicaFrba.Cancelar_Atencion
     {
         long afiliadoId;
 
+        // CREA LA INSTANCIA, TRAE LOS TURNOS DEL AFILIADO
         public TurnCancelAfiliado(int us_id)
         {
             getID(us_id);
@@ -40,7 +41,7 @@ namespace ClinicaFrba.Cancelar_Atencion
             CompletadorDeTablas.hacerQuery(query, ref dataGridView1);
 
         }
-
+        // CANCELA EL TURNO
         private void button1_Click(object sender, EventArgs e)
         {
             string cancel_motivo = textBox1.Text;

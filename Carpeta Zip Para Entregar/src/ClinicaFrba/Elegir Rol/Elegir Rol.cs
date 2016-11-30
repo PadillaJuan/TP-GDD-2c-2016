@@ -22,6 +22,7 @@ namespace ClinicaFrba.Elegir_Rol
             llenarComboBox(us_id);
         }
 
+        //TRAE LOS ROLES DEL USUARIO
         public void llenarComboBox(int us_id) 
         {
             SqlConnection conn = (new BDConnection()).getInstance();
@@ -66,8 +67,6 @@ namespace ClinicaFrba.Elegir_Rol
 
         private void button1_Click(object sender, EventArgs e)
         {
-
-          
             int i = rolSelection.SelectedIndex;
             String texto = rolSelection.Text;
             if (i != -1)

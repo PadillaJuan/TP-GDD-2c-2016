@@ -188,13 +188,14 @@ namespace ClinicaFrba.BuscarAfiliado
             return query;
 
         }
-
+        // CREAR NUEVO AFILIADO
         private void button7_Click(object sender, EventArgs e)
         {
             Abm_Afiliado.ABM_afi form = new Abm_Afiliado.ABM_afi(0, 0);
             form.Show();
         }
 
+        // DAR AFILIADO DE BAJA
         private void button2_Click_1(object sender, EventArgs e)
         {
             int index;
@@ -223,7 +224,7 @@ namespace ClinicaFrba.BuscarAfiliado
                 conn.Close();
             }
         }
-
+        // AGREGAR FAMILIAR
         private void button1_Click_1(object sender, EventArgs e)
         {
             int index;
@@ -276,7 +277,7 @@ namespace ClinicaFrba.BuscarAfiliado
                     break;
             }
         }
-
+        // UPDATE AFILIADO
         private void button8_Click(object sender, EventArgs e)
         {
             int index;

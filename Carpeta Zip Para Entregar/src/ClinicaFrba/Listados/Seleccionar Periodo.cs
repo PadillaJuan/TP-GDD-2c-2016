@@ -62,7 +62,7 @@ namespace ClinicaFrba.Listados
                     break;
             }
         }
-
+        // GENERA EL COMANDO PARA EL LISTADO SEMESTRAL
         private SqlCommand generateSqlCommandSemestral()
         {
             SqlConnection cn = (new BDConnection()).getInstance();
@@ -85,6 +85,7 @@ namespace ClinicaFrba.Listados
             return cm;
         }
 
+        // GENERA EL COMANDO PARA EL LISTADO MENSUAL
         private SqlCommand generateSqlCommandMensual()
         {
             SqlConnection cn = (new BDConnection()).getInstance();

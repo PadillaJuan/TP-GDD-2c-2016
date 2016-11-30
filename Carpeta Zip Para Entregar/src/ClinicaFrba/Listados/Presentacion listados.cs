@@ -25,9 +25,7 @@ namespace ClinicaFrba.Listados
                 string query1 = "DREAM_TEAM.getListado" + (comboBox1.SelectedIndex + 1).ToString();
                 Seleccionar_Periodo form = new Seleccionar_Periodo(query1);
                 form.Show();
-
             }
-
         }
 
         private void button3_Click(object sender, EventArgs e)
