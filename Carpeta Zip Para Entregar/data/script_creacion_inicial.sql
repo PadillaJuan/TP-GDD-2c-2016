@@ -1757,9 +1757,9 @@ BEGIN
 	FROM DREAM_TEAM.rol r
 
 	INSERT INTO DREAM_TEAM.afiliado (af_nombre,af_apellido,af_rel_id, us_id, af_tipodoc, af_numdoc, af_direccion, af_telefono, af_mail, af_nacimiento, af_estado_civil, af_cantidad_familiares, af_sexo, af_status,planmed_id)
-		VALUES ('admin','admin', 0, @us_id, 'DNI', 0,'',0,'',CONVERT(DATETIME,'1900-01-02'),'',0,'', 'a', 555559)
+		VALUES ('Administrador','General', 0, @us_id, 'DNI', 0,'',0,'',CONVERT(DATETIME,'1900-01-02'),'',0,'', 'a', 555559)
 
-	INSERT INTO DREAM_TEAM.profesional (us_id,prof_apellido,prof_nombre) VALUES (@us_id,'admin','admin')
+	INSERT INTO DREAM_TEAM.profesional (us_id,prof_apellido,prof_nombre) VALUES (@us_id,'Administrador','General')
 
 	INSERT INTO DREAM_TEAM.especialidad_por_profesional 
 		SELECT (SELECT prof_id FROM DREAM_TEAM.profesional WHERE us_id = @us_id), esp_id FROM DREAM_TEAM.especialidad
