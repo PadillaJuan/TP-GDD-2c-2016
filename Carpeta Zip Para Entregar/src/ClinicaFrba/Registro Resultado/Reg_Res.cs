@@ -78,6 +78,7 @@ namespace ClinicaFrba.Registro_Resultado
                 cm.Parameters.AddWithValue("@sintomas", textBox2.Text);
                 cm.Parameters.AddWithValue("@diagnostico", textBox3.Text);
                 cm.ExecuteNonQuery();
+                MessageBox.Show("Se ha registrado exitosamente el resultado de la consulta",Application.ProductName,MessageBoxButtons.OK,MessageBoxIcon.Information);
                 Close();
             }
         }

@@ -1512,6 +1512,8 @@ BEGIN
 	SELECT turno_id 'ID del turno', DATEPART(YEAR,turno_fecha)'Año', DATEPART(MONTH,turno_fecha)'Mes', DATEPART (DAY, turno_fecha) 'Dia', DATEPART(HOUR,turno_fecha)'Hora', DATEPART(MINUTE,turno_fecha)'Minutos', turno_af'ID Familiar', turno_af_rel 'ID Relacional' 
 	FROM DREAM_TEAM.turnos
 	WHERE turno_prof = @prof_id
+	AND turno_estado = 0
+	ORDER BY 'Año', 'Mes', 'Dia', 'Hora', 'Minutos'
 END
 GO
 
@@ -1754,8 +1756,8 @@ BEGIN
 	SELECT @us_id, r.rol_id 
 	FROM DREAM_TEAM.rol r
 
-	INSERT INTO DREAM_TEAM.afiliado (af_nombre,af_apellido,af_rel_id, us_id,planmed_id, af_tipodoc, af_numdoc, af_status)
-		VALUES ('admin','admin', 0, @us_id, 555559, 'DNI', 0, 'a')
+	INSERT INTO DREAM_TEAM.afiliado (af_nombre,af_apellido,af_rel_id, us_id, af_tipodoc, af_numdoc, af_direccion, af_telefono, af_mail, af_nacimiento, af_estado_civil, af_cantidad_familiares, af_sexo, af_status,planmed_id)
+		VALUES ('admin','admin', 0, @us_id, 'DNI', 0,'',0,'',CONVERT(DATETIME,'1900-01-02'),'',0,'', 'a', 555559)
 
 	INSERT INTO DREAM_TEAM.profesional (us_id,prof_apellido,prof_nombre) VALUES (@us_id,'admin','admin')
 

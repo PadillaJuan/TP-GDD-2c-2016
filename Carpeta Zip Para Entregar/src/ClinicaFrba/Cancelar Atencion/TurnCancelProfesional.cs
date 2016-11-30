@@ -72,17 +72,18 @@ namespace ClinicaFrba.Cancelar_Atencion
 
         private void cancelarIntervalo()
         {
-            if (dateTimePicker1.Value < dateTimePicker2.Value)
+            if (dateTimePicker1.Value <= dateTimePicker2.Value)
             {
                     string query = "DREAM_TEAM.bajaIntervalo";
                     SqlConnection conn = (new BDConnection()).getConnection();
                     SqlCommand com = new SqlCommand(query, conn);
                     com.CommandType = CommandType.StoredProcedure;
                     com.Parameters.AddWithValue("@prof_id", prof_id);
-                    com.Parameters.AddWithValue("@desde", dateTimePicker1.Value.ToString("yyyy-MM-dd HH:mm:ss"));
-                    com.Parameters.AddWithValue("@hasta", dateTimePicker2.Value.ToString("yyyy-MM-dd HH:mm:ss"));
+                    com.Parameters.AddWithValue("@desde", dateTimePicker1.Value.ToString("yyyy-MM-dd 00:00:00"));
+                    com.Parameters.AddWithValue("@hasta", dateTimePicker2.Value.ToString("yyyy-MM-dd 23:59:59"));
                     com.ExecuteNonQuery();
                     MessageBox.Show("Los turnos pertenecientes al intervalo fueron dados de baja", Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.None);
+                    Close();
             }
             else
             {
@@ -104,6 +105,8 @@ namespace ClinicaFrba.Cancelar_Atencion
                     com.Parameters.Add(new SqlParameter("@cancel_motivo", textBox1.Text));
                     com.Parameters.Add(new SqlParameter("@cancel_tipo", 'p'));
                     com.ExecuteNonQuery();
+                    MessageBox.Show("El turno seleccionado fue dado de baja", Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.None);
+                    Close();
                 }
                 else
                 {

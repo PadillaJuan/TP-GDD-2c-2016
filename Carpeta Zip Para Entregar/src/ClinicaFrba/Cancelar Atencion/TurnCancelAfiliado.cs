@@ -29,12 +29,13 @@ namespace ClinicaFrba.Cancelar_Atencion
             dataGridView1.MultiSelect = false;
             dataGridView1.ReadOnly = true;
 
-            string query ="SELECT DATEPART(MINUTE,turno_fecha) 'Minutos', DATEPART(hour,turno_fecha) 'Hora',DATEPART(day,turno_fecha)'Dia',DATEPART(month,turno_fecha)'Mes',DATEPART(year,turno_fecha)'Año', turno_id 'ID del turno' ";
+            string query = "SELECT DATEPART(year,turno_fecha)'Año', DATEPART(month,turno_fecha)'Mes', DATEPART(day,turno_fecha)'Dia', DATEPART(hour,turno_fecha) 'Hora', DATEPART(MINUTE,turno_fecha) 'Minutos', turno_id 'ID del turno' ";
             query += "FROM DREAM_TEAM.turnos t ";
             query += "JOIN DREAM_TEAM.afiliado a ON (t.turno_af=a.af_id) ";
             query += String.Format("WHERE a.af_id={0} ", af_id());
             query += String.Format("AND a.af_rel_id={0} ", af_rel_id());
             query += "AND t.turno_estado = 0";
+            query += "ORDER BY 'Año', 'Mes', 'Dia', 'Hora', 'Minutos'";
            
             CompletadorDeTablas.hacerQuery(query, ref dataGridView1);
 
