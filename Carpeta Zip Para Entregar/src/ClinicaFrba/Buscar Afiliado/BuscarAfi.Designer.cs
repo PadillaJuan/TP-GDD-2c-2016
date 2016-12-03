@@ -38,11 +38,8 @@
             this.button1 = new System.Windows.Forms.Button();
             this.button5 = new System.Windows.Forms.Button();
             this.button6 = new System.Windows.Forms.Button();
-            this.checkBox1 = new System.Windows.Forms.CheckBox();
-            this.checkBox2 = new System.Windows.Forms.CheckBox();
             this.textBox2 = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
-            this.checkBox3 = new System.Windows.Forms.CheckBox();
             this.textBox3 = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
             this.button3 = new System.Windows.Forms.Button();
@@ -88,26 +85,26 @@
             this.textBox1.Location = new System.Drawing.Point(164, 25);
             this.textBox1.MaxLength = 15;
             this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(290, 20);
+            this.textBox1.Size = new System.Drawing.Size(452, 20);
             this.textBox1.TabIndex = 2;
             // 
             // button2
             // 
             this.button2.Location = new System.Drawing.Point(16, 444);
             this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(75, 47);
+            this.button2.Size = new System.Drawing.Size(87, 49);
             this.button2.TabIndex = 4;
-            this.button2.Text = "Dar de baja";
+            this.button2.Text = "Dar de baja un afiliado existente";
             this.button2.UseVisualStyleBackColor = true;
             this.button2.Click += new System.EventHandler(this.button2_Click_1);
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(16, 497);
+            this.button1.Location = new System.Drawing.Point(164, 444);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 49);
+            this.button1.Size = new System.Drawing.Size(87, 49);
             this.button1.TabIndex = 5;
-            this.button1.Text = "Agregar familiar";
+            this.button1.Text = "Agregar familiar a afiliado existente";
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click_1);
             // 
@@ -131,32 +128,12 @@
             this.button6.UseVisualStyleBackColor = true;
             this.button6.Click += new System.EventHandler(this.button6_Click);
             // 
-            // checkBox1
-            // 
-            this.checkBox1.AutoSize = true;
-            this.checkBox1.Location = new System.Drawing.Point(485, 27);
-            this.checkBox1.Name = "checkBox1";
-            this.checkBox1.Size = new System.Drawing.Size(146, 17);
-            this.checkBox1.TabIndex = 25;
-            this.checkBox1.Text = "Buscar con Nª de afiliado";
-            this.checkBox1.UseVisualStyleBackColor = true;
-            // 
-            // checkBox2
-            // 
-            this.checkBox2.AutoSize = true;
-            this.checkBox2.Location = new System.Drawing.Point(485, 64);
-            this.checkBox2.Name = "checkBox2";
-            this.checkBox2.Size = new System.Drawing.Size(118, 17);
-            this.checkBox2.TabIndex = 28;
-            this.checkBox2.Text = "Buscar con nombre";
-            this.checkBox2.UseVisualStyleBackColor = true;
-            // 
             // textBox2
             // 
             this.textBox2.Location = new System.Drawing.Point(164, 62);
             this.textBox2.MaxLength = 255;
             this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(290, 20);
+            this.textBox2.Size = new System.Drawing.Size(452, 20);
             this.textBox2.TabIndex = 27;
             // 
             // label2
@@ -168,22 +145,12 @@
             this.label2.TabIndex = 26;
             this.label2.Text = "Ingresar el nombre del afiliado";
             // 
-            // checkBox3
-            // 
-            this.checkBox3.AutoSize = true;
-            this.checkBox3.Location = new System.Drawing.Point(485, 99);
-            this.checkBox3.Name = "checkBox3";
-            this.checkBox3.Size = new System.Drawing.Size(119, 17);
-            this.checkBox3.TabIndex = 31;
-            this.checkBox3.Text = "Buscar con apellido";
-            this.checkBox3.UseVisualStyleBackColor = true;
-            // 
             // textBox3
             // 
             this.textBox3.Location = new System.Drawing.Point(164, 97);
             this.textBox3.MaxLength = 255;
             this.textBox3.Name = "textBox3";
-            this.textBox3.Size = new System.Drawing.Size(290, 20);
+            this.textBox3.Size = new System.Drawing.Size(452, 20);
             this.textBox3.TabIndex = 30;
             // 
             // label3
@@ -197,9 +164,9 @@
             // 
             // button3
             // 
-            this.button3.Location = new System.Drawing.Point(164, 445);
+            this.button3.Location = new System.Drawing.Point(529, 447);
             this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(75, 47);
+            this.button3.Size = new System.Drawing.Size(87, 49);
             this.button3.TabIndex = 32;
             this.button3.Text = "Comprar Bono";
             this.button3.UseVisualStyleBackColor = true;
@@ -207,19 +174,19 @@
             // 
             // button7
             // 
-            this.button7.Location = new System.Drawing.Point(164, 499);
+            this.button7.Location = new System.Drawing.Point(164, 502);
             this.button7.Name = "button7";
-            this.button7.Size = new System.Drawing.Size(75, 47);
+            this.button7.Size = new System.Drawing.Size(87, 49);
             this.button7.TabIndex = 33;
-            this.button7.Text = "Agregar Afiliado";
+            this.button7.Text = "Agregar nuevo afiliado";
             this.button7.UseVisualStyleBackColor = true;
             this.button7.Click += new System.EventHandler(this.button7_Click);
             // 
             // button8
             // 
-            this.button8.Location = new System.Drawing.Point(324, 445);
+            this.button8.Location = new System.Drawing.Point(343, 445);
             this.button8.Name = "button8";
-            this.button8.Size = new System.Drawing.Size(75, 47);
+            this.button8.Size = new System.Drawing.Size(87, 49);
             this.button8.TabIndex = 34;
             this.button8.Text = "Modificar Afiliado";
             this.button8.UseVisualStyleBackColor = true;
@@ -233,13 +200,10 @@
             this.Controls.Add(this.button8);
             this.Controls.Add(this.button7);
             this.Controls.Add(this.button3);
-            this.Controls.Add(this.checkBox3);
             this.Controls.Add(this.textBox3);
             this.Controls.Add(this.label3);
-            this.Controls.Add(this.checkBox2);
             this.Controls.Add(this.textBox2);
             this.Controls.Add(this.label2);
-            this.Controls.Add(this.checkBox1);
             this.Controls.Add(this.button6);
             this.Controls.Add(this.button5);
             this.Controls.Add(this.button1);
@@ -268,11 +232,8 @@
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Button button5;
         private System.Windows.Forms.Button button6;
-        private System.Windows.Forms.CheckBox checkBox1;
-        private System.Windows.Forms.CheckBox checkBox2;
         private System.Windows.Forms.TextBox textBox2;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.CheckBox checkBox3;
         private System.Windows.Forms.TextBox textBox3;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Button button3;

@@ -100,24 +100,24 @@ namespace ClinicaFrba.BuscarAfiliado
         {
             bool flag = true;
             int n;
-            if (!(checkBox1.Checked || checkBox2.Checked || checkBox3.Checked))
+            if (!(textBox1.Text.Length > 0 || textBox2.Text.Length > 0 || textBox3.Text.Length > 0))
             {
                 MessageBox.Show("No se ha seleccionado opcion de busqueda", "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 flag = false;
             }
             else
             {
-                if (checkBox1.Checked && (textBox1.Text.Length == 0 || !int.TryParse(textBox1.Text,out n)))
+                if (textBox1.Text.Length == 0 || !int.TryParse(textBox1.Text,out n))
                 {
                     MessageBox.Show("No se ha ingresado un numero de afiliado válido", "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     flag = false;
                 }
-                if (checkBox2.Checked && (textBox2.Text.Length == 0 || !textBox2.Text.All( c => Char.IsLetter(c) )))
+                if (textBox2.Text.Length == 0 || !textBox2.Text.All( c => Char.IsLetter(c)))
                 {
                     MessageBox.Show("No se ha ingresado un nombre de afiliado válido", "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     flag = false;
                 }
-                if (checkBox3.Checked && (textBox3.Text.Length == 0 || !textBox3.Text.All(c => Char.IsLetter(c)  ))) 
+                if (textBox3.Text.Length == 0 || !textBox3.Text.All(c => Char.IsLetter(c)))
                 {
                     MessageBox.Show("No se ha ingresado un apellido de afiliado válido", "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     flag = false;
@@ -167,27 +167,27 @@ namespace ClinicaFrba.BuscarAfiliado
         {
             bool flag= false;
             string query = "SELECT * FROM DREAM_TEAM.afiliado WHERE ";
-            if (checkBox1.Checked) {
+            if (textBox1.Text.Length > 0) {
                 String id;
                 id = String.Format("{0}", int.Parse(textBox1.Text) / 100);
                 query += String.Format("(af_id = {0} ) ", id);
                 flag = true;
                 
             }
-            if (checkBox2.Checked)
+            if (textBox1.Text.Length > 0)
             {
                 if (flag) { query += " AND ";};
                 query += String.Format("af_nombre like '{0}'",textBox2.Text);
                 flag = true;
             }
-            if (checkBox3.Checked)
+            if (textBox1.Text.Length > 0)
             {
                 if (flag) { query += " AND "; };
                 query += String.Format("af_apellido like '{0}'",textBox3.Text);
             }
             return query;
-
         }
+
         // CREAR NUEVO AFILIADO
         private void button7_Click(object sender, EventArgs e)
         {

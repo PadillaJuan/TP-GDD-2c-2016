@@ -77,7 +77,6 @@
             this.dateTimePicker1.Name = "dateTimePicker1";
             this.dateTimePicker1.Size = new System.Drawing.Size(358, 20);
             this.dateTimePicker1.TabIndex = 77;
-            this.dateTimePicker1.ValueChanged += new System.EventHandler(this.dateTimePicker1_ValueChanged);
             // 
             // comboBox4
             // 
@@ -375,7 +374,6 @@
             this.Controls.Add(this.imagenINicial);
             this.Name = "ABM_afi";
             this.Text = "Clinica FRBA";
-            this.Load += new System.EventHandler(this.ABM_afi_Load);
             ((System.ComponentModel.ISupportInitialize)(this.imagenINicial)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();

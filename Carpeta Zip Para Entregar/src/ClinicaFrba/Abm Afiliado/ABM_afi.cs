@@ -98,7 +98,7 @@ namespace ClinicaFrba.Abm_Afiliado
                 SqlDataReader dr = com.ExecuteReader();
                 while (dr.Read())
                 {
-                    comboBox3.Items.Add(dr["planmed_id"]);
+                    comboBox3.Items.Add(new Item(dr["plan_descripcion"].ToString(),Int32.Parse(dr["planmed_id"].ToString())));
                 }
                 dr.Close();
             }
@@ -174,11 +174,11 @@ namespace ClinicaFrba.Abm_Afiliado
             textBox4.Text = dr[6].ToString();
             textBox5.Text = dr.GetString(7);
             textBox6.Text = dr[8].ToString();
-            planMed = Int32.Parse(dr[13].ToString());
             textBox7.Text = dr.GetString(9);
             dateTimePicker1.Value = dr.GetDateTime(10);
             comboBox2.Text = dr.GetString(11);
-            comboBox3.Text = dr[13].ToString();
+            planMed = Int32.Parse(dr[13].ToString());
+            seleccionarItem(dr[13].ToString());
             comboBox4.Text = dr.GetString(14);
             dr.Close();
         }
@@ -309,17 +309,25 @@ namespace ClinicaFrba.Abm_Afiliado
             planMed = Int32.Parse(comboBox3.Text);
         }
 
-
-        private void ABM_afi_Load(object sender, EventArgs e)
+        public void seleccionarItem(string planMedico)
         {
-
+            comboBox3.SelectedItem = comboBox3.FindStringExact(planMedico);
         }
 
-        private void dateTimePicker1_ValueChanged(object sender, EventArgs e)
+        private class Item
         {
-
+            public string Name;
+            public int Value;
+            public Item(string name, int value)
+            {
+                Name = name; Value = value;
+            }
+            public override string ToString()
+            {
+                // Generates the text shown in the combo box
+                return Name;
+            }
         }
-
     }
 }
 

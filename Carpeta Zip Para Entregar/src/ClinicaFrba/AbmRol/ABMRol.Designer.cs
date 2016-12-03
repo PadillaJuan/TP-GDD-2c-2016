@@ -122,13 +122,13 @@
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(92, 52);
             this.button3.TabIndex = 87;
-            this.button3.Text = "Dar de baja";
+            this.button3.Text = "Deshabilitar el rol seleccionado";
             this.button3.UseVisualStyleBackColor = true;
             this.button3.Click += new System.EventHandler(this.button3_Click);
             // 
             // button9
             // 
-            this.button9.Location = new System.Drawing.Point(208, 416);
+            this.button9.Location = new System.Drawing.Point(375, 416);
             this.button9.Name = "button9";
             this.button9.Size = new System.Drawing.Size(92, 52);
             this.button9.TabIndex = 90;
@@ -138,11 +138,11 @@
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(306, 416);
+            this.button1.Location = new System.Drawing.Point(277, 416);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(92, 52);
             this.button1.TabIndex = 92;
-            this.button1.Text = "Crear Rol";
+            this.button1.Text = "Crear un nuevo rol";
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click_1);
             // 
@@ -152,7 +152,7 @@
             this.button6.Name = "button6";
             this.button6.Size = new System.Drawing.Size(92, 52);
             this.button6.TabIndex = 93;
-            this.button6.Text = "Dar de alta";
+            this.button6.Text = "Habilitar el rol seleccionado";
             this.button6.UseVisualStyleBackColor = true;
             this.button6.Click += new System.EventHandler(this.button6_Click_1);
             // 

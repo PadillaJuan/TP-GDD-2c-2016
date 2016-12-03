@@ -146,6 +146,8 @@ namespace ClinicaFrba.AbmRol
             else { setForNewRol(); }
             InsertarFuncionalidades();
             deactivateModifications();
+            MessageBox.Show("Los cambios fueron ingresados con éxito", Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Information);
+            Close();
         }
 
         // Update al nombre del rol
