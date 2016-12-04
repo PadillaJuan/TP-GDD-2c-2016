@@ -50,9 +50,9 @@
             // 
             // button2
             // 
-            this.button2.Location = new System.Drawing.Point(421, 423);
+            this.button2.Location = new System.Drawing.Point(397, 423);
             this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(75, 23);
+            this.button2.Size = new System.Drawing.Size(99, 23);
             this.button2.TabIndex = 2;
             this.button2.Text = "Volver";
             this.button2.UseVisualStyleBackColor = true;
@@ -88,7 +88,7 @@
             // 
             // button3
             // 
-            this.button3.Location = new System.Drawing.Point(94, 342);
+            this.button3.Location = new System.Drawing.Point(140, 342);
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(99, 52);
             this.button3.TabIndex = 4;
@@ -98,7 +98,7 @@
             // 
             // button4
             // 
-            this.button4.Location = new System.Drawing.Point(199, 342);
+            this.button4.Location = new System.Drawing.Point(397, 365);
             this.button4.Name = "button4";
             this.button4.Size = new System.Drawing.Size(99, 52);
             this.button4.TabIndex = 5;

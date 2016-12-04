@@ -60,6 +60,7 @@ namespace ClinicaFrba.Registro_Resultado
                 textBox1.Enabled = false;
                 textBox2.Enabled = true;
                 textBox3.Enabled = true;
+                groupBox1.Enabled = false;
             }
         }
 
