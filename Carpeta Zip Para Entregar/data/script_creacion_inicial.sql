@@ -1261,7 +1261,7 @@ GO
 CREATE PROCEDURE DREAM_TEAM.getPlanesMedicos
 AS
 BEGIN
-SELECT planmed_id
+SELECT planmed_id, plan_descripcion
 FROM DREAM_TEAM.plan_medico
 END
 GO

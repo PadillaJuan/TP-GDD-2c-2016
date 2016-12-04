@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Data.SqlClient;
-
+using ClinicaFrba.Dominio;
 namespace ClinicaFrba.Abm_Afiliado
 {
 
@@ -84,7 +84,7 @@ namespace ClinicaFrba.Abm_Afiliado
             comboBox2.DropDownStyle = ComboBoxStyle.DropDownList;
             comboBox3.DropDownStyle = ComboBoxStyle.DropDownList;
             comboBox4.DropDownStyle = ComboBoxStyle.DropDownList;
-            dateTimePicker1.Value = DateTime.Parse("1900-01-01 00:00:00.000");
+            dateTimePicker1.Value = DateTime.Parse(Program.nuevaFechaSistema());
         }
 
         public void cargarComboBoxPlanMedico()
@@ -178,7 +178,7 @@ namespace ClinicaFrba.Abm_Afiliado
             dateTimePicker1.Value = dr.GetDateTime(10);
             comboBox2.Text = dr.GetString(11);
             planMed = Int32.Parse(dr[13].ToString());
-            seleccionarItem(dr[13].ToString());
+            seleccionarItem(Int32.Parse(dr[13].ToString()));
             comboBox4.Text = dr.GetString(14);
             dr.Close();
         }
@@ -192,8 +192,7 @@ namespace ClinicaFrba.Abm_Afiliado
             if (textBox2.Text.Length == 0 || textBox3.Text.Length == 0 || textBox4.Text.Length == 0) { i = true; }
             if (!textBox2.Text.All(c => Char.IsLetter(c)) || !textBox3.Text.All(d => Char.IsLetter(d)) || !int.TryParse(textBox4.Text, out n)) { i = true;}
             if (comboBox1.SelectedIndex == -1 || comboBox2.SelectedIndex == -1 || comboBox3.SelectedIndex == -1 || comboBox4.SelectedIndex == -1) { i = true;}
-            if (dateTimePicker1.Value == DateTime.Parse("1900-01-01 00:00:00.000")) { i = true;  }
-            if (dateTimePicker1.Value >= DateTime.Parse(Program.nuevaFechaSistema())) { i = true;  }
+            if (dateTimePicker1.Value > DateTime.Parse(Program.nuevaFechaSistema())) { i = true;  }
             if (textBox5.Text.Length == 0 || textBox6.Text.Length == 0 || textBox7.Text.Length == 0) { i = true;  }
             if (!long.TryParse(textBox6.Text, out m) && dateTimePicker1.Value >= DateTime.Parse(Program.nuevaFechaSistema())) { i = true; }
 
@@ -232,7 +231,7 @@ namespace ClinicaFrba.Abm_Afiliado
                 com.Parameters.AddWithValue("@af_mail", textBox7.Text);
                 com.Parameters.AddWithValue("@af_nacimiento", dateTimePicker1.Value);
                 com.Parameters.AddWithValue("@af_estado_civil", comboBox2.Text);
-                com.Parameters.AddWithValue("@planmed_id", Int32.Parse(comboBox3.Text));
+                com.Parameters.AddWithValue("@planmed_id", ((Item) comboBox3.SelectedItem).Value);
                 com.Parameters.AddWithValue("@af_sexo", comboBox4.Text);
                 com.ExecuteNonQuery();
                 com.Dispose();
@@ -262,7 +261,7 @@ namespace ClinicaFrba.Abm_Afiliado
                 com.Parameters.AddWithValue("@af_mail", textBox7.Text);
                 com.Parameters.AddWithValue("@af_nacimiento", dateTimePicker1.Value);
                 com.Parameters.AddWithValue("@af_estado_civil", comboBox2.Text);
-                com.Parameters.AddWithValue("@planmed_id", Int32.Parse(comboBox3.Text));
+                com.Parameters.AddWithValue("@planmed_id", ((Item)comboBox3.SelectedItem).Value);
                 com.Parameters.AddWithValue("@af_sexo", comboBox4.Text);
                 com.ExecuteNonQuery();
                 com.Dispose();
@@ -288,7 +287,7 @@ namespace ClinicaFrba.Abm_Afiliado
             cm.Parameters.AddWithValue("@af_telefono",textBox6.Text);
             cm.Parameters.AddWithValue("@af_mail",textBox7.Text);
             cm.Parameters.AddWithValue("@af_estado_civil", comboBox2.Text);
-            cm.Parameters.AddWithValue("@planmed_id", Int32.Parse(comboBox3.Text));
+            cm.Parameters.AddWithValue("@planmed_id", ((Item)comboBox3.SelectedItem).Value);
             cm.Parameters.AddWithValue("@af_sexo", comboBox4.Text);
             if (planMed != Int32.Parse(comboBox3.Text))
             {
@@ -309,25 +308,18 @@ namespace ClinicaFrba.Abm_Afiliado
             planMed = Int32.Parse(comboBox3.Text);
         }
 
-        public void seleccionarItem(string planMedico)
+        public void seleccionarItem(int planMedico)
         {
-            comboBox3.SelectedItem = comboBox3.FindStringExact(planMedico);
+            foreach (Item item in comboBox3.Items)
+            {
+                if (item.Value == planMedico)
+                {
+                    comboBox3.SelectedItem = item;
+                    return;
+                }
+            }
         }
 
-        private class Item
-        {
-            public string Name;
-            public int Value;
-            public Item(string name, int value)
-            {
-                Name = name; Value = value;
-            }
-            public override string ToString()
-            {
-                // Generates the text shown in the combo box
-                return Name;
-            }
-        }
     }
 }
 

@@ -111,6 +111,7 @@
     <Compile Include="Compra Bono\Confirmacion_Compra.Designer.cs">
       <DependentUpon>Confirmacion_Compra.cs</DependentUpon>
     </Compile>
+    <Compile Include="Dominio\Item.cs" />
     <Compile Include="Listados\Seleccionar Periodo.cs">
       <SubType>Form</SubType>
     </Compile>

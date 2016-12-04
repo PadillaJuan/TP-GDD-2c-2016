@@ -10,6 +10,7 @@ using System.Windows.Forms;
 using System.Data.SqlClient;
 using System.Configuration;
 using System.Globalization;
+using ClinicaFrba.Dominio;
 
 namespace ClinicaFrba.Registrar_Agenta_Medico
 {
@@ -25,22 +26,6 @@ namespace ClinicaFrba.Registrar_Agenta_Medico
             string[] fechaEquipo = (ConfigurationManager.AppSettings["FechaGlobal"]).Split('-');
             fecha_desde.Value = new DateTime(int.Parse(fechaEquipo[0]), int.Parse(fechaEquipo[1]), int.Parse(fechaEquipo[2]));
             fecha_hasta.Value = new DateTime(int.Parse(fechaEquipo[0]), int.Parse(fechaEquipo[1]), int.Parse(fechaEquipo[2]));
-        }
-
-        // ITEMS PARA LOS COMBOBOX DE LAS ESPECIALIDADES
-        private class Item
-        {
-            public string Name;
-            public int Value;
-            public Item(string name, int value)
-            {
-                Name = name; Value = value;
-            }
-            public override string ToString()
-            {
-                // Generates the text shown in the combo box
-                return Name;
-            }
         }
 
         public void setComboBox()
