@@ -1279,7 +1279,7 @@ WHERE planmed_id = @planmed_id
 END
 GO
 
-ALTER PROCEDURE DREAM_TEAM.verifyAfiliadoExistance
+CREATE PROCEDURE DREAM_TEAM.verifyAfiliadoExistance
 	@af_id BIGINT,
 	@af_rel_id TINYINT
 AS
@@ -1291,7 +1291,7 @@ BEGIN
 	WHERE af_id = @af_id
 	AND af_rel_id = @af_rel_id
 	IF @us_id != -1
-		SELECT @us_id 'us_id', @planmed_id 'planmed_id'
+		SELECT @planmed_id
 	ELSE
 		RAISERROR('El numero de afiliado ingresado no pertenece al sistema',16,16)
 END
