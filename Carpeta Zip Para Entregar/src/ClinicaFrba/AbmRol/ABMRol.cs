@@ -20,6 +20,9 @@ namespace ClinicaFrba.AbmRol
         public ABMRol()
         {
             InitializeComponent();
+            button3.Enabled = false ;
+            button6.Enabled = false ;
+            button9.Enabled = false;
         }
 
         private void button1_Click(object sender, EventArgs e) // Dar rol de alta
@@ -164,6 +167,13 @@ namespace ClinicaFrba.AbmRol
         {
             Funcionalidades form = new Funcionalidades(0,0, "");
             form.Show();
+        }
+
+        private void dataGridView1_SelectionChanged(object sender, EventArgs e)
+        {
+            button3.Enabled = true;
+            button6.Enabled = true;
+            button9.Enabled = true;
         }
 
         
