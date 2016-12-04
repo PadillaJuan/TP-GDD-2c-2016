@@ -169,16 +169,12 @@ namespace ClinicaFrba.AbmRol
             form.Show();
         }
 
-        private void dataGridView1_SelectionChanged(object sender, EventArgs e)
+        private void dataGridView1_CellClick(object sender, DataGridViewCellEventArgs e)
         {
             button3.Enabled = true;
             button6.Enabled = true;
             button9.Enabled = true;
         }
 
-        
-       
-
-        
     }
 }
