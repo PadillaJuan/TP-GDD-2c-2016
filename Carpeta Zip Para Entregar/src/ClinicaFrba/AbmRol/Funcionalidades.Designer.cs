@@ -45,7 +45,7 @@
             this.checkedListBox1.FormattingEnabled = true;
             this.checkedListBox1.Location = new System.Drawing.Point(35, 92);
             this.checkedListBox1.Name = "checkedListBox1";
-            this.checkedListBox1.Size = new System.Drawing.Size(425, 244);
+            this.checkedListBox1.Size = new System.Drawing.Size(335, 244);
             this.checkedListBox1.TabIndex = 0;
             // 
             // button2
@@ -88,17 +88,17 @@
             // 
             // button3
             // 
-            this.button3.Location = new System.Drawing.Point(35, 342);
+            this.button3.Location = new System.Drawing.Point(94, 342);
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(99, 52);
             this.button3.TabIndex = 4;
-            this.button3.Text = "Modificar";
+            this.button3.Text = "Habilitar modificacion";
             this.button3.UseVisualStyleBackColor = true;
             this.button3.Click += new System.EventHandler(this.button3_Click);
             // 
             // button4
             // 
-            this.button4.Location = new System.Drawing.Point(140, 342);
+            this.button4.Location = new System.Drawing.Point(199, 342);
             this.button4.Name = "button4";
             this.button4.Size = new System.Drawing.Size(99, 52);
             this.button4.TabIndex = 5;
@@ -108,21 +108,21 @@
             // 
             // button5
             // 
-            this.button5.Location = new System.Drawing.Point(256, 342);
+            this.button5.Location = new System.Drawing.Point(386, 140);
             this.button5.Name = "button5";
             this.button5.Size = new System.Drawing.Size(99, 52);
             this.button5.TabIndex = 6;
-            this.button5.Text = "Seleccionar todo";
+            this.button5.Text = "Seleccionar todas las funcionalidades";
             this.button5.UseVisualStyleBackColor = true;
             this.button5.Click += new System.EventHandler(this.button5_Click);
             // 
             // button6
             // 
-            this.button6.Location = new System.Drawing.Point(361, 342);
+            this.button6.Location = new System.Drawing.Point(386, 234);
             this.button6.Name = "button6";
             this.button6.Size = new System.Drawing.Size(99, 52);
             this.button6.TabIndex = 7;
-            this.button6.Text = "Deseleccionar todo";
+            this.button6.Text = "Deseleccionar todas las funcionalidades";
             this.button6.UseVisualStyleBackColor = true;
             this.button6.Click += new System.EventHandler(this.button6_Click);
             // 
