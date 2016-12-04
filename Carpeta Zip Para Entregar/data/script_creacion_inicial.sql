@@ -1002,6 +1002,7 @@ BEGIN
 	BEGIN
 		RAISERROR('Ya existe un afiliado con ese tipo y Nro de documento',11,16)
 	END
+	SELECT af_id, af_rel_id FROM DREAM_TEAM.afiliado WHERE af_tipodoc = @af_tipodoc AND af_numdoc = @af_numdoc
 END
 GO
 
@@ -1040,6 +1041,7 @@ BEGIN
 	VALUES (@af_id, (SELECT af_cantidad_familiares FROM DREAM_TEAM.afiliado WHERE af_id = @af_id AND af_rel_id = 0)+1, (SELECT us_id FROM DREAM_TEAM.usuarios WHERE us_username like CONVERT(varchar(30), @af_numdoc)), 
 			@af_nombre , @af_apellido , @af_tipodoc, @af_numdoc, @af_direccion , @af_telefono , @af_mail , @af_nacimiento , @af_estado_civil, 0, @planmed_id , @af_sexo, 'a')
 	SET IDENTITY_INSERT DREAM_TEAM.afiliado OFF;
+	SELECT af_id, af_rel_id FROM DREAM_TEAM.afiliado WHERE af_tipodoc = @af_tipodoc AND af_numdoc = @af_numdoc
 END
 GO
 
@@ -1301,12 +1303,17 @@ CREATE PROCEDURE DREAM_TEAM.comprarBonos
 	@af_id BIGINT,
 	@af_rel_id TINYINT,
 	@cantidad INT,
-	@monto INT,
+	@monto DECIMAL(8,2),
 	@fecha DATETIME
 AS
 BEGIN
+	DECLARE @compra_id INT
 	INSERT INTO DREAM_TEAM.registro_compra(compra_af,compra_af_rel,compra_cantidad,compra_monto,compra_fecha)
 	VALUES(@af_id,@af_rel_id,@cantidad,@monto,@fecha)
+
+	SET @compra_id = SCOPE_IDENTITY();
+	SELECT bono_id FROM DREAM_TEAM.bono WHERE bono_compra = @compra_id
+
 END
 GO
 

@@ -68,7 +68,8 @@ namespace ClinicaFrba.Compra_Bono
             com.Parameters.AddWithValue("@cantidad" , Int32.Parse(textBox3.Text));
             com.Parameters.AddWithValue("@monto" , float.Parse(textBox6.Text));
             com.Parameters.AddWithValue("@fecha", DateTime.Parse(Program.nuevaFechaSistema()));
-            com.ExecuteNonQuery();
+            SqlDataReader dr = com.ExecuteReader();
+            mostrarBonos(dr);
             com.Dispose();
             Close();
 
@@ -79,6 +80,17 @@ namespace ClinicaFrba.Compra_Bono
             Close();
         }
 
-
+        void mostrarBonos(SqlDataReader dr)
+        {
+            string mensaje = "Los códigos de bonos comprados son: ";
+            dr.Read();
+            mensaje += dr[0].ToString();
+            while (dr.Read())
+            {
+                mensaje += String.Format(",{0} ", dr[0].ToString());
+                mensaje += '.';
+            }
+            MessageBox.Show(mensaje, Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
     }
 }

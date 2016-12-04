@@ -50,7 +50,6 @@ namespace ClinicaFrba.Abm_Afiliado
             else
             {
                 this.darAltaAfiliado();
-                MessageBox.Show("El afiliado se ha dado de alta con éxito.", Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
 
         }
@@ -233,7 +232,14 @@ namespace ClinicaFrba.Abm_Afiliado
                 com.Parameters.AddWithValue("@af_estado_civil", comboBox2.Text);
                 com.Parameters.AddWithValue("@planmed_id", ((Item) comboBox3.SelectedItem).Value);
                 com.Parameters.AddWithValue("@af_sexo", comboBox4.Text);
-                com.ExecuteNonQuery();
+                SqlDataReader dr = com.ExecuteReader();
+                dr.Read();
+                int af_id = dr.GetInt32(0); ;
+                short af_rel_id = Int16.Parse(dr[1].ToString());
+                af_id = af_id * 100 + af_rel_id;
+                com.Dispose();
+                dr.Dispose();
+                MessageBox.Show(String.Format("El afiliado se ha dado de alta con éxito. El numero de afiliado es: {0}", af_id), Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Information);
                 com.Dispose();
                 Close();
             }
@@ -263,8 +269,14 @@ namespace ClinicaFrba.Abm_Afiliado
                 com.Parameters.AddWithValue("@af_estado_civil", comboBox2.Text);
                 com.Parameters.AddWithValue("@planmed_id", ((Item)comboBox3.SelectedItem).Value);
                 com.Parameters.AddWithValue("@af_sexo", comboBox4.Text);
-                com.ExecuteNonQuery();
+                SqlDataReader dr = com.ExecuteReader();
+                dr.Read();
+                int af_id = dr.GetInt32(0); ;
+                short af_rel_id = Int16.Parse(dr[1].ToString());
+                af_id = af_id * 100 + af_rel_id;
                 com.Dispose();
+                dr.Dispose();
+                MessageBox.Show(String.Format("El afiliado se ha dado de alta con éxito. El numero de afiliado es: {0}", af_id), Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Information);
                 MessageBox.Show("Si el afiliado tiene familiares para registrar, realizarlo en la opcion \"Agregar Familiar\". Gracias.", "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 Close();
             }
