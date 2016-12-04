@@ -31,11 +31,6 @@ namespace ClinicaFrba.Registro_Llegada
             dataGridView1.MultiSelect = false;
         }
 
-        private void button1_Click(object sender, EventArgs e)
-        {
-            Application.Exit();
-        }
-
         private void button2_Click(object sender, EventArgs e)
         {
             Close();
