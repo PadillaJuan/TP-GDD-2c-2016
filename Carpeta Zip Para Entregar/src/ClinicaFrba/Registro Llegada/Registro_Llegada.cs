@@ -59,20 +59,13 @@ namespace ClinicaFrba.Registro_Llegada
         private void button4_Click(object sender, EventArgs e)
         {
             SeleccionarBono form = new SeleccionarBono(getID(), getRelID());
-            dataGridView1.ReadOnly = true;
             DialogResult res = form.ShowDialog();
             if (res == DialogResult.OK)
             {
                 bono = form.bono;
                 button5.Enabled = true;
                 textBox2.Enabled = false;
-                dataGridView1.ReadOnly = true;
             }
-            else
-            {
-                dataGridView1.ReadOnly = false;
-            }
-            
         }
 
         // GENERAR CONSULTA MEDICA
