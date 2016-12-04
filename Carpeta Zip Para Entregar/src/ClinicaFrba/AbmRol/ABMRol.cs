@@ -37,19 +37,23 @@ namespace ClinicaFrba.AbmRol
         {
             int index = dataGridView1.CurrentCell.RowIndex;
             DataGridViewRow linea = dataGridView1.Rows[index];
-            if ( ((String)linea.Cells[2].Value).Equals("a") )
+            if ((MessageBox.Show(String.Format("Desea dar de baja el rol {0}",(String)linea.Cells[1].Value), "Confirmar", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes))
             {
-                int rol_id = getRolId();
-                string query = "DREAM_TEAM.deactivateRol";
-                SqlConnection conn = (new BDConnection()).getInstance();
-                SqlCommand com = new SqlCommand(query, conn);
-                com.CommandType = CommandType.StoredProcedure;
-                com.Parameters.Add(new SqlParameter("@rol_id", rol_id));
-                com.ExecuteNonQuery();
-                dt.Rows[index][2] = 'd';
+                if (((String)linea.Cells[2].Value).Equals("a"))
+                {
+                    int rol_id = getRolId();
+                    string query = "DREAM_TEAM.deactivateRol";
+                    SqlConnection conn = (new BDConnection()).getInstance();
+                    SqlCommand com = new SqlCommand(query, conn);
+                    com.CommandType = CommandType.StoredProcedure;
+                    com.Parameters.Add(new SqlParameter("@rol_id", rol_id));
+                    com.ExecuteNonQuery();
+                    dt.Rows[index][2] = 'd';
+                    MessageBox.Show("El rol se ha dado de baja correctamente", Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+                else
+                    MessageBox.Show("El rol ya se encuentra desactivado", Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-            else
-                MessageBox.Show("El rol ya se encuentra desactivado", Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Error);
 
         }
 
@@ -72,19 +76,23 @@ namespace ClinicaFrba.AbmRol
         {
             int index = dataGridView1.CurrentCell.RowIndex;
             DataGridViewRow linea = dataGridView1.Rows[index];
-            if (((String)linea.Cells[2].Value).Equals("d"))
+            if ((MessageBox.Show(String.Format("Desea dar de alta el rol {0}", (String)linea.Cells[1].Value), "Confirmar", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes))
             {
-                int rol_id = getRolId();
-                string query = "DREAM_TEAM.activateRol";
-                SqlConnection conn = (new BDConnection()).getInstance();
-                SqlCommand com = new SqlCommand(query, conn);
-                com.CommandType = CommandType.StoredProcedure;
-                com.Parameters.Add(new SqlParameter("@rol_id", rol_id));
-                com.ExecuteNonQuery();
-                dt.Rows[index][2] = 'a';
+                if (((String)linea.Cells[2].Value).Equals("d"))
+                {
+                    int rol_id = getRolId();
+                    string query = "DREAM_TEAM.activateRol";
+                    SqlConnection conn = (new BDConnection()).getInstance();
+                    SqlCommand com = new SqlCommand(query, conn);
+                    com.CommandType = CommandType.StoredProcedure;
+                    com.Parameters.Add(new SqlParameter("@rol_id", rol_id));
+                    com.ExecuteNonQuery();
+                    dt.Rows[index][2] = 'a';
+                    MessageBox.Show("El rol se ha dado de alta correctamente", Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+                else
+                    MessageBox.Show("El rol ya se encuentra activado", Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-            else
-                MessageBox.Show("El rol ya se encuentra activado", Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
 
         private void button8_Click(object sender, EventArgs e) // Buscar todos los roles

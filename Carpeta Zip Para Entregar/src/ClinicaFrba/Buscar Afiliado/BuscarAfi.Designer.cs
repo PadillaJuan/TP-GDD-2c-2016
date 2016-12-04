@@ -42,7 +42,6 @@
             this.label2 = new System.Windows.Forms.Label();
             this.textBox3 = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
-            this.button3 = new System.Windows.Forms.Button();
             this.button7 = new System.Windows.Forms.Button();
             this.button8 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
@@ -162,16 +161,6 @@
             this.label3.TabIndex = 29;
             this.label3.Text = "Ingresar el apellido del afiliado";
             // 
-            // button3
-            // 
-            this.button3.Location = new System.Drawing.Point(529, 447);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(87, 49);
-            this.button3.TabIndex = 32;
-            this.button3.Text = "Comprar Bono";
-            this.button3.UseVisualStyleBackColor = true;
-            this.button3.Click += new System.EventHandler(this.button3_Click);
-            // 
             // button7
             // 
             this.button7.Location = new System.Drawing.Point(164, 502);
@@ -199,7 +188,6 @@
             this.ClientSize = new System.Drawing.Size(784, 562);
             this.Controls.Add(this.button8);
             this.Controls.Add(this.button7);
-            this.Controls.Add(this.button3);
             this.Controls.Add(this.textBox3);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.textBox2);
@@ -236,7 +224,6 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.TextBox textBox3;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.Button button3;
         private System.Windows.Forms.Button button7;
         private System.Windows.Forms.Button button8;
     }

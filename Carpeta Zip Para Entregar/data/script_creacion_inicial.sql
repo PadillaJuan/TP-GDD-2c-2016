@@ -306,6 +306,9 @@ GO
 IF (OBJECT_ID('DREAM_TEAM.getPlanesMedicos', 'P') IS NOT NULL)
 	DROP PROCEDURE DREAM_TEAM.getPlanesMedicos;
 GO
+IF(OBJECT_ID('DREAM_TEAM.verifyAfiliadoExistance', 'P') IS NOT NULL)
+	DROP PROCEDURE DREAM_TEAM.verifyAfiliadoExistance;
+GO
 IF (OBJECT_ID('DREAM_TEAM.getPrecioBonoDelPlan', 'P') IS NOT NULL)
 	DROP PROCEDURE DREAM_TEAM.getPrecioBonoDelPlan;
 GO
@@ -1273,6 +1276,24 @@ BEGIN
 SELECT plan_precio_bono
 FROM DREAM_TEAM.plan_medico
 WHERE planmed_id = @planmed_id
+END
+GO
+
+ALTER PROCEDURE DREAM_TEAM.verifyAfiliadoExistance
+	@af_id BIGINT,
+	@af_rel_id TINYINT
+AS
+BEGIN
+	DECLARE @us_id INT
+	DECLARE @planmed_id DECIMAL(18,0)
+	SET @us_id = -1
+	SELECT @us_id = us_id, @planmed_id = planmed_id FROM DREAM_TEAM.afiliado 
+	WHERE af_id = @af_id
+	AND af_rel_id = @af_rel_id
+	IF @us_id != -1
+		SELECT @us_id 'us_id', @planmed_id 'planmed_id'
+	ELSE
+		RAISERROR('El numero de afiliado ingresado no pertenece al sistema',16,16)
 END
 GO
 

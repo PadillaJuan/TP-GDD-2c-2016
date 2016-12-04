@@ -79,14 +79,14 @@ namespace ClinicaFrba.Elegir_Accion
                     case "Compra de Bonos":
                         // COMPRA DE BONOS
                         switch (rol)
-                        {
-                            case 1:
-                                BuscarAfiliado.BuscarAfi f4 = new BuscarAfiliado.BuscarAfi(rol);
-                                f4.Show();
-                                break;
+                        {                           
                             case 2:
                                 Compra_Bono.Compra_Bono f5 = new Compra_Bono.Compra_Bono(us_idG);
                                 f5.Show();
+                                break;
+                            default:
+                                Compra_Bono.Compra_Administrador f4 = new Compra_Bono.Compra_Administrador();
+                                f4.Show();
                                 break;
                         }
                         break;

@@ -14,16 +14,17 @@ namespace ClinicaFrba.Compra_Bono
     public partial class Compra_Bono : Form
     {
         long idFamiliar;
-        short idRel;
+        int idRel;
         int planMed;
 
-        public Compra_Bono(long id, short id_rel, int plan)
+        public Compra_Bono(int pm, long af_id, int af_rel_id)
         {
             InitializeComponent();
-            idFamiliar = id;
-            idRel = id_rel;
-            planMed = plan;
-            textBox1.Text = id.ToString();
+            idFamiliar = af_id;
+            idRel = af_rel_id;
+            planMed = pm;
+            textBox1.Text = String.Format("{0}",idFamiliar * 100 + idRel);
+
             textBox1.Enabled = false;
         }
 

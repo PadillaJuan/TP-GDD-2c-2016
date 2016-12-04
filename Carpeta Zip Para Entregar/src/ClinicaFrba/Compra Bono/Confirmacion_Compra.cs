@@ -14,8 +14,8 @@ namespace ClinicaFrba.Compra_Bono
     public partial class Confirmacion_Compra : Form
     {
         long idP;
-        short idR;
-        public Confirmacion_Compra(long id, short id_rel, int planMedico, int cantidadBonos)
+        int idR;
+        public Confirmacion_Compra(long id, int id_rel, int planMedico, int cantidadBonos)
         {
             InitializeComponent();
             idP = id;

@@ -45,36 +45,6 @@ namespace ClinicaFrba.BuscarAfiliado
            
         }
 
-        private void button3_Click(object sender, EventArgs e) // COMPRAR BONO
-        {
-            int index;
-            try
-            {
-                index = dataGridView1.CurrentCell.RowIndex;
-            }
-            catch (Exception a)
-            {
-                index = -1;
-            }
-            
-            if (index == -1)
-            {
-                MessageBox.Show("No se ha seleccionado un afiliado", "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
-            }
-            if ('d' == Char.Parse(dt.Rows[index][12].ToString()))
-            {
-                MessageBox.Show("El afiliado esta dado de baja, no puede ingresar familiares", "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
-            }
-                long id = getIdSinRel();
-                short id_rel = getRel_Id();
-                int plan = getPlanMed();
-                Compra_Bono.Compra_Bono form = new Compra_Bono.Compra_Bono(id,id_rel,plan);
-                Close();
-                form.Show();
-        }
-
         private void button5_Click(object sender, EventArgs e) // VOLVER
         {
             Close();
@@ -110,7 +80,6 @@ namespace ClinicaFrba.BuscarAfiliado
                 if (textBox1.Text.Length > 0 && !int.TryParse(textBox1.Text,out n))
                 {
                     MessageBox.Show("No se ha ingresado un numero de afiliado válido", "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    MessageBox.Show(textBox1.Text.Length.ToString() + "'" + textBox1.Text + "'");
                     flag = false;
                 }
                 if (textBox2.Text.Length > 0 && !textBox2.Text.All( c => Char.IsLetter(c)))

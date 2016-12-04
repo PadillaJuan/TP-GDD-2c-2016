@@ -105,6 +105,12 @@
     <Compile Include="Cancelar Atencion\TurnCancelAfiliado.Designer.cs">
       <DependentUpon>TurnCancelAfiliado.cs</DependentUpon>
     </Compile>
+    <Compile Include="Compra Bono\Compra_Administrador.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Compra Bono\Compra_Administrador.Designer.cs">
+      <DependentUpon>Compra_Administrador.cs</DependentUpon>
+    </Compile>
     <Compile Include="Compra Bono\Confirmacion_Compra.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -227,6 +233,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Cancelar Atencion\TurnCancelProfesional.resx">
       <DependentUpon>TurnCancelProfesional.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Compra Bono\Compra_Administrador.resx">
+      <DependentUpon>Compra_Administrador.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Compra Bono\Compra_Bono.resx">
       <DependentUpon>Compra_Bono.cs</DependentUpon>
