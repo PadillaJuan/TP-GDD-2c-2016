@@ -29,7 +29,6 @@ namespace ClinicaFrba.Registro_Llegada
             dataGridView1.AutoResizeColumns();
             dataGridView1.ReadOnly = true;
             dataGridView1.MultiSelect = false;
-
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -129,18 +128,13 @@ namespace ClinicaFrba.Registro_Llegada
             int n;
             if (!int.TryParse(textBox2.Text, out n))
             {
-                MessageBox.Show("No se ha ingresado ningun numero de afiliado" + n.ToString(), Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("No se ha ingresado ningun numero de afiliado", Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Error);
                 flag = false;
                 
             }
-            if (checkBox1.Checked && comboBox1.SelectedIndex == -1)
+            if (flag && comboBox1.SelectedIndex == -1 && (textBox1.Text.Length == 0 || !textBox1.Text.All(d => Char.IsLetter(d))))
             {
-                MessageBox.Show("Datos invalidos en la seleccion de especialidad", Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Error);
-                flag = false;
-            }
-            if (checkBox2.Checked && textBox1.Text.Length == 0)
-            {
-                MessageBox.Show("Datos invalidos en el apellido del profesional", Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Datos invalidos para la búsqueda del turno", Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Error);
                 flag = false;
             }
             return flag;
