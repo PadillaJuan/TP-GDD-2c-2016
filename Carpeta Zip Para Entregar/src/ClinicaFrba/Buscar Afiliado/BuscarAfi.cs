@@ -107,17 +107,18 @@ namespace ClinicaFrba.BuscarAfiliado
             }
             else
             {
-                if (textBox1.Text.Length == 0 || !int.TryParse(textBox1.Text,out n))
+                if (textBox1.Text.Length > 0 && !int.TryParse(textBox1.Text,out n))
                 {
                     MessageBox.Show("No se ha ingresado un numero de afiliado válido", "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show(textBox1.Text.Length.ToString() + "'" + textBox1.Text + "'");
                     flag = false;
                 }
-                if (textBox2.Text.Length == 0 || !textBox2.Text.All( c => Char.IsLetter(c)))
+                if (textBox2.Text.Length > 0 && !textBox2.Text.All( c => Char.IsLetter(c)))
                 {
                     MessageBox.Show("No se ha ingresado un nombre de afiliado válido", "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     flag = false;
                 }
-                if (textBox3.Text.Length == 0 || !textBox3.Text.All(c => Char.IsLetter(c)))
+                if (textBox3.Text.Length > 0 && !textBox3.Text.All(c => Char.IsLetter(c)))
                 {
                     MessageBox.Show("No se ha ingresado un apellido de afiliado válido", "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     flag = false;
@@ -174,13 +175,13 @@ namespace ClinicaFrba.BuscarAfiliado
                 flag = true;
                 
             }
-            if (textBox1.Text.Length > 0)
+            if (textBox2.Text.Length > 0)
             {
                 if (flag) { query += " AND ";};
                 query += String.Format("af_nombre like '{0}'",textBox2.Text);
                 flag = true;
             }
-            if (textBox1.Text.Length > 0)
+            if (textBox3.Text.Length > 0)
             {
                 if (flag) { query += " AND "; };
                 query += String.Format("af_apellido like '{0}'",textBox3.Text);
