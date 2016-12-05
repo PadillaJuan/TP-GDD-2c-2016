@@ -95,7 +95,6 @@ namespace ClinicaFrba.Pedir_Turno
                 int agenda_id = Int32.Parse(row.Cells["ID de la agenda"].Value.ToString());
 
                 agendar(agenda_id);
-                MessageBox.Show("Turno seleccionado correctamente", this.Text, MessageBoxButtons.OK, MessageBoxIcon.None);
                 this.Close();
             }
         }
@@ -103,6 +102,7 @@ namespace ClinicaFrba.Pedir_Turno
         //GENERA EL TURNO
         private void agendar(int turno_agenda)
         {
+            string turno_id;
             string query = "DREAM_TEAM.reservarTurno";
             SqlConnection conn = (new BDConnection()).getInstance();
             SqlCommand com = new SqlCommand(query, conn);
@@ -112,7 +112,8 @@ namespace ClinicaFrba.Pedir_Turno
             com.Parameters.AddWithValue("@turno_prof", idProf);
             com.Parameters.AddWithValue("@turno_esp", idEsp);
             com.Parameters.AddWithValue("@turno_af_rel", idRel);
-            com.ExecuteNonQuery();
+            turno_id = com.ExecuteScalar().ToString();
+            MessageBox.Show("Turno seleccionado correctamente. ID Del turno: " + turno_id, Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.None);
         }
     }
 }

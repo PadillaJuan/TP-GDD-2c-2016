@@ -1293,9 +1293,7 @@ BEGIN
 	SELECT @us_id = us_id, @planmed_id = planmed_id, @estado = af_status FROM DREAM_TEAM.afiliado 
 	WHERE af_id = @af_id
 	AND af_rel_id = @af_rel_id
-	IF @estado = 'd'
-		RAISERROR('El afiliado está dado de baja, por lo que no puede comprar bonos',16,16)
-	ELSE IF @us_id != -1
+	IF @us_id != -1
 		SELECT @planmed_id
 	ELSE
 		RAISERROR('El numero de afiliado ingresado no pertenece al sistema',16,16)
@@ -1557,6 +1555,7 @@ CREATE PROCEDURE DREAM_TEAM.reservarTurno
 AS
 BEGIN
 	INSERT INTO DREAM_TEAM.turnos VALUES ((SELECT agenda_fechayhora FROM DREAM_TEAM.agenda_profesional WHERE agenda_id = @turno_agenda), 0 , @turno_agenda, @turno_afi, @turno_af_rel, @turno_prof, @turno_esp)
+	SELECT SCOPE_IDENTITY()
 END
 GO
 

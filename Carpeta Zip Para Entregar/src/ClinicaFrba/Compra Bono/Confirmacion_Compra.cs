@@ -88,8 +88,8 @@ namespace ClinicaFrba.Compra_Bono
             while (dr.Read())
             {
                 mensaje += String.Format(",{0} ", dr[0].ToString());
-                mensaje += '.';
             }
+            mensaje += '.';
             MessageBox.Show(mensaje, Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
     }

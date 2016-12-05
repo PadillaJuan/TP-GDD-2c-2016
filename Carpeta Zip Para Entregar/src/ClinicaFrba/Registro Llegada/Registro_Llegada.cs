@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Data.SqlClient;
+using ClinicaFrba.Dominio;
 
 namespace ClinicaFrba.Registro_Llegada
 {
@@ -15,12 +16,10 @@ namespace ClinicaFrba.Registro_Llegada
     {
         DataTable tabla;
         int bono;
-        List<int> lista;
 
         public Registro_Llegada()
         {
             InitializeComponent();
-            lista = new List<int>();
             llenarComboBox();
             button4.Enabled = false;
             button5.Enabled = false;
@@ -102,8 +101,7 @@ namespace ClinicaFrba.Registro_Llegada
             SqlDataReader dr = cm.ExecuteReader();
             while (dr.Read())
             {
-                lista.Add(Int32.Parse(dr.GetValue(0).ToString()));
-                comboBox1.Items.Add(dr.GetString(1));
+                comboBox1.Items.Add(new Item(dr.GetString(1), Int32.Parse(dr.GetValue(0).ToString())));
             }
             dr.Close();
             dr.Dispose();
@@ -116,13 +114,13 @@ namespace ClinicaFrba.Registro_Llegada
             int n;
             if (!int.TryParse(textBox2.Text, out n))
             {
-                MessageBox.Show("No se ha ingresado ningun numero de afiliado", Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("No se ha ingresado un número de afiliado válido.", Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Error);
                 flag = false;
                 
             }
             if (flag && comboBox1.SelectedIndex == -1 && (textBox1.Text.Length == 0 || !textBox1.Text.All(d => Char.IsLetter(d))))
             {
-                MessageBox.Show("Datos invalidos para la búsqueda del turno", Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Datos invalidos para la búsqueda del turno.", Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Error);
                 flag = false;
             }
             return flag;
@@ -147,8 +145,7 @@ namespace ClinicaFrba.Registro_Llegada
             int ret;
             try
             {
-                int index = comboBox1.SelectedIndex;
-                ret = lista[index];
+                ret = ((Item)comboBox1.SelectedItem).Value;
             }
             catch (Exception e)
             {

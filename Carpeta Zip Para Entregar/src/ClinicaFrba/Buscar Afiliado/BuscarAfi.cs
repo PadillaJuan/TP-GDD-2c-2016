@@ -194,6 +194,8 @@ namespace ClinicaFrba.BuscarAfiliado
                     com.Parameters.AddWithValue("@af_fechaBaja", DateTime.Parse(Program.nuevaFechaSistema()));
                     com.ExecuteNonQuery();
                     conn.Close();
+                    dt.Rows[index][15] = 'd';
+                    dt.Rows[index][16] = Program.nuevaFechaSistema();
                     MessageBox.Show("El afiliado se dio de baja con éxito.", Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
             }
