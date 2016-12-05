@@ -8,6 +8,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Data.SqlClient;
+using ClinicaFrba.Dominio;
+using System.Globalization;
 namespace ClinicaFrba.Listados
 {
     public partial class Seleccionar_Periodo : Form
@@ -16,23 +18,48 @@ namespace ClinicaFrba.Listados
         public Seleccionar_Periodo(string query1)
         {
             InitializeComponent();
-            dateTimePicker1.Enabled = false;
-            dateTimePicker2.Enabled = false;
             query2 = query1;
-            dateTimePicker1.Value = DateTime.Parse("1900-01-01");
-            dateTimePicker2.Value = DateTime.Parse("1900-01-01");
+            setComboBox();
+
+        }
+
+        private void setComboBox()
+        {
+            comboBox1.DataSource = Enumerable.Range(2010, 10).ToList();
+            comboBox3.DataSource = Enumerable.Range(2010, 10).ToList();
+            comboBox2.Items.Add(new Item("Primer semestre", 0));
+            comboBox2.Items.Add(new Item("Segundo semestre", 1));
+            int i = 0;
+            CultureInfo espaniol = new CultureInfo("es-AR");
+            string nombreMes;
+            for (i = 0; i < 12; i++)
+            {
+                nombreMes = espaniol.DateTimeFormat.MonthNames[i];
+                nombreMes = new CultureInfo("es-AR").TextInfo.ToTitleCase(nombreMes);
+                comboBox4.Items.Add(new Item(nombreMes, i));
+            }
+            comboBox1.SelectedIndex = 0;
+            comboBox2.SelectedIndex = 0;
+            comboBox3.SelectedIndex = 0;
+            comboBox4.SelectedIndex = 0;
+            comboBox1.DropDownStyle = ComboBoxStyle.DropDownList;
+            comboBox2.DropDownStyle = ComboBoxStyle.DropDownList;
+            comboBox3.DropDownStyle = ComboBoxStyle.DropDownList;
+            comboBox4.DropDownStyle = ComboBoxStyle.DropDownList;
+
+
         }
 
         private void radioButton1_CheckedChanged(object sender, EventArgs e)
         {
-            dateTimePicker1.Enabled = true;
-            dateTimePicker2.Enabled = false;
+            groupBox1.Enabled = true;
+            groupBox2.Enabled = false;
         }
 
         private void radioButton2_CheckedChanged(object sender, EventArgs e)
         {
-            dateTimePicker2.Enabled = true;
-            dateTimePicker1.Enabled = false;
+            groupBox1.Enabled = false;
+            groupBox2.Enabled = true;
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -69,15 +96,15 @@ namespace ClinicaFrba.Listados
             SqlCommand cm = new SqlCommand(query2,cn);
             DateTime inicio;
             DateTime fin;
-            if (dateTimePicker1.Value >= new DateTime(dateTimePicker1.Value.Year, 7, 1))
+            if (comboBox3.SelectedIndex == 1)
             {
-                inicio = new DateTime(dateTimePicker1.Value.Year, 07, 01);
-                fin = new DateTime(dateTimePicker1.Value.Year, 12, 31);
+                inicio = new DateTime((int) comboBox1.SelectedValue, 07, 01);
+                fin = new DateTime((int) comboBox1.SelectedValue, 12, 31);
             }
             else
             {
-                inicio = new DateTime(dateTimePicker1.Value.Year, 01, 01);
-                fin = new DateTime(dateTimePicker1.Value.Year, 06, 30);
+                inicio = new DateTime((int) comboBox1.SelectedValue, 01, 01);
+                fin = new DateTime((int) comboBox1.SelectedValue, 06, 30);
             }
             cm.CommandType = CommandType.StoredProcedure;
             cm.Parameters.AddWithValue("@fecha_inicio", inicio);
@@ -90,10 +117,10 @@ namespace ClinicaFrba.Listados
         {
             SqlConnection cn = (new BDConnection()).getInstance();
             SqlCommand cm = new SqlCommand(query2, cn);
-            DateTime inicio;
-            DateTime fin;
-            inicio = new DateTime(dateTimePicker2.Value.Year, dateTimePicker2.Value.Month, 01);
-            fin = new DateTime(dateTimePicker2.Value.Year, dateTimePicker2.Value.Month, DateTime.DaysInMonth(dateTimePicker2.Value.Year, dateTimePicker2.Value.Month));
+            int mes = ((Item)comboBox4.SelectedItem).Value + 1;
+            int anio = (int)comboBox3.SelectedValue;
+            DateTime inicio = new DateTime(anio, mes, 01);
+            DateTime fin = new DateTime(anio, mes, DateTime.DaysInMonth(anio, mes));
             cm.CommandType = CommandType.StoredProcedure;
             cm.Parameters.AddWithValue("@fecha_inicio", inicio);
             cm.Parameters.AddWithValue("@fecha_fin", fin);
@@ -103,9 +130,11 @@ namespace ClinicaFrba.Listados
         public int validarEntrada()
         {
             int ret = 0;
-            if (radioButton1.Checked && dateTimePicker1.Value != DateTime.Parse("1900-01-01")) ret = 1;
-            if (radioButton2.Checked && dateTimePicker2.Value != DateTime.Parse("1900-01-01")) ret = 2;
+            if (radioButton1.Checked) ret = 1;
+            if (radioButton2.Checked) ret = 2;
             return ret;
         }
+
+        
     }
 }

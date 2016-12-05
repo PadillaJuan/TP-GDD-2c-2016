@@ -21,7 +21,7 @@ namespace ClinicaFrba
             //testConexionBD();
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new VentanaInicial());
+            Application.Run(new Listados.Presentacion_Listados());
         }
 
         public static void testConexionBD()
