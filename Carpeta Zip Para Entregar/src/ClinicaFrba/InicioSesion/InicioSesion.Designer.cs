@@ -116,7 +116,7 @@
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(75, 120);
             this.button1.TabIndex = 6;
-            this.button1.Text = "Iniciar Sesion";
+            this.button1.Text = "Iniciar Sesión";
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
@@ -130,7 +130,7 @@
             this.Controls.Add(this.imagenINicial);
             this.Controls.Add(this.groupBox1);
             this.Name = "VentanaInicioSesion";
-            this.Text = ":: INICIO DE SESIÓN :: ";
+            this.Text = "Clínica FRBA - Inicio de sesión";
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.imagenINicial)).EndInit();

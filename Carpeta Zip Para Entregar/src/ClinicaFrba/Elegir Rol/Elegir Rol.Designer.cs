@@ -85,7 +85,7 @@
             this.Controls.Add(this.Continuar);
             this.Controls.Add(this.label1);
             this.Name = "Elegir_Rol";
-            this.Text = "Elegir_Rol";
+            this.Text = "Clínica FRBA - Elección de rol";
             this.ResumeLayout(false);
             this.PerformLayout();
 

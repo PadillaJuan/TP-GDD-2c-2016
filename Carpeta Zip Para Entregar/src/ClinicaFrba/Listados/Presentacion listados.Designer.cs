@@ -87,7 +87,7 @@
             this.Controls.Add(this.label1);
             this.Controls.Add(this.comboBox1);
             this.Name = "Presentacion_Listados";
-            this.Text = "Clinica FRBA";
+            this.Text = "Clinica FRBA - Listados estadísticos";
             this.ResumeLayout(false);
             this.PerformLayout();
 

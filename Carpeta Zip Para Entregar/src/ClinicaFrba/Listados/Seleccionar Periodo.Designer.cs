@@ -126,7 +126,7 @@
             this.Controls.Add(this.radioButton2);
             this.Controls.Add(this.radioButton1);
             this.Name = "Seleccionar_Periodo";
-            this.Text = "Seleccionar_Periodo";
+            this.Text = "Clinica FRBA - Listados estadísticos";
             this.ResumeLayout(false);
             this.PerformLayout();
 

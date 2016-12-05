@@ -129,7 +129,7 @@
             this.Controls.Add(this.label1);
             this.Controls.Add(this.dateTimePicker1);
             this.Name = "ElegirTurno";
-            this.Text = "Seleccion de Turno";
+            this.Text = "Clínica FRBA - Selección de turno";
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();

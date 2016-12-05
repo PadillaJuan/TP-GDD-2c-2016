@@ -175,7 +175,7 @@
             this.Controls.Add(this.label2);
             this.Controls.Add(this.groupBox1);
             this.Name = "Reg_Res";
-            this.Text = "Clinica FRBA";
+            this.Text = "Clinica FRBA - Registro de resultado de atención médica";
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();

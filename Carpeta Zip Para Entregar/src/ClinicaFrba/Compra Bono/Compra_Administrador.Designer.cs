@@ -80,7 +80,7 @@
             this.Controls.Add(this.label1);
             this.Controls.Add(this.textBox1);
             this.Name = "Compra_Administrador";
-            this.Text = "Clinica FRBA";
+            this.Text = "Clinica FRBA - Compra de bonos";
             this.ResumeLayout(false);
             this.PerformLayout();
 

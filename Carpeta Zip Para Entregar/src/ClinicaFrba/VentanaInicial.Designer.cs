@@ -44,7 +44,7 @@
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(91, 57);
             this.button1.TabIndex = 1;
-            this.button1.Text = "Presione aqui para continuar";
+            this.button1.Text = "Presione aquí para continuar";
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
@@ -113,7 +113,7 @@
             this.Controls.Add(this.button1);
             this.Controls.Add(this.imagenINicial);
             this.Name = "VentanaInicial";
-            this.Text = "Clinica FRBA";
+            this.Text = "Clínica FRBA";
             ((System.ComponentModel.ISupportInitialize)(this.imagenINicial)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);

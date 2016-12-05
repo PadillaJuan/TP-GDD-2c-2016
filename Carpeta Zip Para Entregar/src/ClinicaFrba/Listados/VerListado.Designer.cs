@@ -63,7 +63,7 @@
             this.Controls.Add(this.button1);
             this.Controls.Add(this.dataGridView1);
             this.Name = "VerListado";
-            this.Text = "VerListado";
+            this.Text = "Clinica FRBA - Listados estadísticos";
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.ResumeLayout(false);
 

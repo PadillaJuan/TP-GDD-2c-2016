@@ -200,7 +200,7 @@
             this.Controls.Add(this.label1);
             this.Controls.Add(this.dataGridView1);
             this.Name = "BuscarAfi";
-            this.Text = "Buscar Afiliado";
+            this.Text = "Clinica FRBA - Búsqueda de afiliado";
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.gD2C2016DataSetBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.gD2C2016DataSet)).EndInit();

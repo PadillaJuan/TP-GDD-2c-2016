@@ -82,7 +82,7 @@
             this.Controls.Add(this.label1);
             this.Controls.Add(this.comboBox1);
             this.Name = "Elegir_Accion";
-            this.Text = "Clinica FRBA";
+            this.Text = "Clinica FRBA - Menú";
             this.ResumeLayout(false);
             this.PerformLayout();
 

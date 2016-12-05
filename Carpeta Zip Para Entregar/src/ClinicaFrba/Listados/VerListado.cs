@@ -29,6 +29,7 @@ namespace ClinicaFrba.Listados
             dataGridView1.AutoResizeColumns();
             dataGridView1.ReadOnly = true;
             dataGridView1.MultiSelect = false;
+            dataGridView1.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
         }
 
 

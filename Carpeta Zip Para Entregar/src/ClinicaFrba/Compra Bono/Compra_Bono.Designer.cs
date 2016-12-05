@@ -112,7 +112,7 @@
             this.Controls.Add(this.textBox1);
             this.Controls.Add(this.label1);
             this.Name = "Compra_Bono";
-            this.Text = "Clinica FRBA";
+            this.Text = "Clinica FRBA - Compra de bonos";
             this.ResumeLayout(false);
             this.PerformLayout();
 

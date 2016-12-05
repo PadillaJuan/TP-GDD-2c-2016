@@ -139,7 +139,7 @@
             this.Controls.Add(this.button2);
             this.Controls.Add(this.checkedListBox1);
             this.Name = "Funcionalidades";
-            this.Text = "Funcionalidades";
+            this.Text = "Clinica FRBA - Funcionalidades";
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.ResumeLayout(false);

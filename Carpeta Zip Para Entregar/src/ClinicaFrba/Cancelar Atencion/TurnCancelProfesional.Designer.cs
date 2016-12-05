@@ -194,7 +194,7 @@
             this.Controls.Add(this.label2);
             this.Controls.Add(this.button1);
             this.Name = "TurnCancelProfesional";
-            this.Text = "Cancelacion de Turno";
+            this.Text = "Clínica FRBA - Cancelación de Turno";
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.groupBox2.ResumeLayout(false);

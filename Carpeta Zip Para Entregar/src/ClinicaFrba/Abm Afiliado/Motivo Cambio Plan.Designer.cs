@@ -70,7 +70,7 @@
             this.Controls.Add(this.label1);
             this.Controls.Add(this.button1);
             this.Name = "Motivo_Cambio_Plan";
-            this.Text = "Motivo_Cambio_Plan";
+            this.Text = "Clinica FRBA - Cambio de plan";
             this.ResumeLayout(false);
             this.PerformLayout();
 

@@ -170,7 +170,7 @@
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.button2);
             this.Name = "ABMRol";
-            this.Text = "Clinica FRBA";
+            this.Text = "Clinica FRBA - ABM Rol";
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();

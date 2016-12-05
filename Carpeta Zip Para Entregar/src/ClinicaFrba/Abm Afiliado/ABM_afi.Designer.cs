@@ -373,7 +373,7 @@
             this.Controls.Add(this.button1);
             this.Controls.Add(this.imagenINicial);
             this.Name = "ABM_afi";
-            this.Text = "Clinica FRBA";
+            this.Text = "Clinica FRBA - ABM Afiliado";
             ((System.ComponentModel.ISupportInitialize)(this.imagenINicial)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();

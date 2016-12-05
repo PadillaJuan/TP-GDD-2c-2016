@@ -171,7 +171,7 @@
             this.Controls.Add(this.label1);
             this.Controls.Add(this.ChkListEspecialidades);
             this.Name = "ListadoProfesionales";
-            this.Text = "Listado de Profesionales";
+            this.Text = "Clínica FRBA - Listado de Profesionales";
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.bindingSource1)).EndInit();
             this.ResumeLayout(false);
