@@ -405,6 +405,11 @@ GO
 IF (OBJECT_ID('DREAM_TEAM.cancelarTurnosPorIntervalo', 'TR') IS NOT NULL)
 	DROP TRIGGER DREAM_TEAM.cancelarTurnosPorIntervalo;
 GO 
+IF (OBJECT_ID('DREAM_TEAM.desactivarTurnosCuandoAfiliadoBaja', 'TR') IS NOT NULL)
+	DROP TRIGGER DREAM_TEAM.desactivarTurnosCuandoAfiliadoBaja;
+GO 
+
+
 
 IF EXISTS (SELECT * FROM sys.schemas WHERE sys.schemas.name = 'DREAM_TEAM')
 	DROP SCHEMA DREAM_TEAM
@@ -1517,7 +1522,7 @@ BEGIN
 	bono_af_rel = @af_rel_id
 	WHERE bono_id = @bono_id
 
-	
+	UPDATE DREAM_TEAM.turnos SET turno_estado = 1 WHERE turno_id = @turno_id
 END
 GO
 
@@ -1581,8 +1586,6 @@ BEGIN
 	SET cons_sintomas = @sintomas,
 	cons_diagnostico = @diagnostico
 	WHERE cons_id = @cons_id
-
-	UPDATE DREAM_TEAM.turnos SET turno_estado = 1 WHERE turno_id = (SELECT cons_turno FROM DREAM_TEAM.consulta_medica WHERE cons_id = @cons_id)
 END
 GO
 
@@ -1601,7 +1604,7 @@ GO
 
 CREATE PROCEDURE DREAM_TEAM.cancelTurno
    	@turno_id INT, 
-	@cancel_motivo VARCHAR(30), 
+	@cancel_motivo VARCHAR(100), 
 	@cancel_tipo CHAR(1)
 AS
 BEGIN
@@ -1871,6 +1874,7 @@ BEGIN
 END
 GO
 
+
 -- PARA ACTUALIZAR EL CAMPO cantidad_familiares DEL AFILIADO
 CREATE TRIGGER DREAM_TEAM.agregarFamiliar
 	ON DREAM_TEAM.afiliado
@@ -1927,3 +1931,31 @@ BEGIN
 	DEALLOCATE cursorDeTurnos
 END
 GO
+
+
+-- PARA LA BAJA DE TURNOS CUANDO SE DA DE BAJA UN AFILIADO
+CREATE TRIGGER DREAM_TEAM.desactivarTurnosCuandoAfiliadoBaja
+ON DREAM_TEAM.afiliado
+AFTER UPDATE
+AS
+BEGIN
+	IF UPDATE(af_status)
+	BEGIN
+		DECLARE @turno_id INT
+		DECLARE cursorDeTurnos CURSOR FOR
+			SELECT turno_id 
+			FROM DREAM_TEAM.turnos t 
+			JOIN inserted i ON t.turno_af = i.af_id AND t.turno_af_rel = i.af_rel_id
+			WHERE turno_estado = 0
+		
+		OPEN cursorDeTurnos
+		FETCH NEXT FROM cursorDeTurnos INTO @turno_id
+		WHILE @@FETCH_STATUS = 0
+		BEGIN
+			exec DREAM_TEAM.cancelTurno @turno_id, 'El usuario que tenia reservado el turno fue dado de baja', 'a'
+			FETCH NEXT FROM cursorDeTurnos INTO @turno_id
+		END
+	END
+END
+GO
+

@@ -51,6 +51,8 @@ namespace ClinicaFrba.Registro_Llegada
                 tabla = new DataTable();
                 sda.Fill(tabla);
                 dataGridView1.DataSource = tabla;
+                dataGridView1.ClearSelection();
+
             }
         }
 
@@ -85,6 +87,7 @@ namespace ClinicaFrba.Registro_Llegada
                 cm.ExecuteNonQuery();
                 cm.Dispose();
                 Close();
+                MessageBox.Show("Consulta generada con éxito", Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             catch (Exception a)
             {
