@@ -40,7 +40,7 @@ namespace ClinicaFrba.AbmRol
         {
             int index = dataGridView1.CurrentCell.RowIndex;
             DataGridViewRow linea = dataGridView1.Rows[index];
-            if ((MessageBox.Show(String.Format("Desea dar de baja el rol {0}",(String)linea.Cells[1].Value), "Confirmar", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes))
+            if ((MessageBox.Show(String.Format("Desea dar de baja el rol {0}?",(String)linea.Cells[1].Value), "Confirmar", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes))
             {
                 if (((String)linea.Cells[2].Value).Equals("a"))
                 {
@@ -52,10 +52,10 @@ namespace ClinicaFrba.AbmRol
                     com.Parameters.Add(new SqlParameter("@rol_id", rol_id));
                     com.ExecuteNonQuery();
                     dt.Rows[index][2] = 'd';
-                    MessageBox.Show("El rol se ha dado de baja correctamente", Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    MessageBox.Show("El rol se ha dado de baja correctamente.", Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
                 else
-                    MessageBox.Show("El rol ya se encuentra desactivado", Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("El rol ya se encuentra desactivado.", Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
 
         }
@@ -63,7 +63,7 @@ namespace ClinicaFrba.AbmRol
         private void button5_Click(object sender, EventArgs e)  // Buscar Rol
         {
             if (textBox2.Text.Length == 0)
-            { MessageBox.Show("No se ha ingresado ningun valor de busqueda", "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Error); }
+            { MessageBox.Show("No se ha ingresado ningun valor de busqueda.", "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Error); }
             else
             {
                 string query = "DREAM_TEAM.getRol";
@@ -79,7 +79,7 @@ namespace ClinicaFrba.AbmRol
         {
             int index = dataGridView1.CurrentCell.RowIndex;
             DataGridViewRow linea = dataGridView1.Rows[index];
-            if ((MessageBox.Show(String.Format("Desea dar de alta el rol {0}", (String)linea.Cells[1].Value), "Confirmar", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes))
+            if ((MessageBox.Show(String.Format("Desea dar de alta el rol {0}?", (String)linea.Cells[1].Value), "Confirmar", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes))
             {
                 if (((String)linea.Cells[2].Value).Equals("d"))
                 {
@@ -91,10 +91,10 @@ namespace ClinicaFrba.AbmRol
                     com.Parameters.Add(new SqlParameter("@rol_id", rol_id));
                     com.ExecuteNonQuery();
                     dt.Rows[index][2] = 'a';
-                    MessageBox.Show("El rol se ha dado de alta correctamente", Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    MessageBox.Show("El rol se ha dado de alta correctamente.", Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
                 else
-                    MessageBox.Show("El rol ya se encuentra activado", Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("El rol ya se encuentra activado.", Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -115,7 +115,7 @@ namespace ClinicaFrba.AbmRol
             }
             catch (Exception a)
             {
-                MessageBox.Show(a.Message, "Clinica FRBA", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(a.Message, Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             
         }

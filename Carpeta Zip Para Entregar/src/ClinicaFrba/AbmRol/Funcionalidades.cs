@@ -27,6 +27,7 @@ namespace ClinicaFrba.AbmRol
             {
                 case 0:
                     nuevoRol();
+                    button3.Visible = false;
                     break;
                 case 1:
                     oldRol(rol_id, nombreRol);
@@ -109,7 +110,7 @@ namespace ClinicaFrba.AbmRol
             }
             catch (Exception e)
             {
-                MessageBox.Show(e.Message, "Clinica FRBA");
+                MessageBox.Show(e.Message, Application.ProductName, MessageBoxButtons.OK,MessageBoxIcon.Error);
             }
         }
 
@@ -142,12 +143,19 @@ namespace ClinicaFrba.AbmRol
 
         private void button4_Click(object sender, EventArgs e)
         {
-            if (Funcion == 0) { insertarRol(); }
-            else { setForNewRol(); }
-            InsertarFuncionalidades();
-            deactivateModifications();
-            MessageBox.Show("Los cambios fueron ingresados con éxito", Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Information);
-            Close();
+            if (validarSeleccion())
+            {
+                if (Funcion == 0) { insertarRol(); }
+                else { setForNewRol(); }
+                InsertarFuncionalidades();
+                deactivateModifications();
+                MessageBox.Show("Los cambios fueron ingresados con éxito.", Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                Close();
+            }
+            else
+            {
+                MessageBox.Show("No se ha ingresado un nombre para el nuevo rol.", Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         // Update al nombre del rol
@@ -209,6 +217,9 @@ namespace ClinicaFrba.AbmRol
             com.ExecuteNonQuery();
         }
 
-
+        private bool validarSeleccion()
+        {
+            return textBox1.Text.Length > 0;
+        }
     }
 }

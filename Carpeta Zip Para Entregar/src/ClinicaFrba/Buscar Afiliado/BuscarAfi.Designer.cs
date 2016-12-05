@@ -93,7 +93,7 @@
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(87, 49);
             this.button2.TabIndex = 4;
-            this.button2.Text = "Dar de baja un afiliado existente";
+            this.button2.Text = "Dar de baja el afiliado seleccionado";
             this.button2.UseVisualStyleBackColor = true;
             this.button2.Click += new System.EventHandler(this.button2_Click_1);
             // 
@@ -103,7 +103,7 @@
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(87, 49);
             this.button1.TabIndex = 5;
-            this.button1.Text = "Agregar familiar a afiliado existente";
+            this.button1.Text = "Agregar familiar al afiliado seleccionado";
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click_1);
             // 
@@ -163,7 +163,7 @@
             // 
             // button7
             // 
-            this.button7.Location = new System.Drawing.Point(164, 502);
+            this.button7.Location = new System.Drawing.Point(321, 444);
             this.button7.Name = "button7";
             this.button7.Size = new System.Drawing.Size(87, 49);
             this.button7.TabIndex = 33;
@@ -173,7 +173,7 @@
             // 
             // button8
             // 
-            this.button8.Location = new System.Drawing.Point(343, 445);
+            this.button8.Location = new System.Drawing.Point(480, 444);
             this.button8.Name = "button8";
             this.button8.Size = new System.Drawing.Size(87, 49);
             this.button8.TabIndex = 34;

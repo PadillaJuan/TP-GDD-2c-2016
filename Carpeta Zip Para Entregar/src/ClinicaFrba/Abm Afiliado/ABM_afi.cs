@@ -46,7 +46,7 @@ namespace ClinicaFrba.Abm_Afiliado
         private void button1_Click(object sender, EventArgs e) // DAR DE ALTA
         {
             if (this.checkearDatos())
-                MessageBox.Show("Datos incorrectos", Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Datos incorrectos.", Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Error);
             else
             {
                 this.darAltaAfiliado();
@@ -62,12 +62,14 @@ namespace ClinicaFrba.Abm_Afiliado
         private void button3_Click(object sender, EventArgs e) //Terminar Actualizacion
         {
             if (this.checkearDatos())
-                MessageBox.Show("Datos incorrectos", Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Datos incorrectos.", Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Error);
             else  
                 {
-                    updateAfiliado();
-                    MessageBox.Show("El afiliado se ha actualizado con éxito.", Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    Close();
+                    if (updateAfiliado())
+                    {
+                        MessageBox.Show("El afiliado se ha actualizado con éxito.", Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        Close();
+                    }
                 }
             
         }
@@ -84,6 +86,7 @@ namespace ClinicaFrba.Abm_Afiliado
             comboBox3.DropDownStyle = ComboBoxStyle.DropDownList;
             comboBox4.DropDownStyle = ComboBoxStyle.DropDownList;
             dateTimePicker1.Value = DateTime.Parse(Program.nuevaFechaSistema());
+            dateTimePicker1.MaxDate = DateTime.Parse(Program.nuevaFechaSistema());
         }
 
         public void cargarComboBoxPlanMedico()
@@ -191,7 +194,6 @@ namespace ClinicaFrba.Abm_Afiliado
             if (textBox2.Text.Length == 0 || textBox3.Text.Length == 0 || textBox4.Text.Length == 0) { i = true; }
             if (!textBox2.Text.All(c => Char.IsLetter(c)) || !textBox3.Text.All(d => Char.IsLetter(d)) || !int.TryParse(textBox4.Text, out n)) { i = true;}
             if (comboBox1.SelectedIndex == -1 || comboBox2.SelectedIndex == -1 || comboBox3.SelectedIndex == -1 || comboBox4.SelectedIndex == -1) { i = true;}
-            if (dateTimePicker1.Value > DateTime.Parse(Program.nuevaFechaSistema())) { i = true;  }
             if (textBox5.Text.Length == 0 || textBox6.Text.Length == 0 || textBox7.Text.Length == 0) { i = true;  }
             if (!long.TryParse(textBox6.Text, out m) && dateTimePicker1.Value >= DateTime.Parse(Program.nuevaFechaSistema())) { i = true; }
 
@@ -239,7 +241,7 @@ namespace ClinicaFrba.Abm_Afiliado
                 af_id = af_id * 100 + af_rel_id;
                 com.Dispose();
                 dr.Dispose();
-                MessageBox.Show(String.Format("El afiliado se ha dado de alta con éxito. El numero de afiliado es: {0}", af_id), Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show(String.Format("El afiliado se ha dado de alta con éxito. El numero de afiliado es: {0}.", af_id), Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Information);
                 com.Dispose();
                 Close();
             }
@@ -276,7 +278,7 @@ namespace ClinicaFrba.Abm_Afiliado
                 af_id = af_id * 100 + af_rel_id;
                 com.Dispose();
                 dr.Dispose();
-                MessageBox.Show(String.Format("El afiliado se ha dado de alta con éxito. El numero de afiliado es: {0}", af_id), Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show(String.Format("El afiliado se ha dado de alta con éxito. El numero de afiliado es: {0}.", af_id), Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Information);
                 MessageBox.Show("Si el afiliado tiene familiares para registrar, realizarlo en la opcion \"Agregar Familiar\". Gracias.", "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 Close();
             }
@@ -287,7 +289,7 @@ namespace ClinicaFrba.Abm_Afiliado
         }
         
         
-        public void updateAfiliado()
+        public bool updateAfiliado()
         {
             string query = "DREAM_TEAM.actualizarAfiliado";
             SqlConnection con = (new BDConnection()).getInstance();
@@ -301,13 +303,19 @@ namespace ClinicaFrba.Abm_Afiliado
             cm.Parameters.AddWithValue("@af_estado_civil", comboBox2.Text);
             cm.Parameters.AddWithValue("@planmed_id", ((Item)comboBox3.SelectedItem).Value);
             cm.Parameters.AddWithValue("@af_sexo", comboBox4.Text);
-            if (planMed != Int32.Parse(comboBox3.Text))
+
+            if (planMed != Int32.Parse(((Item)comboBox3.SelectedItem).Value.ToString()))
             {
                 Motivo_Cambio_Plan form = new Motivo_Cambio_Plan();
                 DialogResult res = form.ShowDialog();
                 if (res == DialogResult.OK)
                 {
                     cm.Parameters.AddWithValue("@motivoCambio", form.motivoCambio);
+                }
+                else
+                {
+                    MessageBox.Show("No se ingreso ninguna razón por el cambio de plan. La actualización fue cancelada.", Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return false;
                 }
             }
             else
@@ -318,6 +326,7 @@ namespace ClinicaFrba.Abm_Afiliado
             cm.ExecuteNonQuery();
             cm.Dispose();
             planMed = Int32.Parse(comboBox3.Text);
+            return true;
         }
 
         public void seleccionarItem(int planMedico)

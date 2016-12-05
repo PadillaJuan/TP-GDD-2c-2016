@@ -1288,11 +1288,14 @@ AS
 BEGIN
 	DECLARE @us_id INT
 	DECLARE @planmed_id DECIMAL(18,0)
+	DECLARE @estado CHAR
 	SET @us_id = -1
-	SELECT @us_id = us_id, @planmed_id = planmed_id FROM DREAM_TEAM.afiliado 
+	SELECT @us_id = us_id, @planmed_id = planmed_id, @estado = af_status FROM DREAM_TEAM.afiliado 
 	WHERE af_id = @af_id
 	AND af_rel_id = @af_rel_id
-	IF @us_id != -1
+	IF @estado = 'd'
+		RAISERROR('El afiliado está dado de baja, por lo que no puede comprar bonos',16,16)
+	ELSE IF @us_id != -1
 		SELECT @planmed_id
 	ELSE
 		RAISERROR('El numero de afiliado ingresado no pertenece al sistema',16,16)

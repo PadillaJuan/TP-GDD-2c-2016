@@ -29,7 +29,7 @@ namespace ClinicaFrba.Abm_Afiliado
         private void button1_Click(object sender, EventArgs e)
         {
             if (textBox1.Text.Length == 0)
-                MessageBox.Show("No ha ingresado ninguna razon", Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("No ha ingresado ninguna razón.", Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Error);
             else
             {
                 this.DialogResult = DialogResult.OK;
