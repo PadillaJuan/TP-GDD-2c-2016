@@ -16,8 +16,6 @@ namespace ClinicaFrba.InicioSesion
         public VentanaInicioSesion()
         {
             InitializeComponent();
-            textBox1.Text = "admin";
-            textBox2.Text = "w23e";
         }
      
         private void button1_Click(object sender, EventArgs e)
