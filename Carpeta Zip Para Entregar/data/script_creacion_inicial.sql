@@ -1381,40 +1381,41 @@ BEGIN
 END
 GO
 
-
 CREATE PROCEDURE DREAM_TEAM.comprobar48horas
-	@id INT,
-	@desde VARCHAR(30),
-	@hasta VARCHAR(30),
-	@minutos_trabajados INT
+    @id INT,
+    @desde VARCHAR(30),
+    @hasta VARCHAR(30),
+    @minutos_trabajados INT
 AS
-BEGIN	
-	SET DATEFORMAT ymd
-	SET DATEFIRST 7
-	DECLARE @d DATETIME
-	DECLARE @d2 DATETIME
-	DECLARE @h DATETIME
-	
-	
-	SET @d = CONVERT(DATETIME, @desde)
-	SET @h = CONVERT(DATETIME, @hasta)
-	
-	SET @d = DATEADD(DAY,-DATEPART(WEEK,@d)+2,@d)
-	SET @d2 = DATEADD(DAY,6,@d)
-	SET @d2 = DATEADD(HOUR,23,@d)
-	SET @d2 = DATEADD(MINUTE,59,@d)
-	SET @h = DATEADD(DAY,-DATEPART(WEEK,@h)+1,@h)
-		
-	WHILE @d <= @h
-	BEGIN
-		IF (((ISNULL((SELECT COUNT(*) FROM DREAM_TEAM.agenda_profesional WHERE agenda_prof = @id AND agenda_fechayhora BETWEEN @d AND @d2),0) *30) + @minutos_trabajados) > 2880)
-		BEGIN
-			RAISERROR('Sobrepasaste las 48 horas semanales',16,1)
-			RETURN 
-		END
-		SET @d = DATEADD(WEEK,1,@d)
-		SET @d2 = DATEADD(WEEK,1,@d)
-	END
+BEGIN  
+    SET DATEFORMAT ymd
+    SET DATEFIRST 7
+    DECLARE @d DATETIME
+    DECLARE @d2 DATETIME
+    DECLARE @h DATETIME
+    DECLARE @min_enbd INT
+   
+   
+    SET @d = CONVERT(DATETIME, @desde)
+    SET @h = CONVERT(DATETIME, @hasta)
+   
+    SET @d = DATEADD(DAY,-DATEPART(WEEKDAY,@d)+2,@d)
+    SET @d2 = DATEADD(DAY,6,@d)
+    SET @d2 = DATEADD(HOUR,23,@d2)
+    SET @d2 = DATEADD(MINUTE,59,@d2)
+    SET @h = DATEADD(DAY,-DATEPART(WEEKDAY,@h)+1,@h)
+ 
+    WHILE @d <= @h
+    BEGIN
+        SET @min_enbd = (SELECT COUNT(*) FROM DREAM_TEAM.agenda_profesional WHERE agenda_prof = @id AND agenda_fechayhora BETWEEN @d AND @d2)
+        IF (((@min_enbd *30) + @minutos_trabajados) > 2880)
+        BEGIN
+            RAISERROR('Sobrepasaste las 48 horas semanales',16,1)
+            RETURN
+        END
+        SET @d = DATEADD(WEEK,1,@d)
+        SET @d2 = DATEADD(WEEK,1,@d2)
+    END
 END
 GO
 

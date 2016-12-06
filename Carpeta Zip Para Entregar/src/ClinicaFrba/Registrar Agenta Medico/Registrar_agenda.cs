@@ -175,13 +175,13 @@ namespace ClinicaFrba.Registrar_Agenta_Medico
             int num_dias = (fecha_desde.Value - fecha_hoy).Days;
             if (num_dias < 0)
             {
-                MessageBox.Show(String.Format("Error, Fecha Hoy < Fecha Desde"));
+                MessageBox.Show(String.Format("La/s fecha/s ingresada/s son anteriores al dia presente, {0}",Program.nuevaFechaSistema()));
                 return;
             }
             num_dias = (fecha_hasta.Value - fecha_desde.Value).Days;
             if (num_dias < 0)
             {
-                MessageBox.Show(String.Format("Error, Fecha Hasta < Fecha Desde"));
+                MessageBox.Show(String.Format("El intervalo de tiempo de registro de fechas es inválido"));
                 return;
             }
             // Lunes
@@ -189,7 +189,7 @@ namespace ClinicaFrba.Registrar_Agenta_Medico
             {
                 if (horainicio_hora_lunes.SelectedItem == null || horainicio_min_lunes.SelectedItem == null || horafin_hora_lunes.SelectedItem == null || horafin_min_lunes.SelectedItem == null || especialidad_lunes.SelectedItem == null)
                 {
-                    MessageBox.Show(String.Format("Horarios no completados."));
+                    MessageBox.Show(String.Format("No ha completado los valores para los dias lunes"));
                     return;
                 }
                 inicio_hora = int.Parse(horainicio_hora_lunes.SelectedItem.ToString());
@@ -204,7 +204,7 @@ namespace ClinicaFrba.Registrar_Agenta_Medico
                 TotalHoralSemanal += diferencia;
                 if (diferencia < 0)
                 {
-                    MessageBox.Show(String.Format("Error. Por favor, ingrese un intervalo válido de tiempo"));
+                    MessageBox.Show(String.Format("Por favor, ingrese un intervalo válido de tiempo"));
                     return;
                 }
             }
@@ -214,7 +214,7 @@ namespace ClinicaFrba.Registrar_Agenta_Medico
             {
                 if (horainicio_hora_martes.SelectedItem == null || horainicio_min_martes.SelectedItem == null || horafin_hora_martes.SelectedItem == null || horafin_min_martes.SelectedItem == null || especialidad_martes.SelectedItem == null)
                 {
-                    MessageBox.Show(String.Format("No ha seleccionado un item del Selected"));
+                    MessageBox.Show(String.Format("No ha completado los valores para los dias martes"));
                     return;
                 }
                 inicio_hora = int.Parse(horainicio_hora_martes.SelectedItem.ToString());
@@ -239,7 +239,7 @@ namespace ClinicaFrba.Registrar_Agenta_Medico
             {
                 if (horainicio_hora_miercoles.SelectedItem == null || horainicio_min_miercoles.SelectedItem == null || horafin_hora_miercoles.SelectedItem == null || horafin_min_miercoles.SelectedItem == null || especialidad_miercoles.SelectedItem == null)
                 {
-                    MessageBox.Show(String.Format("No ha seleccionado uno de los horarios"));
+                    MessageBox.Show(String.Format("No ha completado los valores para los dias martes"));
                     return;
                 }
                 inicio_hora = int.Parse(horainicio_hora_miercoles.SelectedItem.ToString());
@@ -254,7 +254,7 @@ namespace ClinicaFrba.Registrar_Agenta_Medico
                 TotalHoralSemanal += diferencia;
                 if (diferencia < 0)
                 {
-                    MessageBox.Show(String.Format("Error. Por favor, ingrese un intervalo válido de tiempo"));
+                    MessageBox.Show(String.Format("Error. Por favor, ingrese un intervalo válido de tiempo para los dias miercoles"));
                     return;
                 }
             }
@@ -264,7 +264,7 @@ namespace ClinicaFrba.Registrar_Agenta_Medico
             {
                 if (horainicio_hora_jueves.SelectedItem == null || horainicio_min_jueves.SelectedItem == null || horafin_hora_jueves.SelectedItem == null || horafin_min_jueves.SelectedItem == null || especialidad_jueves.SelectedItem == null)
                 {
-                    MessageBox.Show(String.Format("No ha seleccionado un item del Selected"));
+                    MessageBox.Show(String.Format("No ha completado los valores para los dias jueves"));
                     return;
                 }
                 inicio_hora = int.Parse(horainicio_hora_jueves.SelectedItem.ToString());
@@ -279,7 +279,7 @@ namespace ClinicaFrba.Registrar_Agenta_Medico
                 TotalHoralSemanal += diferencia;
                 if (diferencia < 0)
                 {
-                    MessageBox.Show(String.Format("Error. Por favor, ingrese un intervalo válido de tiempo"));
+                    MessageBox.Show(String.Format("Error. Por favor, ingrese un intervalo válido de tiempo para los dias jueves"));
                     return;
                 }
             }
@@ -289,7 +289,7 @@ namespace ClinicaFrba.Registrar_Agenta_Medico
             {
                 if (horainicio_hora_viernes.SelectedItem == null || horainicio_min_viernes.SelectedItem == null || horafin_hora_viernes.SelectedItem == null || horafin_min_viernes.SelectedItem == null || especialidad_viernes.SelectedItem == null)
                 {
-                    MessageBox.Show(String.Format("No ha seleccionado un item del Selected"));
+                    MessageBox.Show(String.Format("No ha completado los valores para los dias viernes"));
                     return;
                 }
                 inicio_hora = int.Parse(horainicio_hora_viernes.SelectedItem.ToString());
@@ -304,7 +304,7 @@ namespace ClinicaFrba.Registrar_Agenta_Medico
                 TotalHoralSemanal += diferencia;
                 if (diferencia < 0)
                 {
-                    MessageBox.Show(String.Format("Error. Por favor, ingrese un intervalo válido de tiempo"));
+                    MessageBox.Show(String.Format("Error. Por favor, ingrese un intervalo válido de tiempo para los viernes"));
                     return;
                 }
             }
@@ -314,7 +314,7 @@ namespace ClinicaFrba.Registrar_Agenta_Medico
             {
                 if (horainicio_hora_sabado.SelectedItem == null || horainicio_min_sabado.SelectedItem == null || horafin_hora_sabado.SelectedItem == null || horafin_min_sabado.SelectedItem == null || especialidad_sabado.SelectedItem == null)
                 {
-                    MessageBox.Show(String.Format("No ha seleccionado un item del Selected"));
+                    MessageBox.Show(String.Format("No ha completado los valores para los sabados"));
                     return;
                 }
                 inicio_hora = int.Parse(horainicio_hora_sabado.SelectedItem.ToString());
@@ -329,7 +329,7 @@ namespace ClinicaFrba.Registrar_Agenta_Medico
                 TotalHoralSemanal += diferencia;
                 if (diferencia < 0)
                 {
-                    MessageBox.Show(String.Format("Error. Por favor, ingrese un intervalo válido de tiempo"));
+                    MessageBox.Show(String.Format("Por favor, ingrese un intervalo válido de tiempo para los sabados"));
                     return;
                 }
             }
@@ -338,7 +338,7 @@ namespace ClinicaFrba.Registrar_Agenta_Medico
             // ¿Trabajo mas de 48 horas?
             if (TotalHoralSemanal > 48)
             {
-                MessageBox.Show(String.Format("Error, Estas trabajando más de 48 horas semanales."));
+                MessageBox.Show(String.Format("Las horas ingresadas suman mas de 48. Registro de agenda cancelado."));
                 return;
             }
             int minutos_trabajos = (int)(TotalHoralSemanal * 60);
