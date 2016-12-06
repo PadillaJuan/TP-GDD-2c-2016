@@ -325,7 +325,7 @@ namespace ClinicaFrba.Abm_Afiliado
             cm.Parameters.AddWithValue("@fecha",DateTime.Parse(Program.nuevaFechaSistema()));
             cm.ExecuteNonQuery();
             cm.Dispose();
-            planMed = Int32.Parse(comboBox3.Text);
+            planMed = (((Item) comboBox3.SelectedItem).Value);
             return true;
         }
 

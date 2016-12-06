@@ -436,7 +436,7 @@ CREATE TABLE DREAM_TEAM.afiliado(
 	af_telefono numeric(18,0),
 	af_mail VARCHAR(255) ,
 	af_nacimiento DATETIME,
-	af_estado_civil VARCHAR(11),
+	af_estado_civil VARCHAR(20),
 	af_cantidad_familiares TINYINT,
 	planmed_id numeric(18,0),
 	af_sexo CHAR(1),
@@ -986,7 +986,7 @@ CREATE PROCEDURE DREAM_TEAM.altaAfiliado
 	@af_telefono numeric(18,0),
 	@af_mail VARCHAR(255) ,
 	@af_nacimiento DATETIME,
-	@af_estado_civil VARCHAR(11),
+	@af_estado_civil VARCHAR(20),
 	@planmed_id numeric(18,0),
 	@af_sexo CHAR(1)
 AS
@@ -1033,7 +1033,7 @@ CREATE PROCEDURE DREAM_TEAM.altaFamiliar
 	@af_telefono numeric(18,0),
 	@af_mail VARCHAR(255) ,
 	@af_nacimiento DATETIME,
-	@af_estado_civil VARCHAR(11),
+	@af_estado_civil VARCHAR(20),
 	@planmed_id numeric(18,0),
 	@af_sexo CHAR(1)
 AS
@@ -1075,7 +1075,7 @@ CREATE PROCEDURE DREAM_TEAM.actualizarAfiliado
 	@af_direccion VARCHAR(255),
 	@af_telefono numeric(18,0),
 	@af_mail VARCHAR(255) ,
-	@af_estado_civil VARCHAR(11),
+	@af_estado_civil VARCHAR(20),
 	@planmed_id numeric(18,0),
 	@motivoCambio VARCHAR(100),
 	@fecha DATETIME,
