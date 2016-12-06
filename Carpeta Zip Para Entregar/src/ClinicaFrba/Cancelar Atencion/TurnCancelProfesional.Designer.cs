@@ -119,6 +119,7 @@
             this.radioButton1.TabIndex = 8;
             this.radioButton1.Text = "Dar de baja un intervalo de tiempo";
             this.radioButton1.UseVisualStyleBackColor = true;
+            this.radioButton1.CheckedChanged += new System.EventHandler(this.radioButton1_CheckedChanged);
             // 
             // button2
             // 
@@ -139,6 +140,7 @@
             this.radioButton2.TabIndex = 10;
             this.radioButton2.Text = "Dar de baja un turno en particular";
             this.radioButton2.UseVisualStyleBackColor = true;
+            this.radioButton2.CheckedChanged += new System.EventHandler(this.radioButton2_CheckedChanged);
             // 
             // groupBox2
             // 

@@ -96,15 +96,15 @@ namespace ClinicaFrba.Listados
             SqlCommand cm = new SqlCommand(query2,cn);
             DateTime inicio;
             DateTime fin;
-            if (comboBox3.SelectedIndex == 1)
+            if (comboBox2.SelectedIndex == 1)
             {
-                inicio = new DateTime((int) comboBox1.SelectedValue, 07, 01);
-                fin = new DateTime((int) comboBox1.SelectedValue, 12, 31);
+                inicio = new DateTime((int) comboBox1.SelectedValue, 07, 01, 0, 0, 0);
+                fin = new DateTime((int) comboBox1.SelectedValue, 12, 31, 23, 59, 59);
             }
             else
             {
-                inicio = new DateTime((int) comboBox1.SelectedValue, 01, 01);
-                fin = new DateTime((int) comboBox1.SelectedValue, 06, 30);
+                inicio = new DateTime((int) comboBox1.SelectedValue, 01, 01, 0, 0, 0);
+                fin = new DateTime((int)comboBox1.SelectedValue, 06, 30, 23, 59, 59);
             }
             cm.CommandType = CommandType.StoredProcedure;
             cm.Parameters.AddWithValue("@fecha_inicio", inicio);

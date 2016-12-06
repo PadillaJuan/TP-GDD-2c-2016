@@ -36,6 +36,8 @@ namespace ClinicaFrba.Cancelar_Atencion
             dateTimePicker2.MinDate = DateTime.Parse(Program.nuevaFechaSistema());
             dateTimePicker1.Value = DateTime.Parse(Program.nuevaFechaSistema());
             dateTimePicker2.Value = DateTime.Parse(Program.nuevaFechaSistema());
+            groupBox1.Enabled = false;
+            groupBox2.Enabled = false;
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -48,6 +50,9 @@ namespace ClinicaFrba.Cancelar_Atencion
                     break;
                 case 1:
                     cancelarTurno();
+                    break;
+                case 2:
+                    MessageBox.Show("No ha seleccionado ninguna opción para cancelar el turno", Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Error);
                     break;
             }
         }
@@ -135,9 +140,13 @@ namespace ClinicaFrba.Cancelar_Atencion
             {
                 return 0;
             }
-            else
+            if (radioButton2.Checked)
             {
                 return 1;
+            }
+            else
+            {
+                return 2;
             }
         }
 
@@ -146,6 +155,18 @@ namespace ClinicaFrba.Cancelar_Atencion
             int row = dataGridView1.SelectedRows[0].Index;
             int turno_id = Int32.Parse(tabla.Rows[row][0].ToString());
             return turno_id;
+        }
+
+        private void radioButton1_CheckedChanged(object sender, EventArgs e)
+        {
+            groupBox1.Enabled = true;
+            groupBox2.Enabled = false;
+        }
+
+        private void radioButton2_CheckedChanged(object sender, EventArgs e)
+        {
+            groupBox2.Enabled = true;
+            groupBox1.Enabled = false;
         }
     }
 }

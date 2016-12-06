@@ -1626,6 +1626,8 @@ CREATE PROCEDURE DREAM_TEAM.getListado1
 	@fecha_fin DATETIME
 AS
 BEGIN
+    SET DATEFORMAT ymd
+    SET DATEFIRST 7
 	SELECT TOP 5 t.turno_esp 'ID Especialidad', e.esp_descripcion 'Nombre especialidad', COUNT(c.cancel_id) 'Cantidad de cancelaciones'
 	FROM DREAM_TEAM.cancelacion c
 	JOIN DREAM_TEAM.turnos t ON c.turno_id = t.turno_id
@@ -1642,6 +1644,8 @@ CREATE PROCEDURE DREAM_TEAM.getListado2
 	@fecha_fin DATETIME
 AS
 BEGIN
+    SET DATEFORMAT ymd
+    SET DATEFIRST 7
 	SELECT TOP 5 t.turno_prof 'ID del profesional', CONCAT(p.prof_apellido, ', ', p.prof_nombre) 'Apellido, Nombre',
 				 t.turno_esp 'ID Especialidad',e.esp_descripcion 'Especialidad', COUNT(t.turno_id) 'Cantidad de consultas'
 	FROM DREAM_TEAM.turnos t
@@ -1659,6 +1663,8 @@ CREATE PROCEDURE DREAM_TEAM.getListado3
 	@fecha_fin DATETIME
 AS
 BEGIN
+    SET DATEFORMAT ymd
+    SET DATEFIRST 7
 	SELECT TOP 5 t.turno_prof 'ID del profesional', CONCAT(p.prof_apellido, ', ', p.prof_nombre) 'Apellido, Nombre',
 				 t.turno_esp 'ID Especialidad',e.esp_descripcion 'Especialidad', COUNT(t.turno_id) 'Cantidad de consultas'
 	FROM DREAM_TEAM.turnos t
@@ -1676,6 +1682,8 @@ CREATE PROCEDURE DREAM_TEAM.getListado4
 	@fecha_fin DATETIME
 AS
 BEGIN
+    SET DATEFORMAT ymd
+    SET DATEFIRST 7
 	SELECT TOP 5 b.bono_af 'ID' , b.bono_af_rel 'IDRel', CONCAT(a.af_apellido, ', ', a.af_nombre) 'Apellido, Nombre', COUNT(*) 'Cantidad de bonos comprados'
 	FROM DREAM_TEAM.bono b
 	JOIN DREAM_TEAM.afiliado a ON b.bono_af = a.af_id AND b.bono_af_rel = a.af_rel_id
@@ -1690,7 +1698,9 @@ CREATE PROCEDURE DREAM_TEAM.getListado5
 	@fecha_inicio DATETIME,
 	@fecha_fin DATETIME
 AS
-BEGIN
+BEGIN    
+	SET DATEFORMAT ymd
+    SET DATEFIRST 7
 	SELECT TOP 5 t.turno_esp'ID de la Especialidad', e.esp_descripcion'Especialidad', COUNT(*) 'Bonos utilizados'
 	FROM DREAM_TEAM.turnos t
 	JOIN DREAM_TEAM.especialidad e ON t.turno_esp = e.esp_id
