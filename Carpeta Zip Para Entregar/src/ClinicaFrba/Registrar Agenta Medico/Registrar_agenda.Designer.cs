@@ -182,8 +182,7 @@
             "16",
             "17",
             "18",
-            "19",
-            "20"});
+            "19"});
             this.horainicio_hora_lunes.Location = new System.Drawing.Point(73, 38);
             this.horainicio_hora_lunes.Name = "horainicio_hora_lunes";
             this.horainicio_hora_lunes.Size = new System.Drawing.Size(42, 21);
@@ -225,8 +224,7 @@
             "16",
             "17",
             "18",
-            "19",
-            "20"});
+            "19"});
             this.horafin_hora_lunes.Location = new System.Drawing.Point(195, 38);
             this.horafin_hora_lunes.Name = "horafin_hora_lunes";
             this.horafin_hora_lunes.Size = new System.Drawing.Size(42, 21);
@@ -323,8 +321,7 @@
             "16",
             "17",
             "18",
-            "19",
-            "20"});
+            "19"});
             this.horainicio_hora_martes.Location = new System.Drawing.Point(73, 38);
             this.horainicio_hora_martes.Name = "horainicio_hora_martes";
             this.horainicio_hora_martes.Size = new System.Drawing.Size(42, 21);
@@ -366,8 +363,7 @@
             "16",
             "17",
             "18",
-            "19",
-            "20"});
+            "19"});
             this.horafin_hora_martes.Location = new System.Drawing.Point(195, 38);
             this.horafin_hora_martes.Name = "horafin_hora_martes";
             this.horafin_hora_martes.Size = new System.Drawing.Size(42, 21);
@@ -463,8 +459,7 @@
             "16",
             "17",
             "18",
-            "19",
-            "20"});
+            "19"});
             this.horainicio_hora_miercoles.Location = new System.Drawing.Point(73, 38);
             this.horainicio_hora_miercoles.Name = "horainicio_hora_miercoles";
             this.horainicio_hora_miercoles.Size = new System.Drawing.Size(42, 21);
@@ -506,8 +501,7 @@
             "16",
             "17",
             "18",
-            "19",
-            "20"});
+            "19"});
             this.horafin_hora_miercoles.Location = new System.Drawing.Point(195, 38);
             this.horafin_hora_miercoles.Name = "horafin_hora_miercoles";
             this.horafin_hora_miercoles.Size = new System.Drawing.Size(42, 21);
@@ -603,8 +597,7 @@
             "16",
             "17",
             "18",
-            "19",
-            "20"});
+            "19"});
             this.horainicio_hora_jueves.Location = new System.Drawing.Point(73, 38);
             this.horainicio_hora_jueves.Name = "horainicio_hora_jueves";
             this.horainicio_hora_jueves.Size = new System.Drawing.Size(42, 21);
@@ -646,8 +639,7 @@
             "16",
             "17",
             "18",
-            "19",
-            "20"});
+            "19"});
             this.horafin_hora_jueves.Location = new System.Drawing.Point(195, 38);
             this.horafin_hora_jueves.Name = "horafin_hora_jueves";
             this.horafin_hora_jueves.Size = new System.Drawing.Size(42, 21);
@@ -743,8 +735,7 @@
             "16",
             "17",
             "18",
-            "19",
-            "20"});
+            "19"});
             this.horainicio_hora_viernes.Location = new System.Drawing.Point(73, 38);
             this.horainicio_hora_viernes.Name = "horainicio_hora_viernes";
             this.horainicio_hora_viernes.Size = new System.Drawing.Size(42, 21);
@@ -786,8 +777,7 @@
             "16",
             "17",
             "18",
-            "19",
-            "20"});
+            "19"});
             this.horafin_hora_viernes.Location = new System.Drawing.Point(195, 38);
             this.horafin_hora_viernes.Name = "horafin_hora_viernes";
             this.horafin_hora_viernes.Size = new System.Drawing.Size(42, 21);
@@ -875,8 +865,7 @@
             "11",
             "12",
             "13",
-            "14",
-            "15"});
+            "14"});
             this.horainicio_hora_sabado.Location = new System.Drawing.Point(73, 38);
             this.horainicio_hora_sabado.Name = "horainicio_hora_sabado";
             this.horainicio_hora_sabado.Size = new System.Drawing.Size(42, 21);
@@ -910,8 +899,7 @@
             "11",
             "12",
             "13",
-            "14",
-            "15"});
+            "14"});
             this.horafin_hora_sabado.Location = new System.Drawing.Point(195, 38);
             this.horafin_hora_sabado.Name = "horafin_hora_sabado";
             this.horafin_hora_sabado.Size = new System.Drawing.Size(42, 21);

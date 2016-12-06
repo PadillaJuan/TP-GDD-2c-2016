@@ -1298,7 +1298,9 @@ BEGIN
 	SELECT @us_id = us_id, @planmed_id = planmed_id, @estado = af_status FROM DREAM_TEAM.afiliado 
 	WHERE af_id = @af_id
 	AND af_rel_id = @af_rel_id
-	IF @us_id != -1
+	IF @estado = 'd'
+		RAISERROR('El usuario esta dado de baja, no puede comprar bonos',16,16)
+	ELSE IF @us_id != -1
 		SELECT @planmed_id
 	ELSE
 		RAISERROR('El numero de afiliado ingresado no pertenece al sistema',16,16)
@@ -1404,7 +1406,9 @@ BEGIN
 		
 	WHILE @d <= @h
 	BEGIN
-		IF (((ISNULL((SELECT COUNT(*) FROM DREAM_TEAM.agenda_profesional WHERE agenda_prof = @id AND agenda_fechayhora BETWEEN @d AND @d2),0) *30) + @minutos_trabajados) > 2880)
+		DECLARE @ALGO INT
+		SET @ALGO = (SELECT COUNT(*) FROM DREAM_TEAM.agenda_profesional WHERE agenda_prof = @id AND agenda_fechayhora BETWEEN @d AND @d2)
+		IF (((ISNULL(@ALGO,0) *30) + @minutos_trabajados) > 2880)
 		BEGIN
 			RAISERROR('Sobrepasaste las 48 horas semanales',16,1)
 			RETURN 
@@ -1461,7 +1465,7 @@ BEGIN
 			IF (SELECT COUNT(*) FROM DREAM_TEAM.agenda_profesional WHERE agenda_prof = @id AND agenda_fechayhora = (@d2 + CONVERT(DATETIME, @inicialBucle))) > 0
 			BEGIN
 				SET @error_bandera = 1
-				RAISERROR('Algunos horarios no fueron agregados porque se sobre escribian con anteriores',16,1)
+				RAISERROR('Error. Ya estaban registrados los horarios de los dias ',16,1)
 				RETURN 
 			END
 			SET @inicialBucle = DATEADD(MINUTE,30,@inicialBucle)
@@ -1535,7 +1539,8 @@ BEGIN
 	FROM DREAM_TEAM.turnos t 
 	JOIN DREAM_TEAM.consulta_medica c 
 	ON turno_id = cons_turno
-	WHERE turno_estado = 0
+	WHERE c.cons_diagnostico IS NULL
+	AND c.cons_sintomas IS NULL
 END
 GO
 

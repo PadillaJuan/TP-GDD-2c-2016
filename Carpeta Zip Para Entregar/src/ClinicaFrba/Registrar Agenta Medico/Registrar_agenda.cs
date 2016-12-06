@@ -189,7 +189,7 @@ namespace ClinicaFrba.Registrar_Agenta_Medico
             {
                 if (horainicio_hora_lunes.SelectedItem == null || horainicio_min_lunes.SelectedItem == null || horafin_hora_lunes.SelectedItem == null || horafin_min_lunes.SelectedItem == null || especialidad_lunes.SelectedItem == null)
                 {
-                    MessageBox.Show(String.Format("No ha seleccionado un item del Selected"));
+                    MessageBox.Show(String.Format("Horarios no completados."));
                     return;
                 }
                 inicio_hora = int.Parse(horainicio_hora_lunes.SelectedItem.ToString());
@@ -441,7 +441,9 @@ namespace ClinicaFrba.Registrar_Agenta_Medico
             }
             catch (Exception e)
             {
-                MessageBox.Show(e.Message, Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                CultureInfo espaniol = new CultureInfo("es-AR");
+                string nombreDia = espaniol.DateTimeFormat.DayNames[dia-1];
+                MessageBox.Show(String.Format(e.Message + nombreDia), Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Error);
 
             }
         }
